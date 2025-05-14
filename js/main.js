@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to fetch conversations from the AI_Conversations directory
     function fetchConversations() {
-        fetch('/api/conversations')
+        fetch('/AI_Conversations/conversations')
             .then(response => response.json())
             .then(data => {
                 renderFolderStructure(data);
