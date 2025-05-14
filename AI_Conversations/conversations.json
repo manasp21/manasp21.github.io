@@ -1,0 +1,19 @@
+{
+  "Gemini Chats": [
+    {
+      "Question 1": [
+        { "name": "First Conversation", "path": "AI_Conversations/Gemini Chats/Question 1/First Conversation.md" }
+      ]
+    },
+    {
+      "Question 2": [
+        { "name": "First Conversation", "path": "AI_Conversations/Gemini Chats/Question 2/First Conversation.md" }
+      ]
+    },
+    {
+      "Question 3": [
+        { "name": "First Conversation", "path": "AI_Conversations/Gemini Chats/Question 3/First Conversation.md" }
+      ]
+    }
+  ]
+} 
