@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projects - Manas Pandey's computational physics and AI projects">
+    <meta name="keywords" content="Physics Projects, AI Projects, Python, Machine Learning, Quantum Computing">
+    <meta name="author" content="Manas Pandey">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://manasp21.github.io/projects.html">
+    <meta property="og:title" content="Projects | Manas Pandey - Experimental Physicist & AI Researcher">
+    <meta property="og:description" content="Explore computational physics and AI projects demonstrating practical applications">
+    <meta property="og:image" content="https://manasp21.github.io/assets/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://manasp21.github.io/projects.html">
+    <meta property="twitter:title" content="Projects | Manas Pandey - Experimental Physicist & AI Researcher">
+    <meta property="twitter:description" content="Explore computational physics and AI projects demonstrating practical applications">
+    <meta property="twitter:image" content="https://manasp21.github.io/assets/og-image.jpg">
+    
+    <title>Projects | Manas Pandey - Experimental Physicist & AI Researcher</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Photography Style CSS -->
+    <style>
+        /* Photography Website Style */
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #EAEAEA;
+            --text-secondary: #b0b0b0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            width: 100%;
+            margin: 0;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        /* Main Content */
+        .page-container {
+            width: 100%;
+            margin: 0;
+            padding: 6rem 0 4rem;
+        }
+        
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .hero-content {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-image img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .about-text {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .about-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .about-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body class="page-projects">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">Manas Pandey</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="photography.html">Photography</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <h1 class="page-title">Projects</h1>
+        <div class="content-section">
+            <div class="hero-content">
+                <p class="hero-subtitle">
+                    Where theoretical physics meets practical implementation, computational algorithms dance with experimental data.
+                </p>
+                <div class="hero-image">
+                    <img src="https://placehold.co/400x400/000000/DC2626?text=Project+Portfolio" 
+                         alt="Project Portfolio" 
+                         loading="lazy">
+                </div>
+            </div>
+            
+            <div class="about-section">
+                <div class="about-content">
+                    <p class="about-text">
+                        My projects serve as bridges between theoretical understanding and practical application, demonstrating how computational physics and machine learning can solve real-world problems while advancing our fundamental understanding of nature.
+                    </p>
+                    <p class="about-text">
+                        Currently developing a comprehensive portfolio that showcases quantum simulations, machine learning applications in physics, and innovative computational tools.
+                    </p>
+                    <p class="about-text">
+                        I'm working on Monte Carlo simulations of quantum mechanical systems, exploring wave function evolution, quantum state preparation, and measurement protocols using Python and NumPy.
+                    </p>
+                    <p class="about-text">
+                        Technical skills include Python, C, MATLAB, Mathematica, NumPy/SciPy, HTML/CSS, TensorFlow, Scikit-learn, Pandas, Matplotlib, Plotly, and Seaborn.
+                    </p>
+                </div>
+                <div class="about-images">
+                    <div class="image-grid">
+                        <img src="https://placehold.co/300x200/000000/DC2626?text=Code+Development" 
+                             alt="Code Development" 
+                             class="about-image"
+                             loading="lazy">
+                        <img src="https://placehold.co/300x200/000000/DC2626?text=Data+Analysis" 
+                             alt="Data Analysis" 
+                             class="about-image"
+                             loading="lazy">
+                        <img src="https://placehold.co/300x200/000000/DC2626?text=Quantum+Code" 
+                             alt="Quantum Simulations" 
+                             class="about-image"
+                             loading="lazy">
+                        <img src="https://placehold.co/300x200/000000/DC2626?text=ML+Models" 
+                             alt="Machine Learning Models" 
+                             class="about-image"
+                             loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

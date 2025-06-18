@@ -3,46 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manas Pandey's GitHub Pages</title>
+    <meta name="description" content="Manas Pandey - Physics student at IIT Kanpur exploring AI intersections. Music, poetry, and quantum systems.">
+    <meta name="keywords" content="Physics, AI, Machine Learning, IIT Kanpur, Music, Poetry, Quantum">
+    <meta name="author" content="Manas Pandey">
+    
+    <title>Manas Pandey - Physics Student exploring AI</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        /* Personal Website Style - Dark Theme */
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1a1a1a;
+            --bg-content: #2a2a2a;
+            --text-primary: #EAEAEA;
+            --text-secondary: #b0b0b0;
+            --accent-red: #DC2626;
+        }
+        
+        * {
             margin: 0;
-            background-color: #f0f0f0;
-            color: #333;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .container {
-            text-align: center;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
         }
-        h1 {
-            color: #0056b3;
+        
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        p {
-            margin-top: 15px;
+        
+        .header-content {
+            width: 100%;
+            margin: 0;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        a {
-            color: #007bff;
+        
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
             text-decoration: none;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
-        a:hover {
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background-color: var(--bg-primary);
+            padding: 8rem 0 4rem;
+            min-height: 60vh;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-text {
+            order: 1;
+        }
+        
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--accent-red);
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-image {
+            order: 2;
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Content Section */
+        .content-section {
+            background-color: var(--bg-content);
+            padding: 4rem 0;
+        }
+        
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .content-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .content-text strong {
+            color: var(--text-primary);
+        }
+        
+        .content-text a {
+            color: var(--accent-red);
             text-decoration: underline;
+        }
+        
+        .content-text a:hover {
+            color: #ef4444;
+        }
+        
+        /* Skills and Favourites Section */
+        .info-section {
+            background-color: var(--bg-secondary);
+            padding: 4rem 0;
+        }
+        
+        .info-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        
+        .info-column h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-red);
+            padding-bottom: 0.5rem;
+        }
+        
+        .info-column ul {
+            list-style: none;
+        }
+        
+        .info-column li {
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .info-column li:before {
+            content: "▸";
+            color: var(--accent-red);
+            position: absolute;
+            left: 0;
+        }
+        
+        .info-column .highlight {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .hero-text {
+                order: 2;
+            }
+            
+            .hero-image {
+                order: 1;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .info-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Welcome to Manas Pandey's GitHub Pages!</h1>
-        <p>This is a placeholder for my personal GitHub Pages site.</p>
-        <p>Check out my <a href="/poetry_website/">Poetry Website</a>.</p>
-    </div>
+<body class="page-home">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">Manas Pandey</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="photography.html">Photography</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1 class="hero-title">Hi,<br>I'm Manas Pandey,<br>a Fourth Year<br>Undergraduate in<br>B.S. Physics at<br>Indian Institute of<br>Technology Kanpur.</h1>
+            </div>
+            <div class="hero-image">
+                <img src="Profile Image.png" alt="Manas Pandey - Physics Student">
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="content-container">
+            <p class="content-text">
+                I really like to learn new things and am passionate about Physics.
+            </p>
+            <p class="content-text">
+                Staying up-to-date with technology and discussions on stuff I like is my favourite hobby.
+            </p>
+            <p class="content-text">
+                Have an adoration for fascinating conversations about Movies, TV Shows, Space, Music, Poetry, Books, Art and existence.
+            </p>
+        </div>
+    </section>
+
+    <!-- Skills and Favourites Section -->
+    <section class="info-section">
+        <div class="info-container">
+            <div class="info-column">
+                <h3>Skills I have include</h3>
+                <ul>
+                    <li><span class="highlight">Python, C, HTML, CSS</span> in programming.</li>
+                    <li><span class="highlight">MATLAB, Wolfram Mathematica</span> in scientific computing.</li>
+                    <li><span class="highlight">Adobe Photoshop, Adobe Premiere Pro, Canva</span> in design and Editing, and others.</li>
+                    <li>Have a beginner experience in <span class="highlight">Digital marketing and Public Speaking</span></li>
+                    <li>Know <span class="highlight">Databasing, designing, videography, photo-editing</span> and other basic skills (like Office softwares)</li>
+                    <li>Know how to play <span class="highlight">Harmonium</span> and try to sing but fail miserably.</li>
+                    <li><em>(noob at playing western keyboard notes)</em></li>
+                </ul>
+            </div>
+            <div class="info-column">
+                <h3>Favourites</h3>
+                <ul>
+                    <li><span class="highlight">Ice Cream Flavor:</span> Chocolate</li>
+                    <li><span class="highlight">Movie:</span> Forrest Gump</li>
+                    <li><span class="highlight">Author:</span> Dan Brown</li>
+                    <li><span class="highlight">Artist:</span> Vincent Van Gogh</li>
+                    <li><span class="highlight">Scientist:</span> Richard Feynman</li>
+                    <li><span class="highlight">Music Artist (Solo):</span> Bob Dylan</li>
+                    <li><span class="highlight">Music Artist (Band):</span> The Beatles</li>
+                    <li><span class="highlight">Person:</span> Me (But my sisters Amisha and Aadya)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
 </body>
 </html>

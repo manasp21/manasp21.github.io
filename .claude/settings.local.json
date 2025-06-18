@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.themanaspandey.com)",
+      "Bash(mv:*)",
+      "WebFetch(domain:portfolio.elialocardi.com)",
+      "Bash(mkdir:*)",
+      "Bash(grep:*)"
+    ],
+    "deny": []
+  }
+}
