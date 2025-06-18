@@ -1,0 +1,14 @@
+{% comment %}
+    Include for blog post images with proper styling and responsive behavior
+    Usage: {% include image.html src="path/to/image.jpg" alt="Description" caption="Optional caption" %}
+{% endcomment %}
+
+<figure class="blog-image">
+    <img src="{{ "/assets/images/posts/" | append: include.src | relative_url }}" 
+         alt="{{ include.alt | default: "Blog post image" }}" 
+         loading="lazy"
+         class="responsive-image">
+    {% if include.caption %}
+        <figcaption class="image-caption">{{ include.caption }}</figcaption>
+    {% endif %}
+</figure>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% if page.description %}
+        <meta name="description" content="{{ page.description }}">
+    {% else %}
+        <meta name="description" content="{{ site.description }}">
+    {% endif %}
+    
+    <meta name="keywords" content="{% if page.tags %}{{ page.tags | join: ', ' }}{% else %}Physics, AI, IIT Kanpur, Blog{% endif %}">
+    <meta name="author" content="{{ site.author.name }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ page.url | absolute_url }}">
+    <meta property="twitter:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="{{ "/styles.css" | relative_url }}">
+    
+    {% seo %}
+</head>
+<body class="{% if page.layout %}page-{{ page.layout }}{% else %}page-default{% endif %}">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="{{ "/" | relative_url }}" class="logo">{{ site.title }}</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{{ "/" | relative_url }}">Home</a></li>
+                    <li><a href="{{ "/about.html" | relative_url }}">About</a></li>
+                    <li><a href="{{ "/research.html" | relative_url }}">Research</a></li>
+                    <li><a href="{{ "/projects.html" | relative_url }}">Projects</a></li>
+                    <li><a href="{{ "/blog/" | relative_url }}">Blog</a></li>
+                    <li><a href="{{ "/photography.html" | relative_url }}">Photography</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        {{ content }}
+    </main>
+
+    {% if page.layout == 'post' %}
+        <!-- Post Navigation -->
+        <nav class="post-navigation">
+            {% if page.previous.url %}
+                <a class="prev-post" href="{{ page.previous.url | relative_url }}">
+                    <span class="nav-label">← Previous</span>
+                    <span class="nav-title">{{ page.previous.title }}</span>
+                </a>
+            {% endif %}
+            
+            {% if page.next.url %}
+                <a class="next-post" href="{{ page.next.url | relative_url }}">
+                    <span class="nav-label">Next →</span>
+                    <span class="nav-title">{{ page.next.title }}</span>
+                </a>
+            {% endif %}
+        </nav>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,100 @@
+---
+layout: default
+title: Blog
+description: "Thoughts on science, sound, and syntax - A digital laboratory notebook where ideas crystallize"
+---
+
+<h1 class="page-title">Blog</h1>
+
+<div class="blog-intro">
+    <p class="hero-subtitle">
+        A digital laboratory notebook where ideas crystallize, experiments in thought and philosophy meet the rigor of scientific inquiry.
+    </p>
+</div>
+
+{% if site.posts.size > 0 %}
+    <!-- Featured Post -->
+    {% assign featured_post = site.posts.first %}
+    <article class="featured-post">
+        <h2 class="featured-title">
+            <a href="{{ featured_post.url | relative_url }}">{{ featured_post.title }}</a>
+        </h2>
+        {% include post-meta.html post=featured_post %}
+        {% if featured_post.excerpt %}
+            <div class="featured-excerpt">
+                {{ featured_post.excerpt | strip_html }}
+            </div>
+        {% endif %}
+        <a href="{{ featured_post.url | relative_url }}" class="read-more">Read More →</a>
+    </article>
+
+    <!-- All Posts -->
+    <section class="all-posts">
+        <h2 class="section-title">All Posts</h2>
+        
+        <div class="posts-list">
+            {% for post in site.posts %}
+                <article class="post-item">
+                    <h3 class="post-item-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    {% include post-meta.html post=post %}
+                    {% if post.excerpt %}
+                        <div class="post-item-excerpt">
+                            {{ post.excerpt | strip_html | truncate: 200 }}
+                        </div>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Archive by Year -->
+    <section class="archive">
+        <h2 class="section-title">Archive</h2>
+        {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+        {% for year in posts_by_year %}
+            <div class="archive-year">
+                <h3 class="archive-year-title">{{ year.name }}</h3>
+                <ul class="archive-posts">
+                    {% for post in year.items %}
+                        <li class="archive-post">
+                            <time class="archive-date">{{ post.date | date: "%b %d" }}</time>
+                            <a href="{{ post.url | relative_url }}" class="archive-title">{{ post.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </section>
+
+    <!-- Tags -->
+    {% assign all_tags = site.posts | map: 'tags' | flatten | uniq | sort %}
+    {% if all_tags.size > 0 %}
+        <section class="tags-section">
+            <h2 class="section-title">Topics</h2>
+            <div class="tags-cloud">
+                {% for tag in all_tags %}
+                    {% assign tag_posts = site.posts | where_exp: "post", "post.tags contains tag" %}
+                    <a href="{{ "/blog/tag/" | append: tag | slugify | relative_url }}" class="tag-cloud-item">
+                        {{ tag }} <span class="tag-count">({{ tag_posts.size }})</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+{% else %}
+    <!-- No Posts Yet -->
+    <div class="no-posts">
+        <div class="coming-soon">
+            <div class="status-text">Coming Soon</div>
+            <p class="status-description">Currently crafting the perfect medium for scientific storytelling</p>
+        </div>
+        
+        <div class="placeholder-content">
+            <p>A space for thoughts on science, sound, and syntax. This will be a place where I share insights from my research, reflections on the intersection of physics and AI, and thoughts on music and poetry.</p>
+            <p>Topics will include quantum mechanics, machine learning applications in physics, scientific methodology, and the creative processes that connect music, poetry, and mathematical thinking.</p>
+        </div>
+    </div>
+{% endif %}

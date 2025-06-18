@@ -1,0 +1,21 @@
+<div class="post-meta">
+    <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">
+        {{ post.date | date: "%B %d, %Y" }}
+    </time>
+    
+    <span class="reading-time">
+        {% if post.reading_time %}
+            {{ post.reading_time }} min read
+        {% else %}
+            {{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read
+        {% endif %}
+    </span>
+    
+    {% if post.tags.size > 0 %}
+        <div class="post-tags">
+            {% for tag in post.tags %}
+                <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

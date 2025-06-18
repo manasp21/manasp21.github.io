@@ -1,0 +1,71 @@
+# Jekyll Configuration for Manas Pandey Portfolio
+title: "Manas Pandey"
+description: "Physics student at IIT Kanpur exploring quantum mechanics, AI, music, and poetry"
+url: "https://manasp21.github.io"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Kramdown settings
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Manas Pandey"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Site settings
+author:
+  name: "Manas Pandey"
+  email: "manas@example.com"
+  github: "manasp21"
+  linkedin: "themanaspandey"
+
+# Blog settings
+excerpt_separator: <!--more-->
+show_excerpts: true
+paginate: 10
+paginate_path: "/blog/page:num/"
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md

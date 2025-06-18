@@ -5,7 +5,9 @@
       "Bash(mv:*)",
       "WebFetch(domain:portfolio.elialocardi.com)",
       "Bash(mkdir:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(rm:*)",
+      "WebFetch(domain:stephango.com)"
     ],
     "deny": []
   }
