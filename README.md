@@ -46,6 +46,8 @@ manasp21.github.io/
 ### Prerequisites
 - Modern web browser with CSS3 and ES6 support
 - Web server (for local development)
+- Python 3.x (for blog management)
+- Jekyll (for blog functionality)
 
 ### Installation
 
@@ -55,22 +57,129 @@ manasp21.github.io/
    cd manasp21.github.io
    ```
 
-2. **Serve locally**
+2. **Install dependencies**
    ```bash
-   # Using Python 3
-   python -m http.server 8000
+   # Install Jekyll for blog functionality
+   gem install jekyll bundler
+   bundle install
    
-   # Using Node.js http-server
-   npx http-server
-   
-   # Using Live Server (VS Code extension)
-   # Right-click index.html > "Open with Live Server"
+   # Install Python dependencies for blog manager
+   pip install pyyaml
    ```
 
-3. **Open in browser**
+3. **Serve locally**
+   ```bash
+   # Serve with Jekyll (recommended for full functionality)
+   bundle exec jekyll serve
+   
+   # Alternative: Static server
+   python -m http.server 8000
    ```
+
+4. **Open in browser**
+   ```
+   # Jekyll server
+   http://localhost:4000
+   
+   # Static server
    http://localhost:8000
    ```
+
+## 📝 Blog Management
+
+This website includes a powerful Python-based blog management system for creating and editing Jekyll blog posts locally.
+
+### Blog Manager Features
+
+- **Complete post control**: Create, edit, remove, and preview posts
+- **Interactive interface**: Multi-select tags/categories with suggestions
+- **Smart automation**: Auto-generate slugs, calculate reading time
+- **Safety features**: Automatic backups, confirmation prompts
+- **Content editing**: External editor support or inline editing
+
+### Blog Commands
+
+```bash
+# Create a new blog post
+python blog_manager.py add
+
+# List all existing posts
+python blog_manager.py list
+
+# Edit any aspect of existing posts (title, tags, content, etc.)
+python blog_manager.py edit
+
+# Preview a post before publishing
+python blog_manager.py preview
+
+# Remove a post (with automatic backup)
+python blog_manager.py remove
+```
+
+### Blog Manager Usage
+
+1. **Creating a new post**:
+   ```bash
+   python blog_manager.py add
+   ```
+   - Interactive prompts for title, date, categories, tags
+   - Auto-generates URL-friendly filename
+   - Multi-select interface for tags/categories
+   - Content editing via external editor or inline
+   - Auto-calculates reading time from word count
+
+2. **Editing existing posts**:
+   ```bash
+   python blog_manager.py edit
+   ```
+   - Select post from formatted list
+   - Edit any field: title, date, categories, tags, excerpt, content
+   - Smart filename handling (auto-renames when title changes)
+   - Live preview during editing
+   - External editor support
+
+3. **Managing posts safely**:
+   - Automatic backups created before any changes
+   - Stored in `.backups/` folder with timestamps
+   - Confirmation prompts for destructive operations
+   - YAML frontmatter validation
+
+### Blog Structure
+
+```
+_posts/
+├── 2024-01-15-quantum-computing-meets-machine-learning.md
+├── 2024-02-03-harmonium-and-harmonic-oscillators.md
+└── 2024-03-10-programming-as-poetry.md
+
+blog/
+└── index.html              # Jekyll blog page template
+
+_layouts/
+├── default.html            # Base layout
+└── post.html              # Individual post layout
+
+_includes/
+└── post-meta.html         # Post metadata component
+```
+
+### Post Format
+
+Each blog post uses Jekyll frontmatter:
+
+```yaml
+---
+layout: post
+title: "Your Post Title"
+date: 2024-01-15 10:00:00 +0530
+categories: [research, technical]
+tags: [quantum computing, ai, physics]
+excerpt: "Brief description of your post..."
+reading_time: 8
+---
+
+Your markdown content here...
+```
 
 ## 🎯 Page Overview
 
