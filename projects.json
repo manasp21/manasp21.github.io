@@ -1,6 +1,7 @@
 {
   "projects": [
-    "https://github.com/manasp21/MagTrace"
+    "https://github.com/manasp21/MagTrace",
+    "https://github.com/manasp21/magnav.py"
   ],
   "settings": {
     "auto_update": true,
@@ -9,8 +10,8 @@
     "cache_file": ".projects_cache.json"
   },
   "metadata": {
-    "last_updated": "2025-06-19T21:40:06.120598",
-    "total_projects": 1,
+    "last_updated": "2025-06-20T04:02:49.150045",
+    "total_projects": 2,
     "version": "2.0.0"
   }
 }
