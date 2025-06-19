@@ -10,7 +10,9 @@
       "WebFetch(domain:stephango.com)",
       "Bash(find:*)",
       "Bash(ls:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "WebFetch(domain:manasp21.github.io)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
