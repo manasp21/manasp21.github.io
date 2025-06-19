@@ -12,7 +12,8 @@
       "Bash(ls:*)",
       "Bash(rg:*)",
       "WebFetch(domain:manasp21.github.io)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git config:*)"
     ],
     "deny": []
   }
