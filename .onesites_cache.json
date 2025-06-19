@@ -11,5 +11,18 @@
     "created_at": "2025-06-19T21:06:16.030451",
     "modified_at": "2025-06-19T21:06:05.017808",
     "cached_at": 1750367847.7599201
+  },
+  "one_page_websites\\1.html": {
+    "number": 1,
+    "filename": "1.html",
+    "title": "The Fourth Pillar: AI in Science",
+    "description": "Interactive one-page website exploring specialized topics",
+    "file_path": "one_page_websites\\1.html",
+    "relative_path": "one_page_websites/1.html",
+    "file_size": 55377,
+    "file_mtime": 1750369832.9572544,
+    "created_at": "2025-06-20T02:36:02.405592",
+    "modified_at": "2025-06-20T03:20:32.957254",
+    "cached_at": 1750370320.45009
   }
 }
