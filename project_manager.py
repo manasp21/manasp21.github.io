@@ -132,8 +132,102 @@ class ProjectManager:
         
         return None
     
+    def fetch_readme_content(self, owner: str, repo: str, default_branch: str = 'main') -> Optional[str]:
+        """Fetch README content from GitHub repository."""
+        # Try common README filenames
+        readme_filenames = ['README.md', 'readme.md', 'README.txt', 'readme.txt', 'README']
+        
+        for filename in readme_filenames:
+            try:
+                readme_url = f"{self.github_api_base}/{owner}/{repo}/contents/{filename}"
+                
+                # Add delay to respect rate limits
+                time.sleep(self.rate_limit_delay)
+                
+                response = requests.get(readme_url, timeout=10)
+                if response.status_code == 200:
+                    readme_data = response.json()
+                    
+                    # GitHub API returns base64 encoded content
+                    import base64
+                    content = base64.b64decode(readme_data['content']).decode('utf-8')
+                    print(f"  ✅ Found README: {filename}")
+                    return content
+                    
+            except Exception as e:
+                continue  # Try next filename
+        
+        print(f"  ⚠️  No README found")
+        return None
+    
+    def parse_readme_description(self, readme_content: str) -> str:
+        """Extract meaningful description from README content."""
+        if not readme_content:
+            return "No description available"
+        
+        lines = readme_content.split('\n')
+        description_parts = []
+        
+        # Look for the first meaningful paragraph after the title
+        title_found = False
+        in_code_block = False
+        
+        for line in lines:
+            line = line.strip()
+            
+            # Skip empty lines
+            if not line:
+                continue
+            
+            # Track code blocks
+            if line.startswith('```'):
+                in_code_block = not in_code_block
+                continue
+            
+            # Skip lines inside code blocks
+            if in_code_block:
+                continue
+            
+            # Skip markdown headers for title detection
+            if line.startswith('#'):
+                title_found = True
+                continue
+            
+            # Skip badges, images, and links at the start
+            if line.startswith('!') or line.startswith('[!') or line.startswith('[!['):
+                continue
+            
+            # If we found a title and this is descriptive text
+            if title_found and len(line) > 20 and not line.startswith('##'):
+                # Clean up markdown formatting
+                clean_line = re.sub(r'\[([^\]]+)\]\([^\)]+\)', r'\1', line)  # Remove links
+                clean_line = re.sub(r'\*\*([^\*]+)\*\*', r'\1', clean_line)  # Remove bold
+                clean_line = re.sub(r'\*([^\*]+)\*', r'\1', clean_line)  # Remove italic
+                clean_line = re.sub(r'`([^`]+)`', r'\1', clean_line)  # Remove code formatting
+                
+                description_parts.append(clean_line)
+                
+                # Stop after we have a good description (1-3 sentences)
+                if len(' '.join(description_parts)) > 100:
+                    break
+        
+        if description_parts:
+            description = ' '.join(description_parts)
+            # Limit to reasonable length
+            if len(description) > 200:
+                description = description[:197] + "..."
+            return description
+        
+        # Fallback: return first substantial line
+        for line in lines:
+            line = line.strip()
+            if len(line) > 20 and not line.startswith('#') and not line.startswith('!'):
+                return line[:200] + ("..." if len(line) > 200 else "")
+        
+        return "No description available"
+
     def fetch_github_data(self, repo_url: str) -> Optional[Dict]:
-        """Fetch repository data from GitHub API."""
+        """Fetch repository data from GitHub API including README content."""
         parsed = self.parse_github_url(repo_url)
         if not parsed:
             print(f"Invalid GitHub URL: {repo_url}")
@@ -153,11 +247,16 @@ class ProjectManager:
             
             data = response.json()
             
+            # Fetch README content
+            readme_content = self.fetch_readme_content(owner, repo, data.get('default_branch', 'main'))
+            readme_description = self.parse_readme_description(readme_content) if readme_content else None
+            
             # Extract relevant information
             project_data = {
                 'name': data.get('name'),
                 'full_name': data.get('full_name'),
                 'description': data.get('description') or 'No description available',
+                'readme_description': readme_description or data.get('description') or 'No description available',
                 'language': data.get('language'),
                 'stars': data.get('stargazers_count', 0),
                 'forks': data.get('forks_count', 0),
@@ -174,6 +273,7 @@ class ProjectManager:
                 'html_url': data.get('html_url'),
                 'clone_url': data.get('clone_url'),
                 'ssh_url': data.get('ssh_url'),
+                'readme_content': readme_content,
                 'cached_at': time.time()
             }
             
@@ -311,8 +411,7 @@ class ProjectManager:
             return ""
         
         html = ['            <div class="projects-section">',
-                '                <h2 class="section-title">Project Portfolio</h2>',
-                '                <p class="section-description">Explore my computational physics and AI projects, each solving real-world problems while advancing scientific understanding.</p>',
+                '                <p class="section-description">Explore my GitHub repositories showcasing computational physics, AI projects, and development work.</p>',
                 '                <div class="projects-grid">']
         
         for url in project_urls:
@@ -328,35 +427,54 @@ class ProjectManager:
     
     
     def generate_project_card(self, project_data: Dict) -> str:
-        """Generate HTML for a single project card."""
-        # Format topics
+        """Generate HTML for a single project card with README description."""
+        # Use README description if available, fallback to GitHub description
+        description = project_data.get('readme_description', project_data.get('description', 'No description available'))
+        
+        # Format topics/tags
         topics_html = ""
         if project_data.get('topics'):
-            topics = project_data['topics'][:3]  # Limit to 3 topics
+            topics = project_data['topics'][:4]  # Show up to 4 topics
             topics_html = ''.join([f'<span class="project-topic">{topic}</span>' for topic in topics])
         
         # Format language badge
         language_html = f'<span class="project-language">{project_data["language"]}</span>' if project_data.get('language') else ''
         
-        # Format stats
+        # Format last updated date
+        updated_date = ""
+        if project_data.get('pushed_at'):
+            try:
+                from datetime import datetime
+                date_obj = datetime.fromisoformat(project_data['pushed_at'].replace('Z', '+00:00'))
+                updated_date = date_obj.strftime('%b %Y')
+            except:
+                updated_date = "recently"
+        
+        # Format stats with better information
         stats_html = f"""
                             <div class="project-stats">
                                 <span class="project-stat">⭐ {project_data['stars']}</span>
                                 <span class="project-stat">🍴 {project_data['forks']}</span>
+                                <span class="project-stat">Updated: {updated_date}</span>
                             </div>"""
+        
+        # Add homepage link if available
+        links_html = f'<a href="{project_data["html_url"]}" target="_blank" class="project-link">View on GitHub →</a>'
+        if project_data.get('homepage') and project_data['homepage'].strip():
+            links_html += f'\n                            <a href="{project_data["homepage"]}" target="_blank" class="project-link project-demo">Live Demo →</a>'
         
         return f"""                    <div class="project-card">
                         <div class="project-header">
                             <h3 class="project-name">{project_data['name']}</h3>
                             {language_html}
                         </div>
-                        <p class="project-description">{project_data['description']}</p>
+                        <p class="project-description">{description}</p>
                         <div class="project-topics">
                             {topics_html}
                         </div>
                         {stats_html}
                         <div class="project-links">
-                            <a href="{project_data['html_url']}" target="_blank" class="project-link">View on GitHub →</a>
+                            {links_html}
                         </div>
                     </div>"""
     
