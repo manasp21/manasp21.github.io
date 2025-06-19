@@ -1885,3 +1885,227 @@ button:focus {
     background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
     opacity: 0.7;
 }
+
+/* ====== ONE PAGE WEBSITES SECTION ====== */
+.onesite-section {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    padding: var(--spacing-2xl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.onesite-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(220, 38, 38, 0.05) 0%, transparent 70%);
+    animation: rotate 30s linear infinite;
+}
+
+.onesite-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.onesite-title {
+    font-family: var(--font-family-serif);
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.onesite-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+    border-radius: 2px;
+}
+
+.onesite-description {
+    font-family: var(--font-family-serif);
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    font-style: italic;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.onesite-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+.onesite-card {
+    background: rgba(42, 42, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: calc(var(--card-delay, 0) * 0.1s);
+}
+
+.onesite-card:nth-child(1) { --card-delay: 1; }
+.onesite-card:nth-child(2) { --card-delay: 2; }
+.onesite-card:nth-child(3) { --card-delay: 3; }
+.onesite-card:nth-child(4) { --card-delay: 4; }
+.onesite-card:nth-child(5) { --card-delay: 5; }
+.onesite-card:nth-child(6) { --card-delay: 6; }
+
+.onesite-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-red), rgba(220, 38, 38, 0.3));
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.onesite-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(220, 38, 38, 0.3);
+    border-color: rgba(220, 38, 38, 0.5);
+}
+
+.onesite-card:hover::before {
+    opacity: 1;
+}
+
+.onesite-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-md);
+}
+
+.onesite-name {
+    font-family: var(--font-family-serif);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin: 0;
+    flex: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.onesite-number {
+    background: linear-gradient(135deg, var(--accent-red), rgba(220, 38, 38, 0.8));
+    color: white;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-left: var(--spacing-sm);
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+    flex-shrink: 0;
+}
+
+.onesite-card-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-base);
+}
+
+.onesite-links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.onesite-link {
+    color: var(--accent-red);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--accent-red);
+    border-radius: var(--border-radius-lg);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.onesite-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-red);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.onesite-link:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+}
+
+.onesite-link:hover::before {
+    left: 0;
+}
+
+/* ====== RESPONSIVE DESIGN FOR ONESITE SECTION ====== */
+@media (max-width: 768px) {
+    .onesite-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .onesite-card {
+        padding: var(--spacing-lg);
+    }
+    
+    .onesite-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+    
+    .onesite-number {
+        margin-left: 0;
+        align-self: flex-end;
+    }
+    
+    .onesite-title {
+        font-size: var(--font-size-2xl);
+    }
+}

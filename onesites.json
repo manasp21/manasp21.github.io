@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "auto_scan": true,
+    "cache_duration": 86400,
+    "onesite_dir": "one_page_websites",
+    "section_title": "One Page Websites",
+    "section_description": "Interactive explorations and specialized projects"
+  },
+  "metadata": {
+    "last_updated": "2025-06-19T21:17:27.762185",
+    "total_sites": 1,
+    "version": "1.0.0"
+  }
+}
