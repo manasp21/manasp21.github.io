@@ -209,7 +209,10 @@
                     </div>
                 `;
                 
-                photoItem.addEventListener('click', () => openLightbox(index));
+                photoItem.addEventListener('click', () => {
+                    console.log('Photo clicked, index:', index);
+                    openLightbox(index);
+                });
                 grid.appendChild(photoItem);
             });
         }
@@ -250,6 +253,9 @@
 
         // Lightbox functions
         function openLightbox(index) {
+            console.log('Opening lightbox for index:', index);
+            console.log('Photo data:', photos[index]);
+            
             currentImageIndex = index;
             isLightboxOpen = true;
             
@@ -267,7 +273,6 @@
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
             isLightboxOpen = false;
-            stopSlideshow();
             
             setTimeout(() => {
                 lightbox.style.display = 'none';
@@ -278,29 +283,26 @@
         function loadImage(index) {
             const photo = photos[index];
             const img = document.getElementById('lightboxImage');
-            const loading = document.getElementById('loading');
             
-            // Show loading
-            img.classList.remove('loaded');
-            loading.style.display = 'block';
+            console.log('Loading image:', photo.src);
             
-            // Load new image
+            // Set image immediately to see if it appears
+            img.src = photo.src;
+            img.alt = photo.title;
+            img.style.opacity = '1';
+            
+            // Update info
+            updateImageInfo(photo, index);
+            
+            // Also try with new Image loading for proper error handling
             const newImg = new Image();
             newImg.onload = () => {
-                img.src = newImg.src;
-                img.alt = photo.title;
-                
-                // Hide loading and show image
-                loading.style.display = 'none';
-                img.classList.add('loaded');
-                
-                // Update info
-                updateImageInfo(photo, index);
+                console.log('Image loaded successfully:', photo.src);
             };
             
             newImg.onerror = () => {
-                loading.style.display = 'none';
                 console.error('Failed to load image:', photo.src);
+                img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gIDxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjZGRkIi8+ICA8dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
             };
             
             newImg.src = photo.src;
@@ -309,8 +311,7 @@
         function updateImageInfo(photo, index) {
             document.getElementById('imageTitle').textContent = photo.title;
             document.getElementById('imageCaption').textContent = photo.caption;
-            document.getElementById('imageMetadata').textContent = '';
-            document.getElementById('imageCounter').textContent = `${index + 1} / ${photos.length}`;
+            document.getElementById('imageMetadata').textContent = formatMetadata(photo.metadata);
         }
 
         function navigateImage(direction) {
