@@ -50,5 +50,18 @@
     "created_at": "2025-06-20T02:36:02.405592",
     "modified_at": "2025-06-20T03:20:32.957254",
     "cached_at": 1750370513.3969548
+  },
+  "one_page_websites\\03.html": {
+    "number": 3,
+    "filename": "03.html",
+    "title": "Optical Magnetometry: An Interactive Guide",
+    "description": "Optical Magnetometry Principles Technologies Applications Comparison Future Principles Technologies Applications Comparison Future The Quantum Leap in Magnetic Sensing An exploration of Optical Magnet...",
+    "file_path": "one_page_websites\\03.html",
+    "relative_path": "one_page_websites/03.html",
+    "file_size": 35692,
+    "file_mtime": 1750371656.165198,
+    "created_at": "2025-06-20T03:50:46.755203",
+    "modified_at": "2025-06-20T03:50:56.165198",
+    "cached_at": 1750371661.4097002
   }
 }

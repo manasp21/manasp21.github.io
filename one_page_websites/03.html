@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optical Magnetometry: An Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- KaTeX for LaTeX rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" xintegrity="sha384-n8MVd4RsNIU0KOVEMMZMSchEVEvsG3FPbdLRhIUS8hjUYCXg78hXqMBOTd5PScnM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" xintegrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+        }
+        .subsection-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #334155;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .nav-link {
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+        .source-link {
+            color: #3b82f6;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .source-link:hover {
+            text-decoration: underline;
+        }
+        .interactive-diagram-step {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #e5e7eb;
+        }
+        .interactive-diagram-step.active {
+            background-color: #eef2ff;
+            border-color: #4f46e5;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-button.active {
+            border-color: #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .comparison-table th {
+            cursor: pointer;
+            user-select: none;
+        }
+        .comparison-table th:hover {
+            background-color: #f9fafb;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .details-toggle summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #4f46e5;
+            transition: color 0.2s;
+        }
+        .details-toggle summary:hover {
+            color: #3b82f6;
+        }
+        .details-toggle[open] summary {
+            margin-bottom: 1rem;
+        }
+        #references li {
+            margin-bottom: 0.75rem;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #334155;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Animation for diagram */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .explanation-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-slate-800">Optical Magnetometry</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#principles" class="nav-link text-slate-600">Principles</a>
+                <a href="#technologies" class="nav-link text-slate-600">Technologies</a>
+                <a href="#applications" class="nav-link text-slate-600">Applications</a>
+                <a href="#comparison" class="nav-link text-slate-600">Comparison</a>
+                <a href="#future" class="nav-link text-slate-600">Future</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#principles" class="block py-2 px-6 text-sm text-slate-600 hover:bg-slate-50">Principles</a>
+            <a href="#technologies" class="block py-2 px-6 text-sm text-slate-600 hover:bg-slate-50">Technologies</a>
+            <a href="#applications" class="block py-2 px-6 text-sm text-slate-600 hover:bg-slate-50">Applications</a>
+            <a href="#comparison" class="block py-2 px-6 text-sm text-slate-600 hover:bg-slate-50">Comparison</a>
+            <a href="#future" class="block py-2 px-6 text-sm text-slate-600 hover:bg-slate-50">Future</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <!-- Hero Section -->
+        <section class="text-center py-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">The Quantum Leap in Magnetic Sensing</h2>
+            <p class="max-w-3xl mx-auto text-lg text-slate-600">
+                An exploration of Optical Magnetometry, a technology leveraging the fundamental interaction between light and matter to measure magnetic fields with unparalleled precision, revolutionizing fields from medicine to fundamental physics.
+            </p>
+        </section>
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="mb-16">
+            <div class="card">
+                <p class="text-lg leading-relaxed text-slate-700">
+                    Optical magnetometry has emerged as a preeminent quantum sensing technology, enabling the measurement of magnetic fields with unprecedented precision. The field has undergone a remarkable renaissance, driven by breakthroughs in diode lasers and atomic vapor cell techniques. These sensors now rival and sometimes surpass established standards like Superconducting Quantum Interference Devices (SQUIDs). Their impact is profound, stretching from fundamental physics research—testing universal symmetries and searching for new particles—to practical applications in medical diagnostics, revolutionizing non-invasive imaging of the brain and heart.
+                </p>
+            </div>
+        </section>
+
+        <!-- Principles Section -->
+        <section id="principles" class="mb-16 scroll-mt-20">
+            <h2 class="section-title text-center">Foundational Principles</h2>
+            <p class="text-center max-w-3xl mx-auto text-slate-600 mb-12">
+                The operation of every optical magnetometer is rooted in a universal three-step sequence: preparing a spin-polarized atomic ensemble, letting it evolve in a magnetic field, and detecting this evolution optically.
+            </p>
+
+            <div class="card">
+                <h3 class="subsection-title">The "Prepare-Evolve-Detect" Paradigm</h3>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <!-- Interactive Diagram -->
+                    <div class="md:w-1/3">
+                        <div id="diagram-step-1" class="interactive-diagram-step p-4 mb-2 active">
+                            <h4 class="font-bold">1. Preparation</h4>
+                            <p class="text-sm">Optical Pumping</p>
+                        </div>
+                        <div id="diagram-step-2" class="interactive-diagram-step p-4 mb-2">
+                            <h4 class="font-bold">2. Evolution</h4>
+                            <p class="text-sm">Larmor Precession</p>
+                        </div>
+                        <div id="diagram-step-3" class="interactive-diagram-step p-4">
+                            <h4 class="font-bold">3. Detection</h4>
+                            <p class="text-sm">Optical Probing</p>
+                        </div>
+                    </div>
+                    <!-- Diagram Explanations -->
+                    <div class="md:w-2/3">
+                        <div id="explanation-1" class="explanation-content">
+                            <h4 class="text-xl font-semibold mb-2">Preparation: Optical Pumping</h4>
+                            <p class="text-slate-700 leading-relaxed">
+                                Initially, atomic spins in a vapor are randomly oriented. To create a magnetically sensitive state, a process called <strong>optical pumping</strong> is used. A beam of circularly polarized light transfers angular momentum from photons to the atoms. This selectively excites atoms, "pumping" them into a specific spin-polarized state where their spins are aligned. This creates a macroscopic magnetization that can be used for sensing. To preserve this delicate state, buffer gases and anti-relaxation cell coatings are used to prevent depolarizing collisions.
+                            </p>
+                        </div>
+                        <div id="explanation-2" class="explanation-content hidden">
+                            <h4 class="text-xl font-semibold mb-2">Evolution: The Zeeman Effect & Larmor Precession</h4>
+                            <p class="text-slate-700 leading-relaxed">
+                                When an external magnetic field ($B$) is applied, it lifts the degeneracy of atomic energy levels, a phenomenon known as the <strong>Zeeman effect</strong>. This field exerts a torque on the atoms' magnetic moments, causing them to precess around the field direction. This coherent rotation is called <strong>Larmor precession</strong>, and its frequency, $\Omega_L = \gamma B$, is directly proportional to the magnetic field strength. Measuring this frequency is the key to determining the field's magnitude.
+                            </p>
+                        </div>
+                        <div id="explanation-3" class="explanation-content hidden">
+                            <h4 class="text-xl font-semibold mb-2">Detection: Optical Probing</h4>
+                            <p class="text-slate-700 leading-relaxed">
+                                The collective precession of the atomic spins modulates the optical properties of the vapor. A second, weaker 'probe' beam is used to read out this modulation. Two primary methods are used:
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li><strong>Absorption Monitoring:</strong> Changes in the transmitted intensity of the probe beam are measured.</li>
+                                    <li><strong>Polarization Rotation:</strong> A linearly polarized probe beam's polarization plane rotates as it passes through the vapor (the Faraday effect). This rotation angle is measured with high precision.</li>
+                                </ul>
+                                This converts the magnetic field information into a measurable optical signal.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                 <details class="details-toggle mt-8 pt-4 border-t border-slate-200">
+                    <summary>Fundamental Sensitivity Limits</summary>
+                    <p class="text-slate-600 leading-relaxed">
+                        The ultimate sensitivity of an optical magnetometer is constrained by fundamental physical limits. It depends on the number of atoms ($N$), their spin-relaxation time ($T_2$), and quantum noise sources like atomic projection noise and photon shot noise. Technical noise from laser fluctuations (AC Stark shift), thermal noise (Johnson noise), and spin-exchange collisions also play a critical role.
+                    </p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Technologies Section -->
+        <section id="technologies" class="mb-16 scroll-mt-20">
+            <h2 class="section-title text-center">A Taxonomy of Optical Magnetometers</h2>
+            <div class="card">
+                <!-- Tabs for different technologies -->
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                        <button class="tab-button active" data-tab="serf">SERF</button>
+                        <button class="tab-button" data-tab="nv-center">NV Center</button>
+                        <button class="tab-button" data-tab="other">Other Systems</button>
+                    </nav>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="tab-content">
+                    <div class="tab-pane active" id="serf">
+                        <h3 class="subsection-title">Spin-Exchange Relaxation-Free (SERF) Magnetometers</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            At the pinnacle of sensitivity, SERF magnetometers operate in a unique regime to overcome the main limitation in dense atomic vapors: spin-exchange relaxation. By operating at high atomic density (heating to 150-200 °C) and in a near-zero magnetic field, spin-exchange collisions average out decoherence, leading to an extremely narrow magnetic resonance linewidth and extraordinary sensitivity.
+                        </p>
+                        <ul class="list-disc list-inside mt-4 space-y-2 text-slate-700">
+                            <li><strong>Record Sensitivity:</strong> Demonstrated sensitivities below 1 fT/$\sqrt{\text{Hz}}$, surpassing even SQUIDs.</li>
+                            <li><strong>Principle:</strong> Turns detrimental spin-exchange collisions into an advantage, enabling coherent precession of the entire atomic ensemble.</li>
+                            <li><strong>Primary Application:</strong> Biomagnetism (wearable MEG/MCG), where its extreme sensitivity is required to detect faint neural and cardiac signals.</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane hidden" id="nv-center">
+                        <h3 class="subsection-title">Nitrogen-Vacancy (NV) Center Magnetometry</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                           In contrast to SERF's bulk sensitivity, NV centers in diamond are optimized for spatial resolution. An NV center is an atomic-scale quantum defect in the diamond lattice that acts as a tiny, robust sensor.
+                        </p>
+                         <ul class="list-disc list-inside mt-4 space-y-2 text-slate-700">
+                            <li><strong>Operating Principle:</strong> Uses Optically Detected Magnetic Resonance (ODMR). The intensity of the NV center's red fluorescence depends on its spin state, which is sensitive to local magnetic fields via the Zeeman effect.</li>
+                            <li><strong>Key Advantage:</strong> Nanoscale spatial resolution (< 50 nm) and operation under a wide range of ambient conditions (temperature, pressure, in air or liquid).</li>
+                            <li><strong>Applications:</strong> Imaging magnetic phenomena in condensed matter physics, such as domain walls and skyrmions.</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane hidden" id="other">
+                        <h3 class="subsection-title">Other Prominent and Emerging Systems</h3>
+                        <p class="text-slate-700 leading-relaxed mb-4">
+                            A range of other technologies balances performance with operational flexibility, opening up real-world applications outside controlled labs.
+                        </p>
+                        <div class="space-y-4">
+                             <details class="details-toggle">
+                                <summary>Helium Magnetometers</summary>
+                                <p class="text-slate-600 leading-relaxed">Noted for their robustness, stability, and room-temperature operation. A traditional choice for demanding applications like space magnetometry and military use.</p>
+                            </details>
+                             <details class="details-toggle">
+                                <summary>Microfabricated & Chip-Scale Atomic Magnetometers (CSAMs)</summary>
+                                <p class="text-slate-600 leading-relaxed">Using MEMS fabrication, researchers are creating millimeter-scale magnetometers on silicon wafers. This trend towards miniaturization is key for portable devices and large sensor arrays.</p>
+                            </details>
+                             <details class="details-toggle">
+                                <summary>Light-Modulation Magnetometers</summary>
+                                <p class="text-slate-600 leading-relaxed">A broad class (e.g., Bell-Bloom, Mz, NMOR) that actively drives atomic spin precession. They can be optimized for specific field ranges, like the Earth's field, and are often used when a large dynamic range is required.</p>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Applications Section -->
+        <section id="applications" class="mb-16 scroll-mt-20">
+            <h2 class="section-title text-center">The Expanding Frontier of Applications</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card tooltip">
+                     <span class="tooltiptext">Wearable sensors for non-invasive brain and heart imaging.</span>
+                    <h3 class="subsection-title">Biomagnetism & Medicine</h3>
+                    <p class="text-slate-600 leading-relaxed">OPMs are revolutionizing Magnetoencephalography (MEG) and Magnetocardiography (MCG). Wearable, cryogen-free OPMs can be placed directly on the scalp, dramatically improving signal quality for brain imaging, especially in children. They also enable affordable MCG for cardiac diagnostics and low-field MRI systems.</p>
+                </div>
+                <div class="card tooltip">
+                    <span class="tooltiptext">Mapping Earth's magnetic field to find resources and archaeological sites.</span>
+                    <h3 class="subsection-title">Geophysical Surveying</h3>
+                    <p class="text-slate-600 leading-relaxed">Scalar OPMs are workhorses in Earth science. Deployed on aircraft, drones, and ships, they map anomalies in the Earth's magnetic field to locate mineral deposits, hydrocarbons, and buried archaeological or environmental objects.</p>
+                </div>
+                <div class="card tooltip">
+                    <span class="tooltiptext">Studying planetary magnetic fields to understand their interiors and magnetospheres.</span>
+                    <h3 class="subsection-title">Space & Planetary Science</h3>
+                    <p class="text-slate-600 leading-relaxed">A planet's magnetic field offers a window into its deep interior and magnetosphere. High-accuracy OPMs fly on space missions, like the Cassini mission to Saturn, which used its magnetometer to discover the subsurface ocean on Enceladus.</p>
+                </div>
+                <div class="card lg:col-span-3 tooltip">
+                     <span class="tooltiptext">Searching for new particles and testing the fundamental laws of nature.</span>
+                     <h3 class="subsection-title">Fundamental Physics & Symmetry Tests</h3>
+                    <p class="text-slate-600 leading-relaxed">The extreme sensitivity of OPMs makes them ideal for testing the Standard Model. They are used in experiments searching for permanent Electric Dipole Moments (EDMs), exotic spin-dependent forces (like axions from dark matter), and violations of Lorentz invariance. Projects like the GNOME network use globally-distributed OPMs for this purpose.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison" class="mb-16 scroll-mt-20">
+            <h2 class="section-title text-center">Comparative Analysis</h2>
+            <div class="card overflow-x-auto">
+                <table id="comparison-table" class="w-full comparison-table">
+                    <thead>
+                        <tr class="bg-slate-50">
+                            <th data-column="0">Technology &nbsp;<span></span></th>
+                            <th data-column="1">Sensitivity (fT/$\sqrt{\text{Hz}}$) &nbsp;<span></span></th>
+                            <th data-column="2">Operating Temp. &nbsp;<span></span></th>
+                            <th data-column="3">Key Advantages &nbsp;<span></span></th>
+                            <th data-column="4">Key Limitations &nbsp;<span></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold">OPM-SERF</td>
+                            <td>55</td> <!-- Midpoint for sorting -->
+                            <td>175</td> <!-- Midpoint for sorting -->
+                            <td>Highest sensitivity, cryogen-free</td>
+                            <td>Requires near-zero field, thermal management</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">OPM-NV Center</td>
+                            <td>500500</td>
+                            <td>25</td> <!-- Room temp -->
+                            <td>Nanoscale resolution, robust, wide temp. range</td>
+                            <td>Lower sensitivity, complex setup</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">SQUID</td>
+                            <td>55</td>
+                            <td>4</td>
+                            <td>High sensitivity, mature technology</td>
+                            <td>Requires expensive cryogenics, bulky</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Fluxgate</td>
+                            <td>5500</td>
+                            <td>25</td>
+                            <td>Robust, reliable, vector measurements</td>
+                            <td>Lower sensitivity, intrinsic noise</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Hall Effect</td>
+                            <td>1000000</td>
+                            <td>25</td>
+                            <td>Extremely low cost, simple, small</td>
+                            <td>Lowest sensitivity</td>
+                        </tr>
+                    </tbody>
+                </table>
+                 <p class="text-sm text-slate-500 mt-4">Data synthesized from multiple public sources. Click on table headers to sort.</p>
+            </div>
+        </section>
+
+        <!-- Future Horizons Section -->
+        <section id="future" class="scroll-mt-20">
+            <h2 class="section-title text-center">Future Horizons & Grand Challenges</h2>
+            <div class="space-y-8">
+                <div class="card">
+                    <h3 class="subsection-title">Miniaturization and Integration</h3>
+                    <p class="text-slate-600 leading-relaxed">The foremost trend is shrinking sensors into compact, portable devices using MEMS fabrication and novel photonics like optical metasurfaces. This is critical for wearable imaging arrays and field-deployable sensors. Chip-scale atomic magnetometers (CSAMs) are the goal.</p>
+                </div>
+                 <div class="card">
+                    <h3 class="subsection-title">Quantum Navigation and Computing</h3>
+                    <p class="text-slate-600 leading-relaxed">OPMs are key to developing GPS-independent navigation systems by mapping geomagnetic fields or acting as quantum gyroscopes. The same principles of spin control are also directly transferable to building and reading out qubits for quantum computers.</p>
+                </div>
+                 <div class="card">
+                    <h3 class="subsection-title">Overcoming Persistent Challenges</h3>
+                    <p class="text-slate-600 leading-relaxed">The greatest challenge is operating highly sensitive magnetometers outside of magnetically shielded rooms. Developing active field compensation, gradiometry, and sophisticated control software is essential for real-world applications. Balancing the trade-off between sensitivity and bandwidth is another key area of active research.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer with references -->
+    <footer class="bg-slate-800 text-slate-300 mt-16">
+        <div class="container mx-auto px-6 py-8">
+            <h3 class="text-lg font-semibold mb-4 text-white">Selected References</h3>
+            <ol id="references" class="list-decimal list-inside text-sm text-slate-400 space-y-2">
+                <li>Budker, D. & Romalis, M. Optical magnetometry. <i>Nature Physics</i> <b>3</b>, 227–234 (2007). <a href="https://www.nature.com/articles/nphys521" target="_blank" rel="noopener noreferrer" class="source-link">[Link]</a></li>
+                <li>Kominis, I. K., Kornack, T. W., Allred, J. C. & Romalis, M. V. A subfemtotesla multichannel atomic magnetometer. <i>Nature</i> <b>422</b>, 596–599 (2003). <a href="https://www.nature.com/articles/nature01534" target="_blank" rel="noopener noreferrer" class="source-link">[Link]</a></li>
+                <li>Allred, J. C., Lyman, R. N., Kornack, T. W. & Romalis, M. V. High-Sensitivity Magnetometer Based on Spin-Exchange Relaxation-Free Atomic Vapor. <i>Physical Review Letters</i> <b>89</b>, 130801 (2002). <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.89.130801" target="_blank" rel="noopener noreferrer" class="source-link">[Link]</a></li>
+                <li>Boto, E. et al. Moving magnetoencephalography towards real-world applications with a wearable system. <i>Nature</i> <b>555</b>, 657–661 (2018). <a href="https://www.nature.com/articles/s41586-018-0064-0" target="_blank" rel="noopener noreferrer" class="source-link">[Link]</a></li>
+                <li>Rondin, L. et al. Magnetometry with nitrogen-vacancy defects in diamond. <i>Reports on Progress in Physics</i> <b>77</b>, 056503 (2014). <a href="https://iopscience.iop.org/article/10.1088/0034-4885/77/5/056503" target="_blank" rel="noopener noreferrer" class="source-link">[Link]</a></li>
+                <li>Kitching, J. Chip-scale atomic devices. <i>Applied Physics Reviews</i> <b>1</b>, 011308 (2014). <a href="https://aip.scitation.org/doi/10.1063/1.4862121" target="_blank" rel="noopener noreferrer" class="source-link">[Link]</a></li>
+                <li>Dougherty, M. K. et al. Identification of a Dynamic Atmosphere at Enceladus with the Cassini Magnetometer. <i>Science</i> <b>311</b>, 1406–1409 (2006). <a href="https://www.science.org/doi/10.1126/science.1125091" target="_blank" rel="noopener noreferrer" class="source-link">[Link]</a></li>
+                <li>Afach, S. et al. (The GNOME Collaboration). Search for correlations between globally distributed anapole and monopole sources. <i>SciPost Physics Lecture Notes</i> <b>24</b> (2021). <a href="https://scipost.org/SciPostPhysLectNotes.24" target="_blank" rel="noopener noreferrer" class="source-link">[Link]</a></li>
+            </ol>
+             <p class="text-center text-slate-500 mt-8 text-xs">This website was generated based on an expert report. The reference list above provides links to key cited publications.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render LaTeX
+            renderMathInElement(document.body, {
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+                  {left: '\\(', right: '\\)', display: false},
+                  {left: '\\[', right: '\\]', display: true}
+              ],
+              throwOnError : false
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (this.getAttribute('href').length > 1) {
+                        const targetElement = document.querySelector(this.getAttribute('href'));
+                        if (targetElement) {
+                             targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                        if (!mobileMenu.classList.contains('hidden')) {
+                           mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+
+            // Interactive "Prepare-Evolve-Detect" diagram
+            const steps = document.querySelectorAll('.interactive-diagram-step');
+            const explanations = document.querySelectorAll('.explanation-content');
+            steps.forEach(step => {
+                step.addEventListener('click', () => {
+                    steps.forEach(s => s.classList.remove('active'));
+                    explanations.forEach(e => e.classList.add('hidden'));
+
+                    step.classList.add('active');
+                    const explanationId = 'explanation-' + step.id.split('-')[2];
+                    const explanationEl = document.getElementById(explanationId);
+                    explanationEl.classList.remove('hidden');
+                });
+            });
+
+            // Technology Tabs
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    tabPanes.forEach(p => p.classList.add('hidden'));
+                    
+                    button.classList.add('active');
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.remove('hidden');
+                });
+            });
+
+            // Sortable Comparison Table
+            const table = document.getElementById('comparison-table');
+            const headers = table.querySelectorAll('th');
+            const tableBody = table.querySelector('tbody');
+            const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+            const directions = Array.from(headers).map(() => '');
+
+            const transform = (index, content) => {
+                if (index === 1 || index === 2) { // Sensitivity and Temp columns
+                    return parseFloat(content);
+                }
+                return content;
+            }
+
+            const sortColumn = (index) => {
+                const direction = directions[index] || 'asc';
+                const multiplier = (direction === 'asc') ? 1 : -1;
+
+                const newRows = [...rows]; // Create a new array from the original rows
+
+                newRows.sort((rowA, rowB) => {
+                    const cellA = rowA.querySelectorAll('td')[index].textContent;
+                    const cellB = rowB.querySelectorAll('td')[index].textContent;
+                    
+                    const a = transform(index, cellA);
+                    const b = transform(index, cellB);
+
+                    if (a > b) {
+                        return 1 * multiplier;
+                    }
+                    if (b > a) {
+                        return -1 * multiplier;
+                    }
+                    return 0;
+                });
+                
+                // Remove existing rows
+                rows.forEach(row => tableBody.removeChild(row));
+                
+                // Update direction
+                directions[index] = direction === 'asc' ? 'desc' : 'asc';
+
+                // Clear old arrows
+                headers.forEach(th => th.querySelector('span').textContent = '');
+                // Set new arrow
+                headers[index].querySelector('span').textContent = direction === 'asc' ? '▲' : '▼';
+
+                // Add sorted rows
+                newRows.forEach(newRow => tableBody.appendChild(newRow));
+            };
+
+            headers.forEach((header, index) => {
+                if(index < 3) { // Only make first 3 columns sortable
+                   header.addEventListener('click', () => sortColumn(index));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
