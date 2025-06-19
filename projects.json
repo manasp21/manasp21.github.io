@@ -1,0 +1,16 @@
+{
+  "projects": [
+    "https://github.com/manasp21/MagTrace"
+  ],
+  "settings": {
+    "auto_update": true,
+    "cache_duration": 86400,
+    "github_api_url": "https://api.github.com/repos",
+    "cache_file": ".projects_cache.json"
+  },
+  "metadata": {
+    "last_updated": null,
+    "total_projects": 1,
+    "version": "2.0.0"
+  }
+}
