@@ -13,25 +13,8 @@ description: "Thoughts on science, sound, and syntax - A digital laboratory note
 </div>
 
 {% if site.posts.size > 0 %}
-    <!-- Featured Post -->
-    {% assign featured_post = site.posts.first %}
-    <article class="featured-post">
-        <h2 class="featured-title">
-            <a href="{{ featured_post.url | relative_url }}">{{ featured_post.title }}</a>
-        </h2>
-        {% include post-meta.html post=featured_post %}
-        {% if featured_post.excerpt %}
-            <div class="featured-excerpt">
-                {{ featured_post.excerpt | strip_html }}
-            </div>
-        {% endif %}
-        <a href="{{ featured_post.url | relative_url }}" class="read-more">Read More →</a>
-    </article>
-
-    <!-- All Posts -->
+    <!-- Posts List -->
     <section class="all-posts">
-        <h2 class="section-title">All Posts</h2>
-        
         <div class="posts-list">
             {% for post in site.posts %}
                 <article class="post-item">
@@ -68,21 +51,6 @@ description: "Thoughts on science, sound, and syntax - A digital laboratory note
         {% endfor %}
     </section>
 
-    <!-- Tags -->
-    {% assign all_tags = site.posts | map: 'tags' | flatten | uniq | sort %}
-    {% if all_tags.size > 0 %}
-        <section class="tags-section">
-            <h2 class="section-title">Topics</h2>
-            <div class="tags-cloud">
-                {% for tag in all_tags %}
-                    {% assign tag_posts = site.posts | where_exp: "post", "post.tags contains tag" %}
-                    <a href="{{ "/blog/tag/" | append: tag | slugify | relative_url }}" class="tag-cloud-item">
-                        {{ tag }} <span class="tag-count">({{ tag_posts.size }})</span>
-                    </a>
-                {% endfor %}
-            </div>
-        </section>
-    {% endif %}
 
 {% else %}
     <!-- No Posts Yet -->
