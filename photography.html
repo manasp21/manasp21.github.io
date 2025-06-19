@@ -30,6 +30,7 @@
                     <li><a href="about.html">About</a></li>
                     <li><a href="research.html">Research</a></li>
                     <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li>
                     <li><a href="photography.html">Photography</a></li>
                 </ul>
             </nav>
@@ -37,8 +38,8 @@
     </header>
 
     <!-- Main Gallery -->
-    <main class="gallery-container">
-        <h1 class="gallery-title">Photography</h1>
+    <main class="page-container">
+        <h1 class="page-title">Photography</h1>
         <div class="photo-grid" id="photoGrid">
             <!-- Photos will be dynamically loaded here -->
         </div>
@@ -47,30 +48,21 @@
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
-            <div class="loading" id="loading"></div>
             <img class="lightbox-image" id="lightboxImage" src="" alt="">
-            
-            <!-- Controls -->
-            <div class="lightbox-controls">
-                <button class="control-btn" id="slideshowBtn" title="Slideshow">
-                    <span id="slideshowIcon">▶</span>
-                </button>
-                <button class="control-btn" id="closeBtn" title="Close">✕</button>
-            </div>
-            
-            <!-- Navigation -->
-            <button class="nav-arrow prev" id="prevBtn" title="Previous">‹</button>
-            <button class="nav-arrow next" id="nextBtn" title="Next">›</button>
-            
-            <!-- Image Info -->
-            <div class="image-info">
-                <div class="image-details">
-                    <div class="image-title" id="imageTitle"></div>
-                    <div class="image-caption" id="imageCaption"></div>
-                    <div class="image-metadata" id="imageMetadata"></div>
-                </div>
-                <div class="image-counter" id="imageCounter"></div>
-            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <button class="nav-arrow prev" id="prevBtn" title="Previous">‹</button>
+        <button class="nav-arrow next" id="nextBtn" title="Next">›</button>
+        
+        <!-- Close Button -->
+        <button class="lightbox-close" id="closeBtn" title="Close">✕</button>
+        
+        <!-- Caption (appears on hover/delay) -->
+        <div class="lightbox-caption" id="lightboxCaption">
+            <div class="lightbox-caption-title" id="imageTitle"></div>
+            <div class="lightbox-caption-text" id="imageCaption"></div>
+            <div class="lightbox-caption-meta" id="imageMetadata"></div>
         </div>
     </div>
 

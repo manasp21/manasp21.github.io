@@ -9,7 +9,8 @@
       "Bash(rm:*)",
       "WebFetch(domain:stephango.com)",
       "Bash(find:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }
