@@ -71,8 +71,6 @@
         let photos = [];
         let currentImageIndex = 0;
         let isLightboxOpen = false;
-        let slideshowInterval = null;
-        let isSlideshow = false;
 
         // Configuration for supported image formats
         const SUPPORTED_FORMATS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
@@ -205,8 +203,9 @@
                          loading="lazy"
                          onerror="this.parentElement.style.display='none';">
                     <div class="photo-overlay">
-                        <div class="photo-title">${photo.title}</div>
-                        <div class="photo-caption">${photo.caption}</div>
+                        <div class="photo-overlay-title">${photo.title}</div>
+                        <div class="photo-overlay-caption">${photo.caption}</div>
+                        <div class="photo-overlay-meta">${formatMetadata(photo.metadata)}</div>
                     </div>
                 `;
                 
@@ -239,7 +238,6 @@
             document.getElementById('closeBtn').addEventListener('click', closeLightbox);
             document.getElementById('prevBtn').addEventListener('click', () => navigateImage(-1));
             document.getElementById('nextBtn').addEventListener('click', () => navigateImage(1));
-            document.getElementById('slideshowBtn').addEventListener('click', toggleSlideshow);
             
             // Keyboard navigation
             document.addEventListener('keydown', handleKeyPress);
@@ -327,34 +325,7 @@
             loadImage(currentImageIndex);
         }
 
-        function toggleSlideshow() {
-            if (isSlideshow) {
-                stopSlideshow();
-            } else {
-                startSlideshow();
-            }
-        }
 
-        function startSlideshow() {
-            isSlideshow = true;
-            document.getElementById('slideshowIcon').textContent = '⏸';
-            document.getElementById('slideshowBtn').classList.add('active');
-            
-            slideshowInterval = setInterval(() => {
-                navigateImage(1);
-            }, 4000);
-        }
-
-        function stopSlideshow() {
-            isSlideshow = false;
-            document.getElementById('slideshowIcon').textContent = '▶';
-            document.getElementById('slideshowBtn').classList.remove('active');
-            
-            if (slideshowInterval) {
-                clearInterval(slideshowInterval);
-                slideshowInterval = null;
-            }
-        }
 
         function handleKeyPress(e) {
             if (!isLightboxOpen) return;
@@ -365,10 +336,6 @@
                     break;
                 case 'ArrowRight':
                     navigateImage(1);
-                    break;
-                case ' ':
-                    e.preventDefault();
-                    toggleSlideshow();
                     break;
                 case 'Escape':
                     closeLightbox();

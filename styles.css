@@ -549,6 +549,17 @@ a:hover {
     font-style: italic;
 }
 
+/* Error Messages */
+.error-message {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-2xl);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    margin: var(--spacing-xl) 0;
+}
+
 /* ====== RESPONSIVE DESIGN ====== */
 @media (max-width: 1200px) {
     .photo-grid {
@@ -600,6 +611,36 @@ a:hover {
     
     .photo-grid {
         columns: 2;
+    }
+    
+    /* Mobile lightbox adjustments */
+    .nav-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .nav-arrow.prev {
+        left: 15px;
+    }
+    
+    .nav-arrow.next {
+        right: 15px;
+    }
+    
+    .lightbox-close {
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .lightbox-caption {
+        bottom: 15px;
+        left: 15px;
+        right: 15px;
+        max-width: none;
     }
 }
 
