@@ -7,7 +7,9 @@
       "Bash(mkdir:*)",
       "Bash(grep:*)",
       "Bash(rm:*)",
-      "WebFetch(domain:stephango.com)"
+      "WebFetch(domain:stephango.com)",
+      "Bash(find:*)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }

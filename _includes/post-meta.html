@@ -6,8 +6,10 @@
     <span class="reading-time">
         {% if post.reading_time %}
             {{ post.reading_time }} min read
-        {% else %}
+        {% elsif post.content %}
             {{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read
+        {% else %}
+            1 min read
         {% endif %}
     </span>
     
