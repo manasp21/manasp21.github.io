@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnetometry: An Interactive Exploration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .content-section {
+            position: relative;
+            z-index: 2;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-button.active {
+            color: #60a5fa; /* light blue */
+            border-bottom-color: #60a5fa;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .interactive-viz {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            min-height: 350px;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a4a4a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6a6a6a;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+        <div id="hero-canvas" class="hero-canvas-container"></div>
+        <div class="content-section p-4">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                Magnetometry
+            </h1>
+            <p class="text-lg md:text-xl font-light text-neutral-300 mt-4 max-w-3xl mx-auto">
+                An interactive journey into the science of measuring the invisible forces that shape our universe.
+            </p>
+        </div>
+    </header>
+
+    <main class="content-section bg-[#0a0a0a]">
+        <!-- Introduction -->
+        <section id="introduction" class="py-20 px-4 md:px-8">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                    Unveiling the <span class="gradient-text">Invisible Forces</span>
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="text-neutral-300 space-y-4 text-lg">
+                        <p>Magnetometry is the scientific discipline dedicated to measuring magnetic fields. At its core, it quantifies the strength, direction, and variation of these fields. The fundamental principle is the interaction of magnetic fields with various physical systems, manifesting as induced currents, changes in atomic energy levels, or alterations in quantum states.</p>
+                        <p>By precisely measuring these effects, magnetometers provide a window into a world of invisible forces that play a crucial role in a vast array of applications, from navigating the globe to diagnosing diseases. The primary unit is the Tesla (T), with smaller fields often measured in nanotesla (nT) or picotesla (pT).</p>
+                    </div>
+                    <div class="glass-panel rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-white">Magnetic Field Strength Comparison</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1"><span>Human Brain (during activity)</span><span>~1 pT</span></div>
+                                <div class="w-full bg-neutral-700 rounded-full h-2.5"><div class="bg-blue-400 h-2.5 rounded-full" style="width: 5%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1"><span>Earth's Magnetic Field</span><span>~50,000 nT</span></div>
+                                <div class="w-full bg-neutral-700 rounded-full h-2.5"><div class="bg-blue-500 h-2.5 rounded-full" style="width: 35%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1"><span>Refrigerator Magnet</span><span>~5 mT</span></div>
+                                <div class="w-full bg-neutral-700 rounded-full h-2.5"><div class="bg-blue-600 h-2.5 rounded-full" style="width: 65%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1"><span>MRI Scanner</span><span>~1.5 - 3 T</span></div>
+                                <div class="w-full bg-neutral-700 rounded-full h-2.5"><div class="bg-purple-600 h-2.5 rounded-full" style="width: 100%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sub-branches Section -->
+        <section id="sub-branches" class="py-20 px-4 md:px-8 bg-[#111111]">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">The Diverse Branches of <span class="gradient-text">Magnetometry</span></h2>
+                
+                <!-- Tabs -->
+                <div class="mb-8 flex justify-center border-b border-neutral-700">
+                    <button class="tab-button active py-2 px-4 text-lg font-medium" onclick="changeTab(event, 'squid')">SQUID</button>
+                    <button class="tab-button py-2 px-4 text-lg font-medium" onclick="changeTab(event, 'fluxgate')">Fluxgate</button>
+                    <button class="tab-button py-2 px-4 text-lg font-medium" onclick="changeTab(event, 'ppm')">Proton Precession</button>
+                    <button class="tab-button py-2 px-4 text-lg font-medium" onclick="changeTab(event, 'hall')">Hall Effect</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="magnetometer-tabs">
+                    <!-- SQUID Tab -->
+                    <div id="squid" class="tab-content grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-white">SQUID: The Quantum Leap</h3>
+                            <p class="text-neutral-300 mb-6">Superconducting Quantum Interference Devices (SQUIDs) are the most sensitive magnetometers. They leverage quantum phenomena like the Josephson effect and flux quantization in a superconducting loop to detect infinitesimal changes in magnetic fields.</p>
+                            <div class="flex space-x-4 mb-4">
+                                <span class="bg-green-800 text-green-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Pro: Unrivaled Sensitivity</span>
+                                <span class="bg-red-800 text-red-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Con: Requires Cryocooling</span>
+                            </div>
+                             <p class="text-neutral-300"><strong>Applications:</strong> Brain imaging (MEG), heart diagnostics (MCG), geophysical surveys, fundamental physics.</p>
+                        </div>
+                        <div class="interactive-viz glass-panel rounded-lg p-4 flex items-center justify-center">
+                            <svg id="squid-viz" width="300" height="300" viewBox="0 0 100 100"></svg>
+                        </div>
+                    </div>
+
+                    <!-- Fluxgate Tab -->
+                    <div id="fluxgate" class="tab-content hidden grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-white">Fluxgate: Robust & Reliable</h3>
+                            <p class="text-neutral-300 mb-6">Fluxgate magnetometers use a highly permeable core driven in and out of magnetic saturation. An external field creates an asymmetry in the magnetic flux, which is detected by a sense coil as a second-harmonic signal proportional to the field.</p>
+                            <div class="flex space-x-4 mb-4">
+                                <span class="bg-green-800 text-green-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Pro: Vector Measurement</span>
+                                <span class="bg-red-800 text-red-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Con: Less Sensitive than SQUIDs</span>
+                            </div>
+                             <p class="text-neutral-300"><strong>Applications:</strong> Navigation, geomagnetic monitoring, archaeology, space exploration.</p>
+                        </div>
+                        <div class="interactive-viz glass-panel rounded-lg p-4 flex flex-col items-center justify-center">
+                            <svg id="fluxgate-viz" width="300" height="300" viewBox="0 0 100 100"></svg>
+                        </div>
+                    </div>
+                    
+                    <!-- PPM Tab -->
+                    <div id="ppm" class="tab-content hidden grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-white">Proton Precession: Absolute Accuracy</h3>
+                            <p class="text-neutral-300 mb-6">Proton Precession Magnetometers (PPMs) use nuclear magnetic resonance. Protons in a fluid are aligned by a strong field. When the field is removed, they precess around the ambient Earth's field at a frequency directly proportional to its strength.</p>
+                            <div class="flex space-x-4 mb-4">
+                                <span class="bg-green-800 text-green-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Pro: High Absolute Accuracy</span>
+                                <span class="bg-red-800 text-red-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Con: Scalar Only, Slow</span>
+                            </div>
+                            <p class="text-neutral-300"><strong>Applications:</strong> Mineral exploration, archaeology, environmental surveys, volcano monitoring.</p>
+                        </div>
+                        <div class="interactive-viz glass-panel rounded-lg p-4 flex items-center justify-center">
+                             <svg id="ppm-viz" width="300" height="300" viewBox="0 0 100 100"></svg>
+                        </div>
+                    </div>
+
+                    <!-- Hall Effect Tab -->
+                    <div id="hall" class="tab-content hidden grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                           <h3 class="text-2xl font-bold mb-4 text-white">Hall Effect: Compact & Ubiquitous</h3>
+                            <p class="text-neutral-300 mb-6">Based on the Hall effect, these sensors produce a voltage (Hall voltage) perpendicular to both a current flowing through a conductor and an external magnetic field. This voltage is directly proportional to the magnetic field's strength.</p>
+                             <div class="flex space-x-4 mb-4">
+                                <span class="bg-green-800 text-green-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Pro: Small & Low-Cost</span>
+                                <span class="bg-red-800 text-red-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Con: Lower Sensitivity</span>
+                            </div>
+                             <p class="text-neutral-300"><strong>Applications:</strong> Consumer electronics (compasses), automotive sensors, industrial automation, current sensing.</p>
+                        </div>
+                        <div class="interactive-viz glass-panel rounded-lg p-4 flex items-center justify-center">
+                            <svg id="hall-viz" width="300" height="300" viewBox="0 0 100 100"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Optical Magnetometry -->
+        <section id="optical" class="py-20 px-4 md:px-8">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">A Deep Dive into <span class="gradient-text">Optical Magnetometry</span></h2>
+                <p class="text-center text-lg text-neutral-400 max-w-3xl mx-auto mb-16">A rapidly advancing frontier using the interaction of light and atoms to measure magnetic fields with exquisite precision.</p>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                    <div class="interactive-viz glass-panel rounded-lg p-4 flex flex-col items-center justify-center">
+                        <svg id="optical-viz" width="100%" height="350" viewBox="0 0 400 200"></svg>
+                        <div class="w-full px-4 mt-4">
+                            <label for="b-field-slider" class="block text-sm font-medium text-neutral-300">Magnetic Field Strength (B)</label>
+                            <input id="b-field-slider" type="range" min="0.1" max="2" value="1" step="0.1" class="w-full h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Optical Pumping & Larmor Precession</h3>
+                        <p class="text-neutral-300 mb-4">The core principle involves using a 'pump' laser to polarize atoms (like Rubidium or Cesium) into a specific spin state. These polarized atoms then precess around an external magnetic field at the Larmor frequency, which is directly proportional to the field's strength.</p>
+                        <p class="text-neutral-300">A second 'probe' laser detects this precession by measuring the rotation of its own polarization. By precisely measuring the Larmor frequency, the magnetic field is determined. <strong class="text-white">Try adjusting the magnetic field slider to see how the Larmor precession frequency changes.</strong></p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-panel p-6 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-3 text-blue-400">SERF Magnetometers</h4>
+                        <p class="text-neutral-400">Spin-Exchange Relaxation-Free (SERF) magnetometers are among the world's most sensitive. They operate in near-zero fields, where atomic spin coherence is dramatically increased, enabling femtotesla-level sensitivity. Ideal for biomagnetism (MEG/MCG).</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-3 text-blue-400">NV-Center Magnetometry</h4>
+                        <p class="text-neutral-400">Utilizes Nitrogen-Vacancy (NV) centers—point defects in a diamond's lattice. The electron spin of the NV center is highly sensitive to magnetic fields and can be read out optically, enabling nanoscale magnetic imaging at room temperature.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-3 text-blue-400">Opto-Mechanical</h4>
+                        <p class="text-neutral-400">These devices combine optical pumping with micro-electromechanical systems (MEMS). The motion of a micro-resonator modulates the magnetic field experienced by the atoms, holding promise for highly miniaturized and robust magnetometers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI in Magnetometry -->
+        <section id="ai" class="py-20 px-4 md:px-8 bg-[#111111]">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">The Transformative Role of <span class="gradient-text">Artificial Intelligence</span></h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                     <div>
+                        <h3 class="text-2xl font-bold mb-4 text-white">From Noisy Data to Clear Insight</h3>
+                        <p class="text-neutral-300 mb-6">AI and machine learning are revolutionizing magnetometry. Deep learning models can sift through noisy, complex data to isolate faint magnetic signals, enhance sensitivity, and automate the identification of anomalies. This synergy accelerates discovery and unlocks new capabilities.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-900/50 flex items-center justify-center text-blue-400 font-bold">1</div>
+                                <div><h4 class="font-semibold text-lg text-white">Noise Reduction</h4><p class="text-neutral-400">AI filters out environmental and instrument noise, clarifying the underlying magnetic signal.</p></div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                               <div class="flex-shrink-0 h-10 w-10 rounded-full bg-purple-900/50 flex items-center justify-center text-purple-400 font-bold">2</div>
+                                <div><h4 class="font-semibold text-lg text-white">Automated Interpretation</h4><p class="text-neutral-400">ML models interpret vast datasets to identify geological structures or detect buried objects automatically.</p></div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-900/50 flex items-center justify-center text-indigo-400 font-bold">3</div>
+                                <div><h4 class="font-semibold text-lg text-white">Intelligent Sensor Fusion</h4><p class="text-neutral-400">AI intelligently combines magnetometer data with other sensors (like GPS and IMUs) for more robust navigation and tracking.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="interactive-viz glass-panel rounded-lg p-4 flex flex-col items-center justify-center">
+                        <p class="text-sm text-neutral-400 mb-2">AI Processing Pipeline</p>
+                        <svg id="ai-viz" width="100%" height="350" viewBox="0 0 400 150"></svg>
+                         <button id="process-btn" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">Process Signal</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="py-8 text-center text-neutral-500 border-t border-neutral-800">
+        <p>A detailed, interactive exploration of magnetometry. Content adapted from a comprehensive report.</p>
+        <p>&copy; 2025 Magnetometry Visualized. All rights reserved.</p>
+    </footer>
+
+
+<script>
+// --- Hero Section 3D Visualization ---
+const heroCanvas = document.getElementById('hero-canvas');
+if (heroCanvas) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    heroCanvas.appendChild(renderer.domElement);
+
+    const sphereGeometry = new THREE.SphereGeometry(1.5, 32, 32);
+    const sphereMaterial = new THREE.MeshPhongMaterial({
+        color: 0x3b82f6,
+        shininess: 100,
+        specular: 0x222222,
+        transparent: true,
+        opacity: 0.8
+    });
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    scene.add(sphere);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0xffffff, 1);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+    const pointLight2 = new THREE.PointLight(0x9333ea, 0.7);
+    pointLight2.position.set(-5, -5, -2);
+    scene.add(pointLight2);
+
+    camera.position.z = 5;
+
+    const fieldLines = [];
+    const lineCount = 40;
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x9ca3af, transparent: true, opacity: 0.3 });
+
+    for (let i = 0; i < lineCount; i++) {
+        const phi = Math.random() * Math.PI;
+        const theta = Math.acos(2 * Math.random() - 1);
+        const r = 1.5;
+        
+        const startPoint = new THREE.Vector3(
+            r * Math.sin(theta) * Math.cos(phi),
+            r * Math.sin(theta) * Math.sin(phi),
+            r * Math.cos(theta)
+        );
+
+        const controlPoint1 = startPoint.clone().multiplyScalar(1.5 + Math.random() * 2).applyAxisAngle(new THREE.Vector3(Math.random(),Math.random(),Math.random()).normalize(), Math.PI/2);
+        const controlPoint2 = startPoint.clone().multiplyScalar(-1.5 - Math.random() * 2).applyAxisAngle(new THREE.Vector3(Math.random(),Math.random(),Math.random()).normalize(), -Math.PI/2);
+
+        const endPoint = startPoint.clone().multiplyScalar(-1);
+        
+        const path = new THREE.CatmullRomCurve3([startPoint, controlPoint1, controlPoint2, endPoint]);
+        
+        const segments = 100;
+        const geometry = new THREE.TubeGeometry(path, segments, 0.01, 8, false);
+        const line = new THREE.Mesh(geometry, lineMaterial);
+        
+        scene.add(line);
+        fieldLines.push(line);
+    }
+    
+    const clock = new THREE.Clock();
+
+    function animateHero() {
+        requestAnimationFrame(animateHero);
+        const delta = clock.getDelta();
+        sphere.rotation.y += 0.1 * delta;
+        renderer.render(scene, camera);
+    }
+    animateHero();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+}
+
+
+// --- Tab Functionality ---
+function changeTab(event, tabId) {
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => content.classList.add('hidden'));
+
+    const tabButtons = document.querySelectorAll('.tab-button');
+    tabButtons.forEach(button => button.classList.remove('active'));
+
+    document.getElementById(tabId).classList.remove('hidden');
+    event.currentTarget.classList.add('active');
+}
+
+// --- Interactive Visualizations ---
+
+// SQUID Viz
+const squidViz = document.getElementById('squid-viz');
+if (squidViz) {
+    const ns = "http://www.w3.org/2000/svg";
+    const ring = document.createElementNS(ns, "circle");
+    ring.setAttribute('cx', 50);
+    ring.setAttribute('cy', 50);
+    ring.setAttribute('r', 30);
+    ring.setAttribute('fill', 'none');
+    ring.setAttribute('stroke', '#60a5fa');
+    ring.setAttribute('stroke-width', 2);
+    squidViz.appendChild(ring);
+
+    const junction1 = document.createElementNS(ns, "rect");
+    junction1.setAttribute('x', 47);
+    junction1.setAttribute('y', 15);
+    junction1.setAttribute('width', 6);
+    junction1.setAttribute('height', 10);
+    junction1.setAttribute('fill', '#9333ea');
+    squidViz.appendChild(junction1);
+    
+    const fluxLine = document.createElementNS(ns, "path");
+    fluxLine.setAttribute('fill', 'none');
+    fluxLine.setAttribute('stroke', '#a78bfa');
+    fluxLine.setAttribute('stroke-width', 1.5);
+    squidViz.appendChild(fluxLine);
+
+    const text = document.createElementNS(ns, "text");
+    text.setAttribute('x', 50);
+    text.setAttribute('y', 55);
+    text.setAttribute('fill', '#e5e5e5');
+    text.setAttribute('font-size', '6');
+    text.setAttribute('text-anchor', 'middle');
+    squidViz.appendChild(text);
+
+    let fluxAngle = 0;
+    function animateSquid() {
+        const fluxStrength = (Math.sin(fluxAngle) + 1.2) * 15;
+        const d = `M 50,${50-fluxStrength} Q ${50 + fluxStrength/2},50 50,${50+fluxStrength}`;
+        fluxLine.setAttribute('d', d);
+        fluxLine.setAttribute('stroke-dasharray', `${fluxStrength/2}, 5`);
+        text.textContent = `Flux: ${(fluxStrength/2).toFixed(2)} Φ₀`;
+        fluxAngle += 0.02;
+        requestAnimationFrame(animateSquid);
+    }
+    animateSquid();
+}
+
+// Fluxgate Viz
+const fluxgateViz = document.getElementById('fluxgate-viz');
+if(fluxgateViz) {
+    const ns = "http://www.w3.org/2000/svg";
+    const core = document.createElementNS(ns, "rect");
+    core.setAttribute('x', 20); core.setAttribute('y', 45);
+    core.setAttribute('width', 60); core.setAttribute('height', 10);
+    core.setAttribute('fill', '#4b5563'); core.setAttribute('rx', 2);
+    fluxgateViz.appendChild(core);
+
+    const senseCoil = document.createElementNS(ns, "path");
+    senseCoil.setAttribute('d', 'M 25 35 C 25 25, 35 25, 35 35 V 65 C 35 75, 25 75, 25 65 Z M 45 35 C 45 25, 55 25, 55 35 V 65 C 55 75, 45 75, 45 65 Z M 65 35 C 65 25, 75 25, 75 35 V 65 C 75 75, 65 75, 65 65 Z');
+    senseCoil.setAttribute('fill', 'none');
+    senseCoil.setAttribute('stroke', '#60a5fa');
+    senseCoil.setAttribute('stroke-width', 1);
+    fluxgateViz.appendChild(senseCoil);
+    
+    const extField = document.createElementNS(ns, "path");
+    extField.setAttribute('stroke', '#9333ea');
+    extField.setAttribute('stroke-width', 1.5);
+    extField.setAttribute('fill', 'none');
+    extField.setAttribute('marker-end', 'url(#arrow)');
+    fluxgateViz.appendChild(extField);
+
+    let drivePhase = 0;
+    function animateFluxgate() {
+        drivePhase += 0.05;
+        const saturation = Math.sin(drivePhase);
+        const externalB = 0.3; // Simulate external field
+        const effectiveSaturation = saturation + externalB;
+        core.style.opacity = 0.5 + Math.abs(effectiveSaturation) * 0.5;
+        
+        const fieldY = 20;
+        const fieldStrength = 10 * effectiveSaturation;
+        extField.setAttribute('d', `M 30,${fieldY} H 70`);
+        extField.style.strokeDasharray = `${5 + fieldStrength}, 5`;
+        requestAnimationFrame(animateFluxgate);
+    }
+    animateFluxgate();
+}
+
+
+// PPM Viz
+const ppmViz = document.getElementById('ppm-viz');
+if (ppmViz) {
+    const ns = "http://www.w3.org/2000/svg";
+    const proton = document.createElementNS(ns, "circle");
+    proton.setAttribute('cx', 50); proton.setAttribute('cy', 50);
+    proton.setAttribute('r', 5); proton.setAttribute('fill', '#60a5fa');
+    ppmViz.appendChild(proton);
+    
+    const spinAxis = document.createElementNS(ns, "line");
+    spinAxis.setAttribute('stroke', '#a78bfa'); spinAxis.setAttribute('stroke-width', 1);
+    ppmViz.appendChild(spinAxis);
+    
+    const precessionPath = document.createElementNS(ns, "ellipse");
+    precessionPath.setAttribute('cx', 50); precessionPath.setAttribute('cy', 50);
+    precessionPath.setAttribute('rx', 25); precessionPath.setAttribute('ry', 10);
+    precessionPath.setAttribute('fill', 'none');
+    precessionPath.setAttribute('stroke', '#4b5563');
+    precessionPath.setAttribute('stroke-dasharray', '2 2');
+    ppmViz.appendChild(precessionPath);
+
+    let angle = 0;
+    function animatePPM() {
+        angle += 0.04;
+        const x = 50 + 25 * Math.cos(angle);
+        const y = 50 + 10 * Math.sin(angle);
+        spinAxis.setAttribute('x1', 50); spinAxis.setAttribute('y1', 50);
+        spinAxis.setAttribute('x2', x); spinAxis.setAttribute('y2', y - 10); // Tilt
+        proton.setAttribute('cx', x);
+        proton.setAttribute('cy', y);
+        requestAnimationFrame(animatePPM);
+    }
+    animatePPM();
+}
+
+// Hall Effect Viz
+const hallViz = document.getElementById('hall-viz');
+if (hallViz) {
+    const ns = "http://www.w3.org/2000/svg";
+    const plate = document.createElementNS(ns, "rect");
+    plate.setAttribute('x', 20); plate.setAttribute('y', 30);
+    plate.setAttribute('width', 60); plate.setAttribute('height', 40);
+    plate.setAttribute('fill', 'rgba(75, 85, 99, 0.5)');
+    plate.setAttribute('stroke', '#6b7280');
+    hallViz.appendChild(plate);
+
+    const electrons = [];
+    for (let i = 0; i < 5; i++) {
+        const electron = document.createElementNS(ns, "circle");
+        electron.setAttribute('r', 2);
+        electron.setAttribute('fill', '#60a5fa');
+        hallViz.appendChild(electron);
+        electrons.push({el: electron, x: 20 + i * 15, y: 50 });
+    }
+    
+    const vhText = document.createElementNS(ns, "text");
+    vhText.setAttribute('x', 50); vhText.setAttribute('y', 85);
+    vhText.setAttribute('fill', '#e5e5e5');
+    vhText.setAttribute('font-size', '6');
+    vhText.setAttribute('text-anchor', 'middle');
+    hallViz.appendChild(vhText);
+
+    let time = 0;
+    function animateHall() {
+        time += 0.02;
+        const bField = Math.sin(time) * 0.5 + 0.5; // Simulate varying B field
+        plate.style.opacity = 0.5 + bField * 0.5;
+        
+        electrons.forEach(e => {
+            e.x += 0.5;
+            if (e.x > 80) e.x = 20;
+            
+            const deflection = bField * 10;
+            e.el.setAttribute('cx', e.x);
+            e.el.setAttribute('cy', 50 - deflection);
+        });
+        
+        const hallVoltage = bField * 15;
+        vhText.textContent = `Hall Voltage (V_H): ${hallVoltage.toFixed(2)} mV`;
+        requestAnimationFrame(animateHall);
+    }
+    animateHall();
+}
+
+
+// Optical Magnetometry Viz
+const opticalViz = document.getElementById('optical-viz');
+const bFieldSlider = document.getElementById('b-field-slider');
+if (opticalViz && bFieldSlider) {
+    const ns = "http://www.w3.org/2000/svg";
+    const atoms = [];
+    
+    const probeLaser = document.createElementNS(ns, 'line');
+    probeLaser.setAttribute('x1', 250); probeLaser.setAttribute('y1', 100);
+    probeLaser.setAttribute('x2', 400); probeLaser.setAttribute('y2', 100);
+    probeLaser.setAttribute('stroke', '#f87171');
+    probeLaser.setAttribute('stroke-width', '2');
+    opticalViz.appendChild(probeLaser);
+    
+    const polarizationLine = document.createElementNS(ns, 'line');
+    polarizationLine.setAttribute('stroke', '#f87171');
+    polarizationLine.setAttribute('stroke-width', '2');
+    opticalViz.appendChild(polarizationLine);
+
+    for (let i = 0; i < 5; i++) {
+        const g = document.createElementNS(ns, "g");
+        const circle = document.createElementNS(ns, 'circle');
+        circle.setAttribute('r', 4);
+        circle.setAttribute('fill', '#9333ea');
+        g.appendChild(circle);
+
+        const arrow = document.createElementNS(ns, 'line');
+        arrow.setAttribute('x1', 0); arrow.setAttribute('y1', 0);
+        arrow.setAttribute('x2', 0); arrow.setAttribute('y2', -10);
+        arrow.setAttribute('stroke', '#e5e5e5');
+        arrow.setAttribute('stroke-width', 1);
+        g.appendChild(arrow);
+        opticalViz.appendChild(g);
+        atoms.push({
+            el: g,
+            x: 100 + i * 30,
+            y: 100,
+            phase: i * (Math.PI / 3)
+        });
+    }
+    
+    const pumpLaser = document.createElementNS(ns, 'line');
+    pumpLaser.setAttribute('x1', 0); pumpLaser.setAttribute('y1', 100);
+    pumpLaser.setAttribute('x2', 80); pumpLaser.setAttribute('y2', 100);
+    pumpLaser.setAttribute('stroke', '#60a5fa');
+    pumpLaser.setAttribute('stroke-width', '2');
+    opticalViz.appendChild(pumpLaser);
+    
+    let opticalAngle = 0;
+    function animateOptical() {
+        const bField = parseFloat(bFieldSlider.value);
+        opticalAngle += 0.02 * bField;
+
+        atoms.forEach(atom => {
+            const currentAngle = opticalAngle + atom.phase;
+            const arrowX = 10 * Math.sin(currentAngle);
+            const arrowY = -10 * Math.cos(currentAngle);
+            const scale = 0.5 + (Math.cos(currentAngle) + 1) / 4;
+            atom.el.querySelector('line').setAttribute('x2', arrowX);
+            atom.el.querySelector('line').setAttribute('y2', arrowY);
+            atom.el.setAttribute('transform', `translate(${atom.x}, ${atom.y}) scale(${scale})`);
+        });
+        
+        const polarizationAngle = opticalAngle * 0.1; // Exaggerated rotation
+        const polX = 15 * Math.sin(polarizationAngle);
+        const polY = 15 * Math.cos(polarizationAngle);
+        polarizationLine.setAttribute('x1', 325 - polX);
+        polarizationLine.setAttribute('y1', 100 + polY);
+        polarizationLine.setAttribute('x2', 325 + polX);
+        polarizationLine.setAttribute('y2', 100 - polY);
+
+
+        requestAnimationFrame(animateOptical);
+    }
+    animateOptical();
+}
+
+
+// AI Viz
+const aiViz = document.getElementById('ai-viz');
+const processBtn = document.getElementById('process-btn');
+if (aiViz && processBtn) {
+    const ns = "http://www.w3.org/2000/svg";
+    const rawPath = document.createElementNS(ns, 'path');
+    rawPath.setAttribute('fill', 'none');
+    rawPath.setAttribute('stroke', '#f87171');
+    rawPath.setAttribute('stroke-width', 1);
+    aiViz.appendChild(rawPath);
+
+    const cleanPath = document.createElementNS(ns, 'path');
+    cleanPath.setAttribute('fill', 'none');
+    cleanPath.setAttribute('stroke', '#4ade80');
+    cleanPath.setAttribute('stroke-width', 1.5);
+    cleanPath.setAttribute('stroke-dasharray', '500');
+    cleanPath.setAttribute('stroke-dashoffset', '500');
+    aiViz.appendChild(cleanPath);
+    
+    const box = document.createElementNS(ns, 'rect');
+    box.setAttribute('x', 175); box.setAttribute('y', 50);
+    box.setAttribute('width', 50); box.setAttribute('height', 50);
+    box.setAttribute('rx', 5);
+    box.setAttribute('fill', 'rgba(96, 165, 250, 0.2)');
+    box.setAttribute('stroke', '#60a5fa');
+    aiViz.appendChild(box);
+    
+    const boxText = document.createElementNS(ns, "text");
+    boxText.textContent = "AI";
+    boxText.setAttribute('x', 200); boxText.setAttribute('y', 80);
+    boxText.setAttribute('fill', '#e5e5e5');
+    boxText.setAttribute('font-size', '12');
+    boxText.setAttribute('text-anchor', 'middle');
+    aiViz.appendChild(boxText);
+
+    let aiTime = 0;
+    function generateSignal(isClean = false) {
+        let d = "M 20 75";
+        for (let x = 20; x <= 380; x++) {
+            let y_base = 75 - 20 * Math.sin((x / 50) + aiTime); // Base signal
+            let y_noise = isClean ? 0 : 10 * Math.sin((x / 10) + aiTime*3) * Math.random(); // Noise
+            let y_anomaly = (x > 180 && x < 220) ? -15 * Math.exp(-Math.pow(x - 200, 2) / 200) : 0; // Anomaly
+            d += ` L ${x} ${y_base + y_noise + y_anomaly}`;
+        }
+        return d;
+    }
+    
+    processBtn.addEventListener('click', () => {
+        cleanPath.style.transition = 'stroke-dashoffset 2s ease-in-out';
+        cleanPath.setAttribute('stroke-dashoffset', '0');
+        setTimeout(() => {
+            cleanPath.style.transition = 'none';
+            cleanPath.setAttribute('stroke-dashoffset', '500');
+        }, 2500);
+    });
+
+    function animateAI() {
+        aiTime += 0.01;
+        rawPath.setAttribute('d', generateSignal(false));
+        cleanPath.setAttribute('d', generateSignal(true));
+        requestAnimationFrame(animateAI);
+    }
+    animateAI();
+}
+
+
+</script>
+</body>
+</html>
