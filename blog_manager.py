@@ -9,6 +9,7 @@ Usage:
     python blog_manager.py edit         # Edit existing post
     python blog_manager.py remove       # Remove post
     python blog_manager.py preview      # Preview post
+    python blog_manager.py validate     # Validate all posts for consistency
 """
 
 import os
@@ -31,9 +32,68 @@ class BlogManager:
         self.posts_dir.mkdir(exist_ok=True)
         
         # Common categories and tags for suggestions
-        self.common_categories = ["research", "personal", "technical", "music", "physics", "ai"]
+        self.common_categories = ["research", "personal", "technical", "music", "physics", "ai", "philosophy", "creativity"]
         self.common_tags = ["quantum computing", "machine learning", "physics", "ai", "music", 
-                           "poetry", "mathematics", "programming", "research", "philosophy"]
+                           "poetry", "mathematics", "programming", "research", "philosophy", "art", "creativity", "future"]
+    
+    def create_frontmatter(self, data):
+        """Create properly formatted frontmatter matching existing posts."""
+        lines = ['---']
+        lines.append(f'layout: {data["layout"]}')
+        lines.append(f'title: "{data["title"]}"')
+        lines.append(f'date: {data["date"]}')
+        
+        # Format categories as inline array
+        if data["categories"]:
+            categories_str = "[" + ", ".join(data["categories"]) + "]"
+            lines.append(f'categories: {categories_str}')
+        
+        # Format tags as inline array
+        if data["tags"]:
+            tags_str = "[" + ", ".join(data["tags"]) + "]"
+            lines.append(f'tags: {tags_str}')
+        
+        lines.append(f'excerpt: "{data["excerpt"]}"')
+        lines.append(f'reading_time: {data["reading_time"]}')
+        lines.append('---')
+        return '\n'.join(lines)
+    
+    def validate_post_data(self, title, categories, tags, excerpt, date_input):
+        """Validate post data for common issues."""
+        issues = []
+        
+        # Check for common typos in categories
+        typo_fixes = {
+            "philosphy": "philosophy",
+            "tecnical": "technical",
+            "reseach": "research"
+        }
+        
+        fixed_categories = []
+        for cat in categories:
+            if cat in typo_fixes:
+                print(f"Warning: '{cat}' corrected to '{typo_fixes[cat]}'")
+                fixed_categories.append(typo_fixes[cat])
+            else:
+                fixed_categories.append(cat)
+        
+        # Check date is not in future (more than 1 day)
+        try:
+            post_date = datetime.strptime(date_input.split()[0], "%Y-%m-%d")
+            if post_date.date() > datetime.now().date():
+                print(f"Warning: Post date {post_date.date()} is in the future. Consider using current date.")
+        except:
+            pass
+        
+        # Check title length
+        if len(title) > 80:
+            issues.append("Title is quite long (>80 chars). Consider shortening for better display.")
+        
+        # Check excerpt length
+        if len(excerpt) > 200:
+            issues.append("Excerpt is quite long (>200 chars). Consider shortening for better display.")
+        
+        return fixed_categories, issues
     
     def slugify(self, title: str) -> str:
         """Convert title to URL-friendly slug."""
@@ -294,8 +354,22 @@ class BlogManager:
         reading_time_input = input(f"\nReading time (press enter for auto-calculated {auto_reading_time} min): ").strip()
         reading_time = int(reading_time_input) if reading_time_input.isdigit() else auto_reading_time
         
-        # Create frontmatter
-        frontmatter = {
+        # Validate post data and fix common issues
+        categories, validation_issues = self.validate_post_data(title, categories, tags, excerpt, date_input)
+        
+        # Show validation issues if any
+        if validation_issues:
+            print("\nValidation warnings:")
+            for issue in validation_issues:
+                print(f"  - {issue}")
+            
+            proceed = input("\nProceed anyway? (y/n): ").strip().lower()
+            if proceed != 'y':
+                print("Post creation cancelled.")
+                return
+        
+        # Create frontmatter data
+        frontmatter_data = {
             'layout': 'post',
             'title': title,
             'date': date_input,
@@ -305,14 +379,16 @@ class BlogManager:
             'reading_time': reading_time
         }
         
-        # Write post file
+        # Write post file with proper formatting
         with open(post_path, 'w', encoding='utf-8') as f:
-            f.write('---\n')
-            yaml.dump(frontmatter, f, default_flow_style=False, allow_unicode=True)
-            f.write('---\n\n')
+            f.write(self.create_frontmatter(frontmatter_data))
+            f.write('\n\n')
             f.write(content)
         
         print(f"\n✓ Post created: {filename}")
+        print(f"✓ Format: Matches existing Jekyll post structure")
+        print(f"✓ Categories: {', '.join(categories)}")
+        print(f"✓ Tags: {', '.join(tags)}")
     
     def edit_post(self):
         """Edit an existing blog post."""
@@ -459,13 +535,14 @@ class BlogManager:
                 if old_path.exists() and old_path != selected_post['path']:
                     old_path.unlink()  # Remove old file if renamed
                 
+                # Use proper frontmatter formatting
                 with open(selected_post['path'], 'w', encoding='utf-8') as f:
-                    f.write('---\n')
-                    yaml.dump(selected_post['frontmatter'], f, default_flow_style=False, allow_unicode=True)
-                    f.write('---\n\n')
+                    f.write(self.create_frontmatter(selected_post['frontmatter']))
+                    f.write('\n\n')
                     f.write(selected_post['content'])
                 
                 print(f"✓ Post saved: {selected_post['path'].name}")
+                print(f"✓ Format: Updated to match Jekyll standards")
                 break
             
             elif choice == "0":
@@ -501,6 +578,74 @@ class BlogManager:
         else:
             print("Deletion cancelled")
     
+    def validate_all_posts(self):
+        """Validate all blog posts for formatting and consistency."""
+        print("\n" + "="*60)
+        print("BLOG VALIDATION REPORT")
+        print("="*60)
+        
+        posts = []
+        for post_file in self.posts_dir.glob("*.md"):
+            post_data = self.parse_post(post_file)
+            if post_data:
+                posts.append(post_data)
+        
+        if not posts:
+            print("No blog posts found.")
+            return
+        
+        issues_found = 0
+        
+        for post in posts:
+            post_issues = []
+            frontmatter = post['frontmatter']
+            
+            # Check required fields
+            required_fields = ['layout', 'title', 'date', 'categories', 'tags', 'excerpt']
+            for field in required_fields:
+                if field not in frontmatter:
+                    post_issues.append(f"Missing required field: {field}")
+            
+            # Check field types
+            if 'categories' in frontmatter and not isinstance(frontmatter['categories'], list):
+                post_issues.append("Categories should be a list")
+            
+            if 'tags' in frontmatter and not isinstance(frontmatter['tags'], list):
+                post_issues.append("Tags should be a list")
+            
+            # Check for common typos
+            if 'categories' in frontmatter:
+                for cat in frontmatter['categories']:
+                    if cat == "philosphy":
+                        post_issues.append("Typo in category: 'philosphy' should be 'philosophy'")
+            
+            # Check date format
+            try:
+                if 'date' in frontmatter:
+                    date_str = str(frontmatter['date'])
+                    post_date = datetime.strptime(date_str.split()[0], "%Y-%m-%d")
+                    if post_date.date() > datetime.now().date():
+                        post_issues.append(f"Future date: {post_date.date()}")
+            except:
+                post_issues.append("Invalid date format")
+            
+            # Report issues for this post
+            if post_issues:
+                issues_found += len(post_issues)
+                print(f"\n📄 {post['filename']}")
+                for issue in post_issues:
+                    print(f"  ❌ {issue}")
+            else:
+                print(f"✅ {post['filename']}")
+        
+        print(f"\n" + "="*60)
+        if issues_found == 0:
+            print("🎉 All posts are properly formatted!")
+        else:
+            print(f"⚠️  Found {issues_found} issues across {len([p for p in posts if any([True for issue in []])])} posts")
+            print("Use 'python blog_manager.py edit' to fix issues")
+        print("="*60)
+
     def preview_post(self):
         """Preview a blog post."""
         posts = self.list_posts()
@@ -544,6 +689,8 @@ def main():
         blog_manager.remove_post()
     elif command == "preview":
         blog_manager.preview_post()
+    elif command == "validate":
+        blog_manager.validate_all_posts()
     else:
         print(f"Unknown command: {command}")
         print(__doc__)

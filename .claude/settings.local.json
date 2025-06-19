@@ -16,7 +16,8 @@
       "Bash(git config:*)",
       "Bash(git commit:*)",
       "Bash(git pull:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(python:*)"
     ],
     "deny": []
   }
