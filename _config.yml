@@ -12,6 +12,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-paginate
 
 # Kramdown settings
 kramdown:
@@ -38,10 +39,12 @@ defaults:
     values:
       layout: "post"
       author: "Manas Pandey"
+      image: "/assets/og-image.jpg"
   - scope:
       path: ""
     values:
       layout: "default"
+      image: "/assets/og-image.jpg"
 
 # Site settings
 author:
@@ -50,11 +53,43 @@ author:
   github: "manasp21"
   linkedin: "themanaspandey"
 
+# SEO settings
+lang: en_US
+timezone: Asia/Kolkata
+locale: en_US
+
+# Social media profiles
+social:
+  name: "Manas Pandey"
+  links:
+    - https://github.com/manasp21
+    - https://linkedin.com/in/themanaspandey
+    - https://manasp21.github.io/poetry_website/
+
+# Organization
+organization:
+  name: "Indian Institute of Technology Kanpur"
+  url: "https://www.iitk.ac.in/"
+
+# SEO defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: "/assets/og-image.jpg"
+      author: "Manas Pandey"
+
 # Blog settings
 excerpt_separator: <!--more-->
 show_excerpts: true
 paginate: 10
 paginate_path: "/blog/page:num/"
+
+# SEO Plugin Configuration
+jekyll-sitemap:
+  priority: 1.0
+  changefreq: weekly
+  lastmod: true
 
 # Exclude from processing
 exclude:
@@ -69,3 +104,7 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - README.md
+  - .backups/
+  - "*.json"
+  - project_manager.py
+  - blog_manager.py

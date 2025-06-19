@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Block backup and cache directories
+Disallow: /.backups/
+Disallow: /.jekyll-cache/
+Disallow: /.sass-cache/
+Disallow: /_site/
+Disallow: /node_modules/
+Disallow: /vendor/
+
+# Allow important files
+Allow: /sitemap.xml
+Allow: /assets/
+Allow: /blog/
+Allow: /gallery/
+
+# Sitemap location
+Sitemap: https://manasp21.github.io/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
