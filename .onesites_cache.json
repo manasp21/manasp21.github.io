@@ -63,5 +63,44 @@
     "created_at": "2025-06-20T03:50:46.755203",
     "modified_at": "2025-06-20T03:50:56.165198",
     "cached_at": 1750371661.4097002
+  },
+  "one_page_websites/01.html": {
+    "number": 1,
+    "filename": "01.html",
+    "title": "The Fourth Pillar: AI in Science",
+    "description": "A comprehensive exploration of how AI is revolutionizing scientific research across multiple disciplines.",
+    "file_path": "one_page_websites/01.html",
+    "relative_path": "one_page_websites/01.html",
+    "file_size": 55377,
+    "file_mtime": 1750369832.9572544,
+    "created_at": "2025-06-19T22:01:47.306914",
+    "modified_at": "2025-06-19T21:50:32.957254",
+    "cached_at": 1750397602.2152607
+  },
+  "one_page_websites/02.html": {
+    "number": 2,
+    "filename": "02.html",
+    "title": "Magnetometry: An Interactive Exploration",
+    "description": "",
+    "file_path": "one_page_websites/02.html",
+    "relative_path": "one_page_websites/02.html",
+    "file_size": 36913,
+    "file_mtime": 1750373532.7463737,
+    "created_at": "2025-06-19T22:52:12.746374",
+    "modified_at": "2025-06-19T22:52:12.746374",
+    "cached_at": 1750397602.2234752
+  },
+  "one_page_websites/03.html": {
+    "number": 3,
+    "filename": "03.html",
+    "title": "Optical Magnetometry: An Interactive Guide",
+    "description": "An interactive guide to understanding magnetometry principles and applications.",
+    "file_path": "one_page_websites/03.html",
+    "relative_path": "one_page_websites/03.html",
+    "file_size": 35692,
+    "file_mtime": 1750371656.165198,
+    "created_at": "2025-06-19T22:21:05.571826",
+    "modified_at": "2025-06-19T22:20:56.165198",
+    "cached_at": 1750397602.23643
   }
 }

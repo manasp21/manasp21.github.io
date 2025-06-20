@@ -8,6 +8,7 @@ Usage:
     python onesite_manager.py list              # Show all detected sites
     python onesite_manager.py update            # Update metadata for all sites
     python onesite_manager.py generate          # Generate HTML section for main website
+    python onesite_manager.py descriptions      # Manage custom descriptions interactively
     python onesite_manager.py validate          # Validate all sites and configurations
 """
 
@@ -45,18 +46,7 @@ class TitleExtractor(HTMLParser):
         if self.in_title:
             self.title += data.strip()
 
-class DescriptionExtractor(HTMLParser):
-    """HTML parser to extract meta description from HTML files."""
-    
-    def __init__(self):
-        super().__init__()
-        self.description = ""
-        
-    def handle_starttag(self, tag, attrs):
-        if tag.lower() == 'meta':
-            attr_dict = dict(attrs)
-            if attr_dict.get('name', '').lower() == 'description':
-                self.description = attr_dict.get('content', '')
+# Removed DescriptionExtractor class as descriptions are now managed interactively
 
 class OnesiteManager:
     def __init__(self):
@@ -94,10 +84,11 @@ class OnesiteManager:
                 "section_title": "One Page Websites",
                 "section_description": "Interactive explorations and specialized projects"
             },
+            "custom_descriptions": {},
             "metadata": {
                 "last_updated": None,
                 "total_sites": 0,
-                "version": "1.0.0"
+                "version": "2.0.0"
             }
         }
         
@@ -171,66 +162,45 @@ class OnesiteManager:
             print(f"Error extracting title from {file_path}: {e}")
             return f"Website {file_path.stem}"
     
-    def extract_description_from_html(self, file_path: Path) -> str:
-        """Extract meta description from HTML file."""
+    def get_custom_description(self, filename: str) -> str:
+        """Get custom description for a site from configuration."""
+        custom_descriptions = self.config.get('custom_descriptions', {})
+        return custom_descriptions.get(filename, '')
+    
+    def set_custom_description(self, filename: str, description: str):
+        """Set custom description for a site in configuration."""
+        if 'custom_descriptions' not in self.config:
+            self.config['custom_descriptions'] = {}
+        
+        self.config['custom_descriptions'][filename] = description.strip()
+        self.save_config()
+    
+    def prompt_for_description(self, site_title: str, filename: str, existing_description: str = '') -> str:
+        """Interactively prompt user for site description."""
+        print(f"\n{'='*60}")
+        print(f"Site: {site_title}")
+        print(f"File: {filename}")
+        if existing_description:
+            print(f"Current description: {existing_description}")
+        print(f"{'='*60}")
+        
+        prompt = "Enter description (or press Enter for no description): "
+        if existing_description:
+            prompt = "Enter new description (press Enter to keep current, type 'remove' to delete): "
+        
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
+            user_input = input(prompt).strip()
             
-            # Try to extract description using HTML parser
-            parser = DescriptionExtractor()
-            parser.feed(content)
-            
-            if parser.description:
-                return parser.description.strip()
-            
-            # Fallback: extract first meaningful paragraph from body content
-            # Remove script, style, and other non-content tags first
-            clean_content = re.sub(r'<script[^>]*>.*?</script>', '', content, flags=re.DOTALL | re.IGNORECASE)
-            clean_content = re.sub(r'<style[^>]*>.*?</style>', '', clean_content, flags=re.DOTALL | re.IGNORECASE)
-            clean_content = re.sub(r'<head[^>]*>.*?</head>', '', clean_content, flags=re.DOTALL | re.IGNORECASE)
-            
-            # Extract text from body content only
-            body_match = re.search(r'<body[^>]*>(.*?)</body>', clean_content, re.DOTALL | re.IGNORECASE)
-            if body_match:
-                body_content = body_match.group(1)
+            if existing_description and not user_input:
+                return existing_description
+            elif user_input.lower() == 'remove':
+                return ''
             else:
-                body_content = clean_content
-            
-            # Remove HTML tags and clean up text
-            text_content = re.sub(r'<[^>]+>', ' ', body_content)
-            text_content = re.sub(r'\s+', ' ', text_content).strip()
-            
-            # Look for the first substantial paragraph
-            paragraphs = text_content.split('\n')
-            for paragraph in paragraphs:
-                paragraph = paragraph.strip()
-                # Skip common unwanted content
-                if (len(paragraph) > 30 and 
-                    not paragraph.lower().startswith(('the ', 'a ', 'an ')) and
-                    '.' in paragraph and
-                    not any(skip in paragraph.lower() for skip in ['font-family', 'css', 'javascript', 'html', 'doctype'])):
-                    
-                    # Get first sentence or reasonable length
-                    sentences = paragraph.split('.')
-                    first_sentence = sentences[0].strip()
-                    if len(first_sentence) > 50:
-                        return first_sentence[:200] + ("..." if len(first_sentence) > 200 else ".")
-            
-            # Alternative: look for first text after headers
-            lines = text_content.split('\n')
-            for i, line in enumerate(lines):
-                line = line.strip()
-                if (len(line) > 40 and 
-                    not any(skip in line.lower() for skip in ['font-family', 'css', 'javascript', 'navigation', 'menu']) and
-                    '.' in line):
-                    return line[:200] + ("..." if len(line) > 200 else "")
-            
-            return "Interactive one-page website exploring specialized topics"
-            
-        except Exception as e:
-            print(f"Error extracting description from {file_path}: {e}")
-            return "Interactive one-page website"
+                return user_input
+                
+        except KeyboardInterrupt:
+            print("\nOperation cancelled.")
+            return existing_description if existing_description else ''
     
     def scan_onesites(self) -> List[Dict]:
         """Scan the one_page_websites directory for numbered HTML files."""
@@ -240,15 +210,15 @@ class OnesiteManager:
         
         sites = []
         
-        # Look for numbered HTML files (1.html, 2.html, etc.)
+        # Look for numbered HTML files (1.html, 2.html, 01.html, 02.html, etc.)
         for file_path in self.onesite_dir.glob("*.html"):
-            # Check if filename is a number
+            # Check if filename is a number (supports both 1.html and 01.html format)
             if re.match(r'^\d+\.html$', file_path.name):
                 site_data = self.get_site_data(file_path)
                 if site_data:
                     sites.append(site_data)
         
-        # Sort by number
+        # Sort by number (handle both 1.html and 01.html properly)
         sites.sort(key=lambda x: x['number'])
         return sites
     
@@ -271,11 +241,14 @@ class OnesiteManager:
             
             print(f"Extracting data for {file_path.name}...")
             
+            # Get custom description or empty string
+            custom_description = self.get_custom_description(file_path.name)
+            
             site_data = {
                 'number': number,
                 'filename': file_path.name,
                 'title': self.extract_title_from_html(file_path),
-                'description': self.extract_description_from_html(file_path),
+                'description': custom_description,
                 'file_path': str(file_path),
                 'relative_path': f"{self.onesite_dir.name}/{file_path.name}",
                 'file_size': file_stat.st_size,
@@ -319,6 +292,14 @@ class OnesiteManager:
         print("="*80)
         print(f"Total sites: {len(sites)}")
         print(f"Last updated: {self.config['metadata'].get('last_updated', 'Never')}")
+        
+        # Show description status
+        print("\nDescription Status:")
+        print("=" * 80)
+        custom_descriptions = self.config.get('custom_descriptions', {})
+        for site in sites:
+            desc_status = "Has description" if custom_descriptions.get(site['filename'], '').strip() else "No description"
+            print(f"{site['number']:<3} {site['filename']:<15} {desc_status}")
     
     def update_sites(self, force: bool = False):
         """Update metadata for all one-page websites."""
@@ -347,6 +328,82 @@ class OnesiteManager:
         self.save_config()
         
         print(f"\n✅ Updated {updated_count}/{len(sites)} sites successfully!")
+    
+    def manage_descriptions(self):
+        """Interactively manage descriptions for all one-page websites."""
+        sites = self.scan_onesites()
+        
+        if not sites:
+            print("No one-page websites found to manage descriptions for.")
+            return
+        
+        print(f"\n{'='*80}")
+        print("ONE-PAGE WEBSITES DESCRIPTION MANAGEMENT")
+        print(f"{'='*80}")
+        print(f"Found {len(sites)} sites. You can set custom descriptions for each.")
+        print("Tips: Press Enter for no description, type 'remove' to delete existing description.")
+        
+        updated_count = 0
+        
+        for site in sites:
+            current_description = self.get_custom_description(site['filename'])
+            new_description = self.prompt_for_description(
+                site['title'], 
+                site['filename'], 
+                current_description
+            )
+            
+            if new_description != current_description:
+                self.set_custom_description(site['filename'], new_description)
+                updated_count += 1
+                if new_description:
+                    print(f"  ✅ Description updated for {site['filename']}")
+                else:
+                    print(f"  ✅ Description removed for {site['filename']}")
+            else:
+                print(f"  → No changes for {site['filename']}")
+        
+        if updated_count > 0:
+            print(f"\n✅ Updated descriptions for {updated_count}/{len(sites)} sites!")
+            print("Run 'python onesite_manager.py generate' to update the main website.")
+        else:
+            print(f"\n→ No description changes made.")
+    
+    def scan_with_description_prompts(self):
+        """Scan for sites and prompt for descriptions for new ones."""
+        sites = self.scan_onesites()
+        
+        if not sites:
+            print("No one-page websites found.")
+            return []
+        
+        print(f"\nFound {len(sites)} one-page websites.")
+        
+        new_sites = []
+        for site in sites:
+            existing_description = self.get_custom_description(site['filename'])
+            if not existing_description and 'custom_descriptions' in self.config:
+                # This is a new site without a description set
+                new_sites.append(site)
+        
+        if new_sites:
+            print(f"\nFound {len(new_sites)} new sites without descriptions.")
+            print("Would you like to set descriptions for them? (y/n): ", end='')
+            
+            try:
+                response = input().strip().lower()
+                if response in ['y', 'yes']:
+                    for site in new_sites:
+                        description = self.prompt_for_description(site['title'], site['filename'])
+                        self.set_custom_description(site['filename'], description)
+                        if description:
+                            print(f"  ✅ Description set for {site['filename']}")
+                        else:
+                            print(f"  → No description set for {site['filename']}")
+            except KeyboardInterrupt:
+                print("\nOperation cancelled.")
+        
+        return sites
     
     def generate_html_section(self) -> str:
         """Generate HTML section for the main website."""
@@ -380,13 +437,17 @@ class OnesiteManager:
     
     def generate_site_card(self, site: Dict) -> str:
         """Generate HTML card for a single one-page website."""
+        # Only include description element if description exists and is not empty
+        description_html = ''
+        if site['description'] and site['description'].strip():
+            description_html = f'                        <p class="onesite-card-description">{site["description"]}</p>\n'
+        
         return f"""                    <div class="onesite-card">
                         <div class="onesite-header">
                             <h3 class="onesite-name">{site['title']}</h3>
                             <span class="onesite-number">#{site['number']}</span>
                         </div>
-                        <p class="onesite-card-description">{site['description']}</p>
-                        <div class="onesite-links">
+{description_html}                        <div class="onesite-links">
                             <a href="{site['relative_path']}" target="_blank" class="onesite-link">Launch →</a>
                         </div>
                     </div>"""
@@ -482,8 +543,8 @@ def main():
     command = sys.argv[1].lower()
     
     if command == 'scan':
-        sites = manager.scan_onesites()
-        print(f"Found {len(sites)} one-page websites")
+        sites = manager.scan_with_description_prompts()
+        print(f"Scan complete. Found {len(sites)} one-page websites.")
         
     elif command == 'list':
         manager.list_sites()
@@ -494,6 +555,9 @@ def main():
         
     elif command == 'generate':
         manager.generate_index_page()
+        
+    elif command == 'descriptions':
+        manager.manage_descriptions()
         
     elif command == 'validate':
         manager.validate_sites()
