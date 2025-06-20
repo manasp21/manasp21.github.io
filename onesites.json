@@ -7,9 +7,17 @@
     "section_description": "Interactive explorations on various topics that interest me."
   },
   "metadata": {
-    "last_updated": "2025-06-20T23:16:16.498364",
-    "total_sites": 6,
+    "last_updated": "2025-06-21T00:32:03.217406",
+    "total_sites": 7,
     "version": "1.0.0"
   },
-  "custom_descriptions": {}
+  "custom_descriptions": {
+    "01.html": "",
+    "02.html": "",
+    "03.html": "",
+    "04.html": "",
+    "05.html": "",
+    "06.html": "",
+    "07.html": ""
+  }
 }

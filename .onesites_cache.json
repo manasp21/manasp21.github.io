@@ -59,10 +59,10 @@
     "file_path": "one_page_websites\\01.html",
     "relative_path": "one_page_websites/01.html",
     "file_size": 55377,
-    "file_mtime": 1750369832.9572544,
+    "file_mtime": 1750444455.1505609,
     "created_at": "2025-06-20T02:36:02.405592",
-    "modified_at": "2025-06-20T03:20:32.957254",
-    "cached_at": 1750405819.0259225
+    "modified_at": "2025-06-21T00:04:15.150561",
+    "cached_at": 1750446076.610839
   },
   "one_page_websites\\02.html": {
     "number": 2,
@@ -141,5 +141,18 @@
     "created_at": "2025-06-20T23:15:31.542035",
     "modified_at": "2025-06-20T23:15:34.571926",
     "cached_at": 1750441552.8842494
+  },
+  "one_page_websites\\07.html": {
+    "number": 7,
+    "filename": "07.html",
+    "title": "The Karamazov Question: A Philosophical Exploration",
+    "description": "",
+    "file_path": "one_page_websites\\07.html",
+    "relative_path": "one_page_websites/07.html",
+    "file_size": 37242,
+    "file_mtime": 1750446071.28835,
+    "created_at": "2025-06-21T00:31:04.134062",
+    "modified_at": "2025-06-21T00:31:11.288350",
+    "cached_at": 1750446076.614844
   }
 }

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Karamazov Question: A Philosophical Exploration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'EB Garamond', serif;
+            background-color: #fdfaf3;
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d2c8b3" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            color: #2a1a0c;
+        }
+
+        h1, h2, h3, .font-cinzel {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+        }
+
+        .book-cover {
+            background: linear-gradient(rgba(42, 26, 12, 0.8), rgba(42, 26, 12, 0.8)), url(https://images.unsplash.com/photo-1620361257933-25ade77395d6?q=80&w=2574&auto=format&fit=crop) center/cover;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2), inset 0 0 0 10px rgba(243, 225, 188, 0.1);
+            border: 1px solid rgba(243, 225, 188, 0.3);
+        }
+
+        .chapter-title {
+            position: relative;
+            text-align: center;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .chapter-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 80px;
+            height: 2px;
+            background-image: linear-gradient(to right, #8c6f4b, #bda37e, #8c6f4b);
+        }
+        
+        .character-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fdfaf3; /* Explicitly set solid background color */
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            display: block;
+            margin-top: 5px;
+            right: 0;
+            background: #8c6f4b;
+            transition: width 0.3s ease;
+            -webkit-transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+            background: #8c6f4b;
+        }
+        
+        .inquisitor-section {
+            background: linear-gradient(rgba(10, 5, 2, 0.85), rgba(10, 5, 2, 0.85)), url(https://images.unsplash.com/photo-1506372023323-265a3d466188?q=80&w=2670&auto=format&fit=crop) center/cover fixed;
+            color: #fdfaf3;
+        }
+        
+        .temptation-card {
+             background-color: rgba(253, 250, 243, 0.05);
+             backdrop-filter: blur(5px);
+             border: 1px solid rgba(253, 250, 243, 0.1);
+             transition: all 0.3s ease;
+        }
+
+        .temptation-card:hover {
+            background-color: rgba(253, 250, 243, 0.1);
+            border-color: rgba(253, 250, 243, 0.3);
+            transform: scale(1.03);
+        }
+
+        .kiss-animation {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .onion-story div {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            position: absolute;
+            width: 100%;
+            left:0;
+            top:0;
+            padding: 1.5rem;
+        }
+
+        .onion-story div.active {
+            opacity: 1;
+        }
+
+        /* Web of Responsibility Visualization */
+        #responsibility-web-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+        }
+        
+        .node {
+            position: absolute;
+            background-color: #8c6f4b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 10;
+        }
+        
+        .node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(140, 111, 75, 0.7);
+        }
+
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 h-full w-64 bg-fdfaf3/80 backdrop-blur-sm shadow-lg p-8 z-40 hidden lg:flex flex-col">
+        <h3 class="font-cinzel text-xl text-amber-900 border-b-2 border-amber-800/20 pb-4 mb-8">Contents</h3>
+        <ul class="space-y-4">
+            <li><a href="#cover" class="nav-link text-amber-900 hover:text-amber-700">The Karamazov Question</a></li>
+            <li><a href="#archetypes" class="nav-link text-amber-900 hover:text-amber-700">The Soul's Architecture</a></li>
+            <li><a href="#inquisitor" class="nav-link text-amber-900 hover:text-amber-700">The Inquisitor's Gambit</a></li>
+            <li><a href="#morality" class="nav-link text-amber-900 hover:text-amber-700">The Moral Compass</a></li>
+            <li><a href="#psychology" class="nav-link text-amber-900 hover:text-amber-700">The Mind's Abyss</a></li>
+            <li><a href="#legacy" class="nav-link text-amber-900 hover:text-amber-700">The Echoes of Genius</a></li>
+        </ul>
+        <div class="mt-auto text-center text-xs text-amber-900/50">
+            <p>An interactive exploration of Dostoevsky's magnum opus.</p>
+        </div>
+    </nav>
+    
+    <main class="lg:ml-64">
+        <!-- Section 1: Book Cover Hero -->
+        <section id="cover" class="min-h-screen flex flex-col items-center justify-center text-white book-cover text-center p-8">
+            <h1 class="text-6xl md:text-8xl font-cinzel tracking-wider" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.7);">The Brothers Karamazov</h1>
+            <h2 class="text-2xl md:text-3xl mt-4 text-amber-100/80" style="text-shadow: 1px 1px 5px rgba(0,0,0,0.7);">A Philosophical & Psychological Analysis</h2>
+            <p class="mt-8 max-w-3xl text-lg text-amber-100/90 leading-relaxed">
+                A journey into the depths of faith, freedom, and the volatile architecture of the human soul.
+            </p>
+            <div class="mt-12 animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-100/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- Section 2: Karamazov Archetypes -->
+        <section id="archetypes" class="py-24 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-5xl chapter-title">The Soul's Architecture</h2>
+                <p class="text-center max-w-3xl mx-auto mb-16 text-lg leading-relaxed">
+                    The Karamazov family is a microcosm of humanity itself, a living battleground where the most profound questions of faith, reason, and morality are fought. Each member embodies a distinct philosophical and psychological position.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                    <!-- Character Cards -->
+                    <div class="character-card bg-white/50 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openModal('fyodor')">
+                        <img src="https://placehold.co/150x150/5a3d2b/fdfaf3?text=F" alt="Fyodor" class="mx-auto rounded-full w-32 h-32 border-4 border-amber-900/20 mb-4">
+                        <h3 class="font-cinzel text-2xl break-words">Fyodor</h3>
+                        <p class="text-amber-800 italic">The Buffoon</p>
+                    </div>
+                    <div class="character-card bg-white/50 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openModal('dmitri')">
+                        <img src="https://placehold.co/150x150/a63d40/fdfaf3?text=D" alt="Dmitri" class="mx-auto rounded-full w-32 h-32 border-4 border-amber-900/20 mb-4">
+                        <h3 class="font-cinzel text-2xl break-words">Dmitri</h3>
+                        <p class="text-amber-800 italic">The Sensualist</p>
+                    </div>
+                    <div class="character-card bg-white/50 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openModal('ivan')">
+                        <img src="https://placehold.co/150x150/465775/fdfaf3?text=I" alt="Ivan" class="mx-auto rounded-full w-32 h-32 border-4 border-amber-900/20 mb-4">
+                        <h3 class="font-cinzel text-2xl break-words">Ivan</h3>
+                        <p class="text-amber-800 italic">The Intellectual</p>
+                    </div>
+                    <div class="character-card bg-white/50 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openModal('alyosha')">
+                        <img src="https://placehold.co/150x150/f2e9e4/2a1a0c?text=A" alt="Alyosha" class="mx-auto rounded-full w-32 h-32 border-4 border-amber-900/20 mb-4">
+                        <h3 class="font-cinzel text-2xl break-words">Alyosha</h3>
+                        <p class="text-amber-800 italic">The Hero</p>
+                    </div>
+                     <div class="character-card bg-white/50 rounded-lg shadow-lg p-6 text-center cursor-pointer" onclick="openModal('smerdyakov')">
+                        <img src="https://placehold.co/150x150/6c757d/fdfaf3?text=S" alt="Smerdyakov" class="mx-auto rounded-full w-32 h-32 border-4 border-amber-900/20 mb-4">
+                        <h3 class="font-cinzel text-2xl break-words">Smerdyakov</h3>
+                        <p class="text-amber-800 italic">The Shadow</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Grand Inquisitor -->
+        <section id="inquisitor" class="py-24 px-6 md:px-12 inquisitor-section">
+            <div class="max-w-7xl mx-auto text-center">
+                 <h2 class="text-5xl chapter-title text-amber-100">The Inquisitor's Gambit</h2>
+                 <p class="text-center max-w-4xl mx-auto mb-8 text-lg leading-relaxed text-amber-100/90">
+                    Ivan Karamazov's prose poem, "The Grand Inquisitor," is the philosophical heart of the novel. It stages the ultimate debate between faith and doubt, freedom and happiness, through the three temptations Christ faced in the wilderness.
+                 </p>
+                 <blockquote class="border-l-4 border-amber-400 italic text-2xl max-w-3xl mx-auto my-12 p-4 text-amber-100/80">
+                    "If there is no God, everything is permitted."
+                 </blockquote>
+
+                 <h3 class="text-3xl font-cinzel mt-20 mb-12 text-amber-100">The Three Temptations</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                     <!-- Temptation Cards -->
+                     <div class="temptation-card rounded-lg p-8">
+                         <h4 class="text-2xl font-cinzel text-amber-200 mb-4">Bread & Security</h4>
+                         <p class="text-amber-100/80">The Inquisitor argues humanity will always follow the one who provides bread, trading spiritual freedom for earthly security. The Church, he boasts, has "corrected" Christ's work by feeding the masses, thus enslaving them through their own gratitude.</p>
+                     </div>
+                     <div class="temptation-card rounded-lg p-8">
+                         <h4 class="text-2xl font-cinzel text-amber-200 mb-4">Miracle & Certainty</h4>
+                         <p class="text-amber-100/80">Man craves not free faith, but certainty. The Church provides "miracle, mystery, and authority" to quell the anxieties of a free conscience, relieving humanity from the agony of choosing good and evil for themselves.</p>
+                     </div>
+                     <div class="temptation-card rounded-lg p-8">
+                         <h4 class="text-2xl font-cinzel text-amber-200 mb-4">Power & Unity</h4>
+                         <p class="text-amber-100/80">Humanity's greatest need is for "universal unity." Left free, humans create chaos. The Church has taken up the "sword of Caesar" to create a harmonious ant-heap, providing the order people crave more than freedom.</p>
+                     </div>
+                 </div>
+
+                 <div id="kiss-trigger" class="mt-24 max-w-3xl mx-auto">
+                    <h3 class="text-3xl font-cinzel mb-4 text-amber-100">The Silent Kiss</h3>
+                    <p class="text-lg leading-relaxed text-amber-100/90 mb-8">Faced with this powerful indictment, Christ offers no rebuttal. His only response is to softly kiss the Inquisitor on his bloodless lips—an act of free, uncoerced, forgiving love that bypasses the intellect entirely. It is Dostoevsky's silent "answer" to rationalism.</p>
+                    <div id="kiss" class="kiss-animation flex justify-center items-center h-32">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-amber-300" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Morality -->
+        <section id="morality" class="py-24 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-5xl chapter-title">The Moral Compass</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h3 class="text-3xl font-cinzel mb-4">Universal Responsibility</h3>
+                        <p class="text-lg leading-relaxed mb-6">As a counterpoint to Ivan's individualism, the elder Zosima presents a radical vision of human interconnectedness: <span class="font-bold italic">"everyone is really responsible to all men for all men and for everything."</span> In this worldview, there are no isolated sins. This responsibility is not a burden, but a joyful invitation to "active love"—a practical, selfless way of being that forms the very path to faith.</p>
+                        
+                        <h3 class="text-3xl font-cinzel mt-12 mb-4">The Parable of the Onion</h3>
+                        <div class="onion-story relative h-48 bg-amber-100/30 rounded-lg p-6 shadow-inner overflow-hidden">
+                            <div class="active" data-step="0"><p class="text-lg">Grushenka tells a folk tale of a wicked woman in a lake of fire. Her angel finds one good deed: she once gave an onion to a beggar.</p></div>
+                            <div data-step="1"><p class="text-lg">The angel holds out the onion to pull her out. But as other sinners cling to her, she kicks them away, crying, "It's my onion, not yours!"</p></div>
+                            <div data-step="2"><p class="text-lg">At that moment, the stalk breaks, and she falls back into the fire. A simple, profound lesson: salvation cannot be hoarded.</p></div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div id="responsibility-web-container" class="w-full">
+                             <!-- JS will generate the web here -->
+                        </div>
+                        <p class="text-lg italic text-amber-800/80 mt-4 text-center">"Hover over the souls to see their interconnected threads of responsibility and consequence."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Psychology -->
+        <section id="psychology" class="py-24 px-6 md:px-12 bg-gray-900 text-gray-200">
+             <div class="max-w-7xl mx-auto">
+                <h2 class="text-5xl chapter-title text-gray-100">The Mind's Abyss</h2>
+                <p class="text-center max-w-3xl mx-auto mb-16 text-lg leading-relaxed text-gray-300">
+                    Long before Freud, Dostoevsky was a master psychologist. The novel is a profound exploration of the unconscious, trauma, and guilt, with the specter of parricide serving as a perfect dramatization of the Oedipus complex.
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 text-center">
+                    <div class="bg-gray-800 p-8 rounded-lg">
+                        <h3 class="font-cinzel text-2xl text-red-300">The ID: Dmitri</h3>
+                        <p class="mt-2 text-gray-400">The passionate, sensual son, driven by raw instinct and desire. His conflict with Fyodor is the primal clash of libidinous energy.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-lg">
+                        <h3 class="font-cinzel text-2xl text-blue-300">The EGO: Ivan</h3>
+                        <p class="mt-2 text-gray-400">The rationalizing intellect, caught between instinct and morality. His philosophy provides the logical defense for the repressed desires of the family.</p>
+                    </div>
+                    <div class="bg-gray-800 p-8 rounded-lg">
+                        <h3 class="font-cinzel text-2xl text-yellow-200">The SUPEREGO: Alyosha</h3>
+                        <p class="mt-2 text-gray-400">The moral conscience of the family, embodying the ideals of faith and love learned from Father Zosima, striving to mediate the chaos.</p>
+                    </div>
+                </div>
+                <div class="mt-20 text-center">
+                    <h3 class="text-3xl font-cinzel mb-4 text-gray-100">The Wounded Child</h3>
+                    <p class="text-lg max-w-3xl mx-auto text-gray-300">The entire Karamazov tragedy is rooted in the trauma of childhood neglect. This primal wound shapes each brother's destiny. The antidote, Dostoevsky suggests, is found in Alyosha's final speech to the schoolboys:</p>
+                    <blockquote class="border-l-4 border-yellow-300 italic text-2xl max-w-3xl mx-auto my-8 p-4 text-gray-200">
+                        "There is nothing higher, or stronger... than some good memory, especially the memory from childhood... if a man carries many such memories with him into life, he is safe to the end of his days."
+                    </blockquote>
+                </div>
+             </div>
+        </section>
+
+        <!-- Section 6: Legacy -->
+        <section id="legacy" class="py-24 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-5xl chapter-title">The Echoes of Genius</h2>
+                <p class="text-center max-w-3xl mx-auto mb-16 text-lg leading-relaxed">
+                    *The Brothers Karamazov* became a foundational text for modernism and existentialism. Dostoevsky posed the "eternal questions" with such force that he became an inescapable touchstone for the great thinkers who followed.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="text-center">
+                         <img src="https://placehold.co/150x150/8d99ae/ffffff?text=Camus" alt="Albert Camus" class="mx-auto rounded-full w-40 h-40 border-4 border-amber-900/10 mb-4 shadow-lg">
+                        <h3 class="font-cinzel text-2xl">Albert Camus</h3>
+                        <p class="mt-2 text-lg text-amber-900/80">Saw in Ivan's rebellion the cry of the "absurd man" against a creation built on suffering, a key theme in his own philosophy.</p>
+                    </div>
+                     <div class="text-center">
+                         <img src="https://placehold.co/150x150/d8b4a0/ffffff?text=Sartre" alt="Jean-Paul Sartre" class="mx-auto rounded-full w-40 h-40 border-4 border-amber-900/10 mb-4 shadow-lg">
+                        <h3 class="font-cinzel text-2xl">Jean-Paul Sartre</h3>
+                        <p class="mt-2 text-lg text-amber-900/80">Declared Ivan's "everything is permitted" the "starting point" for his atheistic existentialism, where humanity is "condemned to be free."</p>
+                    </div>
+                     <div class="text-center">
+                         <img src="https://placehold.co/150x150/2b2d42/ffffff?text=Freud" alt="Sigmund Freud" class="mx-auto rounded-full w-40 h-40 border-4 border-amber-900/10 mb-4 shadow-lg">
+                        <h3 class="font-cinzel text-2xl">Sigmund Freud</h3>
+                        <p class="mt-2 text-lg text-amber-900/80">Called it "the most magnificent novel ever written," viewing the parricide as a supreme dramatization of the Oedipus complex.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="bg-gray-900 text-gray-400 p-8 text-center lg:ml-64">
+             <p>&copy; 2024. A Visual Companion to Fyodor Dostoevsky's Masterpiece.</p>
+        </footer>
+    </main>
+
+    <!-- Modal Structure -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-black bg-opacity-70 z-50 invisible opacity-0 modal" onclick="closeAllModals()"></div>
+    <div id="modal-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 invisible opacity-0">
+        <div id="fyodor-modal" class="modal-content hidden rounded-lg shadow-2xl max-w-3xl w-full p-8 relative transform scale-95 opacity-0" onclick="event.stopPropagation()"></div>
+        <div id="dmitri-modal" class="modal-content hidden rounded-lg shadow-2xl max-w-3xl w-full p-8 relative transform scale-95 opacity-0" onclick="event.stopPropagation()"></div>
+        <div id="ivan-modal" class="modal-content hidden rounded-lg shadow-2xl max-w-3xl w-full p-8 relative transform scale-95 opacity-0" onclick="event.stopPropagation()"></div>
+        <div id="alyosha-modal" class="modal-content hidden rounded-lg shadow-2xl max-w-3xl w-full p-8 relative transform scale-95 opacity-0" onclick="event.stopPropagation()"></div>
+        <div id="smerdyakov-modal" class="modal-content hidden rounded-lg shadow-2xl max-w-3xl w-full p-8 relative transform scale-95 opacity-0" onclick="event.stopPropagation()"></div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modal Data
+            const modalData = {
+                fyodor: {
+                    title: 'Fyodor: The Karamazov Force',
+                    content: `
+                        <p class="text-lg leading-relaxed mb-4">At the origin of the conflict stands Fyodor Pavlovich, a symbol of spiritual sickness. A "wicked and sentimental" buffoon, he is the fountainhead of the "Karamazov baseness"—an unbridled, amoral sensuality.</p>
+                        <p class="text-lg leading-relaxed mb-4">In psychoanalytic terms, he represents the unrestrained <strong>libido</strong>, the primal Id seeking pleasure without moral consequence. His life of debauchery and neglect of his children creates the corrupting spiritual inheritance his sons must confront.</p>
+                        <blockquote class="border-l-4 border-amber-800 italic p-4 my-4 bg-amber-100/30">His murder is not just a plot device; it is the philosophically necessary event that forces each son to confront his own complicity in the "Karamazov force."</blockquote>
+                    `
+                },
+                dmitri: {
+                    title: 'Dmitri: The Sensualist\'s Ascent',
+                    content: `
+                        <p class="text-lg leading-relaxed mb-4">The passionate, reckless eldest son, Dmitri is the most direct heir to the Karamazov sensuality. His life is a storm of emotion, torn between inherited debasement and a nascent sense of honor. He represents the passionate, fallen humanity, poised between indulgence and salvation.</p>
+                        <p class="text-lg leading-relaxed mb-4">His transformation comes through suffering. A dream of a starving baby—the "wee one"—awakens in him a universal compassion. The conviction for a crime he didn't commit becomes the vehicle for his redemption, as he accepts unjust suffering to atone for the sins he <em>did</em> commit.</p>
+                        <blockquote class="border-l-4 border-red-500 italic p-4 my-4 bg-red-100/30">A "new man" rises in him, ready to sing a "hymn" to God from the underground mines of Siberia. He embodies redemption through suffering.</blockquote>
+                    `
+                },
+                ivan: {
+                    title: 'Ivan: The Torment of the Intellect',
+                    content: `
+                        <p class="text-lg leading-relaxed mb-4">The brilliant, rational intellectual, Ivan embodies the spiritual crisis of his age. His rebellion against God is born from a profound moral outrage at the suffering of innocent children. He cannot accept a harmony built on the "unavenged tears" of a single tortured child and so "returns the ticket" to God's creation.</p>
+                        <p class="text-lg leading-relaxed mb-4">His philosophy, "if there is no God, everything is permitted," is not a cry of liberation but a tortured conclusion that drains the universe of morality. Whispered to Smerdyakov, his ideas become the license for murder, forcing Ivan to see that abstract philosophy has concrete, bloody consequences. This realization shatters his intellect, leading to brain fever and madness.</p>
+                        <blockquote class="border-l-4 border-blue-500 italic p-4 my-4 bg-blue-100/30">Pure reason, divorced from faith and love, becomes a sterile and self-destructive force.</blockquote>
+                    `
+                },
+                alyosha: {
+                    title: 'Alyosha: The Hero of Active Love',
+                    content: `
+                        <p class="text-lg leading-relaxed mb-4">The novel's "unconventional hero," Alyosha is the positive alternative to his brothers—a gentle, compassionate, realistic Christ-like figure. His path is not of intellectual debate but of "active love," a difficult, practical, and selfless way of being in the world learned from his mentor, Zosima.</p>
+                        <p class="text-lg leading-relaxed mb-4">His power lies in his empathy. His answer to Ivan's intellectual rebellion is not an argument but a silent kiss, an act of forgiving love. After a crisis of faith, he rises a "resolute fighter," creating a new community founded on the principle of active love and the power of good memories.</p>
+                        <blockquote class="border-l-4 border-yellow-500 italic p-4 my-4 bg-yellow-100/30">The solution to the problem of evil is found not in philosophy, but in the loving community formed around the memory of a suffering child.</blockquote>
+                    `
+                },
+                smerdyakov: {
+                    title: 'Smerdyakov: The Shadow of Ideas',
+                    content: `
+                        <p class="text-lg leading-relaxed mb-4">The dark shadow of the Karamazov family, Smerdyakov is the physical embodiment of its moral rot and resentment. He is Ivan's monstrous, practical double. He listens to Ivan's philosophy that "everything is permitted" not as a tragic problem, but as a simple license to act on his resentful desires.</p>
+                        <p class="text-lg leading-relaxed mb-4">After murdering Fyodor, he confronts Ivan, making it clear he was merely the instrument of Ivan's will. He proves that ideas are not harmless abstractions; they have real, bloody consequences. His suicide is the ultimate dead end of nihilism.</p>
+                        <blockquote class="border-l-4 border-gray-500 italic p-4 my-4 bg-gray-200/50">He is the ugly, practical truth of Ivan's beautiful, tragic theory.</blockquote>
+                    `
+                }
+            };
+
+            // Populate Modals with a close button and content
+            for (const key in modalData) {
+                const modal = document.getElementById(`${key}-modal`);
+                if (modal) {
+                    modal.innerHTML = `
+                        <button onclick="closeAllModals()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button>
+                        <h2 class="text-4xl font-cinzel mb-6">${modalData[key].title}</h2>
+                        ${modalData[key].content}
+                    `;
+                }
+            }
+
+            // Kiss Animation
+            const kissTrigger = document.getElementById('kiss-trigger');
+            const kissElement = document.getElementById('kiss');
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    kissElement.style.opacity = '1';
+                }
+            }, { threshold: 0.5 });
+            if(kissTrigger) observer.observe(kissTrigger);
+
+            // Onion Story Slideshow
+            const onionContainer = document.querySelector('.onion-story');
+            if(onionContainer){
+                const onionSteps = onionContainer.querySelectorAll('div');
+                let currentStep = 0;
+                setInterval(() => {
+                    onionSteps[currentStep].classList.remove('active');
+                    currentStep = (currentStep + 1) % onionSteps.length;
+                    onionSteps[currentStep].classList.add('active');
+                }, 4000);
+            }
+            
+            // Responsibility Web Visualization
+            const webContainer = document.getElementById('responsibility-web-container');
+            if(webContainer) {
+                const canvas = document.createElement('canvas');
+                // Correctly position the canvas behind other elements
+                canvas.style.position = 'absolute';
+                canvas.style.inset = '0';
+                canvas.style.zIndex = '0';
+                webContainer.appendChild(canvas);
+                const ctx = canvas.getContext('2d');
+
+                const nodes = [
+                    { id: 'Fyodor', x: 0.5, y: 0.1, size: 40 },
+                    { id: 'Dmitri', x: 0.2, y: 0.4, size: 50 },
+                    { id: 'Ivan', x: 0.8, y: 0.4, size: 50 },
+                    { id: 'Alyosha', x: 0.5, y: 0.8, size: 50 },
+                    { id: 'Smerdyakov', x: 0.5, y: 0.45, size: 40 },
+                    { id: 'Grushenka', x: 0.1, y: 0.7, size: 40 },
+                    { id: 'Katerina', x: 0.9, y: 0.7, size: 40 },
+                ];
+                
+                const links = [
+                    { source: 'Fyodor', target: 'Dmitri' }, { source: 'Fyodor', target: 'Ivan' },
+                    { source: 'Fyodor', target: 'Alyosha' }, { source: 'Fyodor', target: 'Smerdyakov' },
+                    { source: 'Fyodor', target: 'Grushenka' }, { source: 'Dmitri', target: 'Grushenka' },
+                    { source: 'Dmitri', target: 'Katerina' }, { source: 'Dmitri', target: 'Alyosha' },
+                    { source: 'Ivan', target: 'Smerdyakov' }, { source: 'Ivan', target: 'Katerina' },
+                    { source: 'Ivan', target: 'Alyosha' }, { source: 'Alyosha', target: 'Grushenka' },
+                ];
+
+                function resizeCanvas() {
+                    canvas.width = webContainer.offsetWidth;
+                    canvas.height = webContainer.offsetHeight;
+                    drawWeb();
+                }
+
+                function drawWeb(highlightedNode = null) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    const findNode = id => nodes.find(n => n.id === id);
+
+                    links.forEach(link => {
+                        const sourceNode = findNode(link.source);
+                        const targetNode = findNode(link.target);
+                        if (!sourceNode || !targetNode) return;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(sourceNode.x * canvas.width, sourceNode.y * canvas.height);
+                        ctx.lineTo(targetNode.x * canvas.width, targetNode.y * canvas.height);
+
+                        if (highlightedNode && (link.source === highlightedNode.id || link.target === highlightedNode.id)) {
+                            ctx.strokeStyle = 'rgba(140, 111, 75, 0.8)';
+                            ctx.lineWidth = 3;
+                        } else {
+                            ctx.strokeStyle = 'rgba(140, 111, 75, 0.2)';
+                            ctx.lineWidth = 1;
+                        }
+                        ctx.stroke();
+                    });
+                }
+
+                nodes.forEach(node => {
+                    const el = document.createElement('div');
+                    el.className = 'node';
+                    el.innerText = node.id;
+                    el.style.width = `${node.size * 1.5}px`;
+                    el.style.height = `${node.size * 1.5}px`;
+                    el.style.left = `calc(${node.x * 100}% - ${node.size * 0.75}px)`;
+                    el.style.top = `calc(${node.y * 100}% - ${node.size * 0.75}px)`;
+                    el.style.fontSize = `${node.size / 4}px`;
+                    
+                    el.addEventListener('mouseover', () => drawWeb(node));
+                    el.addEventListener('mouseout', () => drawWeb());
+
+                    webContainer.appendChild(el);
+                });
+                
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+            }
+        });
+
+        // Modal Controls
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalContainer = document.getElementById('modal-container');
+
+        function openModal(character) {
+            const modalToShow = document.getElementById(`${character}-modal`);
+            if (!modalToShow) return;
+
+            // First, hide any currently visible modals to ensure a clean slate
+            const allModals = document.querySelectorAll('.modal-content');
+            allModals.forEach(m => m.classList.add('hidden'));
+
+            // Make the backdrop and container visible
+            modalBackdrop.classList.remove('invisible', 'opacity-0');
+            modalContainer.classList.remove('invisible', 'opacity-0');
+
+            // Make the target modal part of the layout, but still transparent/scaled down
+            modalToShow.classList.remove('hidden');
+
+            // Animate it into view
+            // A timeout ensures the 'display' change is rendered before the transition starts
+            setTimeout(() => {
+                modalToShow.classList.remove('opacity-0', 'scale-95');
+            }, 20);
+        }
+
+        function closeAllModals() {
+            // Find any currently visible modal
+            const visibleModal = document.querySelector('.modal-content:not(.hidden)');
+            
+            // Animate everything out
+            modalBackdrop.classList.add('invisible', 'opacity-0');
+            modalContainer.classList.add('invisible', 'opacity-0');
+            if (visibleModal) {
+                visibleModal.classList.add('opacity-0', 'scale-95');
+            }
+
+            // After the transition (300ms), hide all modals from the layout
+            setTimeout(() => {
+                document.querySelectorAll('.modal-content').forEach(m => m.classList.add('hidden'));
+            }, 300);
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                closeAllModals();
+            }
+        });
+
+    </script>
+</body>
+
+</html>
