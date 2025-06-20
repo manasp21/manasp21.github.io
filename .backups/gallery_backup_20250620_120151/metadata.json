@@ -9,13 +9,7 @@
       "masonryMinRows": 20,
       "masonryMaxRows": 50,
       "slideshowInterval": 4000,
-      "imageFormats": [
-        "jpg",
-        "jpeg",
-        "png",
-        "webp",
-        "gif"
-      ],
+      "imageFormats": ["jpg", "jpeg", "png", "webp", "gif"],
       "enableLazyLoading": true,
       "enableKeyboardNavigation": true
     }
@@ -23,20 +17,15 @@
   "images": [
     {
       "id": 1,
-      "filename": "2024-06-21-urban-cityscape.jpg",
-      "title": "Urban Cityscape Golden Hour",
-      "caption": "Urban photography capturing cityscape, golden hour, architecture captured in European City.",
+      "filename": "PXL_20240621_192621681-EFFECTS.jpg",
+      "title": "Image 1",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Google Pixel 8 Pro",
         "lens": "Main Camera",
         "settings": "f/1.68 • 1/125s • ISO 64"
       },
-      "tags": [
-        "cityscape",
-        "golden hour",
-        "architecture",
-        "evening"
-      ],
+      "tags": ["cityscape", "golden hour", "architecture", "evening"],
       "category": "urban",
       "featured": true,
       "sortOrder": 1,
@@ -50,20 +39,15 @@
     },
     {
       "id": 2,
-      "filename": "2024-06-24-night-fireworks.jpg",
-      "title": "Night Fireworks Celebration",
-      "caption": "Night photography featuring fireworks, night, celebration captured in Festival Grounds.",
+      "filename": "IMG_20240624_223919-EFFECTS.jpg",
+      "title": "Image 2",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Samsung Galaxy S24",
         "lens": "Wide Camera",
         "settings": "f/1.8 • 4s • ISO 100"
       },
-      "tags": [
-        "fireworks",
-        "night",
-        "celebration",
-        "long exposure"
-      ],
+      "tags": ["fireworks", "night", "celebration", "long exposure"],
       "category": "night",
       "featured": true,
       "sortOrder": 2,
@@ -77,20 +61,15 @@
     },
     {
       "id": 3,
-      "filename": "2024-06-26-landscape-mountains.jpg",
-      "title": "Landscape Mountains Sunset",
-      "caption": "Landscape photography showcasing mountains, landscape, sunset captured in Mountain Range.",
+      "filename": "PXL_20240626_195237639.jpg",
+      "title": "Image 3",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Google Pixel 8 Pro",
         "lens": "Ultrawide Camera",
         "settings": "f/2.2 • 1/250s • ISO 100"
       },
-      "tags": [
-        "mountains",
-        "landscape",
-        "sunset",
-        "panoramic"
-      ],
+      "tags": ["mountains", "landscape", "sunset", "panoramic"],
       "category": "landscape",
       "featured": false,
       "sortOrder": 3,
@@ -104,20 +83,15 @@
     },
     {
       "id": 4,
-      "filename": "2024-06-29-landscape-sky.jpg",
-      "title": "Landscape Sky Clouds",
-      "caption": "Landscape photography showcasing sky, clouds, evening captured in Open Field.",
+      "filename": "IMG_20240629_190937.jpg",
+      "title": "Image 4",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Samsung Galaxy S24",
         "lens": "Main Camera",
         "settings": "f/1.8 • 1/60s • ISO 200"
       },
-      "tags": [
-        "sky",
-        "clouds",
-        "evening",
-        "dramatic"
-      ],
+      "tags": ["sky", "clouds", "evening", "dramatic"],
       "category": "landscape",
       "featured": false,
       "sortOrder": 4,
@@ -131,20 +105,15 @@
     },
     {
       "id": 5,
-      "filename": "2024-07-08-landscape-sunset.jpg",
-      "title": "Landscape Sunset Serene",
-      "caption": "Landscape photography showcasing sunset, landscape, serene captured in Countryside.",
+      "filename": "PXL_20240708_201853667.jpg",
+      "title": "Image 5",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Google Pixel 8 Pro",
         "lens": "Main Camera",
         "settings": "f/1.68 • 1/125s • ISO 80"
       },
-      "tags": [
-        "sunset",
-        "landscape",
-        "serene",
-        "golden hour"
-      ],
+      "tags": ["sunset", "landscape", "serene", "golden hour"],
       "category": "landscape",
       "featured": true,
       "sortOrder": 5,
@@ -158,20 +127,15 @@
     },
     {
       "id": 6,
-      "filename": "2024-07-09-abstract-abstract.jpg",
-      "title": "Abstract Light Long Exposure",
-      "caption": "Abstract artistic composition with abstract, light, long exposure captured in Studio.",
+      "filename": "IMG_20240709_210008-EFFECTS.jpg",
+      "title": "Image 6",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Samsung Galaxy S24",
         "lens": "Main Camera",
         "settings": "f/1.8 • 8s • ISO 50"
       },
-      "tags": [
-        "abstract",
-        "light",
-        "long exposure",
-        "artistic"
-      ],
+      "tags": ["abstract", "light", "long exposure", "artistic"],
       "category": "abstract",
       "featured": false,
       "sortOrder": 6,
@@ -185,20 +149,15 @@
     },
     {
       "id": 7,
-      "filename": "2024-07-11-landscape-evening.jpg",
-      "title": "Landscape Evening Natural",
-      "caption": "Landscape photography showcasing evening, natural, peaceful captured in Nature Reserve.",
+      "filename": "PXL_20240711_200557294.jpg",
+      "title": "Image 7",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Google Pixel 8 Pro",
         "lens": "Main Camera",
         "settings": "f/1.68 • 1/200s • ISO 100"
       },
-      "tags": [
-        "evening",
-        "natural",
-        "peaceful",
-        "golden light"
-      ],
+      "tags": ["evening", "natural", "peaceful", "golden light"],
       "category": "landscape",
       "featured": false,
       "sortOrder": 7,
@@ -212,20 +171,15 @@
     },
     {
       "id": 8,
-      "filename": "2024-07-11-nature-nature.jpg",
-      "title": "Nature Detail Composition",
-      "caption": "Nature photography highlighting nature, detail, composition captured in Garden.",
+      "filename": "PXL_20240711_200612536.jpg",
+      "title": "Image 8",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Google Pixel 8 Pro",
         "lens": "Main Camera",
         "settings": "f/1.68 • 1/125s • ISO 64"
       },
-      "tags": [
-        "nature",
-        "detail",
-        "composition",
-        "beauty"
-      ],
+      "tags": ["nature", "detail", "composition", "beauty"],
       "category": "nature",
       "featured": false,
       "sortOrder": 8,
@@ -239,20 +193,15 @@
     },
     {
       "id": 9,
-      "filename": "2024-07-11-night-night.jpg",
-      "title": "Night Mystery Dramatic",
-      "caption": "Night photography featuring night, mystery, dramatic captured in Urban Area.",
+      "filename": "PXL_20240711_200654114.jpg",
+      "title": "Image 9",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Google Pixel 8 Pro",
         "lens": "Main Camera",
         "settings": "f/1.68 • 1/15s • ISO 800"
       },
-      "tags": [
-        "night",
-        "mystery",
-        "dramatic",
-        "low light"
-      ],
+      "tags": ["night", "mystery", "dramatic", "low light"],
       "category": "night",
       "featured": false,
       "sortOrder": 9,
@@ -266,20 +215,15 @@
     },
     {
       "id": 10,
-      "filename": "2024-07-14-urban-architecture.jpg",
-      "title": "Urban Architecture Geometric",
-      "caption": "Urban photography capturing architecture, urban, geometric captured in Downtown.",
+      "filename": "IMG_20240714_120608.jpg",
+      "title": "Image 10",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Samsung Galaxy S24",
         "lens": "Main Camera",
         "settings": "f/1.8 • 1/320s • ISO 100"
       },
-      "tags": [
-        "architecture",
-        "urban",
-        "geometric",
-        "modern"
-      ],
+      "tags": ["architecture", "urban", "geometric", "modern"],
       "category": "urban",
       "featured": false,
       "sortOrder": 10,
@@ -293,20 +237,15 @@
     },
     {
       "id": 11,
-      "filename": "2024-10-17-urban-geometric.jpg",
-      "title": "Urban Geometric Patterns",
-      "caption": "Urban photography capturing geometric, urban, patterns captured in Business District.",
+      "filename": "IMG_20241017_201709.jpg",
+      "title": "Image 11",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Samsung Galaxy S24",
         "lens": "Wide Camera",
         "settings": "f/1.8 • 1/200s • ISO 125"
       },
-      "tags": [
-        "geometric",
-        "urban",
-        "patterns",
-        "contemporary"
-      ],
+      "tags": ["geometric", "urban", "patterns", "contemporary"],
       "category": "urban",
       "featured": false,
       "sortOrder": 11,
@@ -320,20 +259,15 @@
     },
     {
       "id": 12,
-      "filename": "2024-10-17-street-street.jpg",
-      "title": "Street Candid Urban Life",
-      "caption": "Street photography documenting street, candid, urban life captured in City Center.",
+      "filename": "IMG_20241017_201756.jpg",
+      "title": "Image 12",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Samsung Galaxy S24",
         "lens": "Main Camera",
         "settings": "f/1.8 • 1/250s • ISO 160"
       },
-      "tags": [
-        "street",
-        "candid",
-        "urban life",
-        "people"
-      ],
+      "tags": ["street", "candid", "urban life", "people"],
       "category": "street",
       "featured": false,
       "sortOrder": 12,
@@ -347,20 +281,15 @@
     },
     {
       "id": 13,
-      "filename": "2024-10-17-urban-modern.jpg",
-      "title": "Urban Modern Lines",
-      "caption": "Urban photography capturing modern, lines, architecture captured in Modern Building.",
+      "filename": "IMG_20241017_201800.jpg",
+      "title": "Image 13",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Samsung Galaxy S24",
         "lens": "Main Camera",
         "settings": "f/1.8 • 1/400s • ISO 100"
       },
-      "tags": [
-        "modern",
-        "lines",
-        "architecture",
-        "harmony"
-      ],
+      "tags": ["modern", "lines", "architecture", "harmony"],
       "category": "urban",
       "featured": false,
       "sortOrder": 13,
@@ -374,20 +303,15 @@
     },
     {
       "id": 14,
-      "filename": "2025-04-13-abstract-color.jpg",
-      "title": "Abstract Color Artistic",
-      "caption": "Abstract artistic composition with color, artistic, emotional captured in Art Studio.",
+      "filename": "PXL_20250413_125646864-EFFECTS.jpg",
+      "title": "Image 14",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Google Pixel 8 Pro",
         "lens": "Main Camera",
         "settings": "f/1.68 • 1/125s • ISO 100"
       },
-      "tags": [
-        "color",
-        "artistic",
-        "emotional",
-        "abstract"
-      ],
+      "tags": ["color", "artistic", "emotional", "abstract"],
       "category": "abstract",
       "featured": true,
       "sortOrder": 14,
@@ -401,20 +325,15 @@
     },
     {
       "id": 15,
-      "filename": "2024-07-03-abstract-experimental.jpg",
-      "title": "Abstract Experimental Digital Art",
-      "caption": "Abstract artistic composition with experimental, digital art, creative captured in Digital Studio.",
+      "filename": "Picsart_24-07-03_21-36-12-172.jpg",
+      "title": "Image 15",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Digital Composite",
         "lens": "Mixed Media",
         "settings": "Digital Processing"
       },
-      "tags": [
-        "experimental",
-        "digital art",
-        "creative",
-        "innovative"
-      ],
+      "tags": ["experimental", "digital art", "creative", "innovative"],
       "category": "abstract",
       "featured": false,
       "sortOrder": 15,
@@ -428,20 +347,15 @@
     },
     {
       "id": 16,
-      "filename": "2024-07-09-abstract-artistic.jpg",
-      "title": "Abstract Artistic Expression",
-      "caption": "Abstract artistic composition with artistic, expression, creative captured in Digital Studio.",
+      "filename": "Picsart_24-07-09_21-01-16-877.jpg",
+      "title": "Image 16",
+      "caption": "Image Caption",
       "metadata": {
         "camera": "Digital Composite",
         "lens": "Mixed Media",
         "settings": "Creative Processing"
       },
-      "tags": [
-        "artistic",
-        "expression",
-        "creative",
-        "emotional"
-      ],
+      "tags": ["artistic", "expression", "creative", "emotional"],
       "category": "abstract",
       "featured": false,
       "sortOrder": 16,

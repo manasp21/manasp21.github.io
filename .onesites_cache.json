@@ -1,81 +1,16 @@
 {
-  "one_page_websites/1.html": {
-    "number": 1,
-    "filename": "1.html",
-    "title": "The End of Intractability: AI in Physics",
-    "description": "The New Scientific Paradigm The Challenge The Shift The AI Toolkit The Convergence The End of Intractability Physics is facing a crisis of complexity, driven by a deluge of data and computational chal...",
-    "file_path": "one_page_websites/1.html",
-    "relative_path": "one_page_websites/1.html",
-    "file_size": 27355,
-    "file_mtime": 1750367165.017808,
-    "created_at": "2025-06-19T21:06:16.030451",
-    "modified_at": "2025-06-19T21:06:05.017808",
-    "cached_at": 1750367847.7599201
-  },
-  "one_page_websites\\1.html": {
-    "number": 1,
-    "filename": "1.html",
-    "title": "The Fourth Pillar: AI in Science",
-    "description": "Interactive one-page website exploring specialized topics",
-    "file_path": "one_page_websites\\1.html",
-    "relative_path": "one_page_websites/1.html",
-    "file_size": 55377,
-    "file_mtime": 1750369832.9572544,
-    "created_at": "2025-06-20T02:36:02.405592",
-    "modified_at": "2025-06-20T03:20:32.957254",
-    "cached_at": 1750370320.45009
-  },
-  "one_page_websites\\02.html": {
-    "number": 2,
-    "filename": "02.html",
-    "title": "Magnetometry: An Interactive Exploration",
-    "description": "",
-    "file_path": "one_page_websites\\02.html",
-    "relative_path": "one_page_websites/02.html",
-    "file_size": 36913,
-    "file_mtime": 1750373532.7463737,
-    "created_at": "2025-06-20T03:31:05.930748",
-    "modified_at": "2025-06-20T04:22:12.746374",
-    "cached_at": 1750399089.5674045
-  },
-  "one_page_websites\\01.html": {
-    "number": 1,
-    "filename": "01.html",
-    "title": "The Fourth Pillar: AI in Science",
-    "description": "Interactive one-page website exploring specialized topics",
-    "file_path": "one_page_websites\\01.html",
-    "relative_path": "one_page_websites/01.html",
-    "file_size": 55377,
-    "file_mtime": 1750369832.9572544,
-    "created_at": "2025-06-20T02:36:02.405592",
-    "modified_at": "2025-06-20T03:20:32.957254",
-    "cached_at": 1750370513.3969548
-  },
-  "one_page_websites\\03.html": {
-    "number": 3,
-    "filename": "03.html",
-    "title": "Optical Magnetometry: An Interactive Guide",
-    "description": "Optical Magnetometry Principles Technologies Applications Comparison Future Principles Technologies Applications Comparison Future The Quantum Leap in Magnetic Sensing An exploration of Optical Magnet...",
-    "file_path": "one_page_websites\\03.html",
-    "relative_path": "one_page_websites/03.html",
-    "file_size": 35692,
-    "file_mtime": 1750371656.165198,
-    "created_at": "2025-06-20T03:50:46.755203",
-    "modified_at": "2025-06-20T03:50:56.165198",
-    "cached_at": 1750371661.4097002
-  },
   "one_page_websites/01.html": {
     "number": 1,
     "filename": "01.html",
     "title": "The Fourth Pillar: AI in Science",
-    "description": "A comprehensive exploration of how AI is revolutionizing scientific research across multiple disciplines.",
+    "description": "",
     "file_path": "one_page_websites/01.html",
     "relative_path": "one_page_websites/01.html",
     "file_size": 55377,
     "file_mtime": 1750369832.9572544,
     "created_at": "2025-06-19T22:01:47.306914",
     "modified_at": "2025-06-19T21:50:32.957254",
-    "cached_at": 1750397602.2152607
+    "cached_at": 1750400634.636405
   },
   "one_page_websites/02.html": {
     "number": 2,
@@ -88,32 +23,32 @@
     "file_mtime": 1750373532.7463737,
     "created_at": "2025-06-19T22:52:12.746374",
     "modified_at": "2025-06-19T22:52:12.746374",
-    "cached_at": 1750397602.2234752
+    "cached_at": 1750400634.6430109
   },
   "one_page_websites/03.html": {
     "number": 3,
     "filename": "03.html",
     "title": "Optical Magnetometry: An Interactive Guide",
-    "description": "An interactive guide to understanding magnetometry principles and applications.",
+    "description": "",
     "file_path": "one_page_websites/03.html",
     "relative_path": "one_page_websites/03.html",
     "file_size": 35692,
     "file_mtime": 1750371656.165198,
     "created_at": "2025-06-19T22:21:05.571826",
     "modified_at": "2025-06-19T22:20:56.165198",
-    "cached_at": 1750397602.23643
+    "cached_at": 1750400634.6513805
   },
-  "one_page_websites\\04.html": {
+  "one_page_websites/04.html": {
     "number": 4,
     "filename": "04.html",
     "title": "The Evolution of AI Thought: An Interactive Guide to LLMs & LRMs",
     "description": "",
-    "file_path": "one_page_websites\\04.html",
+    "file_path": "one_page_websites/04.html",
     "relative_path": "one_page_websites/04.html",
     "file_size": 38291,
     "file_mtime": 1750399035.725884,
-    "created_at": "2025-06-20T11:27:12.507505",
-    "modified_at": "2025-06-20T11:27:15.725884",
-    "cached_at": 1750399089.5714047
+    "created_at": "2025-06-20T05:57:26.811476",
+    "modified_at": "2025-06-20T05:57:15.725884",
+    "cached_at": 1750400634.6595643
   }
 }
