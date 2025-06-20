@@ -1,0 +1,136 @@
+{
+  "profile": {
+    "name": "Manas Pandey",
+    "title": "Physics Student & Researcher",
+    "summary": "Undergraduate physics student at IIT Kanpur exploring the intersection of quantum mechanics and artificial intelligence.",
+    "last_updated": "2025-06-20T05:47:02.691684",
+    "version": "1.0.0"
+  },
+  "experience": [
+    {
+      "title": "Associate Member",
+      "company": "Institute of Physics",
+      "type": "Full-time",
+      "duration": "Oct 2023 - Dec 2024 · 1 yr 3 mos",
+      "location": "",
+      "skills": [],
+      "website": "",
+      "description": ""
+    },
+    {
+      "title": "Research Intern",
+      "company": "Helmholtz-Institut Mainz",
+      "type": "Full-time",
+      "duration": "May 2024 - Jul 2024 · 3 mos",
+      "location": "Mainz, Rhineland-Palatinate, Germany · On-site",
+      "skills": [],
+      "website": "",
+      "description": ""
+    },
+    {
+      "title": "Research Intern",
+      "company": "Indian Institute of Science (IISc)",
+      "type": "Internship",
+      "duration": "May 2023 - Jul 2023 · 3 mos",
+      "location": "",
+      "skills": [],
+      "website": "",
+      "description": ""
+    },
+    {
+      "title": "Secretary",
+      "company": "Astronomy Club, IIT Kanpur",
+      "type": "Part-time",
+      "duration": "Sep 2022 - Apr 2023 · 8 mos",
+      "location": "",
+      "skills": [
+        "Management",
+        "Editing",
+        "Astrophysics",
+        "Astronomy"
+      ],
+      "website": "Astronomy Club Website",
+      "description": ""
+    },
+    {
+      "title": "Secretary, Research Wing",
+      "company": "Academics and Career Council, IIT Kanpur",
+      "type": "Part-time",
+      "duration": "Jun 2022 - Apr 2023 · 11 mos",
+      "location": "Kanpur, Uttar Pradesh, India",
+      "skills": [
+        "Public Relations",
+        "Narrator",
+        "Marketing",
+        "Writing",
+        "Communication",
+        "Design",
+        "Editing"
+      ],
+      "website": "AnC Council IITK website",
+      "description": ""
+    },
+    {
+      "title": "Secretary, Book Club",
+      "company": "Media and Cultural Council, IIT Kanpur",
+      "type": "Part-time",
+      "duration": "Jun 2022 - Apr 2023 · 11 mos",
+      "location": "",
+      "skills": [
+        "Cataloging",
+        "Writing",
+        "Adobe Photoshop",
+        "Editing",
+        "Canva"
+      ],
+      "website": "Book Club at MnC Council IITK website",
+      "description": ""
+    }
+  ],
+  "education": [
+    {
+      "institution": "Indian Institute of Technology, Kanpur",
+      "degree": "Bachelor of Science - BS",
+      "field": "Physics",
+      "duration": "2021 - 2025 (Expected)",
+      "location": "Kanpur, Uttar Pradesh, India"
+    },
+    {
+      "institution": "Delhi Public School Patna",
+      "degree": "High School Diploma",
+      "field": "High School/Secondary Diplomas and Certificates",
+      "duration": "2019 - 2021",
+      "location": "Patna, Bihar, India"
+    }
+  ],
+  "skills": {
+    "Technical": [
+      "Cataloging"
+    ],
+    "Management": [
+      "Management"
+    ],
+    "Creative": [
+      "Adobe Photoshop",
+      "Canva",
+      "Design",
+      "Editing"
+    ],
+    "Communication": [
+      "Public Relations",
+      "Writing",
+      "Marketing",
+      "Communication",
+      "Narrator"
+    ],
+    "Research": [
+      "Astrophysics",
+      "Astronomy"
+    ]
+  },
+  "metadata": {
+    "total_experiences": 6,
+    "total_education": 2,
+    "last_parsed": "2025-06-20T05:47:02.691673"
+  }
+}

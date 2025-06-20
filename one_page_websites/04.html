@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Evolution of AI Thought: An Interactive Guide to LLMs & LRMs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #cbd5e1;
+        }
+
+        .hero-gradient-text {
+            background: linear-gradient(to right, #7dd3fc, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .section-title {
+             background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+             background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #4f46e5;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive Transformer Styles */
+        .transformer-component {
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        .transformer-component:hover, .transformer-component.active {
+            background-color: #334155;
+        }
+        .info-box {
+            border-left: 3px solid #4f46e5;
+        }
+        
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2.5rem;
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 100%;
+            width: 2px;
+            background-color: #334155;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            height: 1.25rem;
+            width: 1.25rem;
+            border-radius: 9999px;
+            background-color: #1e293b;
+            border: 3px solid #4f46e5;
+        }
+        .timeline-content {
+            transition: background-color 0.3s;
+        }
+        .timeline-content:hover {
+            background-color: #334155;
+        }
+
+        /* Reasoning Visualization Styles */
+        .reasoning-path {
+            transition: all 0.3s ease-in-out;
+        }
+        .reasoning-node {
+            transition: all 0.3s ease-in-out;
+        }
+        #cot-viz:hover .reasoning-path, #tot-viz:hover .reasoning-path {
+            stroke: #4f46e5;
+        }
+         #cot-viz:hover .reasoning-node, #tot-viz:hover .reasoning-node {
+            stroke: #4f46e5;
+            fill: #1e293b;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-sm border-b border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-white">AI Demystified</span>
+                </div>
+                <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                    <a href="#introduction" class="text-slate-300 hover:text-white transition">Introduction</a>
+                    <a href="#evolution" class="text-slate-300 hover:text-white transition">Evolution</a>
+                    <a href="#architecture" class="text-slate-300 hover:text-white transition">Architecture</a>
+                    <a href="#lifecycle" class="text-slate-300 hover:text-white transition">Lifecycle</a>
+                    <a href="#reasoning" class="text-slate-300 hover:text-white transition">Reasoning</a>
+                    <a href="#challenges" class="text-slate-300 hover:text-white transition">Challenges</a>
+                    <a href="#future" class="text-slate-300 hover:text-white transition">Future</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section id="introduction" class="py-20 sm:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight hero-gradient-text animate-pulse">
+                    From Prediction to Deliberation
+                </h1>
+                <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto">
+                    An interactive journey into the architecture and function of Large Language Models (LLMs) and the emergence of their powerful successors, Large Reasoning Models (LRMs).
+                </p>
+            </div>
+        </section>
+
+        <!-- The Lineage of Language Models -->
+        <section id="evolution" class="py-20 sm:py-24 bg-slate-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight section-title">Four Waves of Evolution</h2>
+                    <p class="mt-4 text-lg text-slate-400">The journey to today's powerful AI was not a single leap, but a series of transformative waves.</p>
+                </div>
+                <div class="relative">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content p-6 rounded-lg border border-slate-700">
+                            <h3 class="text-xl font-bold text-white mb-2">1. Statistical Models (SLMs)</h3>
+                            <p class="text-slate-400">The dawn of language modeling, where AI learned by counting word sequences (n-grams). These models were powerful for their time but brittle, struggling to generalize to new phrases due to data sparsity.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content p-6 rounded-lg border border-slate-700">
+                            <h3 class="text-xl font-bold text-white mb-2">2. Neural Models (NLMs)</h3>
+                            <p class="text-slate-400">A paradigm shift. Instead of counting words, NLMs learned to represent them as "embeddings"—dense vectors in a semantic space. This allowed models to understand word similarity, solving the generalization problem.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content p-6 rounded-lg border border-slate-700">
+                            <h3 class="text-xl font-bold text-white mb-2">3. Pre-trained Models (PLMs)</h3>
+                            <p class="text-slate-400">The introduction of the Transformer architecture and self-supervised learning on massive datasets created a new standard. Models like BERT were pre-trained on general language, then fine-tuned for specific tasks, achieving state-of-the-art results across the board.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot" style="left: -8px; top: 5px;"></div>
+                        <div class="timeline-content p-6 rounded-lg border border-slate-700">
+                            <h3 class="text-xl font-bold text-white mb-2">4. Large Language Models (LLMs)</h3>
+                            <p class="text-slate-400">The current wave, defined by unprecedented scale. Models with billions of parameters trained on web-scale data exhibit "emergent abilities" like in-context learning, instruction following, and step-by-step reasoning, making them general-purpose language engines.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Transformer Architecture -->
+        <section id="architecture" class="py-20 sm:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight section-title">Deconstructing the Transformer</h2>
+                    <p class="mt-4 text-lg text-slate-400">The architectural blueprint behind virtually all modern language models. Interact with the diagram below.</p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8 items-start fade-in">
+                    <div class="lg:col-span-2 p-6 bg-slate-800 rounded-lg border border-slate-700">
+                        <svg viewBox="0 0 400 300" class="w-full h-auto">
+                            <!-- Input -->
+                            <text x="200" y="20" font-size="10" fill="white" text-anchor="middle">Input Text: "The cat sat"</text>
+                            
+                            <!-- Tokenization -->
+                            <rect x="50" y="40" width="300" height="40" rx="5" class="fill-slate-700"/>
+                            <text x="200" y="65" font-size="10" fill="white" text-anchor="middle">Tokenization & Positional Encoding</text>
+                            
+                            <path d="M 200 80 V 100" stroke="#475569" stroke-width="1.5" stroke-dasharray="4"/>
+
+                            <!-- Transformer Block -->
+                            <g id="transformer-block" class="transformer-component">
+                                <rect x="25" y="100" width="350" height="150" rx="10" class="fill-slate-900 stroke-slate-600 stroke-2"/>
+                                <text x="200" y="115" font-size="10" fill="white" text-anchor="middle" class="font-bold">Transformer Block (Stacked N times)</text>
+                            </g>
+                            
+                            <!-- Multi-Head Attention -->
+                            <g id="mha" class="transformer-component">
+                                <rect x="50" y="130" width="300" height="50" rx="5" class="fill-slate-700"/>
+                                <text x="200" y="155" font-size="10" fill="white" text-anchor="middle">Multi-Head Self-Attention</text>
+                            </g>
+
+                            <!-- Add & Norm -->
+                             <path d="M 200 180 V 190" stroke="#475569" stroke-width="1.5"/>
+                            <text x="200" y="185" font-size="6" fill="#94a3b8" text-anchor="middle">+ & Norm</text>
+
+
+                            <!-- Feed Forward -->
+                            <g id="ffn" class="transformer-component">
+                                <rect x="50" y="190" width="300" height="50" rx="5" class="fill-slate-700"/>
+                                <text x="200" y="215" font-size="10" fill="white" text-anchor="middle">Feed-Forward Network</text>
+                            </g>
+
+                             <!-- Add & Norm -->
+                            <path d="M 200 240 V 250" stroke="#475569" stroke-width="1.5"/>
+                            <text x="200" y="245" font-size="6" fill="#94a3b8" text-anchor="middle">+ & Norm</text>
+
+                            <!-- Output -->
+                            <path d="M 200 250 V 270" stroke="#475569" stroke-width="1.5" stroke-dasharray="4"/>
+                            <rect x="50" y="270" width="300" height="30" rx="5" class="fill-slate-700"/>
+                            <text x="200" y="288" font-size="10" fill="white" text-anchor="middle">Softmax -> Output Probability</text>
+                        </svg>
+                    </div>
+                    <div id="info-box-container" class="sticky top-24">
+                        <div class="p-6 rounded-lg bg-slate-800 border border-slate-700 info-box">
+                            <h3 id="info-title" class="text-xl font-bold text-white mb-2">Hover over a component</h3>
+                            <p id="info-text" class="text-slate-400">Learn more about each part of the Transformer's core logic.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The LLM Lifecycle -->
+        <section id="lifecycle" class="py-20 sm:py-24 bg-slate-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight section-title">The Lifecycle of a Model</h2>
+                    <p class="mt-4 text-lg text-slate-400">From a raw text predictor to a helpful and aligned assistant in three major stages.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Pre-training -->
+                    <div class="card p-8 text-center fade-in">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-500/20 mx-auto mb-6">
+                            <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">1. Pre-training</h3>
+                        <p class="text-slate-400">A base model is trained on trillions of tokens from the internet, books, and code. Using a self-supervised objective like "predict the next word," it learns grammar, facts, and reasoning patterns, acquiring vast world knowledge.</p>
+                    </div>
+                     <!-- SFT -->
+                    <div class="card p-8 text-center fade-in" style="transition-delay: 200ms;">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-purple-500/20 mx-auto mb-6">
+                            <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">2. Supervised Fine-Tuning</h3>
+                        <p class="text-slate-400">The base model is "aligned" by training it on a smaller, high-quality dataset of prompt-response pairs curated by humans. This teaches the model to follow instructions and act as a helpful assistant.</p>
+                    </div>
+                     <!-- RLHF -->
+                    <div class="card p-8 text-center fade-in" style="transition-delay: 400ms;">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-pink-500/20 mx-auto mb-6">
+                            <svg class="w-8 h-8 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.085a2 2 0 00-1.736.97l-1.9 3.8a2 2 0 00.382 2.275l3.24 3.24M7 20h2.818a2 2 0 001.789-2.894l-3.5-7A2 2 0 006.738 7H4a2 2 0 00-2 2v6a2 2 0 002 2h3z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">3. Reinforcement Learning</h3>
+                        <p class="text-slate-400">To instill nuanced human preferences like harmlessness, humans rank multiple model responses. A "Reward Model" is trained on this data, which is then used to further fine-tune the LLM, reinforcing better behavior.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LLMs vs LRMs -->
+        <section id="reasoning" class="py-20 sm:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight section-title">The Next Step: Large Reasoning Models</h2>
+                    <p class="mt-4 text-lg text-slate-400">While LLMs excel at language, LRMs are specialized for logic. This represents a shift from optimizing for fluency to engineering for process.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 fade-in">
+                    <div class="card p-8">
+                        <h3 class="text-2xl font-bold text-white mb-4">Large Language Model (LLM)</h3>
+                        <ul class="space-y-3 text-slate-400">
+                            <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">&#10003;</span><span>**Primary Goal:** Linguistic fluency and general-purpose text generation.</span></li>
+                            <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">&#10003;</span><span>**Analogy:** "System 1" thinking - fast, intuitive, pattern-matching.</span></li>
+                            <li class="flex items-start"><span class="text-indigo-400 mr-3 mt-1">&#10003;</span><span>**Training:** Trained on broad internet data, rewards final outcome.</span></li>
+                        </ul>
+                    </div>
+                    <div class="card p-8">
+                        <h3 class="text-2xl font-bold text-white mb-4">Large Reasoning Model (LRM)</h3>
+                        <ul class="space-y-3 text-slate-400">
+                           <li class="flex items-start"><span class="text-purple-400 mr-3 mt-1">&#10003;</span><span>**Primary Goal:** Structured problem-solving and logical inference.</span></li>
+                           <li class="flex items-start"><span class="text-purple-400 mr-3 mt-1">&#10003;</span><span>**Analogy:** "System 2" thinking - slow, deliberate, analytical.</span></li>
+                           <li class="flex items-start"><span class="text-purple-400 mr-3 mt-1">&#10003;</span><span>**Training:** Trained on curated math, code, and logic datasets; rewards intermediate steps.</span></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-20">
+                    <div class="text-center mb-16">
+                        <h3 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">Frameworks for Advanced Reasoning</h3>
+                        <p class="mt-4 text-lg text-slate-400">Specialized prompting techniques unlock and structure the reasoning capabilities of these models.</p>
+                    </div>
+                     <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="fade-in">
+                            <h4 class="text-2xl font-bold text-white mb-4">Chain-of-Thought (CoT)</h4>
+                            <p class="text-slate-400 mb-6">Prompts the model to generate a single, linear, step-by-step reasoning path before the final answer. It's simple and effective but brittle—an early error derails the entire process.</p>
+                             <div id="cot-viz" class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                                <svg viewBox="0 0 300 100" class="w-full h-auto">
+                                    <path class="reasoning-path" d="M 20 50 H 280" stroke="#475569" stroke-width="2" stroke-dasharray="5" fill="none"/>
+                                    <circle class="reasoning-node" cx="40" cy="50" r="10" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="110" cy="50" r="10" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="180" cy="50" r="10" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="250" cy="50" r="10" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <text x="40" y="54" font-size="8" fill="white" text-anchor="middle">S1</text>
+                                    <text x="110" y="54" font-size="8" fill="white" text-anchor="middle">S2</text>
+                                    <text x="180" y="54" font-size="8" fill="white" text-anchor="middle">S3</text>
+                                    <text x="250" y="54" font-size="8" fill="white" text-anchor="middle">Ans</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="fade-in">
+                            <h4 class="text-2xl font-bold text-white mb-4">Tree-of-Thoughts (ToT)</h4>
+                            <p class="text-slate-400 mb-6">Generalizes CoT by exploring a tree of possible reasoning paths. The model can generate multiple next steps, evaluate them, and backtrack from dead ends, making it far more robust for complex planning.</p>
+                            <div id="tot-viz" class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                                <svg viewBox="0 0 300 100" class="w-full h-auto">
+                                    <path class="reasoning-path" d="M 40 50 H 80" stroke="#475569" stroke-width="2" fill="none"/>
+                                    <path class="reasoning-path" d="M 80 50 C 100 50, 120 25, 140 25" stroke="#475569" stroke-width="2" fill="none"/>
+                                    <path class="reasoning-path" d="M 80 50 C 100 50, 120 50, 140 50" stroke="#475569" stroke-width="2" fill="none"/>
+                                    <path class="reasoning-path" d="M 80 50 C 100 50, 120 75, 140 75" stroke="#475569" stroke-width="2" fill="none"/>
+                                    <path class="reasoning-path" d="M 140 25 H 180" stroke="#475569" stroke-width="2" fill="none"/>
+                                    <path class="reasoning-path" d="M 140 50 H 180" stroke="#475569" stroke-width="2" fill="none"/>
+                                    <path class="reasoning-path" d="M 180 50 H 220" stroke="red" stroke-dasharray="3" stroke-width="2" fill="none"/>
+                                    <path class="reasoning-path" d="M 140 75 H 180" stroke="#475569" stroke-width="2" fill="none"/>
+                                    <circle class="reasoning-node" cx="40" cy="50" r="10" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="140" cy="25" r="8" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="140" cy="50" r="8" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="140" cy="75" r="8" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="180" cy="25" r="8" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="180" cy="50" r="8" fill="red" stroke="red" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="180" cy="75" r="8" fill="#334155" stroke="#64748b" stroke-width="2"/>
+                                    <circle class="reasoning-node" cx="250" cy="25" r="10" fill="#10b981" stroke="#10b981" stroke-width="2"/>
+                                     <text x="250" y="29" font-size="6" fill="white" text-anchor="middle">Ans</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges -->
+        <section id="challenges" class="py-20 sm:py-24 bg-slate-800/50">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight section-title">Inherent Limitations & Challenges</h2>
+                    <p class="mt-4 text-lg text-slate-400">Despite their power, these models face systemic challenges that are active areas of research.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card p-6 fade-in">
+                        <h4 class="text-lg font-bold text-white mb-2">Hallucination</h4>
+                        <p class="text-slate-400">Models can confidently generate fluent but factually incorrect information, as they optimize for plausibility, not truth.</p>
+                    </div>
+                    <div class="card p-6 fade-in" style="transition-delay: 150ms;">
+                        <h4 class="text-lg font-bold text-white mb-2">Algorithmic Bias</h4>
+                        <p class="text-slate-400">Models inherit and can amplify societal biases present in their vast training data, leading to unfair or stereotyped outputs.</p>
+                    </div>
+                     <div class="card p-6 fade-in" style="transition-delay: 300ms;">
+                        <h4 class="text-lg font-bold text-white mb-2">Overthinking</h4>
+                        <p class="text-slate-400">The deliberate process of LRMs is computationally expensive, leading to high latency and cost, limiting real-time use.</p>
+                    </div>
+                     <div class="card p-6 fade-in" style="transition-delay: 450ms;">
+                        <h4 class="text-lg font-bold text-white mb-2">Complexity Collapse</h4>
+                        <p class="text-slate-400">Performance can abruptly fail when a problem's complexity exceeds a certain threshold, revealing brittle scaling limits.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- The Path Forward -->
+        <section id="future" class="py-20 sm:py-24">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight section-title">The Path Forward</h2>
+                    <p class="mt-4 text-lg text-slate-400">Future research aims to resolve the trilemma between capability, control, and cost.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card p-8 fade-in">
+                        <h4 class="text-xl font-bold text-white mb-3">Neuro-Symbolic Integration</h4>
+                        <p class="text-slate-400">The future lies in hybrid models that combine the scalable pattern recognition of neural networks with the rigorous, verifiable logic of classical symbolic AI systems, enabling more robust and trustworthy reasoning.</p>
+                    </div>
+                    <div class="card p-8 fade-in" style="transition-delay: 200ms;">
+                        <h4 class="text-xl font-bold text-white mb-3">Efficient & Adaptive Reasoning</h4>
+                        <p class="text-slate-400">Developing models that can dynamically adjust their cognitive effort—using fast, intuitive thinking for simple problems and slow, deliberate reasoning for complex ones—will be key to making them practical and accessible.</p>
+                    </div>
+                </div>
+             </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-700">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-white">References</h3>
+            </div>
+            <div class="text-sm text-slate-400 space-y-2 text-xs leading-5">
+                <p>[1] Zhao, W. X., et al. (2023). A Survey of Large Language Models.</p>
+                <p>[2] Wei, J., et al. (2022). Emergent Abilities of Large Language Models.</p>
+                <p>[3] OpenAI. (2023). GPT-4 Technical Report.</p>
+                <p>[4] Huang, J., & Chang, K. C. C. (2022). Towards Reasoning in Large Language Models: A Survey.</p>
+                <p>[5] Valmeekam, K., et al. (2022). Large Language Models are not Zero-Shot Reasoners.</p>
+                <p>[6] OpenAI. (2024). Introducing o1.</p>
+                <p>[7] DeepSeek. (2024). DeepSeek-R1 Technical Report.</p>
+                <p>[8] Alibaba Cloud. (2024). QwQ: A Large Reasoning Model.</p>
+                <p>[9] Jurafsky, D., & Martin, J. H. (2009). Speech and Language Processing.</p>
+                <p>[10] Weidinger, L., et al. (2021). Taxonomy of Risks posed by Language Models.</p>
+                <p>[11] Vaswani, A., et al. (2017). Attention Is All You Need.</p>
+                <p>[12] Devlin, J., et al. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.</p>
+                <p>[13] Radford, A., et al. (2019). Language Models are Unsupervised Multitask Learners.</p>
+                <p>[14] Wei, J., et al. (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models.</p>
+                <p>[15] Alammar, J. (2018). The Illustrated Transformer.</p>
+                <p>[16] Lilian Weng. (2023). The Transformer Family Version 2.0.</p>
+                <p>[17] Karpathy, A. (2023). Let's build GPT: from scratch, in code, spelled out.</p>
+                <p>[18] von Rütte, L. (2023). The Illustrated GPT-2.</p>
+                <p>[19] Touvron, H., et al. (2023). LLaMA: Open and Efficient Foundation Language Models.</p>
+                <p>[20] Ouyang, L., et al. (2022). Training language models to follow instructions with human feedback.</p>
+                <p>[21] Gao, L., et al. (2020). The Pile: An 800GB Dataset of Diverse Text for Language Modeling.</p>
+                <p>[22] Kaplan, J., et al. (2020). Scaling Laws for Neural Language Models.</p>
+                <p>[23] Hoffmann, J., et al. (2022). Training Compute-Optimal Large Language Models.</p>
+                <p>[24] Lambert, N., et al. (2022). Illustrating Reinforcement Learning from Human Feedback (RLHF).</p>
+                <p>[25] Christiano, P. F., et al. (2017). Deep reinforcement learning from human preferences.</p>
+                <p>[26] Ziegler, D. M., et al. (2019). Fine-Tuning Language Models from Human Preferences.</p>
+                <p>[27] Stiennon, N., et al. (2020). Learning to summarize from human feedback.</p>
+                <p>[28] Yu, W., et al. (2023). A Survey on Large Reasoning Models.</p>
+                <p>[29] Berglund, L., et al. (2023). The Reversal Curse: LLMs trained on "A is B" fail to learn "B is A".</p>
+                <p>[30] Lightman, H., et al. (2023). Let's Verify Step by Step.</p>
+                <p>[31] Zou, A., et al. (2024). The Unthinking Vulnerability in Large Reasoning Models.</p>
+                <p>[32] Anthropic. (2024). Mapping the Mind of a Large Language Model.</p>
+                <p>[33] Ji, Z., et al. (2023). Survey of Hallucination in Natural Language Generation.</p>
+                <p>[34] Chen, Y., et al. (2023). On the Efficiency of Chain-of-Thought Reasoning in Large Language Models.</p>
+                <p>[35] Apple Researchers. (2024). LLM Reasoning Scales with Model Size, But Not Beyond Its Token Budget.</p>
+                <p>[36] Kojima, T., et al. (2022). Large Language Models are Zero-Shot Reasoners.</p>
+                <p>[37] Wang, X., et al. (2022). Self-Consistency Improves Chain of Thought Reasoning in Language Models.</p>
+                <p>[38] Creswell, J., et al. (2022). Selection-Inference: A Novel Approach to Faithful Explanation Generation.</p>
+                <p>[39] Yao, S., et al. (2023). Tree of Thoughts: Deliberate Problem Solving with Large Language Models.</p>
+                <p>[40] Long, J. (2023). Large Language Model Guided Tree Search.</p>
+                <p>[41] Hulbert, B. (2023). Tree of Thoughts: Can Large Language Models Be Made to "Think"?</p>
+                <p>[42] Li, S., et al. (2024). Tree of Uncertain Thoughts: A new prompting method for LLMs.</p>
+                <p>[43] Besta, M., et al. (2023). Graph of Thoughts: Solving Elaborate Problems with Large Language Models.</p>
+                <p>[44] Gunasundaram, R. (2024). Graph Inspired Veracity Extrapolation (GIVE).</p>
+                <p>[45] Pan, L., et al. (2024). Logic-LM: Empowering Large Language Models with Symbolic Solvers for Fact-based Reasoning.</p>
+                <p>[46] Zhou, M., et al. (2024). LADDER: A new framework to enhance LLM reasoning.</p>
+                <p>[47] Zhang, M., et al. (2023). How to Mitigate Hallucinations in Large Language Models? A Survey.</p>
+                <p>[48] Google AI. (2024). Debunking the Apple paper on LLM reasoning limits.</p>
+                <p>[49] Liu, H., et al. (2024). When is Tree Search Useful for LLM Planning?</p>
+                <p>[50] Arora, J. (2024). When Do We Not Need Step-by-Step Reasoning for LLMs?</p>
+                <p>[51] Self-Taught Reasoner (STaR). (2022).</p>
+                <p>[52] Gao, Y., et al. (2023). RAG 2.0: A Survey on Retrieval-Augmented Language Models.</p>
+                <p>[53] Fu, Y., et al. (2024). ThinkSwitcher: A Framework for Adaptive Thinking in LLMs.</p>
+                <p>[54] Hinton, G., et al. (2015). Distilling the Knowledge in a Neural Network.</p>
+                <p>[55] First, E., & Ganea, O. (2024). Beyond Chain of Thought: A New Dawn for Scientific Reasoning.</p>
+                <p>[56] Terek, E., et al. (2024). A Survey on Multimodal Large Language Models.</p>
+                <p>[57] Sun, R. (2024). Towards Autonomous Agents: The Synergy of LLMs and Search.</p>
+            </div>
+             <div class="mt-8 text-center text-slate-500 text-sm">
+                <p>&copy; 2024 AI Demystified. All Rights Reserved.</p>
+                <p>Content adapted from "From Prediction to Deliberation," a technical report on LLM/LRM functionality.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Fade-in animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Interactive Transformer Diagram
+        const components = {
+            'mha': {
+                title: 'Multi-Head Self-Attention',
+                text: 'The core innovation of the Transformer. It allows the model to weigh the importance of different words in the input sequence for each word, creating a rich contextual understanding. It does this multiple times in parallel ("multi-head") to capture different types of relationships.'
+            },
+            'ffn': {
+                title: 'Feed-Forward Network',
+                text: 'After attention aggregates information between tokens, this simple neural network processes each token\'s representation independently. Its role is to perform further non-linear transformations, extracting more complex features.'
+            },
+            'transformer-block': {
+                 title: 'Transformer Block',
+                text: 'The fundamental building block of the model. It consists of a Multi-Head Attention layer and a Feed-Forward Network, with residual connections and normalization. Modern LLMs stack dozens or hundreds of these blocks.'
+            }
+        };
+
+        const infoTitle = document.getElementById('info-title');
+        const infoText = document.getElementById('info-text');
+        const componentElements = document.querySelectorAll('.transformer-component');
+
+        componentElements.forEach(el => {
+            el.addEventListener('mouseover', () => {
+                // Remove active class from all
+                componentElements.forEach(e => e.classList.remove('active'));
+                // Add to current
+                el.classList.add('active');
+
+                const componentId = el.id;
+                if (components[componentId]) {
+                    infoTitle.textContent = components[componentId].title;
+                    infoText.textContent = components[componentId].text;
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

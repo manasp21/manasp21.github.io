@@ -13,6 +13,8 @@
   },
   "custom_descriptions": {
     "01.html": "A comprehensive exploration of how AI is revolutionizing scientific research across multiple disciplines.",
-    "03.html": "An interactive guide to understanding magnetometry principles and applications."
+    "03.html": "An interactive guide to understanding magnetometry principles and applications.",
+    "02.html": "Magnetometry is the scientific measurement and analysis of magnetic fields, used to study the Earth's magnetic properties and to detect and identify objects and materials on and below the surface.",
+    "04.html": "This interactive guide explores the development of artificial intelligence, focusing on the progression from Large Language Models (LLMs) that process information to Large Reasoning Models (LRMs) designed for more complex cognitive tasks."
   }
 }
