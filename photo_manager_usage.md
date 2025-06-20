@@ -98,7 +98,7 @@ Current metadata:
 4. Tags: cityscape, golden hour, architecture, evening
 5. Featured: True
 6. Location: European City
-7. Camera: Google Pixel 8 Pro
+7. Camera: Redmi K50i 5G
 8. Lens: Main Camera
 9. Settings: f/1.68 • 1/125s • ISO 64
 10. Date: 2024-06-21
