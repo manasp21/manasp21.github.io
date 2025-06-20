@@ -1,0 +1,27 @@
+{
+  "profile": {
+    "user_id": "3cqkF08AAAAJ",
+    "name": "Manas Pandey",
+    "affiliation": "IIT Kanpur",
+    "profile_url": "https://scholar.google.com/citations?user=3cqkF08AAAAJ&hl=en"
+  },
+  "settings": {
+    "auto_update": true,
+    "cache_duration": 86400,
+    "max_publications": 50,
+    "sort_by": "year",
+    "include_citations": true,
+    "include_pdf_links": true
+  },
+  "display": {
+    "cards_per_row": 2,
+    "show_abstract": false,
+    "highlight_recent": true,
+    "recent_months": 12
+  },
+  "metadata": {
+    "last_updated": "2025-06-20T15:16:44.033540",
+    "total_publications": 1,
+    "version": "1.0.0"
+  }
+}

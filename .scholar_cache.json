@@ -1,0 +1,26 @@
+{
+  "publications": [
+    {
+      "id": 1,
+      "title": "Solving tricky quantum optics problems with assistance from (artificial) intelligence",
+      "authors_venue": "M Pandey, BH Madhusudhana, S Ghosh, D Budker",
+      "authors": "M Pandey, BH Madhusudhana, S Ghosh, D Budker",
+      "venue": "",
+      "citations": 0,
+      "year": 2025,
+      "added_date": "2025-06-20T15:16:42.031201",
+      "featured": true
+    }
+  ],
+  "profile_data": {
+    "name": "Manas Pandey",
+    "affiliation": "Student,",
+    "interests": [
+      "Quantum Optics",
+      "AI",
+      "Atomic Physics"
+    ]
+  },
+  "last_updated": "2025-06-20T15:16:44.031305",
+  "fetch_url": "https://scholar.google.com/citations?user=3cqkF08AAAAJ&hl=en"
+}

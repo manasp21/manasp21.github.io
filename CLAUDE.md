@@ -8,7 +8,7 @@ A sophisticated, multi-page portfolio website for Manas Pandey, Physics student 
 ### Pages
 - **index.html** - Enhanced home page with serif typography, animations, and one-page websites showcase
 - **about.html** - Personal story with consistent theming and placeholder images
-- **research.html** - Research interests and vision (placeholder content with professional layout)
+- **research.html** - Research portfolio with automated Google Scholar integration and publication cards
 - **projects.html** - GitHub-integrated project showcase with README-powered descriptions
 - **blog/** - Complete Jekyll-powered blog system with interactive management
 - **photography.html** - Professional gallery with lightbox, metadata system, and file-based management
@@ -45,6 +45,7 @@ Professional dark theme portfolio emphasizing content readability and sophistica
 - **One-Page Websites**: Dynamic detection and showcase generation system
 - **Photography Management**: Enterprise-grade photo organization with metadata editing
 - **LinkedIn Integration**: Automatic profile data parsing and about page generation
+- **Research Publications**: Automated Google Scholar integration with publication card display
 
 ### Content Management Architecture
 - **blog_manager.py**: Interactive Jekyll post creation, editing, validation with safety backups
@@ -52,6 +53,7 @@ Professional dark theme portfolio emphasizing content readability and sophistica
 - **onesite_manager.py**: Automatic HTML detection, title extraction, and showcase generation
 - **photo_manager.py**: Enterprise photo management with metadata editing and smart renaming
 - **linkedin_manager.py**: LinkedIn profile parsing and professional about page generation
+- **scholar_manager.py**: Google Scholar integration with automatic publication fetching and display
 - **Safety Systems**: Automatic backups, validation checks, and rollback capabilities
 
 ### Accessibility
@@ -160,6 +162,27 @@ python3 linkedin_manager.py update
 python3 linkedin_manager.py preview
 ```
 
+### **Research Publications Management**
+```bash
+# Fetch latest publications from Google Scholar
+python3 scholar_manager.py update
+
+# Update research.html with publication cards
+python3 scholar_manager.py generate
+
+# List all cached publications with metadata
+python3 scholar_manager.py list
+
+# Validate research system integrity
+python3 scholar_manager.py validate
+
+# Manually add a publication
+python3 scholar_manager.py add
+
+# Automated daily update (can be scheduled with cron)
+bash update_research.sh
+```
+
 ### **Content Management**
 ```bash
 # Blog management
@@ -196,7 +219,7 @@ manasp21.github.io/
 ├── 📄 Core Pages
 │   ├── index.html              # Clean home with animations & one-page showcase
 │   ├── about.html              # LinkedIn-integrated professional profile
-│   ├── research.html           # Research interests (professional placeholder)
+│   ├── research.html           # Research portfolio with Google Scholar integration
 │   ├── projects.html           # GitHub integration showcase
 │   ├── photography.html        # Enterprise-grade gallery with metadata management
 │   └── blog/index.html         # Jekyll-powered blog system
@@ -214,8 +237,11 @@ manasp21.github.io/
 │   ├── onesite_manager.py      # One-page websites showcase system (description-free)
 │   ├── photo_manager.py        # Enterprise photo management with editing & validation
 │   ├── linkedin_manager.py     # LinkedIn profile parsing & about page generation
+│   ├── scholar_manager.py      # Google Scholar integration with publication cards
+│   ├── update_research.sh      # Automated research update script
 │   ├── .projects_cache.json    # GitHub API caching (24h)
-│   └── .onesites_cache.json    # One-page sites caching
+│   ├── .onesites_cache.json    # One-page sites caching
+│   └── .scholar_cache.json     # Google Scholar publication cache
 │
 ├── 🌐 One-Page Websites
 │   └── one_page_websites/
@@ -230,7 +256,8 @@ manasp21.github.io/
 │   ├── _config.yml             # Jekyll configuration
 │   ├── onesites.json           # One-page sites configuration (no descriptions)
 │   ├── projects.json           # GitHub projects configuration
-│   └── linkedin_profile.json   # LinkedIn profile data storage
+│   ├── linkedin_profile.json   # LinkedIn profile data storage
+│   └── scholar_config.json     # Google Scholar settings and configuration
 │
 ├── 📝 Jekyll Blog System
 │   ├── _posts/                 # Blog posts (Markdown)

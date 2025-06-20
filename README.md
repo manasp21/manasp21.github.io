@@ -24,6 +24,7 @@
 - **Photography Gallery**: Professional lightbox gallery with comprehensive photo management
 - **LinkedIn Integration**: Automatic profile data parsing and about page generation
 - **Photo Management**: Enterprise-grade photo organization with metadata editing
+- **Research Publications**: Automated Google Scholar integration with publication cards
 
 ### 🚀 **SEO & Performance**
 - **Complete SEO Suite**: robots.txt, XML sitemap, structured data, meta tags
@@ -40,7 +41,7 @@ manasp21.github.io/
 ├── 📄 Core Pages
 │   ├── index.html              # Enhanced home page with animations
 │   ├── about.html              # Personal story and background
-│   ├── research.html           # Research interests (placeholder)
+│   ├── research.html           # Research portfolio with Google Scholar integration
 │   ├── projects.html           # GitHub projects showcase
 │   ├── photography.html        # Professional photo gallery
 │   └── blog/index.html         # Jekyll-powered blog
@@ -58,6 +59,8 @@ manasp21.github.io/
 │   ├── onesite_manager.py      # One-page websites manager
 │   ├── photo_manager.py        # Professional photo management
 │   ├── linkedin_manager.py     # LinkedIn profile integration
+│   ├── scholar_manager.py      # Google Scholar publications manager
+│   ├── update_research.sh      # Automated research update script
 │   └── photo_manager_plan.md   # Photo management documentation
 │
 ├── 🌐 One-Page Websites
@@ -69,7 +72,8 @@ manasp21.github.io/
 │   ├── sitemap.xml             # Site structure for crawlers
 │   ├── _config.yml             # Jekyll configuration
 │   ├── onesites.json           # One-page sites config
-│   └── projects.json           # Projects configuration
+│   ├── projects.json           # Projects configuration
+│   └── scholar_config.json     # Google Scholar configuration
 │
 ├── 📝 Content Management
 │   ├── _posts/                 # Blog posts (Markdown)
@@ -111,7 +115,7 @@ manasp21.github.io/
    bundle install
    
    # Python dependencies for management tools
-   pip install pyyaml requests beautifulsoup4
+   pip install pyyaml requests
    ```
 
 3. **Serve locally**
@@ -130,6 +134,54 @@ manasp21.github.io/
 ---
 
 ## 🛠️ Management Systems
+
+### 🔬 **Research Publications Management**
+
+Automated Google Scholar integration system for displaying academic publications with professional cards.
+
+#### Features:
+- ✅ **Automatic Fetching**: Scrapes publications directly from Google Scholar profile
+- ✅ **Professional Display**: Beautiful publication cards with titles, authors, venues, citations
+- ✅ **Smart Caching**: 24-hour cache system for performance optimization
+- ✅ **Manual Management**: Add/remove publications manually when needed
+- ✅ **Featured System**: Highlights top publications automatically
+- ✅ **Responsive Design**: Mobile-optimized publication showcase
+
+#### Commands:
+```bash
+# Fetch latest publications from Google Scholar
+python scholar_manager.py update
+
+# Update research.html with publication cards
+python scholar_manager.py generate
+
+# List all cached publications
+python scholar_manager.py list
+
+# Validate research system
+python scholar_manager.py validate
+
+# Manually add a publication
+python scholar_manager.py add
+
+# Automated daily update (for cron scheduling)
+bash update_research.sh
+```
+
+#### Configuration:
+The system uses `scholar_config.json` for settings:
+```json
+{
+  "profile": {
+    "user_id": "3cqkF08AAAAJ",
+    "profile_url": "https://scholar.google.com/citations?user=3cqkF08AAAAJ&hl=en"
+  },
+  "settings": {
+    "cache_duration": 86400,
+    "sort_by": "year"
+  }
+}
+```
 
 ### 📝 **Blog Management System**
 
