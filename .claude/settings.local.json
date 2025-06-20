@@ -21,7 +21,8 @@
       "WebFetch(domain:docs.microsoft.com)",
       "Bash(chmod:*)",
       "WebFetch(domain:scholar.google.com)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(echo)"
     ],
     "deny": []
   }
