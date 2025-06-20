@@ -558,6 +558,10 @@ class PhotoManager:
         if changes_made:
             self.save_metadata()
             print("✅ Metadata issues fixed successfully!")
+            
+            # Auto-sync with photography.html
+            print("\n🔄 Auto-syncing with photography.html...")
+            self.update_photography_html_fallback()
         else:
             print("✅ No fixable issues found")
     
@@ -604,6 +608,10 @@ class PhotoManager:
         if updated_count > 0:
             self.save_metadata()
             print(f"\n✅ Updated {updated_count} photo titles!")
+            
+            # Auto-sync with photography.html
+            print("🔄 Auto-syncing with photography.html...")
+            self.update_photography_html_fallback()
         else:
             print("\n✅ No generic titles found to update")
     
@@ -665,6 +673,10 @@ class PhotoManager:
         if updated_count > 0:
             self.save_metadata()
             print(f"\n✅ Updated {updated_count} photo captions!")
+            
+            # Auto-sync with photography.html
+            print("🔄 Auto-syncing with photography.html...")
+            self.update_photography_html_fallback()
         else:
             print("\n✅ No generic captions found to update")
     
@@ -757,12 +769,195 @@ class PhotoManager:
         self.save_metadata()
         
         print(f"✅ Successfully added photo with ID {new_id}")
+        
+        # Auto-sync with photography.html
+        print("🔄 Auto-syncing with photography.html...")
+        self.update_photography_html_fallback()
+    
+    def update_photography_html_fallback(self):
+        """Update photography.html fallback with current photo metadata for automatic loading."""
+        photography_file = Path("photography.html")
+        
+        if not photography_file.exists():
+            print("❌ photography.html not found")
+            return
+        
+        # Read photography.html
+        with open(photography_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Create backup
+        backup_path = self.backup_dir / f"photography_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
+        shutil.copy2(photography_file, backup_path)
+        print(f"✅ Backup created: {backup_path}")
+        
+        # Generate comprehensive fallback data with all metadata
+        fallback_data = "            const fallbackImages = [\n"
+        for img in self.metadata["images"]:
+            # Escape quotes in strings
+            title = img.get("title", "Untitled").replace("'", "\\'")
+            caption = img.get("caption", "").replace("'", "\\'")
+            location = img.get("location", "Unknown").replace("'", "\\'")
+            camera = img.get("metadata", {}).get("camera", "Unknown").replace("'", "\\'")
+            lens = img.get("metadata", {}).get("lens", "Unknown").replace("'", "\\'")
+            settings = img.get("metadata", {}).get("settings", "Unknown").replace("'", "\\'")
+            
+            fallback_data += f"                {{\n"
+            fallback_data += f"                    id: {img.get('id', 1)},\n"
+            fallback_data += f"                    filename: '{img.get('filename', '')}',\n"
+            fallback_data += f"                    title: '{title}',\n"
+            fallback_data += f"                    caption: '{caption}',\n"
+            fallback_data += f"                    location: '{location}',\n"
+            fallback_data += f"                    camera: '{camera}',\n"
+            fallback_data += f"                    lens: '{lens}',\n"
+            fallback_data += f"                    settings: '{settings}',\n"
+            fallback_data += f"                    tags: {json.dumps(img.get('tags', []))},\n"
+            fallback_data += f"                    category: '{img.get('category', 'general')}',\n"
+            fallback_data += f"                    featured: {str(img.get('featured', False)).lower()},\n"
+            fallback_data += f"                    sortOrder: {img.get('sortOrder', 0)},\n"
+            fallback_data += f"                    aspectRatio: {img.get('aspectRatio', 1.5)},\n"
+            dimensions = img.get('dimensions', {'width': 1920, 'height': 1280})
+            fallback_data += f"                    dimensions: {{ width: {dimensions.get('width', 1920)}, height: {dimensions.get('height', 1280)} }}\n"
+            fallback_data += f"                }},\n"
+        fallback_data += "            ];"
+        
+        # Replace the fallback list in photography.html
+        pattern = r'const fallbackImages = \[[\s\S]*?\];'
+        new_content = re.sub(pattern, fallback_data, content)
+        
+        # Also update the fallback mapping to use the rich data
+        fallback_mapping = """
+            return fallbackImages.map((item, index) => ({
+                id: item.id,
+                filename: item.filename,
+                src: `gallery/images/${item.filename}`,
+                title: item.title,
+                caption: item.caption,
+                metadata: { 
+                    camera: item.camera, 
+                    lens: item.lens, 
+                    settings: item.settings,
+                    location: item.location
+                },
+                tags: item.tags,
+                category: item.category,
+                featured: item.featured,
+                sortOrder: item.sortOrder,
+                aspectRatio: item.aspectRatio,
+                dimensions: item.dimensions
+            }));"""
+        
+        # Replace the fallback mapping
+        mapping_pattern = r'return fallbackImages\.map\([\s\S]*?\}\)\);'
+        new_content = re.sub(mapping_pattern, fallback_mapping.strip(), new_content)
+        
+        # Write updated content
+        with open(photography_file, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        
+        print("✅ Updated photography.html with complete metadata fallback")
+        print(f"✅ {len(self.metadata['images'])} photos with full metadata")
+        print("✅ Photos will load automatically with professional titles and captions")
+    
+    def validate_photography_integration(self):
+        """Validate that photography.html is compatible with current photo system."""
+        print("\n🔍 Validating photography.html integration...")
+        
+        issues = []
+        warnings = []
+        
+        photography_file = Path("photography.html")
+        if not photography_file.exists():
+            issues.append("photography.html file not found")
+            return issues
+        
+        # Read photography.html content
+        with open(photography_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Check metadata file path
+        if 'gallery/metadata.json' in content:
+            correct_path = str(self.metadata_file.relative_to(Path(".")))
+            if correct_path != 'gallery/metadata.json':
+                issues.append(f"Metadata path mismatch: expects 'gallery/metadata.json', actual is '{correct_path}'")
+        
+        # Check image folder path
+        if 'gallery/images/' in content:
+            correct_path = str(self.images_dir.relative_to(Path(".")) / "")
+            if correct_path != 'gallery/images/':
+                issues.append(f"Image folder path mismatch: expects 'gallery/images/', actual is '{correct_path}'")
+        
+        # Extract fallback filenames from photography.html
+        fallback_match = re.search(r'const fallbackImages = \[([\s\S]*?)\];', content)
+        if fallback_match:
+            fallback_content = fallback_match.group(1)
+            fallback_filenames = re.findall(r"'([^']+)'", fallback_content)
+            
+            # Get current filenames
+            current_filenames = [img["filename"] for img in self.metadata["images"]]
+            
+            # Check for mismatches
+            missing_in_fallback = set(current_filenames) - set(fallback_filenames)
+            extra_in_fallback = set(fallback_filenames) - set(current_filenames)
+            
+            if missing_in_fallback:
+                issues.append(f"Fallback missing {len(missing_in_fallback)} current photos: {', '.join(list(missing_in_fallback)[:3])}...")
+            
+            if extra_in_fallback:
+                warnings.append(f"Fallback has {len(extra_in_fallback)} outdated photos: {', '.join(list(extra_in_fallback)[:3])}...")
+        else:
+            warnings.append("Could not find fallback image list in photography.html")
+        
+        # Check if any files in fallback don't exist
+        for img in self.metadata["images"]:
+            image_path = self.images_dir / img["filename"]
+            if not image_path.exists():
+                issues.append(f"Image file missing: {img['filename']}")
+        
+        # Print warnings
+        if warnings:
+            print("⚠️  Warnings found:")
+            for warning in warnings:
+                print(f"   - {warning}")
+        
+        # Print summary
+        if not issues and not warnings:
+            print("✅ Photography.html integration is perfect!")
+        elif not issues:
+            print("✅ Photography.html integration is functional with minor warnings")
+        
+        return issues
+    
+    def fix_photography_integration(self):
+        """Fix photography.html integration issues automatically."""
+        print("\n🔧 Fixing photography.html integration...")
+        
+        # Validate first
+        issues = self.validate_photography_integration()
+        
+        if not issues:
+            print("✅ No issues found to fix")
+            return
+        
+        # Update fallback list
+        self.update_photography_html_fallback()
+        
+        # Re-validate
+        remaining_issues = self.validate_photography_integration()
+        
+        if not remaining_issues:
+            print("✅ All photography.html integration issues fixed!")
+        else:
+            print("⚠️  Some issues remain:")
+            for issue in remaining_issues:
+                print(f"   - {issue}")
 
 def main():
     parser = argparse.ArgumentParser(description="Photo Manager for Photography Portfolio")
     parser.add_argument("command", choices=[
         "list", "validate", "edit", "preview", "rename", 
-        "fix", "bulk-titles", "bulk-captions", "add"
+        "fix", "bulk-titles", "bulk-captions", "add",
+        "validate-web", "fix-web", "update-fallback"
     ], help="Command to execute")
     parser.add_argument("--photo", type=int, help="Photo ID for edit command")
     parser.add_argument("--category", help="Filter by category for list command")
@@ -819,6 +1014,15 @@ def main():
             print("Usage: python photo_manager.py add /path/to/photo.jpg")
         else:
             manager.add_new_photo(args.path)
+    
+    elif args.command == "validate-web":
+        manager.validate_photography_integration()
+    
+    elif args.command == "fix-web":
+        manager.fix_photography_integration()
+    
+    elif args.command == "update-fallback":
+        manager.update_photography_html_fallback()
 
 if __name__ == "__main__":
     main()
