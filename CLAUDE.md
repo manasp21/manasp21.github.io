@@ -53,23 +53,27 @@ Professional dark theme portfolio emphasizing content readability and sophistica
 - **onesite_manager.py**: Automatic HTML detection, title extraction, and showcase generation
 - **photo_manager.py**: Enterprise photo management with metadata editing and smart renaming
 - **linkedin_manager.py**: LinkedIn profile parsing and professional about page generation
-- **scholar_manager.py**: Google Scholar integration with automatic publication fetching and display
+- **scholar_manager.py**: Google Scholar integration with automatic publication fetching, DOI extraction, and display
+- **mobile-nav.js**: Professional mobile navigation controller with accessibility and performance features
 - **Safety Systems**: Automatic backups, validation checks, and rollback capabilities
 
 ### Accessibility
-- ARIA labels and semantic HTML
-- Keyboard navigation support (ESC key handling)
-- Screen reader friendly
+- ARIA labels and semantic HTML across all components
+- Keyboard navigation support (ESC key handling, focus management)
+- Screen reader friendly with proper announcements
 - Reduced motion preferences respected (disables animations)
 - Focus indicators for all interactive elements
-- Mobile-optimized transitions
+- Mobile-optimized transitions and touch targets (44px minimum)
+- Mobile menu accessibility with proper state management
 
 ### Performance Optimizations
-- Lazy loading for images
+- Lazy loading for images and content
 - Will-change properties for smooth animations
 - Optimized cubic-bezier easing functions
-- Mobile-specific transition timings
+- Mobile-specific transition timings and reduced complexity
 - Backface-visibility hidden for 3D elements
+- Touch gesture optimizations for iOS and Android
+- Efficient mobile menu animations with hardware acceleration
 
 ## Content Strategy
 
@@ -83,6 +87,25 @@ Written from a first-person perspective, conveying not just what Manas does, but
 4. **Philosophy**: Intersection of science, art, and wonder
 
 ## Major System Updates (2025-06-20)
+
+### ✅ Mobile Navigation & Responsive Design Implementation
+- **Professional Hamburger Menu**: Smooth animated mobile navigation with X transformation
+- **Slide-in Mobile Menu**: Professional overlay with backdrop blur and touch optimizations
+- **Comprehensive Responsive Design**: 480px/768px/1024px breakpoints with mobile-first approach
+- **Accessibility Compliance**: ARIA labels, focus management, keyboard navigation support
+- **Performance Optimizations**: Mobile-specific animations, reduced motion support, touch gestures
+- **Cross-Platform Support**: Works seamlessly across all mobile devices and tablets
+- **JavaScript Controller**: `mobile-nav.js` handles all mobile navigation functionality
+- **Body Scroll Lock**: Prevents background scrolling when mobile menu is open
+
+### ✅ DOI Link Integration & Research Enhancement
+- **Clickable Publication Titles**: Smart link hierarchy (DOI → External → Scholar) for best user experience
+- **DOI Support System**: Automatic DOI extraction from Scholar pages and manual DOI management
+- **Professional Link Styling**: Green accent buttons with hover animations and visual feedback
+- **arXiv Integration**: Support for arXiv DOIs (e.g., `10.48550/arXiv.2506.12770`) and direct links
+- **Link Management Commands**: `python scholar_manager.py links` for updating existing publications
+- **Publication Enhancement**: Added external URL support and Scholar URL fallbacks
+- **Smart Link Prioritization**: DOI links preferred over external URLs over Scholar URLs
 
 ### ✅ Content Reorganization & Enhancement
 - **Index Page Cleanup**: Removed technical expertise and personal inspirations sections for cleaner focus
@@ -164,19 +187,22 @@ python3 linkedin_manager.py preview
 
 ### **Research Publications Management**
 ```bash
-# Fetch latest publications from Google Scholar
+# Fetch latest publications from Google Scholar with DOI extraction
 python3 scholar_manager.py update
 
-# Update research.html with publication cards
+# Update research.html with publication cards and DOI links
 python3 scholar_manager.py generate
 
-# List all cached publications with metadata
+# List all cached publications with metadata and links
 python3 scholar_manager.py list
+
+# Update DOI and external links for existing publications
+python3 scholar_manager.py links
 
 # Validate research system integrity
 python3 scholar_manager.py validate
 
-# Manually add a publication
+# Manually add a publication with DOI support
 python3 scholar_manager.py add
 
 # Automated daily update (can be scheduled with cron)
@@ -198,18 +224,20 @@ python3 onesite_manager.py update|generate|list|validate
 ## Current Implementation Status
 
 ### ✅ Fully Implemented Pages
-- **Home Page**: Clean interface with enhanced typography, animations, and one-page websites showcase (no clutter)
-- **About Page**: LinkedIn-integrated professional profile with experience timeline and comprehensive skills matrix
-- **Projects Page**: GitHub integration with automatic README-powered descriptions and metadata
-- **Photography Page**: Enterprise-grade gallery with 16 professionally organized photos, smart metadata management
-- **Blog System**: Complete Jekyll integration with Python-based management tools and interactive editing
-- **One-Page Websites**: Dynamic showcase system with 4 specialized project pages (clean, description-free presentation)
+- **Home Page**: Clean interface with enhanced typography, animations, one-page websites showcase, and mobile navigation
+- **About Page**: LinkedIn-integrated professional profile with experience timeline, comprehensive skills matrix, and mobile navigation
+- **Research Page**: Google Scholar integration with DOI links, publication cards, clickable titles, and mobile navigation
+- **Projects Page**: GitHub integration with automatic README-powered descriptions, metadata, and mobile navigation
+- **Photography Page**: Enterprise-grade gallery with 16 professionally organized photos, smart metadata management, and mobile navigation
+- **Blog System**: Complete Jekyll integration with Python-based management tools, interactive editing, and mobile navigation
+- **One-Page Websites**: Dynamic showcase system with 4 specialized project pages and mobile navigation
 
 ### 🔄 Content Areas Ready for Expansion
-- **Research Page**: Professional layout with vision statements, ready for publications and academic content
+- **Additional Research Publications**: DOI system ready for new publications and academic content
 - **Additional Projects**: GitHub integration system ready for new repository additions
 - **Blog Content**: Publishing system ready for technical articles and personal reflections
 - **Photo Additions**: Management system ready for new photography with automated professional organization
+- **Mobile Optimizations**: System ready for further mobile UX enhancements and features
 
 ## Development Notes
 
@@ -217,15 +245,16 @@ python3 onesite_manager.py update|generate|list|validate
 ```
 manasp21.github.io/
 ├── 📄 Core Pages
-│   ├── index.html              # Clean home with animations & one-page showcase
-│   ├── about.html              # LinkedIn-integrated professional profile
-│   ├── research.html           # Research portfolio with Google Scholar integration
-│   ├── projects.html           # GitHub integration showcase
-│   ├── photography.html        # Enterprise-grade gallery with metadata management
-│   └── blog/index.html         # Jekyll-powered blog system
+│   ├── index.html              # Clean home with animations, one-page showcase & mobile nav
+│   ├── about.html              # LinkedIn-integrated professional profile & mobile nav
+│   ├── research.html           # Research portfolio with Google Scholar integration, DOI links & mobile nav
+│   ├── projects.html           # GitHub integration showcase & mobile nav
+│   ├── photography.html        # Enterprise-grade gallery with metadata management & mobile nav
+│   └── blog/index.html         # Jekyll-powered blog system & mobile nav
 │
 ├── 🎨 Design & Content
-│   ├── styles.css              # Dark theme with enhanced typography & LinkedIn styling
+│   ├── styles.css              # Dark theme with enhanced typography, mobile navigation & DOI styling
+│   ├── mobile-nav.js           # Professional mobile navigation controller with accessibility
 │   ├── profile-image.png       # Professional profile photo (2.1MB)
 │   └── gallery/                # Professional photography system
 │       ├── images/             # 16 SEO-named photos (2024-MM-DD-category-tag.jpg)
@@ -237,11 +266,11 @@ manasp21.github.io/
 │   ├── onesite_manager.py      # One-page websites showcase system (description-free)
 │   ├── photo_manager.py        # Enterprise photo management with editing & validation
 │   ├── linkedin_manager.py     # LinkedIn profile parsing & about page generation
-│   ├── scholar_manager.py      # Google Scholar integration with publication cards
+│   ├── scholar_manager.py      # Google Scholar integration with publication cards & DOI extraction
 │   ├── update_research.sh      # Automated research update script
 │   ├── .projects_cache.json    # GitHub API caching (24h)
 │   ├── .onesites_cache.json    # One-page sites caching
-│   └── .scholar_cache.json     # Google Scholar publication cache
+│   └── .scholar_cache.json     # Google Scholar publication cache with DOI data
 │
 ├── 🌐 One-Page Websites
 │   └── one_page_websites/

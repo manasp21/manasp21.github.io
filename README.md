@@ -24,7 +24,8 @@
 - **Photography Gallery**: Professional lightbox gallery with comprehensive photo management
 - **LinkedIn Integration**: Automatic profile data parsing and about page generation
 - **Photo Management**: Enterprise-grade photo organization with metadata editing
-- **Research Publications**: Automated Google Scholar integration with publication cards
+- **Research Publications**: Automated Google Scholar integration with publication cards and DOI links
+- **Mobile Navigation**: Professional hamburger menu system with responsive design
 
 ### 🚀 **SEO & Performance**
 - **Complete SEO Suite**: robots.txt, XML sitemap, structured data, meta tags
@@ -59,8 +60,9 @@ manasp21.github.io/
 │   ├── onesite_manager.py      # One-page websites manager
 │   ├── photo_manager.py        # Professional photo management
 │   ├── linkedin_manager.py     # LinkedIn profile integration
-│   ├── scholar_manager.py      # Google Scholar publications manager
+│   ├── scholar_manager.py      # Google Scholar publications manager with DOI support
 │   ├── update_research.sh      # Automated research update script
+│   ├── mobile-nav.js           # Mobile navigation controller
 │   └── photo_manager_plan.md   # Photo management documentation
 │
 ├── 🌐 One-Page Websites
@@ -142,6 +144,8 @@ Automated Google Scholar integration system for displaying academic publications
 #### Features:
 - ✅ **Automatic Fetching**: Scrapes publications directly from Google Scholar profile
 - ✅ **Professional Display**: Beautiful publication cards with titles, authors, venues, citations
+- ✅ **DOI Link Support**: Clickable titles with DOI, arXiv, and external links
+- ✅ **Smart Link Hierarchy**: DOI → External URL → Scholar URL prioritization
 - ✅ **Smart Caching**: 24-hour cache system for performance optimization
 - ✅ **Manual Management**: Add/remove publications manually when needed
 - ✅ **Featured System**: Highlights top publications automatically
@@ -185,6 +189,11 @@ The system uses `scholar_config.json` for settings:
   }
 }
 ```
+
+#### DOI Link Examples:
+- **arXiv DOI**: `https://doi.org/10.48550/arXiv.2506.12770`
+- **Journal DOI**: `https://doi.org/10.1103/PhysRevLett.130.143602`
+- **External Links**: arXiv abstracts, journal websites, PDF files
 
 ### 📝 **Blog Management System**
 
@@ -415,13 +424,13 @@ python linkedin_manager.py skills
 
 | Page | Status | Features | Management |
 |------|--------|----------|------------|
-| **Home** | ✅ Complete | Enhanced typography, animations, hero section, one-page showcase | Static content |
-| **About** | ✅ Complete | LinkedIn integration, professional timeline, skills matrix | `linkedin_manager.py` |
-| **Research** | 🔄 Placeholder | Research interests, vision statements | Static content |
-| **Projects** | ✅ Complete | GitHub integration, README descriptions | `project_manager.py` |
-| **Blog** | ✅ Complete | Jekyll posts, interactive management | `blog_manager.py` |
-| **Photography** | ✅ Complete | Professional gallery, enterprise photo management | `photo_manager.py` |
-| **One-Page Sites** | ✅ Complete | Dynamic showcase, automatic detection | `onesite_manager.py` |
+| **Home** | ✅ Complete | Enhanced typography, animations, hero section, one-page showcase, mobile nav | Static content |
+| **About** | ✅ Complete | LinkedIn integration, professional timeline, skills matrix, mobile nav | `linkedin_manager.py` |
+| **Research** | ✅ Complete | Google Scholar integration, DOI links, publication cards, mobile nav | `scholar_manager.py` |
+| **Projects** | ✅ Complete | GitHub integration, README descriptions, mobile nav | `project_manager.py` |
+| **Blog** | ✅ Complete | Jekyll posts, interactive management, mobile nav | `blog_manager.py` |
+| **Photography** | ✅ Complete | Professional gallery, enterprise photo management, mobile nav | `photo_manager.py` |
+| **One-Page Sites** | ✅ Complete | Dynamic showcase, automatic detection, mobile nav | `onesite_manager.py` |
 
 ---
 
@@ -533,6 +542,43 @@ python linkedin_manager.py parse
 # Generate updated about page content
 python linkedin_manager.py update
 ```
+
+### 📱 **Mobile Navigation System**
+
+Professional hamburger menu implementation with responsive design optimizations.
+
+#### Features:
+- ✅ **Hamburger Menu**: Smooth animated menu button with X transformation
+- ✅ **Slide-in Navigation**: Professional mobile menu with backdrop blur
+- ✅ **Touch Optimizations**: 44px minimum touch targets, gesture support
+- ✅ **Accessibility**: ARIA labels, focus management, keyboard navigation
+- ✅ **Performance**: Mobile-optimized animations and reduced motion support
+- ✅ **Cross-Platform**: Works across all mobile devices and tablet sizes
+
+#### Implementation:
+```html
+<!-- Mobile menu button (automatically shown on mobile) -->
+<button class="mobile-menu-button" aria-label="Toggle mobile menu">
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</button>
+
+<!-- Mobile navigation menu -->
+<div class="mobile-nav-menu" aria-hidden="true">
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <!-- Navigation links -->
+    </ul>
+</div>
+```
+
+#### Responsive Breakpoints:
+- **Mobile Phones**: ≤480px (single column, full-width menu)
+- **Tablets**: 481px-768px (two columns, slide-in menu)
+- **Desktop**: >768px (traditional navigation bar)
 
 ---
 

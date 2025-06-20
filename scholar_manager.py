@@ -461,20 +461,21 @@ class ScholarManager:
             
             new_main_content = f'''
         <h1 class="page-title">Research</h1>
-        <p class="page-subtitle">Exploring the intersection of quantum mechanics and artificial intelligence</p>
         
         <!-- Publications Section -->
-        <section class="publications-section">
+        <section class="content-section">
             <h2 class="section-title">Publications</h2>
-            <div class="publications-grid">
+            <p class="section-description">Exploring the intersection of quantum mechanics and artificial intelligence</p>
+            <div class="content-grid publications-grid">
 {publications_html}
             </div>
         </section>
         
         <!-- Research Interests Section -->
-        <section class="research-interests">
+        <section class="content-section">
             <h2 class="section-title">Research Interests</h2>
-            <div class="interests-grid">
+            <p class="section-description">Current areas of investigation and academic curiosity</p>
+            <div class="content-grid interests-grid">
                 <div class="interest-card">
                     <h3>Quantum Machine Learning</h3>
                     <p>Investigating the potential of quantum computing to enhance machine learning algorithms and exploring quantum-classical hybrid approaches.</p>
