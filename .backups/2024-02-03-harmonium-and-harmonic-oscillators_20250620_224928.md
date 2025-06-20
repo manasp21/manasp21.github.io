@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Harmonium and Harmonic Oscillators: Finding Music in Physics"
-date: 2025-05-28 20:45:24 +0530
+date: 2024-02-03 14:30:00 +0530
 categories: [personal, music]
 tags: [music, physics, harmonium, mathematics, philosophy]
 excerpt: "Discovering the unexpected connections between playing harmonium and studying quantum harmonic oscillators—how music and physics speak the same mathematical language."

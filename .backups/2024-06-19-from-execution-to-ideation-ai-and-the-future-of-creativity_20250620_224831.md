@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "From Execution to Ideation: AI and the Future of Creativity"
-date: 2025-05-29 20:45:24 +0530
+date: 2024-06-19 21:30:00 +0530
 categories: [ai, creativity, philosophy, future]
 tags: [ai, creativity, execution, ideation, philosophy, future, technology]
 excerpt: "We're entering a world where AI can execute with breathtaking speed and precision. If the grind is no longer the primary measure of value, what is? The idea itself becomes more important than ever."

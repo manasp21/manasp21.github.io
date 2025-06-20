@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Unfolding Verse: Why AI Will Make Us More Human"
-date: 2025-05-19 20:45:24 +0530
+date: 2024-06-19 20:45:24 +0530
 categories: [ai, philosophy, creativity, poetry]
 tags: [ai, poetry, art, future, creativity, philosophy]
 excerpt: "In the dawn of AI, we fear for our creativity. But what if this new intelligence doesn't replace us, but instead pushes us to become more human, more original, and more profound in our art?"
