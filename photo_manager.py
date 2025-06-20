@@ -12,6 +12,7 @@ Usage:
     python photo_manager.py rename                 # Smart batch renaming
     python photo_manager.py rename --preview       # Show rename plan only
     python photo_manager.py add PATH               # Add new photos
+    python photo_manager.py extract-exif           # Extract EXIF metadata from all photos
     python photo_manager.py remove --photo ID      # Remove photos with backups
     python photo_manager.py rollback --backup DIR  # Rollback to backup
 """
@@ -26,6 +27,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 import argparse
+from PIL import Image
+from PIL.ExifTags import TAGS
 
 class PhotoManager:
     def __init__(self):
@@ -38,6 +41,118 @@ class PhotoManager:
         
         # Load current metadata
         self.metadata = self.load_metadata()
+    
+    def extract_exif_data(self, image_path: Path) -> Dict:
+        """Extract EXIF metadata from image file."""
+        exif_data = {
+            "camera": "Unknown",
+            "lens": "Unknown",
+            "settings": "Unknown",
+            "dimensions": {"width": 1920, "height": 1280},
+            "aspectRatio": 1.5,
+            "dateCreated": None
+        }
+        
+        try:
+            with Image.open(image_path) as img:
+                # Get actual image dimensions
+                width, height = img.size
+                exif_data["dimensions"] = {"width": width, "height": height}
+                exif_data["aspectRatio"] = round(width / height, 2)
+                
+                # Extract EXIF data
+                exif_dict = img._getexif()
+                if exif_dict is not None:
+                    exif = {}
+                    for tag_id, value in exif_dict.items():
+                        tag = TAGS.get(tag_id, tag_id)
+                        exif[tag] = value
+                    
+                    # Extract camera information
+                    make = exif.get("Make", "").strip()
+                    model = exif.get("Model", "").strip()
+                    if make and model:
+                        # Remove make from model if it's duplicated
+                        if make.lower() in model.lower():
+                            exif_data["camera"] = model
+                        else:
+                            exif_data["camera"] = f"{make} {model}"
+                    elif model:
+                        exif_data["camera"] = model
+                    elif make:
+                        exif_data["camera"] = make
+                    
+                    # Extract lens information
+                    lens_model = exif.get("LensModel", "").strip()
+                    lens_spec = exif.get("LensSpecification")
+                    if lens_model:
+                        exif_data["lens"] = lens_model
+                    elif lens_spec and isinstance(lens_spec, (list, tuple)) and len(lens_spec) >= 2:
+                        focal_min, focal_max = lens_spec[0], lens_spec[1]
+                        if focal_min == focal_max:
+                            exif_data["lens"] = f"{focal_min}mm"
+                        else:
+                            exif_data["lens"] = f"{focal_min}-{focal_max}mm"
+                    
+                    # Extract camera settings
+                    settings_parts = []
+                    
+                    # ISO
+                    iso = exif.get("ISOSpeedRatings") or exif.get("ISO")
+                    if iso:
+                        settings_parts.append(f"ISO {iso}")
+                    
+                    # Aperture (f-stop)
+                    aperture = exif.get("FNumber")
+                    if aperture:
+                        if isinstance(aperture, (list, tuple)) and len(aperture) >= 2:
+                            f_value = aperture[0] / aperture[1]
+                        else:
+                            f_value = float(aperture)
+                        settings_parts.append(f"f/{f_value:.1f}")
+                    
+                    # Shutter speed
+                    shutter = exif.get("ExposureTime")
+                    if shutter:
+                        if isinstance(shutter, (list, tuple)) and len(shutter) >= 2:
+                            shutter_value = shutter[0] / shutter[1]
+                            if shutter_value >= 1:
+                                settings_parts.append(f"{shutter_value:.1f}s")
+                            else:
+                                settings_parts.append(f"1/{int(1/shutter_value)}s")
+                        else:
+                            shutter_value = float(shutter)
+                            if shutter_value >= 1:
+                                settings_parts.append(f"{shutter_value:.1f}s")
+                            else:
+                                settings_parts.append(f"1/{int(1/shutter_value)}s")
+                    
+                    # Focal length
+                    focal_length = exif.get("FocalLength")
+                    if focal_length:
+                        if isinstance(focal_length, (list, tuple)) and len(focal_length) >= 2:
+                            focal_value = focal_length[0] / focal_length[1]
+                        else:
+                            focal_value = float(focal_length)
+                        settings_parts.append(f"{focal_value:.0f}mm")
+                    
+                    if settings_parts:
+                        exif_data["settings"] = " • ".join(settings_parts)
+                    
+                    # Extract date created
+                    date_taken = exif.get("DateTimeOriginal") or exif.get("DateTime")
+                    if date_taken:
+                        try:
+                            # Parse EXIF date format: "YYYY:MM:DD HH:MM:SS"
+                            date_obj = datetime.strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+                            exif_data["dateCreated"] = date_obj.strftime("%Y-%m-%d")
+                        except ValueError:
+                            pass  # Keep None if parsing fails
+                
+        except Exception as e:
+            print(f"⚠️  Could not extract EXIF data: {e}")
+        
+        return exif_data
         
     def load_metadata(self) -> Dict:
         """Load gallery metadata from JSON file."""
@@ -680,8 +795,122 @@ class PhotoManager:
         else:
             print("\n✅ No generic captions found to update")
     
+    def bulk_extract_exif(self):
+        """Extract EXIF metadata for all existing photos and update their metadata."""
+        print("🔍 Extracting EXIF metadata for all photos...")
+        print("This will update camera, lens, settings, dimensions, and date information from image files.")
+        
+        # Create backup first
+        backup_path = self.create_backup()
+        if not backup_path:
+            print("❌ Failed to create backup. Aborting EXIF extraction.")
+            return
+        
+        updated_count = 0
+        total_photos = len(self.metadata.get("images", []))
+        
+        if total_photos == 0:
+            print("❌ No photos found in metadata")
+            return
+        
+        print(f"\n📸 Processing {total_photos} photos...")
+        print("="*80)
+        
+        for i, image in enumerate(self.metadata.get("images", []), 1):
+            filename = image.get("filename", "")
+            if not filename:
+                print(f"{i:>3}. ❌ Missing filename, skipping")
+                continue
+            
+            image_path = self.images_dir / filename
+            
+            if not image_path.exists():
+                print(f"{i:>3}. ❌ File missing: {filename}")
+                continue
+            
+            print(f"{i:>3}. 🔍 {filename[:40]:<42}", end="")
+            
+            # Extract EXIF data 
+            exif_data = self.extract_exif_data(image_path)
+            
+            # Track what was updated
+            updates = []
+            
+            # Update camera info if we got better data
+            old_camera = image.get("metadata", {}).get("camera", "Unknown")
+            if exif_data["camera"] != "Unknown" and (old_camera == "Unknown" or old_camera != exif_data["camera"]):
+                if "metadata" not in image:
+                    image["metadata"] = {}
+                image["metadata"]["camera"] = exif_data["camera"]
+                updates.append("camera")
+            
+            # Update lens info
+            old_lens = image.get("metadata", {}).get("lens", "Unknown")
+            if exif_data["lens"] != "Unknown" and (old_lens == "Unknown" or old_lens != exif_data["lens"]):
+                if "metadata" not in image:
+                    image["metadata"] = {}
+                image["metadata"]["lens"] = exif_data["lens"]
+                updates.append("lens")
+            
+            # Update settings
+            old_settings = image.get("metadata", {}).get("settings", "Unknown")
+            if exif_data["settings"] != "Unknown" and (old_settings == "Unknown" or old_settings != exif_data["settings"]):
+                if "metadata" not in image:
+                    image["metadata"] = {}
+                image["metadata"]["settings"] = exif_data["settings"]
+                updates.append("settings")
+            
+            # Update dimensions if we got actual size
+            old_dimensions = image.get("dimensions", {"width": 1920, "height": 1280})
+            if exif_data["dimensions"]["width"] > 0 and (
+                old_dimensions.get("width", 1920) != exif_data["dimensions"]["width"] or 
+                old_dimensions.get("height", 1280) != exif_data["dimensions"]["height"]
+            ):
+                image["dimensions"] = exif_data["dimensions"]
+                image["aspectRatio"] = exif_data["aspectRatio"]
+                updates.append("dimensions")
+            
+            # Update date if we got EXIF date and don't have one
+            if exif_data["dateCreated"] != "Unknown" and not image.get("dateCreated"):
+                image["dateCreated"] = exif_data["dateCreated"]
+                updates.append("date")
+            
+            if updates:
+                print(f"✅ {', '.join(updates)}")
+                updated_count += 1
+            else:
+                print("💭 No updates needed")
+        
+        print("="*80)
+        
+        if updated_count > 0:
+            print(f"✅ Updated EXIF metadata for {updated_count}/{total_photos} photos")
+            
+            # Save the updated metadata
+            self.save_metadata()
+            print("✅ Metadata saved successfully")
+            
+            # Auto-sync with photography.html
+            print("🔄 Auto-syncing with photography.html...")
+            self.update_photography_html_fallback()
+            print("✅ Photography.html updated with new EXIF data")
+            
+            print(f"\n🎉 EXIF extraction complete! Photos now have professional metadata from image files.")
+        else:
+            print("✅ All photos already have complete EXIF metadata")
+    
     def add_new_photo(self, photo_path: str):
-        """Add a new photo to the gallery with interactive metadata collection."""
+        """Add a new photo to the gallery with EXIF extraction and interactive metadata collection.
+        
+        Automatically extracts EXIF metadata including:
+        - Camera make and model
+        - Lens information  
+        - Camera settings (ISO, aperture, shutter speed, focal length)
+        - Actual image dimensions and aspect ratio
+        - Date photo was taken
+        
+        Falls back to 'Unknown' values when EXIF data is not available.
+        """
         source_path = Path(photo_path)
         
         if not source_path.exists():
@@ -693,6 +922,30 @@ class PhotoManager:
             return
         
         print(f"\n📸 Adding new photo: {source_path.name}")
+        
+        # Extract EXIF data first
+        print("🔍 Extracting EXIF metadata...")
+        exif_data = self.extract_exif_data(source_path)
+        
+        # Display extracted information
+        print("✅ EXIF Data Extracted:")
+        if exif_data["camera"] != "Unknown":
+            print(f"   📷 Camera: {exif_data['camera']}")
+        else:
+            print(f"   📷 Camera: Unknown (no EXIF data)")
+        if exif_data["lens"] != "Unknown": 
+            print(f"   🔍 Lens: {exif_data['lens']}")
+        else:
+            print(f"   🔍 Lens: Unknown (no EXIF data)")
+        if exif_data["settings"] != "Unknown":
+            print(f"   ⚙️  Settings: {exif_data['settings']}")
+        else:
+            print(f"   ⚙️  Settings: Unknown (no EXIF data)")
+        print(f"   📐 Dimensions: {exif_data['dimensions']['width']}x{exif_data['dimensions']['height']} (aspect ratio: {exif_data['aspectRatio']})")
+        if exif_data["dateCreated"]:
+            print(f"   📅 Date taken: {exif_data['dateCreated']}")
+        else:
+            print(f"   📅 Date taken: Using current date (no EXIF date)")
         
         # Generate new ID
         existing_ids = [img.get("id", 0) for img in self.metadata["images"]]
@@ -747,21 +1000,18 @@ class PhotoManager:
             "title": title or f"Photo {new_id}",
             "caption": caption or "Professional photography",
             "metadata": {
-                "camera": "Unknown",
-                "lens": "Unknown", 
-                "settings": "Unknown"
+                "camera": exif_data["camera"],
+                "lens": exif_data["lens"], 
+                "settings": exif_data["settings"]
             },
             "tags": tags,
             "category": category or "misc",
             "featured": featured,
             "sortOrder": new_id,
-            "aspectRatio": 1.5,  # Default, can be updated later
-            "dimensions": {
-                "width": 1920,
-                "height": 1280
-            },
+            "aspectRatio": exif_data["aspectRatio"],
+            "dimensions": exif_data["dimensions"],
             "location": location or "Unknown",
-            "dateCreated": datetime.now().strftime("%Y-%m-%d")
+            "dateCreated": exif_data["dateCreated"] or datetime.now().strftime("%Y-%m-%d")
         }
         
         # Add to metadata
@@ -952,12 +1202,91 @@ class PhotoManager:
             for issue in remaining_issues:
                 print(f"   - {issue}")
 
+    def remove_photo(self, photo_id: int):
+        """Remove a photo from the gallery with safety backups."""
+        print(f"🗑️  Removing photo ID {photo_id}...")
+        
+        # Find the photo
+        photo_to_remove = None
+        for photo in self.metadata.get("images", []):
+            if photo.get("id") == photo_id:
+                photo_to_remove = photo
+                break
+        
+        if not photo_to_remove:
+            print(f"❌ Photo with ID {photo_id} not found")
+            return
+        
+        filename = photo_to_remove.get("filename", "")
+        title = photo_to_remove.get("title", "Unknown")
+        
+        print(f"📷 Photo: {title}")
+        print(f"📁 File: {filename}")
+        print(f"⚠️  This will permanently remove the photo and its file!")
+        
+        # Confirm removal
+        confirm = input("Are you sure you want to remove this photo? (yes/no): ").strip().lower()
+        if confirm not in ["yes", "y"]:
+            print("❌ Removal cancelled")
+            return
+        
+        # Create backup first
+        backup_path = self.create_backup()
+        if not backup_path:
+            print("❌ Failed to create backup. Aborting removal.")
+            return
+        
+        try:
+            # Remove the physical file
+            file_path = self.images_dir / filename
+            if file_path.exists():
+                file_path.unlink()
+                print(f"✅ Removed file: {filename}")
+            else:
+                print(f"⚠️  File not found: {filename}")
+            
+            # Remove from metadata
+            self.metadata["images"] = [
+                img for img in self.metadata["images"] 
+                if img.get("id") != photo_id
+            ]
+            
+            # Reorder IDs and sortOrder to maintain sequence
+            for i, img in enumerate(self.metadata["images"], 1):
+                img["id"] = i
+                img["sortOrder"] = i
+            
+            # Save updated metadata
+            self.save_metadata()
+            print(f"✅ Removed metadata for photo ID {photo_id}")
+            
+            # Auto-sync with photography.html
+            print("🔄 Auto-syncing with photography.html...")
+            self.update_photography_html_fallback()
+            
+            # Validate the system
+            issues = self.validate_system()
+            if issues:
+                print("⚠️  Validation warnings after removal:")
+                for issue in issues:
+                    print(f"   - {issue}")
+            else:
+                print("✅ System validation passed")
+            
+            print(f"\n🎉 Successfully removed photo '{title}' (ID {photo_id})")
+            print(f"📁 Backup created at: {backup_path}")
+            
+        except Exception as e:
+            print(f"❌ Error during removal: {e}")
+            print(f"🔄 Rolling back to backup: {backup_path}")
+            self._rollback_from_backup(backup_path)
+
 def main():
     parser = argparse.ArgumentParser(description="Photo Manager for Photography Portfolio")
     parser.add_argument("command", choices=[
         "list", "validate", "edit", "preview", "rename", 
-        "fix", "bulk-titles", "bulk-captions", "add",
-        "validate-web", "fix-web", "update-fallback"
+        "fix", "bulk-titles", "bulk-captions", "add", "remove",
+        "validate-web", "fix-web", "update-fallback", "extract-exif"
     ], help="Command to execute")
     parser.add_argument("--photo", type=int, help="Photo ID for edit command")
     parser.add_argument("--category", help="Filter by category for list command")
@@ -1015,6 +1344,13 @@ def main():
         else:
             manager.add_new_photo(args.path)
     
+    elif args.command == "remove":
+        if not args.photo:
+            print("❌ Please provide photo ID to remove")
+            print("Usage: python photo_manager.py remove --photo ID")
+        else:
+            manager.remove_photo(args.photo)
+    
     elif args.command == "validate-web":
         manager.validate_photography_integration()
     
@@ -1023,6 +1359,10 @@ def main():
     
     elif args.command == "update-fallback":
         manager.update_photography_html_fallback()
+    
+    elif args.command == "extract-exif":
+        """Extract EXIF metadata for all existing photos"""
+        manager.bulk_extract_exif()
 
 if __name__ == "__main__":
     main()

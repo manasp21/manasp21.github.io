@@ -402,6 +402,33 @@
     },
     {
       "id": 15,
+      "filename": "2024-07-09-abstract-artistic.jpg",
+      "title": "Abstract Artistic Expression",
+      "caption": "Abstract artistic composition with artistic, expression, creative captured in Digital Studio.",
+      "metadata": {
+        "camera": "Digital Composite",
+        "lens": "Mixed Media",
+        "settings": "Creative Processing"
+      },
+      "tags": [
+        "artistic",
+        "expression",
+        "creative",
+        "emotional"
+      ],
+      "category": "abstract",
+      "featured": false,
+      "sortOrder": 15,
+      "aspectRatio": 0.75,
+      "dimensions": {
+        "width": 2994,
+        "height": 4006
+      },
+      "location": "Digital Studio",
+      "dateCreated": "2024-07-09"
+    },
+    {
+      "id": 16,
       "filename": "2025-06-20-sky-sky.jpg",
       "title": "The Sky ready to sob",
       "caption": "A sky before rain in the outskirts of the city",
@@ -417,7 +444,7 @@
       ],
       "category": "sky",
       "featured": true,
-      "sortOrder": 15,
+      "sortOrder": 16,
       "aspectRatio": 1.78,
       "dimensions": {
         "width": 3840,
