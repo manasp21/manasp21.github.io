@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Evolution of RAG: An Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0e1a;
+            color: #e0e0e0;
+        }
+        .hero-gradient {
+            background: radial-gradient(ellipse at top, rgba(29, 78, 216, 0.15), transparent 70%);
+        }
+        .section-gradient {
+             background: radial-gradient(ellipse at center, rgba(29, 78, 216, 0.05), transparent 80%);
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .diagram-step {
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            cursor: pointer;
+        }
+        .diagram-step:hover {
+            border-color: rgba(59, 130, 246, 0.7);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        /* SOTA Card Flip Styles */
+        .sota-card {
+            height: 250px;
+            perspective: 1500px;
+            cursor: pointer;
+        }
+        .sota-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .sota-card.is-flipped .sota-card-inner {
+            transform: rotateY(180deg);
+        }
+        .sota-card-face,
+        .sota-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+        }
+        .sota-card-back {
+            transform: rotateY(180deg);
+        }
+
+        .scroll-target {
+            scroll-margin-top: 80px;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive Diagram Styles */
+        .diagram-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .diagram-step {
+            min-height: 220px;
+        }
+        .arrow {
+            font-size: 2.5rem;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInArrow 1s forwards;
+        }
+        @keyframes fadeInArrow {
+            to { opacity: 1; }
+        }
+        .diagram-step.active {
+            border-color: #3b82f6;
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        /* Comparison Table Styles */
+        .comparison-tabs button {
+            transition: all 0.3s ease;
+        }
+        .comparison-tabs button.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .comparison-content {
+            display: none;
+        }
+        .comparison-content.active {
+            display: block;
+            animation: fadeInContent 0.5s ease-in-out;
+        }
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-card">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-xl font-bold text-white">The RAG Evolution</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#foundations" class="text-gray-300 hover:text-blue-400 transition">Foundations</a>
+                    <a href="#comparison" class="text-gray-300 hover:text-blue-400 transition">Comparison</a>
+                    <a href="#sota" class="text-gray-300 hover:text-blue-400 transition">SOTA</a>
+                    <a href="#future" class="text-gray-300 hover:text-blue-400 transition">Future</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative py-20 md:py-32 hero-gradient">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">
+                    From Retrieval to Reasoning
+                </h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+                    An interactive journey through the evolution of Retrieval-Augmented Generation (RAG), from simple pipelines to autonomous, reasoning agents.
+                </p>
+            </div>
+        </section>
+
+        <!-- Interactive Foundations of RAG -->
+        <section id="foundations" class="py-16 md:py-24 scroll-target section-gradient">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">The Foundations: An Interactive Look at Naive RAG</h2>
+                    <p class="mt-3 text-gray-400 max-w-2xl mx-auto">Click on each step to see how data flows through the foundational RAG pipeline.</p>
+                </div>
+
+                <div class="max-w-6xl mx-auto">
+                    <div class="diagram-container">
+                        <!-- Step 1: Indexing -->
+                        <div id="step-indexing" class="diagram-step fade-in glass-card p-6 rounded-xl text-center flex-1 min-w-[280px]" onclick="setActiveStep('indexing')">
+                            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-900/50 mx-auto mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400 h-8 w-8"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></div>
+                            <h3 class="text-xl font-bold text-white">1. Indexing</h3>
+                            <p class="mt-2 text-gray-400">Documents are chunked, embedded, and stored in a vector database.</p>
+                        </div>
+
+                        <div class="arrow" style="animation-delay: 0.5s;">&rarr;</div>
+
+                        <!-- Step 2: Retrieval -->
+                        <div id="step-retrieval" class="diagram-step fade-in glass-card p-6 rounded-xl text-center flex-1 min-w-[280px]" onclick="setActiveStep('retrieval')">
+                            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-900/50 mx-auto mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 h-8 w-8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                            <h3 class="text-xl font-bold text-white">2. Retrieval</h3>
+                            <p class="mt-2 text-gray-400">User query is embedded to find the most similar chunks via vector search.</p>
+                        </div>
+
+                        <div class="arrow" style="animation-delay: 1s;">&rarr;</div>
+                        
+                        <!-- Step 3: Generation -->
+                        <div id="step-generation" class="diagram-step fade-in glass-card p-6 rounded-xl text-center flex-1 min-w-[280px]" onclick="setActiveStep('generation')">
+                            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-purple-900/50 mx-auto mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-400 h-8 w-8"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+                            <h3 class="text-xl font-bold text-white">3. Generation</h3>
+                            <p class="mt-2 text-gray-400">The query and retrieved context are fed to an LLM to produce a grounded answer.</p>
+                        </div>
+                    </div>
+                    <div id="diagram-explanation" class="mt-8 p-6 glass-card rounded-xl min-h-[100px] text-center fade-in">
+                        <p class="text-lg text-gray-300">Select a step above to see more details.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RAG Comparison Section -->
+        <section id="comparison" class="py-16 md:py-24 scroll-target">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">RAG Paradigms Compared</h2>
+                    <p class="mt-3 text-gray-400 max-w-2xl mx-auto">See how RAG has evolved from a simple pipeline to complex, reasoning systems.</p>
+                </div>
+                <div class="max-w-4xl mx-auto glass-card rounded-xl p-4">
+                    <div class="comparison-tabs flex justify-center bg-gray-800/50 rounded-lg p-1 mb-6">
+                        <button onclick="switchTab('naive')" class="tab-button active flex-1 py-2 px-4 rounded-md font-semibold">Naive RAG</button>
+                        <button onclick="switchTab('advanced')" class="tab-button flex-1 py-2 px-4 rounded-md font-semibold">Advanced RAG</button>
+                        <button onclick="switchTab('agentic')" class="tab-button flex-1 py-2 px-4 rounded-md font-semibold">Agentic RAG</button>
+                    </div>
+                    <div id="content-naive" class="comparison-content active p-4">
+                        <h3 class="text-xl font-bold text-blue-300 mb-2">Philosophy: Simple & Linear</h3>
+                        <p class="text-gray-300">A straightforward, retrieve-then-generate process. Easy to implement and a good baseline, but brittle and prone to retrieval errors.</p>
+                    </div>
+                    <div id="content-advanced" class="comparison-content p-4">
+                        <h3 class="text-xl font-bold text-green-300 mb-2">Philosophy: Modular Optimization</h3>
+                        <p class="text-gray-300">Optimizes each step (pre-retrieval, retrieval, post-retrieval) with techniques like query transformation, hybrid search, and reranking for higher accuracy.</p>
+                    </div>
+                    <div id="content-agentic" class="comparison-content p-4">
+                        <h3 class="text-xl font-bold text-purple-300 mb-2">Philosophy: Dynamic Reasoning</h3>
+                        <p class="text-gray-300">Uses an LLM agent to plan, use tools (like multiple retrievers or APIs), and reason over information to solve complex, multi-step queries autonomously.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- State-of-the-Art (SOTA) RAG -->
+        <section id="sota" class="py-16 md:py-24 scroll-target section-gradient">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">The Frontier: State-of-the-Art Architectures</h2>
+                    <p class="mt-3 text-gray-400 max-w-2xl mx-auto">Modern systems that embed reasoning, self-correction, and autonomous decision-making into the RAG process. Flip cards to learn more.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Self-RAG Card -->
+                    <div class="sota-card fade-in" onclick="this.classList.toggle('is-flipped')">
+                        <div class="sota-card-inner">
+                            <div class="sota-card-face glass-card p-8 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h3 class="text-2xl font-bold text-white mb-2">Self-RAG</h3>
+                                <p class="text-gray-400">Adaptive retrieval and generation through self-reflection.</p>
+                            </div>
+                            <div class="sota-card-back glass-card p-6 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h4 class="font-bold text-lg text-white mb-2">Self-RAG</h4>
+                                <p class="text-sm text-gray-300">An LLM learns to generate special "reflection tokens" to decide when to retrieve information, assess its relevance, and verify if its own output is factually grounded.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Corrective RAG Card -->
+                    <div class="sota-card fade-in" onclick="this.classList.toggle('is-flipped')">
+                         <div class="sota-card-inner">
+                            <div class="sota-card-face glass-card p-8 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h3 class="text-2xl font-bold text-white mb-2">Corrective RAG</h3>
+                                <p class="text-gray-400">Robustness through automated correction of retrieval failures.</p>
+                            </div>
+                            <div class="sota-card-back glass-card p-6 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h4 class="font-bold text-lg text-white mb-2">Corrective RAG (CRAG)</h4>
+                                <p class="text-sm text-gray-300">Uses a lightweight "retrieval evaluator" to score retrieved documents. If quality is low, it triggers a web search to find better information.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Agentic RAG Card -->
+                    <div class="sota-card fade-in" onclick="this.classList.toggle('is-flipped')">
+                        <div class="sota-card-inner">
+                            <div class="sota-card-face glass-card p-8 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h3 class="text-2xl font-bold text-white mb-2">Agentic RAG</h3>
+                                <p class="text-gray-400">Autonomous, reasoning-driven orchestration of tasks.</p>
+                            </div>
+                            <div class="sota-card-back glass-card p-6 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h4 class="font-bold text-lg text-white mb-2">Agentic RAG</h4>
+                                <p class="text-sm text-gray-300">An LLM acts as an "agent" that can reason, plan, and use a diverse set of tools to solve complex, multi-step queries.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- GraphRAG Card -->
+                    <div class="sota-card fade-in" onclick="this.classList.toggle('is-flipped')">
+                        <div class="sota-card-inner">
+                            <div class="sota-card-face glass-card p-8 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h3 class="text-2xl font-bold text-white mb-2">GraphRAG</h3>
+                                <p class="text-gray-400">Leveraging interconnected knowledge via knowledge graphs.</p>
+                            </div>
+                            <div class="sota-card-back glass-card p-6 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h4 class="font-bold text-lg text-white mb-2">GraphRAG</h4>
+                                <p class="text-sm text-gray-300">Retrieves from a Knowledge Graph, allowing it to answer multi-hop questions by traversing entity relationships across documents.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Multimodal RAG Card -->
+                    <div class="sota-card fade-in" onclick="this.classList.toggle('is-flipped')">
+                        <div class="sota-card-inner">
+                            <div class="sota-card-face glass-card p-8 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h3 class="text-2xl font-bold text-white mb-2">Multimodal RAG</h3>
+                                <p class="text-gray-400">Extending RAG beyond text to images, audio, and video.</p>
+                            </div>
+                            <div class="sota-card-back glass-card p-6 rounded-xl flex flex-col justify-center items-center text-center">
+                                <h4 class="font-bold text-lg text-white mb-2">Multimodal RAG</h4>
+                                <p class="text-sm text-gray-300">Integrates non-textual data using multimodal embeddings or by generating textual descriptions of visual content for grounding.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Future Directions -->
+        <section id="future" class="py-16 md:py-24 scroll-target">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Future Trajectories</h2>
+                    <p class="mt-3 text-gray-400 max-w-2xl mx-auto">The research directions shaping the next generation of knowledge-grounded AI.</p>
+                </div>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="fade-in glass-card p-6 rounded-lg">
+                        <h4 class="font-semibold text-lg text-blue-300">Deeper Reasoning & Planning</h4>
+                        <p class="text-gray-400">Systems will feature more sophisticated planning capabilities to tackle complex problems that require long-term, adaptive strategies.</p>
+                    </div>
+                    <div class="fade-in glass-card p-6 rounded-lg">
+                        <h4 class="font-semibold text-lg text-blue-300">Self-Improving Systems</h4>
+                        <p class="text-gray-400">Using reinforcement learning and user feedback to continuously optimize retrieval and generation strategies, allowing systems to improve over time.</p>
+                    </div>
+                    <div class="fade-in glass-card p-6 rounded-lg">
+                        <h4 class="font-semibold text-lg text-blue-300">Pervasive Multimodality</h4>
+                        <p class="text-gray-400">Seamlessly reasoning over text, images, audio, and video will become a standard expectation, unlocking new applications.</p>
+                    </div>
+                    <div class="fade-in glass-card p-6 rounded-lg">
+                        <h4 class="font-semibold text-lg text-blue-300">Real-Time & Federated RAG</h4>
+                        <p class="text-gray-400">Integration with real-time data streams and decentralized, on-device knowledge bases to ensure currency and enhance privacy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sticky header
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('bg-opacity-80', window.scrollY > 50);
+                header.classList.toggle('backdrop-blur-xl', window.scrollY > 50);
+            });
+
+            // Fade-in animations
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            faders.forEach(fader => appearOnScroll.observe(fader));
+        });
+
+        // Interactive Diagram Logic
+        const stepExplanations = {
+            indexing: "<strong>Offline Process:</strong> Raw documents are loaded, split into smaller, manageable chunks, and then each chunk is converted into a numerical vector (embedding) using a machine learning model. These vectors are stored in a specialized vector database, creating a searchable knowledge index.",
+            retrieval: "<strong>Runtime Process:</strong> When a user asks a question, their query is converted into a vector using the same model. The vector database then performs a similarity search (like cosine similarity) to find the document chunks whose vectors are closest to the query vector, retrieving the most semantically relevant information.",
+            generation: "<strong>Runtime Process:</strong> The retrieved document chunks (the context) are combined with the original user query into a single, enriched prompt. This augmented prompt is then sent to a Large Language Model (LLM), which synthesizes all the information to generate a final, coherent, and factually grounded answer."
+        };
+
+        function setActiveStep(step) {
+            document.querySelectorAll('.diagram-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            const explanationBox = document.getElementById('diagram-explanation');
+            explanationBox.innerHTML = `<p class="text-lg text-gray-300">${stepExplanations[step]}</p>`;
+        }
+
+        // Comparison Tabs Logic
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
+
+            document.querySelectorAll('.comparison-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`content-${tabName}`).classList.add('active');
+        }
+
+    </script>
+</body>
+</html>
