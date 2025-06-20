@@ -453,32 +453,6 @@
       },
       "location": "Digital Studio",
       "dateCreated": "2024-07-09"
-    },
-    {
-      "id": 17,
-      "filename": "2025-06-20-sky-sky.jpg",
-      "title": "The Sky ready to sob",
-      "caption": "A sky before rain in the outskirts of the city",
-      "metadata": {
-        "camera": "iPhone 16 Pro",
-        "lens": "7mm",
-        "settings": "Unknown"
-      },
-      "tags": [
-        "sky",
-        "outskirts",
-        "road trip"
-      ],
-      "category": "sky",
-      "featured": true,
-      "sortOrder": 17,
-      "aspectRatio": 1.5,
-      "dimensions": {
-        "width": 1920,
-        "height": 1280
-      },
-      "location": "Patna, Bihar",
-      "dateCreated": "2025-06-20"
     }
   ]
 }
