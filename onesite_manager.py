@@ -82,7 +82,7 @@ class OnesiteManager:
                 "cache_duration": 86400,  # 24 hours
                 "onesite_dir": "one_page_websites",
                 "section_title": "One Page Websites",
-                "section_description": "Interactive explorations and specialized projects"
+                "section_description": "Interactive explorations on various topics that interest me."
             },
             "custom_descriptions": {},
             "metadata": {

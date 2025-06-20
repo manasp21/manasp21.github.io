@@ -128,5 +128,18 @@
     "created_at": "2025-06-20T07:50:08.979164",
     "modified_at": "2025-06-20T07:49:57.111159",
     "cached_at": 1750416813.4857512
+  },
+  "one_page_websites\\06.html": {
+    "number": 6,
+    "filename": "06.html",
+    "title": "The Architecture of Credibility: An Interactive Guide",
+    "description": "",
+    "file_path": "one_page_websites\\06.html",
+    "relative_path": "one_page_websites/06.html",
+    "file_size": 27328,
+    "file_mtime": 1750441534.5719264,
+    "created_at": "2025-06-20T23:15:31.542035",
+    "modified_at": "2025-06-20T23:15:34.571926",
+    "cached_at": 1750441552.8842494
   }
 }

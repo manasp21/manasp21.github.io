@@ -465,7 +465,7 @@ class ScholarManager:
         <!-- Publications Section -->
         <section class="content-section">
             <h2 class="section-title">Publications</h2>
-            <p class="section-description">Exploring the intersection of quantum mechanics and artificial intelligence</p>
+            <p class="section-description">Exploring the intersection of Physics and Artificial Intelligence</p>
             <div class="content-grid publications-grid">
 {publications_html}
             </div>
@@ -477,8 +477,8 @@ class ScholarManager:
             <p class="section-description">Current areas of investigation and academic curiosity</p>
             <div class="content-grid interests-grid">
                 <div class="interest-card">
-                    <h3>Quantum Machine Learning</h3>
-                    <p>Investigating the potential of quantum computing to enhance machine learning algorithms and exploring quantum-classical hybrid approaches.</p>
+                    <h3>Quantum Optics</h3>
+                    <p>Harnessing the quantum properties of light to revolutionize communication, computation, and precision measurement.</p>
                 </div>
                 <div class="interest-card">
                     <h3>Experimental Physics</h3>

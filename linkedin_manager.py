@@ -52,7 +52,7 @@ class LinkedInManager:
             "profile": {
                 "name": "Manas Pandey",
                 "title": "Physics Student & Researcher",
-                "summary": "Undergraduate physics student at IIT Kanpur exploring the intersection of quantum mechanics and artificial intelligence.",
+                "summary": "Undergraduate physics student at IIT Kanpur exploring the intersection of Physics and Artificial Intelligence.",
                 "last_updated": None,
                 "version": "1.0.0"
             },

@@ -33,7 +33,7 @@ One of the most practical applications I'm exploring involves using quantum comp
 
 ## The Poetry of Physics
 
-There's something deeply poetic about quantum machine learning. Just as quantum systems exist in superposition until observed, our understanding of these systems exists in a superposition of possibilities until we run the experiments. Each measurement collapses not just the quantum state, but our classical intuitions about what's possible.
+There's something deeply poetic about Quantum Optics. Just as quantum systems exist in superposition until observed, our understanding of these systems exists in a superposition of possibilities until we run the experiments. Each measurement collapses not just the quantum state, but our classical intuitions about what's possible.
 
 In my lab work, I often find myself thinking about how Heisenberg's uncertainty principle applies not just to position and momentum, but to our knowledge itself. The more precisely we try to pin down one aspect of a quantum ML algorithm, the more uncertain other aspects become.
 

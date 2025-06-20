@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Architecture of Credibility: An Interactive Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #334155; /* slate-700 */
+        }
+        h1, h2, h3 {
+            font-family: 'Lora', serif;
+            font-weight: 600;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 0%, rgba(203, 213, 225, 0.4), rgba(248, 250, 252, 0) 70.71%),
+                        radial-gradient(circle at 6.7% 75%, rgba(203, 213, 225, 0.4), rgba(248, 250, 252, 0) 70.71%),
+                        radial-gradient(circle at 93.3% 75%, rgba(203, 213, 225, 0.4), rgba(248, 250, 252, 0) 70.71%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1; /* slate-300 */
+            transition: .4s;
+            border-radius: 28px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #4f46e5; /* indigo-600 */
+        }
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+        .interactive-text-highlight {
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            border-radius: 0.25rem;
+            padding: 1px 3px;
+        }
+        .table-hover-effect th, .table-hover-effect td {
+            transition: background-color 0.3s ease;
+        }
+        .chart-container {
+            position: relative;
+            height: 40vh;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="relative text-center py-20 md:py-32 hero-gradient overflow-hidden">
+        <div class="relative z-10 max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-800 tracking-tight">The Architecture of Credibility</h1>
+            <p class="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">An interactive exploration of balanced and objective prose.</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- Part I: The Four Pillars (Interactive) -->
+        <section id="interactive-pillars">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">The Four Pillars of Objective Prose</h2>
+                <p class="mt-4 text-lg text-slate-600">Toggle the pillars of objectivity to see how they transform writing in real-time.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <!-- Controls -->
+                <div class="lg:col-span-1 glass-card rounded-xl shadow-lg p-6 space-y-6 sticky top-8">
+                    <h3 class="text-xl font-bold text-slate-700 border-b pb-3">Interactive Controls</h3>
+                    <div id="pillar-controls" class="space-y-4">
+                        <!-- Pillar 1 -->
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-slate-700">Impersonal Voice</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggle-impersonal" data-pillar="impersonal" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <!-- Pillar 2 -->
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-slate-700">Precise Diction</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggle-precise" data-pillar="precise" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <!-- Pillar 3 -->
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-slate-700">Balanced Structure</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggle-balanced" data-pillar="balanced" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <!-- Pillar 4 -->
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-slate-700">Cautious Hedging</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggle-hedging" data-pillar="hedging" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                     <button id="reset-button" class="w-full mt-4 bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">Reset All</button>
+                </div>
+
+                <!-- Text Area -->
+                <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-8">
+                     <p id="interactive-text" class="text-lg/relaxed text-slate-700">
+                        <!-- Text will be dynamically inserted here by JS -->
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Part II: Comparative Analysis of Writing Modes -->
+        <section id="writing-modes">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">A Comparative Analysis</h2>
+                <p class="mt-4 text-lg text-slate-600">Hover over the columns to compare objective prose with other writing modes.</p>
+            </div>
+            <div class="overflow-x-auto bg-white rounded-xl shadow-lg p-2">
+                <table id="comparison-table" class="min-w-full text-sm text-left table-hover-effect">
+                    <thead class="bg-slate-100 text-slate-600 uppercase font-semibold">
+                        <tr>
+                            <th scope="col" class="px-6 py-4 rounded-tl-lg">Attribute</th>
+                            <th scope="col" class="px-6 py-4">Objective Prose</th>
+                            <th scope="col" class="px-6 py-4">Persuasive Prose</th>
+                            <th scope="col" class="px-6 py-4">Narrative Prose</th>
+                            <th scope="col" class="px-6 py-4 rounded-tr-lg">Descriptive Prose</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-700">
+                        <tr class="border-b border-slate-200">
+                            <td class="px-6 py-4 font-semibold">Primary Purpose</td>
+                            <td class="px-6 py-4">To inform and analyze based on verifiable facts.</td>
+                            <td class="px-6 py-4">To convince or sway the reader to a viewpoint.</td>
+                            <td class="px-6 py-4">To tell a story by recounting events.</td>
+                            <td class="px-6 py-4">To create a vivid, sensory picture in the reader's mind.</td>
+                        </tr>
+                        <tr class="border-b border-slate-200">
+                            <td class="px-6 py-4 font-semibold">Core Tone</td>
+                            <td class="px-6 py-4">Neutral, impartial, and impersonal.</td>
+                            <td class="px-6 py-4">Often biased, emotive, and passionate.</td>
+                            <td class="px-6 py-4">Engaging and emotionally expressive.</td>
+                            <td class="px-6 py-4">Evocative and sensory.</td>
+                        </tr>
+                        <tr class="border-b border-slate-200">
+                            <td class="px-6 py-4 font-semibold">Handling of Facts</td>
+                            <td class="px-6 py-4">Central focus; must be supported by evidence.</td>
+                            <td class="px-6 py-4">Used selectively to support an argument.</td>
+                            <td class="px-6 py-4">May form a basis, but the story is the focus.</td>
+                            <td class="px-6 py-4">Subordinate to sensory details.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-semibold rounded-bl-lg">Opposing Views</td>
+                            <td class="px-6 py-4">Acknowledged to demonstrate balance.</td>
+                            <td class="px-6 py-4">Addressed as counterarguments to be refuted.</td>
+                            <td class="px-6 py-4">Rarely addressed; manifest as plot obstacles.</td>
+                            <td class="px-6 py-4">Not applicable; focus is on a unified impression.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Part III: Disciplinary Conventions Visualization -->
+        <section id="disciplinary-conventions">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Objectivity Across Disciplines</h2>
+                <p class="mt-4 text-lg text-slate-600">Select a field to see how the conventions of objective prose are applied.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                <div class="lg:col-span-1">
+                     <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-slate-700">Select Discipline</h3>
+                         <div id="discipline-selector" class="flex flex-wrap gap-2">
+                             <button data-discipline="science" class="discipline-btn flex-grow px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold transition">Science</button>
+                             <button data-discipline="journalism" class="discipline-btn flex-grow px-4 py-2 bg-slate-200 text-slate-700 rounded-lg font-semibold transition">Journalism</button>
+                             <button data-discipline="law" class="discipline-btn flex-grow px-4 py-2 bg-slate-200 text-slate-700 rounded-lg font-semibold transition">Legal Memo</button>
+                             <button data-discipline="policy" class="discipline-btn flex-grow px-4 py-2 bg-slate-200 text-slate-700 rounded-lg font-semibold transition">Policy Report</button>
+                         </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6">
+                    <div class="chart-container">
+                        <canvas id="disciplineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Part IV: A Critique of Objectivity -->
+        <section id="critique">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">The Limits of the Lens</h2>
+                <p class="mt-4 text-lg text-slate-600">Key critiques challenging the ideal of pure objectivity.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">False Balance</h3>
+                    <p class="text-slate-600">The bias where journalists present opposing viewpoints as equally valid, even when evidence overwhelmingly supports one side. This can mislead the public on critical issues like climate change by creating a false sense of scientific debate.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="glass-card rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold text-slate-800">Postmodern Challenge</h3>
+                    <p class="text-slate-600">This view posits that there is no absolute, objective reality to report. All knowledge is a social construct, and "objective prose" is merely another narrative that hides its own perspective and values behind a mask of neutrality to assert authority.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="glass-card rounded-xl shadow-lg p-8 transform hover:-translate-y-2 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold text-slate-800">Situated Knowledges</h3>
+                    <p class="text-slate-600">A feminist critique arguing that all knowledge comes from a specific social location. True objectivity isn't a "view from nowhere," but an honest acknowledgment of one's own perspective, combined with seeking knowledge from other, differently situated groups.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footnotes / References -->
+        <footer id="references" class="pt-12 mt-12 border-t border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 text-center mb-8">References</h2>
+            <div class="text-xs text-slate-500 space-y-2 max-w-4xl mx-auto columns-1 md:columns-2 lg:columns-3 gap-x-8">
+                <p>1. Purdue OWL. "Objectivity, Slanting, and Charged Language."</p>
+                <p>2. Kovach, B., & Rosenstiel, T. "The Elements of Journalism."</p>
+                <p>3. University of North Carolina at Chapel Hill. "Argument." The Writing Center.</p>
+                <p>4. American Psychological Association. "Journal Article Reporting Standards."</p>
+                <p>5. University of Reading. "Features of academic writing."</p>
+                <p>6. Harding, S. "Rethinking Standpoint Epistemology."</p>
+                <p>7. Elbow, P. "Writing with Power."</p>
+                <p>8. Bazerman, C. "Shaping Written Knowledge."</p>
+                <p>9. University of Manchester. "Academic Phrasebank: Being Cautious."</p>
+                <p>10. George Mason University. "Objective vs. Subjective Language." Writing Center.</p>
+                <p>11. Walden University. "Scholarly Voice: Tone and Formality."</p>
+                <p>12. University of Wollongong. "Objectivity in academic writing."</p>
+                <p>13. Hyland, K. "Metadiscourse: Exploring Interaction in Writing."</p>
+                <p>14. Barthes, R. "The Death of the Author."</p>
+                <p>15. American Psychiatric Association. "Diagnostic and Statistical Manual of Mental Disorders (DSM-5)."</p>
+                <p>16. Sierra, M. & Berrios, G. E. "Depersonalization: a conceptual history."</p>
+                <p>17. Nagel, T. "The View from Nowhere."</p>
+                <p>18. Aristotle. "Rhetoric."</p>
+                <p>19. University of Pittsburgh. "Argument and Persuasion."</p>
+                <p>20. Brooks, C., & Warren, R. P. "Modern Rhetoric."</p>
+                <p>21. Bruner, J. "The Narrative Construction of Reality."</p>
+                <p>22. University of Victoria. "Descriptive Writing."</p>
+                <p>23. Lukin, A. "Describing."</p>
+                <p>24. Fahnestock, J., & Secor, M. "A Rhetoric of Argument."</p>
+                <p>25. Nordquist, R. "Descriptive Paragraphs."</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Interactive Pillars Section ---
+            const textContainer = document.getElementById('interactive-text');
+            const toggles = document.querySelectorAll('#pillar-controls input[type="checkbox"]');
+            const resetButton = document.getElementById('reset-button');
+
+            const textFragments = {
+                impersonal: {
+                    on: 'The experiment was conducted',
+                    off: 'I conducted my experiment'
+                },
+                precise: {
+                    on: 'where seventeen percent of the participants withdrew',
+                    off: 'where a lot of the participants just dropped out'
+                },
+                balanced: {
+                    on: 'While some have argued that cost is the primary factor, the data more strongly support market demand as the significant issue.',
+                    off: 'The opposition’s argument about cost is completely irrelevant; the only thing that matters is the market demand.'
+                },
+                hedging: {
+                    on: 'The findings suggest that the new policy may lead to a potential increase in efficiency.',
+                    off: 'The findings prove that the new policy will cause a definite increase in efficiency.'
+                }
+            };
+            
+            function updateText() {
+                const isImpersonal = document.getElementById('toggle-impersonal').checked;
+                const isPrecise = document.getElementById('toggle-precise').checked;
+                const isBalanced = document.getElementById('toggle-balanced').checked;
+                const isHedging = document.getElementById('toggle-hedging').checked;
+
+                const impersonalPart = isImpersonal ? textFragments.impersonal.on : textFragments.impersonal.off;
+                const precisePart = isPrecise ? textFragments.precise.on : textFragments.precise.off;
+                const balancedPart = isBalanced ? textFragments.balanced.on : textFragments.balanced.off;
+                const hedgingPart = isHedging ? textFragments.hedging.on : textFragments.hedging.off;
+
+                textContainer.innerHTML = `
+                    <span class="interactive-text-highlight ${isImpersonal ? 'bg-indigo-100 text-indigo-800' : 'bg-red-100 text-red-800'}">${impersonalPart}</span> 
+                    to test the hypothesis, 
+                    <span class="interactive-text-highlight ${isPrecise ? 'bg-indigo-100 text-indigo-800' : 'bg-red-100 text-red-800'}">${precisePart}</span>. 
+                    <span class="interactive-text-highlight ${isBalanced ? 'bg-indigo-100 text-indigo-800' : 'bg-red-100 text-red-800'}">${balancedPart}</span> 
+                    <span class="interactive-text-highlight ${isHedging ? 'bg-indigo-100 text-indigo-800' : 'bg-red-100 text-red-800'}">${hedgingPart}</span>
+                `;
+            }
+
+            toggles.forEach(toggle => {
+                toggle.addEventListener('change', updateText);
+            });
+
+            resetButton.addEventListener('click', () => {
+                 toggles.forEach(toggle => toggle.checked = true);
+                 updateText();
+            });
+
+            // Initial text render
+            updateText();
+            
+            // --- Comparison Table Hover Effect ---
+            const table = document.getElementById('comparison-table');
+            const ths = table.querySelectorAll('th');
+            const tds = table.querySelectorAll('td');
+
+            function getColumnIndex(cell) {
+                return Array.from(cell.parentNode.children).indexOf(cell);
+            }
+
+            function highlightColumn(index, highlight) {
+                if (index === 0) return; // Don't highlight the first column
+                
+                ths.forEach((th, i) => {
+                    if (i === index) {
+                        th.style.backgroundColor = highlight ? '#e0e7ff' : ''; /* indigo-100 */
+                    } else if (i !== 0) {
+                        th.style.opacity = highlight ? '0.5' : '1';
+                    }
+                });
+                tds.forEach(td => {
+                    const colIndex = getColumnIndex(td);
+                    if (colIndex === index) {
+                        td.style.backgroundColor = highlight ? '#eef2ff' : ''; /* indigo-50 */
+                    } else if (colIndex !== 0) {
+                         td.style.opacity = highlight ? '0.5' : '1';
+                    }
+                });
+            }
+
+            table.addEventListener('mouseover', (e) => {
+                const cell = e.target.closest('th, td');
+                if (cell) {
+                    highlightColumn(getColumnIndex(cell), true);
+                }
+            });
+
+            table.addEventListener('mouseout', () => {
+                 highlightColumn(null, false); // Clear all highlights
+                 ths.forEach(th => { th.style.backgroundColor = ''; th.style.opacity = '1'; });
+                 tds.forEach(td => { td.style.backgroundColor = ''; td.style.opacity = '1'; });
+            });
+            
+            // --- Disciplinary Conventions Radar Chart ---
+            const ctx = document.getElementById('disciplineChart').getContext('2d');
+            const disciplineData = {
+                science: [5, 3, 5, 5], // Passive Voice, Attribution Hedging, Evidentiary Hedging, Acknowledge Limitations
+                journalism: [3, 5, 2, 4],
+                law: [3, 2, 4, 5],
+                policy: [3, 4, 5, 5]
+            };
+            const labels = ['Passive Voice', 'Attribution Hedging', 'Evidentiary Hedging', 'Acknowledge Limitations'];
+
+            const chart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Science',
+                        data: disciplineData.science,
+                        fill: true,
+                        backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                        borderColor: 'rgb(79, 70, 229)',
+                        pointBackgroundColor: 'rgb(79, 70, 229)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(79, 70, 229)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: '#e2e8f0' // slate-200
+                            },
+                            grid: {
+                                color: '#e2e8f0' // slate-200
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    family: "'Inter', sans-serif"
+                                },
+                                color: '#475569' // slate-600
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                color: '#64748b', // slate-500
+                                stepSize: 1,
+                                max: 5,
+                                min: 0
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        label += context.parsed.r + ' / 5';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const disciplineButtons = document.querySelectorAll('.discipline-btn');
+            disciplineButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const discipline = button.dataset.discipline;
+                    
+                    // Update button styles
+                    disciplineButtons.forEach(btn => {
+                        btn.classList.remove('bg-indigo-600', 'text-white');
+                        btn.classList.add('bg-slate-200', 'text-slate-700');
+                    });
+                    button.classList.add('bg-indigo-600', 'text-white');
+                    button.classList.remove('bg-slate-200', 'text-slate-700');
+
+                    // Update chart data
+                    chart.data.datasets[0].data = disciplineData[discipline];
+                    chart.data.datasets[0].label = button.textContent;
+                    chart.update();
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
