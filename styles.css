@@ -143,6 +143,137 @@ a:hover {
     color: var(--text-primary);
 }
 
+/* ====== MOBILE NAVIGATION ====== */
+.mobile-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    z-index: 1001;
+    position: relative;
+}
+
+.hamburger {
+    width: 24px;
+    height: 18px;
+    position: relative;
+    transform: rotate(0deg);
+    transition: 0.3s ease-in-out;
+}
+
+.hamburger span {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: var(--text-primary);
+    border-radius: 2px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: 0.3s ease-in-out;
+}
+
+.hamburger span:nth-child(1) {
+    top: 0px;
+}
+
+.hamburger span:nth-child(2) {
+    top: 8px;
+}
+
+.hamburger span:nth-child(3) {
+    top: 16px;
+}
+
+/* Hamburger animation when active */
+.mobile-menu-button.active .hamburger span:nth-child(1) {
+    top: 8px;
+    transform: rotate(135deg);
+}
+
+.mobile-menu-button.active .hamburger span:nth-child(2) {
+    opacity: 0;
+    left: -60px;
+}
+
+.mobile-menu-button.active .hamburger span:nth-child(3) {
+    top: 8px;
+    transform: rotate(-135deg);
+}
+
+/* Mobile menu overlay */
+.mobile-nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: rgba(18, 18, 18, 0.98);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    transition: right 0.3s ease-in-out;
+    padding-top: 80px;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-nav-menu.active {
+    right: 0;
+}
+
+.mobile-nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav-links li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-links a {
+    display: block;
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.mobile-nav-links a:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+    padding-left: calc(var(--spacing-lg) + 10px);
+}
+
+.mobile-nav-links a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--page-accent, var(--accent-red));
+    transition: width 0.3s ease;
+    transform: translateY(-50%);
+}
+
+.mobile-nav-links a:hover::before {
+    width: 4px;
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.mobile-menu-open {
+    overflow: hidden;
+    height: 100vh;
+}
+
 /* ====== MAIN LAYOUT STYLES ====== */
 .page-container {
     max-width: var(--max-width);
@@ -2738,6 +2869,12 @@ button:focus {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.pub-links {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
 .citations {
     color: var(--text-muted);
     font-size: var(--font-size-sm);
@@ -2754,6 +2891,39 @@ button:focus {
 
 .scholar-link:hover {
     color: var(--text-primary);
+}
+
+.doi-link,
+.external-link {
+    color: var(--accent-green);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(5, 150, 105, 0.1);
+    border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+.doi-link:hover,
+.external-link:hover {
+    background: rgba(5, 150, 105, 0.2);
+    border-color: var(--accent-green);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.pub-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+    border-bottom: 1px solid transparent;
+}
+
+.pub-title a:hover {
+    color: var(--accent-green);
+    border-bottom-color: var(--accent-green);
 }
 
 /* No publications message */
@@ -2811,48 +2981,278 @@ button:focus {
     margin: 0;
 }
 
-/* Responsive design for research page */
-@media (max-width: 768px) {
-    .page-research .page-container {
-        padding: var(--spacing-lg) var(--spacing-md);
+/* ====== RESPONSIVE DESIGN ====== */
+
+/* Mobile Phones (up to 480px) */
+@media (max-width: 480px) {
+    :root {
+        --spacing-xs: 0.375rem;
+        --spacing-sm: 0.75rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 1.25rem;
+        --spacing-xl: 2rem;
+        --spacing-2xl: 2.5rem;
     }
     
-    .page-research .page-title {
-        font-size: var(--font-size-3xl);
+    /* Header optimizations */
+    .header {
+        padding: var(--spacing-xs) var(--spacing-sm);
     }
     
-    .page-research .page-subtitle {
-        font-size: var(--font-size-base);
-        margin-bottom: var(--spacing-xl);
+    .header-content {
+        padding: 0;
     }
     
-    .publications-grid {
+    .logo {
+        font-size: var(--font-size-lg);
+    }
+    
+    /* Show mobile menu, hide desktop nav */
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-button {
+        display: block;
+    }
+    
+    .mobile-nav-menu {
+        width: 100vw;
+        right: -100vw;
+    }
+    
+    /* Page containers */
+    .page-container {
+        padding: 5rem var(--spacing-sm) var(--spacing-lg);
+    }
+    
+    .page-title {
+        font-size: var(--font-size-2xl);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .page-subtitle {
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    /* Hero section mobile */
+    .hero-section {
+        padding: 6rem 0 var(--spacing-xl);
+        min-height: 70vh;
+    }
+    
+    .hero-container {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        gap: var(--spacing-lg);
+        padding: 0 var(--spacing-sm);
     }
     
-    .pub-header {
-        flex-direction: column;
-        align-items: flex-start;
+    .hero-text {
+        order: 2;
+        text-align: center;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.5rem, 8vw, 2.5rem);
+    }
+    
+    .hero-subtitle {
+        font-size: var(--font-size-base);
+    }
+    
+    .hero-tagline {
+        font-size: var(--font-size-sm);
+    }
+    
+    .hero-image {
+        order: 1;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    
+    /* Cards and grids */
+    .projects-grid,
+    .publications-grid,
+    .interests-grid,
+    .gallery-grid,
+    .onesite-grid {
+        grid-template-columns: 1fr;
         gap: var(--spacing-sm);
     }
     
+    /* Publication cards mobile */
+    .pub-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+    
+    .pub-title {
+        font-size: var(--font-size-base);
+    }
+    
     .pub-year {
-        align-self: flex-end;
+        align-self: flex-start;
+        font-size: var(--font-size-xs);
     }
     
     .pub-metrics {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--spacing-sm);
+        gap: var(--spacing-xs);
     }
     
-    .interests-grid {
+    /* Research interests */
+    .interest-card {
+        padding: var(--spacing-md);
+    }
+    
+    .interest-card h3 {
+        font-size: var(--font-size-lg);
+    }
+    
+    /* Mobile typography improvements */
+    .section-title {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .section-description {
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    /* Header */
+    .header {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .logo {
+        font-size: var(--font-size-xl);
+    }
+    
+    /* Show mobile menu, hide desktop nav */
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-button {
+        display: block;
+    }
+    
+    /* Page containers */
+    .page-container {
+        padding: 5.5rem var(--spacing-md) var(--spacing-xl);
+    }
+    
+    .page-title {
+        font-size: var(--font-size-3xl);
+    }
+    
+    /* Hero section tablet */
+    .hero-container {
         grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+        text-align: center;
+    }
+    
+    .hero-text {
+        order: 2;
+    }
+    
+    .hero-image {
+        order: 1;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    
+    /* Two-column grids for tablets */
+    .projects-grid,
+    .publications-grid,
+    .interests-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-md);
     }
     
-    .section-title {
-        font-size: var(--font-size-xl);
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .onesite-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Small Laptops (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .page-container {
+        padding: 6rem var(--spacing-lg) var(--spacing-xl);
+    }
+    
+    .hero-container {
+        gap: var(--spacing-xl);
+    }
+    
+    .projects-grid,
+    .publications-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+    /* Touch target improvements */
+    a, button {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Mobile-optimized animations */
+    .fade-in {
+        animation-duration: 0.6s;
+    }
+    
+    /* Reduce motion for performance */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+    
+    /* Mobile scrollbar styling */
+    ::-webkit-scrollbar {
+        width: 3px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: var(--accent-red);
+        border-radius: 3px;
+    }
+    
+    /* Mobile form optimizations */
+    input, textarea, select {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Mobile image optimizations */
+    img {
+        max-width: 100%;
+        height: auto;
     }
 }

@@ -166,6 +166,9 @@ python scholar_manager.py add
 
 # Automated daily update (for cron scheduling)
 bash update_research.sh
+
+# Update DOI and external links for existing publications
+python scholar_manager.py links
 ```
 
 #### Configuration:

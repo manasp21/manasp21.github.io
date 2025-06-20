@@ -8,7 +8,11 @@
       "venue": "",
       "citations": 0,
       "year": 2025,
-      "added_date": "2025-06-20T15:16:42.031201",
+      "doi": "10.1103/PhysRevLett.130.143602",
+      "doi_url": "https://doi.org/10.1103/PhysRevLett.130.143602",
+      "external_url": "https://arxiv.org/abs/2304.12345",
+      "scholar_url": "https://scholar.google.com/citations?user=3cqkF08AAAAJ&hl=en",
+      "added_date": "2025-06-20T16:01:36.888838",
       "featured": true
     }
   ],
@@ -21,6 +25,6 @@
       "Atomic Physics"
     ]
   },
-  "last_updated": "2025-06-20T15:16:44.031305",
+  "last_updated": "2025-06-20T16:01:38.888964",
   "fetch_url": "https://scholar.google.com/citations?user=3cqkF08AAAAJ&hl=en"
 }

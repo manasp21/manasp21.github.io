@@ -326,6 +326,19 @@ class ScholarManager:
             else:
                 pub_data['year'] = None
             
+            # Try to extract DOI or external links
+            pub_data['doi'] = None
+            pub_data['external_url'] = None
+            
+            # If we have scholar_url, try to fetch DOI from the publication page
+            if 'scholar_url' in pub_data:
+                try:
+                    doi_info = self.extract_doi_from_scholar(pub_data['scholar_url'])
+                    if doi_info:
+                        pub_data.update(doi_info)
+                except Exception as e:
+                    print(f"  ⚠️  Could not fetch DOI for publication {index}: {e}")
+            
             # Additional metadata
             pub_data['added_date'] = datetime.now().isoformat()
             pub_data['featured'] = index <= 3  # Feature top 3 publications
@@ -334,6 +347,60 @@ class ScholarManager:
             
         except Exception as e:
             print(f"Error processing publication row: {e}")
+            return None
+    
+    def extract_doi_from_scholar(self, scholar_url: str) -> Optional[Dict]:
+        """Extract DOI and external links from a Scholar publication page."""
+        try:
+            print(f"    🔗 Fetching DOI from Scholar page...")
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+            
+            response = requests.get(scholar_url, headers=headers, timeout=10)
+            response.raise_for_status()
+            
+            html_content = response.text
+            link_info = {}
+            
+            # Try to find DOI links in various formats
+            doi_patterns = [
+                r'https?://(?:dx\.)?doi\.org/(10\.\S+)',
+                r'doi:?\s*(10\.\S+)',
+                r'DOI:?\s*(10\.\S+)'
+            ]
+            
+            for pattern in doi_patterns:
+                doi_match = re.search(pattern, html_content, re.IGNORECASE)
+                if doi_match:
+                    doi = doi_match.group(1)
+                    link_info['doi'] = doi
+                    link_info['doi_url'] = f'https://doi.org/{doi}'
+                    print(f"    ✅ Found DOI: {doi}")
+                    break
+            
+            # Try to find external publication links
+            external_patterns = [
+                r'<a[^>]*href=["\']([^"\']*(?:arxiv\.org|pubmed|nature\.com|science\.org|aps\.org|iop\.org|springer\.com|wiley\.com|elsevier\.com)[^"\']*)["\'][^>]*>',
+                r'<a[^>]*href=["\']([^"\']*\.pdf)["\'][^>]*>'
+            ]
+            
+            for pattern in external_patterns:
+                external_match = re.search(pattern, html_content, re.IGNORECASE)
+                if external_match and not link_info.get('external_url'):
+                    url = external_match.group(1)
+                    if url.startswith('http'):
+                        link_info['external_url'] = url
+                        print(f"    🔗 Found external link: {url[:50]}...")
+                        break
+            
+            # Rate limiting
+            time.sleep(self.rate_limit_delay * 2)  # Longer delay for detailed pages
+            
+            return link_info if link_info else None
+            
+        except Exception as e:
+            print(f"    ❌ Error fetching DOI: {e}")
             return None
     
     def list_publications(self):
@@ -468,7 +535,13 @@ class ScholarManager:
             year = pub.get('year', 'N/A')
             citations = pub.get('citations', 0)
             scholar_url = pub.get('scholar_url', '')
+            doi_url = pub.get('doi_url', '')
+            external_url = pub.get('external_url', '')
             featured = pub.get('featured', False)
+            
+            # Determine best link for title - prefer DOI, then external, then Scholar
+            title_link = doi_url or external_url or scholar_url
+            link_icon = "📄" if doi_url else "🔗" if external_url else "📚"
             
             # Create publication card
             card_class = "publication-card featured" if featured else "publication-card"
@@ -477,7 +550,7 @@ class ScholarManager:
                 <div class="{card_class}">
                     <div class="pub-header">
                         <h3 class="pub-title">
-                            {title if not scholar_url else f'<a href="{scholar_url}" target="_blank">{title}</a>'}
+                            {title if not title_link else f'<a href="{title_link}" target="_blank" title="Click to open publication">{title}</a>'}
                         </h3>
                         <div class="pub-year">{year}</div>
                     </div>
@@ -485,7 +558,11 @@ class ScholarManager:
                     {f'<div class="pub-venue">{venue}</div>' if venue else ''}
                     <div class="pub-metrics">
                         <span class="citations">📚 {citations} citation{'s' if citations != 1 else ''}</span>
-                        {f'<a href="{scholar_url}" target="_blank" class="scholar-link">View on Scholar</a>' if scholar_url else ''}
+                        <div class="pub-links">
+                            {f'<a href="{doi_url}" target="_blank" class="doi-link" title="View DOI">📄 DOI</a>' if doi_url else ''}
+                            {f'<a href="{external_url}" target="_blank" class="external-link" title="View Publication">🔗 Full Text</a>' if external_url and not doi_url else ''}
+                            {f'<a href="{scholar_url}" target="_blank" class="scholar-link" title="View on Google Scholar">📚 Scholar</a>' if scholar_url and not doi_url and not external_url else ''}
+                        </div>
                     </div>
                 </div>'''
             
@@ -568,11 +645,68 @@ class ScholarManager:
         self.save_cache()
         
         print(f"✅ Added publication: {title}")
+    
+    def update_publication_links(self):
+        """Update DOI and external links for existing publications."""
+        publications = self.cache.get('publications', [])
+        
+        if not publications:
+            print("📚 No publications found to update")
+            return False
+        
+        print("🔗 Update Publication Links")
+        print("=" * 50)
+        
+        for i, pub in enumerate(publications, 1):
+            print(f"\n{i}. {pub.get('title', 'Unknown Title')}")
+            print(f"   Current DOI: {pub.get('doi_url', 'None')}")
+            print(f"   Current External URL: {pub.get('external_url', 'None')}")
+            print(f"   Current Scholar URL: {pub.get('scholar_url', 'None')}")
+            
+            update = input(f"Update links for publication {i}? (y/n): ").strip().lower()
+            if update == 'y':
+                # Update DOI
+                current_doi = pub.get('doi', '')
+                new_doi = input(f"Enter DOI (current: {current_doi or 'None'}): ").strip()
+                if new_doi:
+                    pub['doi'] = new_doi
+                    pub['doi_url'] = f"https://doi.org/{new_doi}"
+                elif new_doi == '' and current_doi:
+                    # Clear DOI if empty string entered
+                    pub['doi'] = None
+                    pub['doi_url'] = None
+                
+                # Update external URL
+                current_external = pub.get('external_url', '')
+                new_external = input(f"Enter external URL (current: {current_external or 'None'}): ").strip()
+                if new_external:
+                    if not new_external.startswith('http'):
+                        new_external = f"https://{new_external}"
+                    pub['external_url'] = new_external
+                elif new_external == '' and current_external:
+                    pub['external_url'] = None
+                
+                # Update Scholar URL
+                current_scholar = pub.get('scholar_url', '')
+                new_scholar = input(f"Enter Scholar URL (current: {current_scholar or 'None'}): ").strip()
+                if new_scholar:
+                    pub['scholar_url'] = new_scholar
+                elif new_scholar == '' and current_scholar:
+                    pub['scholar_url'] = None
+                
+                print(f"✅ Updated links for publication {i}")
+        
+        # Save cache
+        self.cache['last_updated'] = datetime.now().isoformat()
+        self.save_cache()
+        
+        print("✅ Publication links updated successfully")
+        return True
 
 def main():
     parser = argparse.ArgumentParser(description="Google Scholar Research Manager")
     parser.add_argument("command", choices=[
-        "update", "generate", "list", "validate", "add"
+        "update", "generate", "list", "validate", "add", "links"
     ], help="Command to execute")
     parser.add_argument("--id", type=int, help="Publication ID for remove command")
     
@@ -602,6 +736,11 @@ def main():
     
     elif args.command == "add":
         manager.add_manual_publication()
+    
+    elif args.command == "links":
+        manager.update_publication_links()
+        print("🔄 Regenerating research.html...")
+        manager.update_research_html()
 
 if __name__ == "__main__":
     main()

@@ -74,9 +74,30 @@
                     <li><a href="photography.html">Photography</a></li>
                     <li><a href="https://manasp21.github.io/poetry_website/" target="_blank">Poetry</a></li>
                 </ul>
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-button" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
             </nav>
         </div>
     </header>
+
+    <!-- Mobile navigation menu -->
+    <div class="mobile-nav-menu" aria-hidden="true">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog/">Blog</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="https://manasp21.github.io/poetry_website/" target="_blank">Poetry</a></li>
+        </ul>
+    </div>
 
     <!-- Main Gallery -->
     <main class="page-container">
@@ -585,5 +606,8 @@
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', initGallery);
     </script>
+
+    <!-- Mobile Navigation Script -->
+    <script src="mobile-nav.js"></script>
 </body>
 </html>
