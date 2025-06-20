@@ -51,8 +51,8 @@ class LinkedInManager:
         return {
             "profile": {
                 "name": "Manas Pandey",
-                "title": "Physics Student & Researcher",
-                "summary": "Undergraduate physics student at IIT Kanpur exploring the intersection of Physics and Artificial Intelligence.",
+                "title": "Undergraduate & Researcher",
+                "summary": "Undergraduate Undergraduate at IIT Kanpur exploring the intersection of Physics and Artificial Intelligence.",
                 "last_updated": None,
                 "version": "1.0.0"
             },

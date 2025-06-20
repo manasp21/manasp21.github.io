@@ -1,7 +1,7 @@
 # Manas Pandey Portfolio Website
 
 ## Overview
-A sophisticated, multi-page portfolio website for Manas Pandey, Physics student at IIT Kanpur exploring AI intersections. Features a modern dark theme with professional typography, comprehensive SEO optimization, and advanced content management systems for dynamic project showcase and blog functionality.
+A sophisticated, multi-page portfolio website for Manas Pandey, Undergraduate at IIT Kanpur exploring AI intersections. Features a modern dark theme with professional typography, comprehensive SEO optimization, and advanced content management systems for dynamic project showcase and blog functionality.
 
 ## Project Structure
 

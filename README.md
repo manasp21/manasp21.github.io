@@ -641,7 +641,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 📞 Contact
 
 **Manas Pandey**  
-*Physics Student & AI Researcher at IIT Kanpur*
+*Undergraduate & AI Researcher at IIT Kanpur*
 
 - 🌐 **Website**: [manasp21.github.io](https://manasp21.github.io)
 - 💼 **LinkedIn**: [themanaspandey](https://linkedin.com/in/themanaspandey)
