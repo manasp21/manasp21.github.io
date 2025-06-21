@@ -22,7 +22,9 @@
       "Bash(chmod:*)",
       "WebFetch(domain:scholar.google.com)",
       "Bash(node:*)",
-      "Bash(echo)"
+      "Bash(echo)",
+      "Bash(true)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }
