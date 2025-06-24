@@ -1,7 +1,9 @@
 {
   "projects": [
     "https://github.com/manasp21/MagTrace",
-    "https://github.com/manasp21/magnav.py"
+    "https://github.com/manasp21/magnav.py",
+    "https://github.com/manasp21/PsiAnimator-MCP",
+    "https://github.com/manasp21/Coheron"
   ],
   "settings": {
     "auto_update": true,
@@ -10,8 +12,8 @@
     "cache_file": ".projects_cache.json"
   },
   "metadata": {
-    "last_updated": "2025-06-21T12:11:23.081852",
-    "total_projects": 2,
+    "last_updated": "2025-06-24T17:09:12.501267",
+    "total_projects": 4,
     "version": "2.0.0"
   }
 }
