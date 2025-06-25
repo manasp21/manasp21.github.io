@@ -9,7 +9,7 @@ A sophisticated, multi-page portfolio website for Manas Pandey, Undergraduate at
 - **index.html** - Enhanced home page with serif typography, animations, and one-page websites showcase
 - **about.html** - Personal story with consistent theming and placeholder images
 - **research.html** - Research portfolio with automated Google Scholar integration and publication cards
-- **projects.html** - GitHub-integrated project showcase with README-powered descriptions
+- **projects.html** - GitHub-integrated project showcase with repository descriptions
 - **blog/** - Complete Jekyll-powered blog system with interactive management
 - **photography.html** - Professional gallery with lightbox, metadata system, and file-based management
 - **one_page_websites/** - Dynamic showcase system for specialized project pages
@@ -31,6 +31,7 @@ A sophisticated, multi-page portfolio website for Manas Pandey, Undergraduate at
 - **Repository Hygiene**: Added .gitignore file, removed Python cache files, cleaned debugging code from photography.html
 - **Content Fixes**: Fixed "Undergraduate Undergraduate" duplication in about.html
 - **Assets**: Added favicon.ico, created og-image.jpg placeholder with detailed specifications
+- **Projects Enhancement**: Switched from README descriptions to clean GitHub repository descriptions for better presentation
 - **Documentation**: Updated README.md and CLAUDE.md with latest optimization results and current status
 
 ## Design Philosophy

@@ -254,11 +254,11 @@ Your markdown content here...
 
 ### 🚀 **Projects Management System**
 
-Advanced GitHub integration system with automatic README description extraction.
+Advanced GitHub integration system using repository descriptions for clean, concise project presentation.
 
 #### Features:
 - ✅ **GitHub Integration**: Automatic repository data fetching via GitHub API
-- ✅ **README Parsing**: Smart extraction of project descriptions from README files
+- ✅ **Repository Descriptions**: Uses GitHub's native repository descriptions for clean, professional presentation
 - ✅ **Metadata Collection**: Stars, forks, language, last updated, topics
 - ✅ **Caching System**: 24-hour cache for improved performance
 - ✅ **Auto-Generation**: Automatic HTML generation for projects showcase

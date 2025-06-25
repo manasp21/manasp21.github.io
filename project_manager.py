@@ -2,6 +2,7 @@
 """
 GitHub Projects Manager
 A simple tool for managing GitHub project showcases on your portfolio.
+Uses GitHub repository descriptions as the primary source for project descriptions.
 
 Usage:
     python project_manager.py add <github_url>     # Add new project
@@ -227,7 +228,7 @@ class ProjectManager:
         return "No description available"
 
     def fetch_github_data(self, repo_url: str) -> Optional[Dict]:
-        """Fetch repository data from GitHub API including README content."""
+        """Fetch repository data from GitHub API. Uses GitHub description as primary source."""
         parsed = self.parse_github_url(repo_url)
         if not parsed:
             print(f"Invalid GitHub URL: {repo_url}")
@@ -421,9 +422,9 @@ class ProjectManager:
     
     
     def generate_project_card(self, project_data: Dict) -> str:
-        """Generate HTML for a single project card with README description."""
-        # Use README description if available, fallback to GitHub description
-        description = project_data.get('readme_description', project_data.get('description', 'No description available'))
+        """Generate HTML for a single project card with GitHub description."""
+        # Use GitHub description primarily, fallback to README description
+        description = project_data.get('description', project_data.get('readme_description', 'No description available'))
         
         # Format topics/tags
         topics_html = ""
@@ -493,32 +494,47 @@ class ProjectManager:
         
         if project_cards_html:
             # Replace content inside the existing projects grid
-            # Use a more specific pattern that matches the closing div followed by section
-            start_pattern = r'<div class="content-grid projects-grid">'
-            end_pattern = r'</div>\s*</section>'
+            # Look for the exact pattern from the HTML file
+            start_pattern = r'<div class="content-grid projects-grid">\s*'
+            end_pattern = r'\s*</div>\s*</section>'
             
-            # Find start and end positions
-            start_match = re.search(start_pattern, html_content)
-            if start_match:
-                start_pos = start_match.end()
+            # Create a more robust replacement pattern
+            replacement_pattern = r'(<div class="content-grid projects-grid">)(.*?)(</div>\s*</section>)'
+            
+            # Try the regex replacement first
+            new_content = re.sub(
+                replacement_pattern,
+                rf'\1\n{project_cards_html}\n                \3',
+                html_content,
+                flags=re.DOTALL
+            )
+            
+            # Check if replacement worked
+            if new_content == html_content:
+                print("⚠️  Warning: Regex replacement failed. Trying position-based approach.")
                 
-                # Find the end pattern after start position
-                end_match = re.search(end_pattern, html_content[start_pos:])
-                if end_match:
-                    end_pos = start_pos + end_match.start()
+                # Fallback to position-based approach
+                start_match = re.search(start_pattern, html_content)
+                if start_match:
+                    start_pos = start_match.end()
                     
-                    # Replace the content between start and end
-                    new_content = (
-                        html_content[:start_pos] + 
-                        f'\n{project_cards_html}\n                ' +
-                        html_content[end_pos:]
-                    )
+                    # Find the end pattern after start position
+                    end_match = re.search(end_pattern, html_content[start_pos:])
+                    if end_match:
+                        end_pos = start_pos + end_match.start()
+                        
+                        # Replace the content between start and end
+                        new_content = (
+                            html_content[:start_pos] + 
+                            f'\n{project_cards_html}\n                ' +
+                            html_content[end_pos:]
+                        )
+                    else:
+                        print("⚠️  Warning: Could not find closing section pattern.")
+                        new_content = html_content
                 else:
-                    print("⚠️  Warning: Could not find closing section pattern.")
+                    print("⚠️  Warning: Could not find projects grid start pattern.")
                     new_content = html_content
-            else:
-                print("⚠️  Warning: Could not find projects grid start pattern.")
-                new_content = html_content
             
             # If the pattern wasn't found, log it
             if new_content == html_content:
