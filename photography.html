@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Manas Pandey Photography - Professional photography portfolio with seamless masonry gallery">
     <meta name="keywords" content="Photography, Portfolio, Gallery, Manas Pandey">
+    <meta name="robots" content="index, follow">
     <meta name="author" content="Manas Pandey">
+    <meta name="publisher" content="Manas Pandey">
+    <meta name="language" content="en">
+    <meta name="revisit-after" content="7 days">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -159,9 +163,7 @@
         // Load gallery data from metadata file
         async function loadGalleryData() {
             try {
-                console.log('Loading metadata from:', METADATA_FILE);
                 const response = await fetch(METADATA_FILE);
-                console.log('Response status:', response.status);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -192,7 +194,6 @@
 
             } catch (error) {
                 console.error('Error loading gallery data:', error);
-                console.log('Falling back to hardcoded images');
                 // Fallback to existing images if metadata fails
                 photos = await scanExistingImages();
             }
@@ -474,7 +475,6 @@
                 `;
                 
                 photoItem.addEventListener('click', () => {
-                    console.log('Photo clicked, index:', index);
                     openLightbox(index);
                 });
                 grid.appendChild(photoItem);
@@ -517,8 +517,6 @@
 
         // Lightbox functions
         function openLightbox(index) {
-            console.log('Opening lightbox for index:', index);
-            console.log('Photo data:', photos[index]);
             
             currentImageIndex = index;
             isLightboxOpen = true;
@@ -548,7 +546,6 @@
             const photo = photos[index];
             const img = document.getElementById('lightboxImage');
             
-            console.log('Loading image:', photo.src);
             
             // Set image immediately to see if it appears
             img.src = photo.src;
@@ -561,7 +558,6 @@
             // Also try with new Image loading for proper error handling
             const newImg = new Image();
             newImg.onload = () => {
-                console.log('Image loaded successfully:', photo.src);
             };
             
             newImg.onerror = () => {
