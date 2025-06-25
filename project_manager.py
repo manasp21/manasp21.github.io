@@ -403,24 +403,18 @@ class ProjectManager:
         
         print(f"\n✅ Updated {updated_count}/{len(all_urls)} projects successfully!")
     
-    def generate_project_html(self) -> str:
-        """Generate HTML for project showcase section."""
+    def generate_project_cards_html(self) -> str:
+        """Generate HTML for project cards only (not the entire section)."""
         project_urls = self.config.get('projects', [])
         
         if not project_urls:
             return ""
         
-        html = ['            <div class="projects-section">',
-                '                <p class="section-description">Explore my GitHub repositories showcasing computational physics, AI projects, and development work.</p>',
-                '                <div class="projects-grid">']
-        
+        html = []
         for url in project_urls:
             project_data = self.get_project_data(url)
             if project_data:
                 html.append(self.generate_project_card(project_data))
-        
-        html.extend(['                </div>',
-                     '            </div>'])
         
         return '\n'.join(html)
     
@@ -494,21 +488,36 @@ class ProjectManager:
         with open(self.projects_html, 'r', encoding='utf-8') as f:
             html_content = f.read()
         
-        # Generate project sections
-        project_html = self.generate_project_html()
+        # Generate project cards HTML
+        project_cards_html = self.generate_project_cards_html()
         
-        # Find insertion point (before closing </div> and </main>)
-        insertion_pattern = r'(</div>\s*</main>)'
-        
-        if project_html:
-            # Insert project sections before the closing tags
+        if project_cards_html:
+            # Replace content inside the existing projects grid
+            # Pattern to match the content between <div class="content-grid projects-grid"> and its closing </div>
+            grid_pattern = r'(<div class="content-grid projects-grid">)(.*?)(</div>)'
+            
+            replacement = f'\\1\n{project_cards_html}\n                \\3'
+            
             new_content = re.sub(
-                insertion_pattern,
-                f'\n{project_html}\n\\1',
-                html_content
+                grid_pattern,
+                replacement,
+                html_content,
+                flags=re.DOTALL
             )
+            
+            # If the pattern wasn't found, log it
+            if new_content == html_content:
+                print("⚠️  Warning: Could not find projects grid to replace. Adding at end.")
+                # Fallback: add before closing main
+                insertion_pattern = r'(</div>\s*</main>)'
+                new_content = re.sub(
+                    insertion_pattern,
+                    f'\n            <div class="projects-section">\n                <div class="projects-grid">\n{project_cards_html}\n                </div>\n            </div>\n\\1',
+                    html_content
+                )
         else:
             new_content = html_content
+            print("⚠️  No projects to generate.")
         
         # Write updated content
         with open(self.projects_html, 'w', encoding='utf-8') as f:
