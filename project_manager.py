@@ -493,17 +493,32 @@ class ProjectManager:
         
         if project_cards_html:
             # Replace content inside the existing projects grid
-            # Pattern to match the content between <div class="content-grid projects-grid"> and its closing </div>
-            grid_pattern = r'(<div class="content-grid projects-grid">)(.*?)(</div>)'
+            # Use a more specific pattern that matches the closing div followed by section
+            start_pattern = r'<div class="content-grid projects-grid">'
+            end_pattern = r'</div>\s*</section>'
             
-            replacement = f'\\1\n{project_cards_html}\n                \\3'
-            
-            new_content = re.sub(
-                grid_pattern,
-                replacement,
-                html_content,
-                flags=re.DOTALL
-            )
+            # Find start and end positions
+            start_match = re.search(start_pattern, html_content)
+            if start_match:
+                start_pos = start_match.end()
+                
+                # Find the end pattern after start position
+                end_match = re.search(end_pattern, html_content[start_pos:])
+                if end_match:
+                    end_pos = start_pos + end_match.start()
+                    
+                    # Replace the content between start and end
+                    new_content = (
+                        html_content[:start_pos] + 
+                        f'\n{project_cards_html}\n                ' +
+                        html_content[end_pos:]
+                    )
+                else:
+                    print("⚠️  Warning: Could not find closing section pattern.")
+                    new_content = html_content
+            else:
+                print("⚠️  Warning: Could not find projects grid start pattern.")
+                new_content = html_content
             
             # If the pattern wasn't found, log it
             if new_content == html_content:

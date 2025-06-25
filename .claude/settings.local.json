@@ -24,7 +24,8 @@
       "Bash(node:*)",
       "Bash(echo)",
       "Bash(true)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(cp:*)"
     ],
     "deny": []
   }
