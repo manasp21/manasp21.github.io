@@ -2783,18 +2783,61 @@ button:focus {
     opacity: 1;
 }
 
-/* Featured publications */
-.publication-card.featured {
-    border-color: var(--accent-green);
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(5, 150, 105, 0.05) 100%);
+/* Consistent publication card styling - remove featured styling */
+.publication-card {
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
 }
 
-.publication-card.featured::before {
-    opacity: 1;
+.publication-card .pub-content {
+    display: block;
 }
 
-.publication-card.featured .pub-title {
-    color: var(--accent-green);
+.publication-card .pub-title {
+    color: var(--text-primary);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.publication-card .pub-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.publication-card .pub-title a:hover {
+    color: var(--page-accent);
+}
+
+.publication-card .pub-details {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.publication-card .pub-authors,
+.publication-card .pub-year,
+.publication-card .pub-links {
+    margin-bottom: var(--spacing-xs);
+}
+
+.publication-card .pub-links a {
+    color: var(--page-accent);
+}
+
+/* Fix research page heading clipping issue */
+body.page-research .page-title {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-md);
+    line-height: 1.2;
+    overflow: visible;
+}
+
+/* Ensure research page has proper spacing */
+body.page-research .page-container {
+    padding-top: var(--spacing-lg);
 }
 
 /* Publication card content */
