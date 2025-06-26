@@ -13,10 +13,10 @@
         {% endif %}
     </span>
     
-    {% if post.tags.size > 0 %}
-        <div class="post-tags">
-            {% for tag in post.tags %}
-                <span class="tag">{{ tag }}</span>
+    {% if post.categories.size > 0 %}
+        <div class="post-categories">
+            {% for category in post.categories %}
+                <a href="/blog/categories/{{ category | slugify }}.html" class="category">{{ category }}</a>
             {% endfor %}
         </div>
     {% endif %}

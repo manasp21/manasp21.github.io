@@ -2,8 +2,7 @@
 layout: post
 title: "Norwegian Wood: A Masterpiece of Memory and Loss"
 date: 2025-06-21 13:27:43 +0530
-categories: [Murakami, books]
-tags: [poetry]
+categories: [literature, murakami]
 excerpt: "Murakami’s Norwegian Wood is more than a story; it is a haunting elegy for memory and loss. It explores the labyrinth of love and confronts the difficult choice to embrace life amid sorrow."
 reading_time: 5
 ---

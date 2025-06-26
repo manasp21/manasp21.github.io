@@ -13,6 +13,20 @@ description: "Thoughts on science, sound, and syntax - A digital laboratory note
 </div>
 
 {% if site.posts.size > 0 %}
+    <!-- Browse by Category -->
+    <section class="category-navigation">
+        <h2 class="section-title">Browse by Category</h2>
+        <div class="categories-quick-nav">
+            {% assign categories = site.categories | sort %}
+            {% for category in categories %}
+                <a href="/blog/categories/{{ category[0] | slugify }}.html" class="category-link">
+                    {{ category[0] | capitalize }} ({{ category[1].size }})
+                </a>
+            {% endfor %}
+            <a href="/blog/categories.html" class="category-link all-categories">View All Categories →</a>
+        </div>
+    </section>
+
     <!-- Posts List -->
     <section class="all-posts">
         <div class="posts-list">

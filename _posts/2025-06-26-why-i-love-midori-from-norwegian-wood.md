@@ -2,8 +2,7 @@
 layout: post
 title: "Why I love Midori from Norwegian Wood."
 date: 2025-06-26 20:45:29 +0530
-categories: [Murakami, poetry, books]
-tags: [books, Murakami, poetry]
+categories: [literature, murakami]
 excerpt: "I once had a girl, Or should I say she once had me, She showed me her room, Isn't it good Norwegian wood?"
 reading_time: 3
 ---

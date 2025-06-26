@@ -31,10 +31,9 @@ class BlogManager:
         # Ensure posts directory exists
         self.posts_dir.mkdir(exist_ok=True)
         
-        # Common categories and tags for suggestions
-        self.common_categories = ["research", "personal", "technical", "music", "physics", "ai", "philosophy", "creativity"]
-        self.common_tags = ["quantum computing", "machine learning", "physics", "ai", "music", 
-                           "poetry", "mathematics", "programming", "research", "philosophy", "art", "creativity", "future"]
+        # Common categories for suggestions
+        self.common_categories = ["ai", "philosophy", "personal", "literature", "research", "technical", 
+                                "music", "physics", "creativity", "murakami", "poetry", "mathematics", "programming"]
     
     def create_frontmatter(self, data):
         """Create properly formatted frontmatter matching existing posts."""
@@ -48,17 +47,13 @@ class BlogManager:
             categories_str = "[" + ", ".join(data["categories"]) + "]"
             lines.append(f'categories: {categories_str}')
         
-        # Format tags as inline array
-        if data["tags"]:
-            tags_str = "[" + ", ".join(data["tags"]) + "]"
-            lines.append(f'tags: {tags_str}')
         
         lines.append(f'excerpt: "{data["excerpt"]}"')
         lines.append(f'reading_time: {data["reading_time"]}')
         lines.append('---')
         return '\n'.join(lines)
     
-    def validate_post_data(self, title, categories, tags, excerpt, date_input):
+    def validate_post_data(self, title, categories, excerpt, date_input):
         """Validate post data for common issues."""
         issues = []
         
@@ -304,11 +299,6 @@ class BlogManager:
         all_categories = sorted(list(set(self.common_categories + existing_categories)))
         categories = self.input_multiselect("Select categories:", all_categories)
         
-        # Get tags
-        existing_tags = self.get_existing_tags()
-        all_tags = sorted(list(set(self.common_tags + existing_tags)))
-        tags = self.input_multiselect("Select tags:", all_tags)
-        
         # Get excerpt
         excerpt = input("\nPost excerpt/description: ").strip()
         
@@ -355,7 +345,7 @@ class BlogManager:
         reading_time = int(reading_time_input) if reading_time_input.isdigit() else auto_reading_time
         
         # Validate post data and fix common issues
-        categories, validation_issues = self.validate_post_data(title, categories, tags, excerpt, date_input)
+        categories, validation_issues = self.validate_post_data(title, categories, excerpt, date_input)
         
         # Show validation issues if any
         if validation_issues:
@@ -374,7 +364,6 @@ class BlogManager:
             'title': title,
             'date': date_input,
             'categories': categories,
-            'tags': tags,
             'excerpt': excerpt,
             'reading_time': reading_time
         }
@@ -385,10 +374,50 @@ class BlogManager:
             f.write('\n\n')
             f.write(content)
         
+        # Create category pages for any new categories
+        self.ensure_category_pages(categories)
+        
         print(f"\n✓ Post created: {filename}")
         print(f"✓ Format: Matches existing Jekyll post structure")
         print(f"✓ Categories: {', '.join(categories)}")
-        print(f"✓ Tags: {', '.join(tags)}")
+        print(f"✓ Category pages: Ensured to exist")
+    
+    def ensure_category_pages(self, categories):
+        """Ensure category pages exist for all specified categories."""
+        blog_categories_dir = Path("blog/categories")
+        blog_categories_dir.mkdir(parents=True, exist_ok=True)
+        
+        category_descriptions = {
+            "ai": "Exploring artificial intelligence, machine learning, and the intersection of technology and humanity.",
+            "philosophy": "Thoughts on existence, meaning, creativity, and the human condition.",
+            "personal": "Personal reflections, experiences, and thoughts on life and learning.",
+            "literature": "Book reviews, literary analysis, and reflections on great works of literature.",
+            "murakami": "Explorations of Haruki Murakami's works, characters, and themes.",
+            "research": "Academic research, scientific discoveries, and scholarly pursuits.",
+            "technical": "Programming, software development, and technical projects.",
+            "music": "Musical compositions, analysis, and the intersection of sound and emotion.",
+            "physics": "Quantum mechanics, physics research, and the fundamental nature of reality.",
+            "creativity": "Artistic expression, creative processes, and the nature of inspiration.",
+            "poetry": "Poetic works, literary analysis, and the craft of verse.",
+            "mathematics": "Mathematical concepts, proofs, and the beauty of abstract reasoning.",
+            "programming": "Code, algorithms, and software engineering insights."
+        }
+        
+        for category in categories:
+            category_file = blog_categories_dir / f"{category.lower()}.html"
+            
+            if not category_file.exists():
+                # Create the category page
+                category_content = f"""---
+layout: category
+title: {category.capitalize()}
+category: {category.lower()}
+description: "{category_descriptions.get(category.lower(), f'Posts about {category.lower()}.')}"
+---"""
+                
+                with open(category_file, 'w', encoding='utf-8') as f:
+                    f.write(category_content)
+                print(f"✓ Created category page: {category_file}")
     
     def edit_post(self):
         """Edit an existing blog post."""

@@ -1,0 +1,45 @@
+---
+layout: default
+---
+
+<h1 class="page-title">{{ page.category | capitalize }}</h1>
+
+<div class="category-intro">
+    <p class="hero-subtitle">
+        {% if page.description %}
+            {{ page.description }}
+        {% else %}
+            Posts about {{ page.category | capitalize | downcase }}.
+        {% endif %}
+    </p>
+    <nav class="category-nav">
+        <a href="/blog/" class="nav-link">← All Posts</a>
+        <a href="/blog/categories.html" class="nav-link">Browse Categories</a>
+    </nav>
+</div>
+
+{% assign category_posts = site.categories[page.category] %}
+{% if category_posts.size > 0 %}
+    <section class="category-posts">
+        <div class="posts-list">
+            {% for post in category_posts %}
+                <article class="post-item">
+                    <h3 class="post-item-title">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                    </h3>
+                    {% include post-meta.html post=post %}
+                    {% if post.excerpt %}
+                        <div class="post-item-excerpt">
+                            {{ post.excerpt | strip_html | truncate: 200 }}
+                        </div>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+{% else %}
+    <div class="no-posts">
+        <p>No posts found in this category.</p>
+        <a href="/blog/" class="nav-link">← Back to all posts</a>
+    </div>
+{% endif %}

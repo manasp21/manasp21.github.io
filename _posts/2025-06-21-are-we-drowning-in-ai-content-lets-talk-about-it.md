@@ -2,8 +2,7 @@
 layout: post
 title: "Are We Drowning in AI Content? Let's Talk About It."
 date: 2025-06-21 15:09:32 +0530
-categories: [ai, future, music, personal]
-tags: [ai, future, machine learning, technology, philosophy]
+categories: [ai, personal]
 excerpt: "Feeling overwhelmed by the endless stream of AI content? You're not alone."
 reading_time: 2
 ---

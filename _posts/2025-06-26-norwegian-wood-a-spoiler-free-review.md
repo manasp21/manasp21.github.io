@@ -2,8 +2,7 @@
 layout: post
 title: "Norwegian Wood: A Spoiler-free review"
 date: 2025-06-26 23:13:08 +0530
-categories: [Murakami, books, poetry, personal]
-tags: [Murakami, books, poetry, love]
+categories: [literature, murakami]
 excerpt: "A single song unlocks a landscape of memory. We walk into a forest of feeling, tracing the quiet ache of a past that breathes within the present."
 reading_time: 7
 ---
