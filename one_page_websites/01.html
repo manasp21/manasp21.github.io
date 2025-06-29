@@ -3,989 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Interactive exploration of AI as the fourth pillar of scientific method, examining how machine learning transforms physics research and discovery">
-    <meta name="keywords" content="AI science, machine learning physics, scientific method, neural networks, fourth pillar, interactive visualization, artificial intelligence, physics research">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="Manas Pandey">
-    <meta name="publisher" content="Manas Pandey">
-    <meta name="language" content="en">
-    <meta name="revisit-after" content="7 days">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://manasp21.github.io/one_page_websites/01.html">
-    <meta property="og:title" content="The Fourth Pillar: AI Transforms Scientific Discovery">
-    <meta property="og:description" content="Interactive exploration of AI as the fourth pillar of scientific method, examining how machine learning transforms physics research and discovery">
-    <meta property="og:image" content="https://manasp21.github.io/assets/og-image.jpg">
-    <meta property="og:site_name" content="Manas Pandey">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://manasp21.github.io/one_page_websites/01.html">
-    <meta property="twitter:title" content="The Fourth Pillar: AI Transforms Scientific Discovery">
-    <meta property="twitter:description" content="Interactive exploration of AI as the fourth pillar of scientific method, examining how machine learning transforms physics research and discovery">
-    <meta property="twitter:image" content="https://manasp21.github.io/assets/og-image.jpg">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://manasp21.github.io/one_page_websites/01.html">
-    
-    <title>The Fourth Pillar: AI in Science</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
+    <title>The Four Pillars of Scientific Discovery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
-            color: #d1d5db; /* gray-300 */
+            font-family: 'Roboto', sans-serif;
+            background-color: #0F172A; /* slate-900 */
+            color: #CBD5E1; /* slate-300 */
         }
-        h1, h2, h3 {
-            font-family: 'Roboto Mono', monospace;
-            color: #f3f4f6; /* gray-100 */
-            letter-spacing: -0.025em;
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
         }
-        .prose {
-            max-width: 65ch;
-            margin-left: auto;
-            margin-right: auto;
+        .pillar-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border-width: 1px;
+            border-color: #334155; /* slate-700 */
         }
-        .prose p {
-            line-height: 1.75;
-            margin-bottom: 1.5em;
+        .pillar-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgba(217, 119, 6, 0.25);
+            border-color: #D97706; /* amber-600 */
         }
-        .prose h2 {
-            font-size: 2.25rem;
-            margin-top: 3rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #374151; /* gray-700 */
+        .nav-link.active {
+            color: #FBBF24; /* amber-400 */
+            font-weight: 500;
         }
-        .prose h3 {
-            font-size: 1.5rem;
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
+        .timeline-link.active-timeline {
+             border-color: #FBBF24; /* amber-400 */
+             color: #FDE68A; /* amber-200 */
+             font-weight: 500;
         }
-        .prose strong {
-            color: #a5b4fc; /* indigo-300 */
+        .prose-custom {
+            color: #94A3B8; /* slate-400 */
         }
-        .nav-link {
-            transition: all 0.2s ease-in-out;
-            border-bottom: 2px solid transparent;
+        .prose-custom h1, .prose-custom h2, .prose-custom h3 {
+            color: #F1F5F9; /* slate-100 */
         }
-        .nav-link.active, .nav-link:hover {
-            color: #fff;
-            border-bottom-color: #818cf8; /* indigo-400 */
+        .prose-custom strong {
+            color: #FDE68A; /* amber-200 */
         }
-        .viz-container {
-            min-height: 400px;
-            background-color: #111827; /* gray-900 */
-            border: 1px solid #374151; /* gray-700 */
-            border-radius: 0.75rem;
-            margin: 3rem auto;
-            padding: 1.5rem;
+        .prose-custom a {
+            color: #FBBF24; /* amber-400 */
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .prose-custom a:hover {
+            color: #D97706; /* amber-600 */
+        }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #1E293B; } /* slate-800 */
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; } /* slate-600 */
+        ::-webkit-scrollbar-thumb:hover { background: #64748B; } /* slate-500 */
+        
+        /* Animation */
+        .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
         }
-        .viz-container.visible {
+        .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        .glowing-text {
-            text-shadow: 0 0 8px rgba(165, 180, 252, 0.5), 0 0 16px rgba(129, 140, 248, 0.3);
-        }
-        table {
-            width: 100%;
-            margin-top: 2rem;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #374151;
-            padding: 0.75rem;
-            text-align: left;
-        }
-        th {
-            background-color: #1f2937;
-        }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-slate-900 text-slate-300">
 
-    <!-- Header and Navigation -->
-    <header class="bg-black/50 backdrop-blur-lg sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <h1 class="text-xl font-bold glowing-text">The Fourth Pillar</h1>
-                <div class="hidden md:flex space-x-6 text-sm">
-                    <a href="#part1" class="nav-link">Part I</a>
-                    <a href="#part2" class="nav-link">Part II</a>
-                    <a href="#part3" class="nav-link">Part III</a>
-                </div>
-            </div>
-        </nav>
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-slate-900/70 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 border-b border-slate-800 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-white">The Pillars of Science</h1>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#introduction" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Introduction</a>
+                <a href="#pillars" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Pillars</a>
+                <a href="#theory" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Theory</a>
+                <a href="#experiment" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Experiment</a>
+                <a href="#simulation" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Simulation</a>
+                <a href="#ai" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">AI</a>
+                <a href="#future" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Future & Challenges</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/90 border-t border-slate-800">
+             <a href="#introduction" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Introduction</a>
+             <a href="#pillars" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Pillars</a>
+             <a href="#theory" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Theory</a>
+             <a href="#experiment" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Experiment</a>
+             <a href="#simulation" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Simulation</a>
+             <a href="#ai" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">AI</a>
+             <a href="#future" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Future & Challenges</a>
+        </div>
     </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="min-h-screen flex items-center justify-center text-center px-4 -mt-16">
-            <div>
-                <h1 class="text-4xl md:text-6xl font-bold glowing-text">The New Scientific Method</h1>
-                <p class="text-lg md:text-xl text-gray-400 mt-4 max-w-3xl mx-auto">An interactive journey into the convergence of Artificial Intelligence and fundamental physics.</p>
-                <a href="#part1" class="mt-8 inline-block bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-600 transition-colors">Begin Exploration</a>
+    <main class="container mx-auto px-6 pt-24">
+
+        <!-- Section: Introduction -->
+        <section id="introduction" class="py-24 min-h-screen flex items-center">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight reveal">The Fourth Pillar</h2>
+                <h3 class="text-2xl md:text-4xl font-light text-amber-400 mb-10 reveal" style="transition-delay: 200ms;">How AI is Revolutionizing the Architecture of Scientific Discovery</h3>
+                <p class="text-lg text-slate-400 mb-12 reveal" style="transition-delay: 400ms;">The scientific method is a dynamic architecture of inquiry, evolving over centuries. From Theory and Experiment to Simulation, each pillar was built to overcome the limitations of the last. Today, a fourth pillar is rising, one built not on laws or physical manipulation, but on data and learning: Artificial Intelligence.</p>
+                <div class="reveal" style="transition-delay: 600ms;">
+                     <a href="#pillars" class="inline-block bg-amber-600 text-white font-bold py-4 px-10 rounded-lg hover:bg-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-600/20">Explore the Pillars</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Pillar Display Section -->
+        <section id="pillars" class="py-20 scroll-mt-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Pillar 1: Theory -->
+                <a href="#theory" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal">
+                    <div class="flex items-center justify-center h-16 w-16 mb-6 bg-blue-900/30 rounded-lg border border-blue-700">
+                        <svg class="h-8 w-8 text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Pillar I: Theory</h3>
+                    <p class="text-slate-400">The quest for foundational laws, from abstract philosophy to the predictive power of mathematics.</p>
+                </a>
+                <!-- Pillar 2: Experiment -->
+                <a href="#experiment" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal" style="transition-delay: 150ms;">
+                     <div class="flex items-center justify-center h-16 w-16 mb-6 bg-green-900/30 rounded-lg border border-green-700">
+                       <svg class="h-8 w-8 text-green-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547a2 2 0 00-.547 1.806l.477 2.387a6 6 0 00.517 3.86l.158.318a6 6 0 00.517 3.86l.477 2.387a2 2 0 001.806.547a2 2 0 001.806-.547l2.387-.477a6 6 0 003.86-.517l.318-.158a6 6 0 013.86-.517l2.387.477a2 2 0 001.806-.547a2 2 0 00.547-1.806l-.477-2.387a6 6 0 00-.517-3.86l-.158-.318a6 6 0 00-.517-3.86l-.477-2.387z" transform="rotate(-45 12 12) translate(-4 -4)" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Pillar II: Experiment</h3>
+                    <p class="text-slate-400">The primacy of empirical evidence, grounding theory in verifiable, reproducible reality.</p>
+                </a>
+                <!-- Pillar 3: Simulation -->
+                <a href="#simulation" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal" style="transition-delay: 300ms;">
+                    <div class="flex items-center justify-center h-16 w-16 mb-6 bg-amber-900/30 rounded-lg border border-amber-700">
+                        <svg class="h-8 w-8 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Pillar III: Simulation</h3>
+                    <p class="text-slate-400">The computational laboratory, exploring complex systems inaccessible to the first two pillars.</p>
+                </a>
+                <!-- Pillar 4: AI -->
+                <a href="#ai" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal" style="transition-delay: 450ms;">
+                    <div class="flex items-center justify-center h-16 w-16 mb-6 bg-indigo-900/30 rounded-lg border border-indigo-700">
+                       <svg class="h-8 w-8 text-indigo-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75h-7.5" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9.75h-7.5" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12.75h-7.5" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75h-7.5" /></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Pillar IV: AI</h3>
+                    <p class="text-slate-400">The dawn of data-driven discovery, generating hypotheses and finding patterns beyond human capacity.</p>
+                </a>
             </div>
         </section>
 
-        <!-- Part I -->
-        <section id="part1" class="py-16">
-            <div class="container mx-auto px-4 prose">
-                <h2 class="glowing-text">Part I: The New Scientific Method</h2>
-                
-                <h3>Chapter 1: The End of Intractability</h3>
-                <p><strong>The Great Deluge.</strong> Deep beneath the Franco-Swiss border, a river of information flows. It is a torrent of almost unimaginable scale, a digital ghost of the most violent and fundamental events in the cosmos. This is the Large Hadron Collider (LHC)... When its beams of protons... smash into one another, they disintegrate into a shower of ephemeral particles...</p>
-                
-                <div id="lhc-viz" class="viz-container flex items-center justify-center overflow-hidden">
-                    <svg id="lhc-svg" class="w-full h-full" viewBox="0 0 400 250"></svg>
-                </div>
-                
-                <p>For every one of the 40 million times per second that proton bunches cross paths... a blizzard of data is generated... a petabyte—a million gigabytes—of data per second... So, the physicists do what any sensible person facing a firehose would do: they flinch. An intricate, multi-layered electronic nervous system, known as the trigger system, performs a brutal act of real-time triage... throwing away 99.998% of the data to capture a "mere" 1,000 events per second deemed worthy of human inspection.</p>
-                <p><strong>The Computational Wall.</strong> For a generation, the relentless advance of computing power was the silent partner in every scientific breakthrough. Moore's Law... But a shadow has been creeping over this bright landscape... We have, in a sense, hit a wall... the Computational Wall... The most formidable section of this wall is known as the quantum many-body problem... The problem is that the resources required to describe this combined wavefunction grow exponentially with the number of particles... For N qubits, you need 2<sup>N</sup> numbers.</p>
-                
-                <div id="comp-wall-viz" class="viz-container">
-                    <div class="p-4">
-                        <h4 class="text-lg font-bold text-center mb-4">The Exponential Wall</h4>
-                        <p class="text-sm text-center text-gray-400 mb-4">Adjust the number of quantum particles (N) to see how quickly the computational cost (2<sup>N</sup>) overwhelms Moore's Law.</p>
-                        <div class="flex items-center space-x-4">
-                            <span>N = </span>
-                            <input type="range" id="n-slider" min="1" max="60" value="10" class="w-full">
-                            <span id="n-value" class="font-mono">10</span>
+        <!-- Main Content with Timeline -->
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Timeline -->
+            <aside class="lg:w-1/6 lg:sticky top-24 self-start hidden lg:block">
+                 <nav id="timeline" class="flex flex-col space-y-4 border-l-2 border-slate-700">
+                     <a href="#theory" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="theory">Pillar I: Theory</a>
+                     <a href="#experiment" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="experiment">Pillar II: Experiment</a>
+                     <a href="#simulation" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="simulation">Pillar III: Simulation</a>
+                     <a href="#ai" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="ai">Pillar IV: AI</a>
+                     <a href="#future" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="future">Future & Challenges</a>
+                 </nav>
+            </aside>
+
+            <!-- Dynamic Content Sections -->
+            <div class="prose-custom max-w-none lg:max-w-4xl mx-auto lg:w-5/6">
+                <section id="theory" class="content-section py-16 scroll-mt-20">
+                    <h2 class="text-4xl md:text-5xl font-bold border-b border-blue-500/30 pb-4 mb-8 reveal">Pillar I: Theory</h2>
+                    <div class="reveal">
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">From Mythos to Logos: The Philosophical Origins</h3>
+                        <p>The genesis of scientific inquiry lies in the fundamental human need to connect observation with prediction and replace mythological explanations with rational ones. The earliest roots of this theoretical impulse can be traced to ancient civilizations that sought to impose order on the world through systematic abstraction. It was the ancient Greeks, however, who first formalized the theoretical approach, moving beyond practical rules to seek universal principles. The core principle uniting these efforts was <strong>abstraction</strong>: the creation of conceptual models and relationships to explain and predict phenomena, often based on logic and reason rather than systematic, controlled experimentation.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Age of Laws: Formalization and Predictive Power</h3>
+                        <p>The Scientific Revolution of the 16th and 17th centuries marked the maturation of theory into a powerful, predictive tool. This era culminated in Isaac Newton's <em>Principia Mathematica</em>, a grand synthesis that established a new ideal for science: that a few elegant, universal laws could have immense predictive power. The 20th century brought the two most revolutionary theories: Einstein's theory of relativity and quantum mechanics, which radically altered our understanding of the universe. The primary epistemological contribution of the theoretical pillar was the establishment of the concept of <strong>universal, predictive laws</strong>. However, the great strength of pure theory—its abstraction from the messy details of reality—is also its principal weakness, creating the profound intellectual necessity for the second pillar: experiment.</p>
+                    </div>
+                </section>
+
+                <section id="experiment" class="content-section py-16 scroll-mt-20">
+                    <h2 class="text-4xl md:text-5xl font-bold border-b border-green-500/30 pb-4 mb-8 reveal">Pillar II: Experiment</h2>
+                    <div class="reveal">
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Empirical Turn: From Authority to Observation</h3>
+                        <p>For much of history, knowledge was sought through the interpretation of established texts. The second pillar, experiment, represents the revolutionary shift away from this dogma-based epistemology toward one grounded in direct, verifiable evidence. The <strong>empirical method</strong> is a systematic approach to acquiring knowledge through observation and experimentation, rather than through intuition or authority. The Scientific Revolution was the period in which empiricism became a central tenet of scientific inquiry, championed by figures like Francis Bacon, who argued for a new science that actively interrogated nature, and Galileo Galilei, whose telescopic observations provided evidence that shattered ancient theories.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Scientific Method in Practice: Validation and Falsification</h3>
+                        <p>The experimental pillar formalized the modern scientific method, establishing its core tenets of systematic observation, hypothesis testing, and, most crucially, <strong>reproducibility</strong>. Experimentation became the ultimate arbiter between competing theories. A hypothesis that survives repeated attempts at falsification is considered robust and reliable. This principle created a powerful, self-correcting feedback loop for knowledge and fundamentally democratized science. Yet, the experimental method is confined to systems that are physically accessible, controllable, and observable. This created a new frontier of "wicked problems"—systems too large, small, fast, slow, or complex to be interrogated by physical experiment alone, creating the necessity for the third pillar.</p>
+                    </div>
+                </section>
+
+                <section id="simulation" class="content-section py-16 scroll-mt-20">
+                     <h2 class="text-4xl md:text-5xl font-bold border-b border-amber-500/30 pb-4 mb-8 reveal">Pillar III: Simulation</h2>
+                     <div class="reveal">
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Dawn of the Digital Age: Overcoming Stagnation</h3>
+                        <p>By the mid-20th century, science was confronting a wall of complexity. Many successful theories were analytically unsolvable for real-world scenarios, and experimentation was reaching its own limits. The solution emerged from computing. John von Neumann's vision of a <strong>computational laboratory</strong>—a virtual space for experiments on models of complex systems—became a reality with the invention of the electronic computer. This new technology allowed scientists to realize numerical simulations of increasingly complex problems, pioneering the third pillar of scientific discovery.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">Simulation as a New Mode of Inquiry</h3>
+                        <p>Computational science, or simulation, is the use of mathematical models on computers to understand natural phenomena. It acts as a crucial bridge between theory and experiment. The unique epistemological contribution of simulation is its ability to explore the consequences of "what if" scenarios within complex, well-defined theoretical frameworks. It is a fundamentally <strong>model-driven</strong> paradigm. Simulation does not typically discover new fundamental laws; rather, it reveals the complex, often surprising emergent behavior of systems governed by known laws. Crucially, by digitizing scientific inquiry, simulation began to generate massive datasets, creating a new bottleneck: the limited ability of humans to analyze this ocean of data. This is the challenge that the fourth pillar is poised to solve.</p>
+                    </div>
+                </section>
+
+                <section id="ai" class="content-section py-16 scroll-mt-20">
+                    <h2 class="text-4xl md:text-5xl font-bold border-b border-indigo-500/30 pb-4 mb-8 reveal">Pillar IV: AI</h2>
+                    <div class="reveal">
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">A New Kind of Inquiry: From Model-Driven to Data-Driven</h3>
+                        <p>The fourth pillar, first conceptualized as a "Fourth Paradigm" by Jim Gray, represents a fundamental departure from the previous three. While simulation is model-driven, AI-driven science is often <strong>data-driven</strong>: it can begin with vast, complex data and use learning algorithms to extract models, identify patterns, and generate hypotheses, sometimes without a complete, pre-existing theory. This paradigm shift has been enabled by the confluence of big data, breakthroughs in machine learning, and the exponential growth of high-performance computing.</p>
+                        
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Core Capabilities of AI in Science</h3>
+                        <ul class="list-disc list-inside space-y-2 mb-8">
+                            <li><strong>Automated Hypothesis Generation:</strong> AI systems can mine scientific literature and datasets to propose novel, non-obvious, and testable hypotheses.</li>
+                            <li><strong>Complex Pattern Recognition:</strong> Deep learning excels at identifying subtle, high-dimensional patterns in enormous datasets that are imperceptible to human analysis.</li>
+                            <li><strong>Autonomous Experimentation:</strong> "Robot scientists" can autonomously formulate hypotheses, design and run experiments, analyze data, and refine their understanding in a closed loop.</li>
+                        </ul>
+
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">Case Studies from the Frontier: AI in Action</h3>
+                        <div class="overflow-x-auto bg-slate-800/50 rounded-lg border border-slate-700 reveal">
+                            <table class="w-full text-left">
+                                <thead class="bg-slate-700/50">
+                                    <tr>
+                                        <th class="p-4 font-semibold text-white">Scientific Field</th>
+                                        <th class="p-4 font-semibold text-white">Key AI System/Tool</th>
+                                        <th class="p-4 font-semibold text-white">Transformative Implication</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-700">
+                                    <tr class="hover:bg-slate-800 transition-colors duration-200">
+                                        <td class="p-4">Structural Biology</td>
+                                        <td class="p-4 font-mono text-amber-300">DeepMind AlphaFold</td>
+                                        <td class="p-4">Solved the 50-year "grand challenge" of protein folding, accelerating drug discovery.</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800 transition-colors duration-200">
+                                        <td class="p-4">Materials Science</td>
+                                        <td class="p-4 font-mono text-amber-300">Google GNoME</td>
+                                        <td class="p-4">Predicted hundreds of thousands of new stable materials for batteries and superconductors.</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800 transition-colors duration-200">
+                                        <td class="p-4">Meteorology</td>
+                                        <td class="p-4 font-mono text-amber-300">Google GraphCast</td>
+                                        <td class="p-4">Faster and more accurate 10-day weather forecasting than traditional models.</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800 transition-colors duration-200">
+                                        <td class="p-4">Nuclear Physics</td>
+                                        <td class="p-4 font-mono text-amber-300">DeepMind Fusion Control</td>
+                                        <td class="p-4">Opens new pathways toward achieving stable, clean energy from nuclear fusion.</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800 transition-colors duration-200">
+                                        <td class="p-4">Mathematics</td>
+                                        <td class="p-4 font-mono text-amber-300">Google AlphaGeometry</td>
+                                        <td class="p-4">Demonstrates AI's capacity for abstract reasoning by solving complex geometry problems.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div id="comp-wall-chart" class="w-full h-64 mt-4"></div>
                     </div>
-                </div>
-
-                <p>This is not a problem that can be solved by waiting for better computers. Moore's Law, as powerful as it has been, is a gentle curve compared to the sheer cliff face of exponential scaling... The old methods of approximation are no longer enough... We have reached the Computational Wall, and with the tools of the past, we cannot scale it.</p>
+                </section>
                 
-                <h3>The Fourth Pillar: A Paradigm Shift</h3>
-                <p>We are now witnessing the dawn of a new class of tool, one that marks a departure as fundamental as the invention of language or the scientific method itself... This is the fourth pillar of science: <strong>machine learning</strong>... It inverts the process. Instead of providing the computer with explicit rules, you provide it with data... It learns from experience, just as a child does... We have moved from being instructors to being trainers.</p>
-
-                <h3>Chapter 2: The Physicist's AI Toolkit</h3>
-                <p>The learning machines being deployed on the front lines of research are not general intelligences, but highly specialized instruments. To understand their impact, we must first understand how they work.</p>
-
-                <h3>The Workhorse: The Neural Network as a Spin Glass</h3>
-                <p>...a physicist need look no further than a concept from their own field: the spin glass... The process of training the network is then equivalent to finding the lowest energy state of the spin glass. The algorithm used for this, called gradient descent, is nothing more than a process of letting the system "roll downhill."</p>
-
-                <div id="nn-viz" class="viz-container flex flex-col md:flex-row items-center gap-8">
-                    <div class="w-full md:w-1/2">
-                        <h4 class="text-lg font-bold text-center mb-2">Neural Network</h4>
-                        <svg id="nn-svg" class="w-full h-64"></svg>
+                <section id="future" class="content-section py-16 scroll-mt-20">
+                    <h2 class="text-4xl md:text-5xl font-bold border-b border-red-500/30 pb-4 mb-8 reveal">Challenges & The Future</h2>
+                    <div class="reveal">
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Crisis of Trust and Transparency</h3>
+                        <p>The integration of AI is fraught with challenges. The <strong>"black box" problem</strong>, where the internal workings of AI models are opaque, challenges the scientific ethos of mechanistic understanding. This can erode trust and complicate validation. AI also introduces new threats to <strong>reproducibility</strong> due to the stochastic nature of algorithms and complex dependencies. Furthermore, the risk of "AI slop" or "hallucinations" polluting the scientific literature with fabricated information is a serious concern.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Specter in the Machine: Bias, Collapse, and Ethics</h3>
+                        <p>AI systems trained on biased data can reproduce and amplify societal biases, leading to scientifically invalid outcomes. A long-term risk is <strong>"model collapse,"</strong> where models trained on their own synthetic output begin to degrade, stifling genuine novelty. These challenges highlight the urgent need for robust ethical frameworks, standards for transparency, and methods for bias detection and mitigation to govern the use of AI in science.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">Redefining Discovery: Philosophical Implications</h3>
+                        <p>The rise of AI forces a confrontation with deep philosophical questions. Can a machine truly "understand"? AI also challenges the notion of <strong>human exceptionalism</strong> in creativity and intelligence. This suggests the role of the scientist will evolve from a primary discoverer to a high-level collaborator—the one who asks the right questions, provides creative intuition, curates AI outputs, and supplies ethical judgment. Perhaps most profoundly, AI represents a potential epistemological rupture, suggesting there may be aspects of reality that can only be known through a non-human form of intelligence.</p>
                     </div>
-                    <div class="w-full md:w-1/2">
-                        <h4 class="text-lg font-bold text-center mb-2">Loss Landscape</h4>
-                        <svg id="loss-landscape-svg" class="w-full h-64"></svg>
+                     <div class="reveal mt-12">
+                        <p>The architecture of scientific discovery is now supported by four pillars: Theory, Experiment, Simulation, and Artificial Intelligence. This new paradigm promises a radical acceleration in our ability to tackle the grand challenges of our time. In this four-pillar world, the role of the human scientist is not diminished but transformed. The scientist of the future will be a sophisticated question-asker, a creative collaborator, a discerning curator, and an essential ethical guide.</p>
+                        <p class="mt-4">Realizing this future requires a concerted effort to build an open, ethical, and trustworthy ecosystem for scientific AI. It demands the democratization of powerful tools, investment in education, a cultural shift toward open innovation, and the embedding of robust ethical principles into the very heart of scientific AI. The task ahead is to build an innovation ecosystem as intelligent, robust, and ethical as the science we hope to create with it.</p>
                     </div>
-                </div>
-                
-                <h3>The Specialized Tools: Deep Learning Architectures</h3>
-                <p><strong>1. Convolutional Neural Networks (CNNs): The Imagers.</strong> A CNN processes an image not by looking at every pixel at once, but by scanning it with small filters, or "kernels."</p>
+                </section>
 
-                <div id="cnn-viz" class="viz-container">
-                    <h4 class="text-lg font-bold text-center mb-4">Convolutional Neural Network (CNN)</h4>
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-4">
-                        <div id="cnn-input" class="grid grid-cols-5 gap-1 p-2 bg-gray-800 rounded"></div>
-                        <div class="text-2xl font-mono text-indigo-400">→</div>
-                        <div id="cnn-kernel" class="grid grid-cols-3 gap-1 p-2 bg-indigo-900 rounded border-2 border-indigo-400"></div>
-                        <div class="text-2xl font-mono text-indigo-400">→</div>
-                        <div id="cnn-output" class="grid grid-cols-3 gap-1 p-2 bg-gray-700 rounded"></div>
-                    </div>
-                    <button id="cnn-animate-btn" class="mt-6 mx-auto block bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors">Animate Kernel</button>
-                </div>
-                
-                <h3>The Frontier Tools: Imagination and Reconciliation</h3>
-                <p><strong>1. Generative Models: The AI with an Imagination.</strong> Instead of discriminating between categories... their goal is to learn the true underlying probability distribution of a dataset. Once they have learned this, they can generate new, synthetic data...</p>
-                <p><strong>2. Physics-Informed Neural Networks (PINNs): The Great Reconciler.</strong> It represents a beautiful reconciliation between the two pillars of theory and the new world of data-driven AI... its loss function... has two components... how well the network's output match the available experimental... data... [and] how well the network's output obeys a known law of physics...</p>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tool</th>
-                            <th>Learning Paradigm</th>
-                            <th>Purpose</th>
-                            <th>Key Analogy</th>
-                            <th>Physics Example</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Neural Network</td><td>All</td><td>Universal Function Approximator</td><td>Spin Glass</td><td>Learning the "energy landscape" of a complex problem.</td></tr>
-                        <tr><td>Supervised Learning</td><td>Supervised</td><td>Classification & Regression</td><td>The Apprentice</td><td>Identifying Higgs bosons at the LHC.</td></tr>
-                        <tr><td>Unsupervised Learning</td><td>Unsupervised</td><td>Anomaly Detection & Clustering</td><td>The Explorer</td><td>Finding novel astronomical objects in LSST data.</td></tr>
-                        <tr><td>Reinforcement Learning</td><td>Reinforcement</td><td>Control & Optimization</td><td>The Experimenter</td><td>Controlling plasma in a fusion tokamak.</td></tr>
-                        <tr><td>Convolutional Network (CNN)</td><td>Supervised/Unsup.</td><td>Analyzing Grid-like/Spatial Data</td><td>The Imager</td><td>Classifying particle types from telescope images.</td></tr>
-                        <tr><td>Transformer</td><td>Supervised/Unsup.</td><td>Analyzing Sequential Data</td><td>The Linguist</td><td>Tagging particle jets at the LHC.</td></tr>
-                        <tr><td>Generative Models (GANs)</td><td>Unsupervised</td><td>Creating Synthetic Data</td><td>The AI with Imagination</td><td>Generating realistic detector simulations.</td></tr>
-                        <tr><td>PINNs</td><td>Supervised</td><td>Solving DEs (Reconciling Data and Theory)</td><td>The Reconciler</td><td>Modeling fluid dynamics with sparse data.</td></tr>
-                    </tbody>
-                </table>
             </div>
-        </section>
-
-        <!-- Part II -->
-        <section id="part2" class="py-16 bg-[#111827]">
-            <div class="container mx-auto px-4 prose text-gray-300">
-                <h2 class="glowing-text">Part II: The Revolution in Practice</h2>
-                
-                <h3>Chapter 3: The Ghost in the Collider</h3>
-                <p>The challenge facing a physicist at the LHC is one of perception. They are searching for a ghost... the signals of new physics... These events are predicted to be extraordinarily rare... To find the whisper, we needed a listener that could learn what the ghost sounds like.</p>
-                <p><strong>AI as the Doorman: The High-Stakes World of the Trigger.</strong> In the HLT, supervised learning algorithms are the gatekeepers of discovery... The AI—often a compact, lightning-fast version of a neural network... learns the subtle, multidimensional characteristics that distinguish the [signal and background].</p>
-                
-                <h3>Case Study: The Hunt for a Shy Higgs</h3>
-                <p>The final step is both simple and beautiful. The physicist takes all the events that have survived this gauntlet and plots a histogram... if the Higgs is there... a small bump will appear in the plot, an excess of events at high "Higgs-like" scores.</p>
-                <div id="higgs-viz" class="viz-container">
-                    <h4 class="text-lg font-bold text-center mb-4">Finding the Higgs Bump</h4>
-                    <p class="text-sm text-center text-gray-400 mb-4">An AI assigns a "Higgs-like" score to each event. A bump over the expected background reveals the signal.</p>
-                    <div id="higgs-chart" class="w-full h-64"></div>
-                    <button id="higgs-reveal-btn" class="mt-6 mx-auto block bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors">Reveal Signal</button>
-                </div>
-
-                <h3>Beyond the Lamppost: AI as the Anomaly Hunter</h3>
-                <p>To find them, we need a different kind of AI... an unsupervised algorithm... One of the most powerful tools for this task is the autoencoder... The "reconstruction error"—a quantitative measure of how badly the AI failed—becomes a score for "weirdness."</p>
-
-                <div id="autoencoder-viz" class="viz-container flex flex-col items-center">
-                    <h4 class="text-lg font-bold text-center mb-4">Anomaly Detection with an Autoencoder</h4>
-                    <div class="flex w-full items-center justify-around font-mono text-sm mb-4">
-                        <span>Input</span>
-                        <span>Encoder →</span>
-                        <span class="text-xs">Latent Space</span>
-                        <span>→ Decoder</span>
-                        <span>Output</span>
-                    </div>
-                    <div id="autoencoder-anim" class="w-full h-48 relative"></div>
-                    <div class="mt-4 flex space-x-4">
-                        <button id="autoencoder-normal-btn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">Process Normal Event</button>
-                        <button id="autoencoder-anomaly-btn" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">Process Anomaly</button>
-                    </div>
-                    <div id="reconstruction-error-text" class="mt-4 font-mono text-lg h-8"></div>
-                </div>
-
-                <h3>Chapter 4: An Intelligent Gaze on the Heavens</h3>
-                <p>The astronomer's gaze is directed outward... If the LHC is a firehose, the coming generation of astronomical surveys like the Vera C. Rubin Observatory are a veritable ocean. And so, the astronomer, like the physicist, has turned to the AI toolkit.</p>
-
-                <h3>Chapter 5: Hearing the Universe</h3>
-                <p>On September 14, 2015... a tremor ran through the fabric of reality itself. It was a ripple in spacetime, a gravitational wave, and for the first time, we heard it... The signal, once converted into the audible frequency range, was a simple, rising "chirp," a sound that lasted less than a quarter of a second.</p>
-                <div id="ligo-viz" class="viz-container">
-                    <h4 class="text-lg font-bold text-center mb-4">Hearing a Gravitational Wave "Chirp"</h4>
-                    <p class="text-sm text-center text-gray-400 mb-4">The signal from a black hole merger appears as a characteristic "chirp" on a spectrogram (frequency vs. time).</p>
-                    <div id="ligo-chart" class="w-full h-80 bg-gray-900 rounded-md overflow-hidden"></div>
-                    <button id="ligo-play-btn" class="mt-6 mx-auto block bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors">Play Sound</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Part III -->
-        <section id="part3" class="py-16">
-            <div class="container mx-auto px-4 prose">
-                <h2 class="glowing-text">Part III: The Unwritten Future</h2>
-                
-                <h3>Chapter 6: Taming the Quantum World</h3>
-                <p>The quantum world is the land of ghosts, a place governed not by solid certainties, but by the ethereal, endlessly complex "wave function"... In a stunning turn of events, physicists are discovering that the AI toolkit... may hold the key to this quantum kingdom.</p>
-                
-                <h3>Chapter 7: The AI Alchemist</h3>
-                <p>We are building machines that do not just screen existing matter, but create new matter... The AI Alchemist... is closing the loop between idea and substance...</p>
-                
-                <div id="mattergen-viz" class="viz-container">
-                    <h4 class="text-lg font-bold text-center mb-4">MatterGen: AI-Powered Material Discovery</h4>
-                    <p class="text-sm text-center text-gray-400 mb-4">A diffusion model starts with random atoms and "denoises" them into a stable, novel crystal structure.</p>
-                    <div id="mattergen-canvas-container" class="w-full h-80 bg-gray-800 rounded-md relative">
-                         <canvas id="mattergen-canvas"></canvas>
-                    </div>
-                    <button id="mattergen-start-btn" class="mt-6 mx-auto block bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors">Generate Crystal</button>
-                </div>
-
-                <h3>Chapter 8: The AI-Newton</h3>
-                <p>Could a machine, starting not from human text but from raw experimental data... look upon the world and distill from that chaos a new, compact, predictive, and previously unknown law of nature? Could a machine do what Newton did?</p>
-                
-                <h3>Chapter 9: The Final Theory</h3>
-                <p>The quest for a unified theory of physics is the holy grail of science... The problem is that the geometry of these hidden dimensions determines everything about the physics we see... This leads to the "landscape problem"... perhaps 10<sup>500</sup>... possible, mathematically consistent shapes...</p>
-                
-                <h3>Chapter 10: The Physicist's New Partner</h3>
-                <p>As we stand at this new dawn, it is clear that we have not just invented a new tool. We have forged a new kind of partnership... The partnership between human and artificial intelligence is the next step in that grand, cosmic unfolding. It is not the end of our scientific journey, but a phase transition into something new and unimaginably vast. It is the moment when the universe, through the combined efforts of its biological children and its new silicon minds, truly begins to wake up.</p>
-            </div>
-        </section>
+        </div>
     </main>
-
-    <footer class="text-center py-8 text-sm text-gray-500 border-t border-gray-800">
-        <p>An Interactive Exploration of "The Fourth Pillar".</p>
-        <p>Visualizations created with HTML, CSS, and JavaScript.</p>
+    
+    <footer class="bg-slate-900 border-t border-slate-800 mt-20">
+        <div class="container mx-auto px-6 py-8 text-center text-slate-500">
+            <p>&copy; 2025 The Four Pillars of Scientific Discovery. All rights reserved.</p>
+            <p class="text-sm mt-2">A conceptual web page visualizing the evolution of science.</p>
+        </div>
     </footer>
 
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- General UI ---
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const vizContainers = document.querySelectorAll('.viz-container');
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Mobile Menu ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
 
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            // --- Smooth Scrolling for all anchor links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
 
-            const observer = new IntersectionObserver((entries) => {
+            // --- Scroll-based Animations ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        const id = entry.target.id;
-                        if (id) {
-                            // Run visualization specific function
-                            if (window.runViz && window.runViz[id]) {
-                                window.runViz[id]();
-                                delete window.runViz[id]; // Run only once
-                            }
-                        }
                     }
                 });
-            }, observerOptions);
-            
-            vizContainers.forEach(container => observer.observe(container));
+            }, { threshold: 0.1 });
 
-            // Nav link highlighting
-            const navObserver = new IntersectionObserver((entries) => {
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // --- Active Nav Link & Timeline Highlighting ---
+            const sections = document.querySelectorAll('.content-section, #introduction, #pillars');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const timelineLinks = document.querySelectorAll('.timeline-link');
+            
+            const sectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.id;
+                        
+                        // Main Nav
                         navLinks.forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === id);
+                        });
+
+                        // Timeline Nav
+                        timelineLinks.forEach(link => {
+                            const isActive = link.dataset.section === id;
+                            link.classList.toggle('active-timeline', isActive);
                         });
                     }
                 });
-            }, { rootMargin: '-50% 0px -50% 0px'});
-            
-            sections.forEach(section => navObserver.observe(section));
+            }, { rootMargin: '-40% 0px -60% 0px' }); // Adjust rootMargin to trigger when section is more centered
 
-            // Store viz functions to be run once they are visible
-            window.runViz = {};
-
-            // --- Visualization 1: LHC Data Deluge ---
-            window.runViz['lhc-viz'] = () => {
-                const svg = d3.select("#lhc-svg");
-                const width = 400;
-                const height = 250;
-                
-                const n = 200; // Number of particles
-                const particles = d3.range(n).map(() => ({
-                    x: width / 2,
-                    y: height / 2,
-                    vx: (Math.random() - 0.5) * 4,
-                    vy: (Math.random() - 0.5) * 4,
-                    r: Math.random() * 2 + 1,
-                    type: Math.random() > 0.05 ? 'background' : 'signal'
-                }));
-
-                svg.append("circle").attr("cx", width/2).attr("cy", height/2).attr("r", 5).attr("fill", "yellow").attr("class", "collision-point");
-                
-                const particleNodes = svg.selectAll("circle.particle")
-                    .data(particles)
-                    .enter().append("circle")
-                    .attr("class", "particle")
-                    .attr("cx", d => d.x)
-                    .attr("cy", d => d.y)
-                    .attr("r", d => d.r)
-                    .attr("fill", d => d.type === 'signal' ? "#fde047" : "#6b7280");
-
-                let t = 0;
-                d3.timer(() => {
-                    t++;
-                    particleNodes
-                        .attr("cx", d => d.x += d.vx)
-                        .attr("cy", d => d.y += d.vy)
-                        .attr("opacity", d => {
-                            const dist = Math.sqrt(Math.pow(d.x - width/2, 2) + Math.pow(d.y - height/2, 2));
-                            if (dist > 10 && t < 10) return 0; // Don't show at first
-                            return Math.max(0, 1 - dist / (Math.min(width, height)/2));
-                        });
-                    
-                    if (t % 120 === 0) { // Reset every ~2 seconds
-                        particles.forEach(p => {
-                            p.x = width / 2;
-                            p.y = height / 2;
-                            p.vx = (Math.random() - 0.5) * 4;
-                            p.vy = (Math.random() - 0.5) * 4;
-                            p.type = Math.random() > 0.05 ? 'background' : 'signal';
-                        });
-                        particleNodes.data(particles)
-                            .attr("fill", d => d.type === 'signal' ? "#fde047" : "#6b7280");
-                    }
-
-                    if (t > 10) { // Trigger effect
-                        svg.selectAll("circle.particle")
-                            .transition()
-                            .duration(500)
-                            .attr("fill", d => {
-                                if (d.type === 'signal') return "#fde047"; // Keep signal
-                                return "#374151"; // Fade out background
-                            });
-                    }
-                });
-
-                svg.append('text').attr('x', 20).attr('y', 30).text('40,000,000 Collisions / second').attr('fill', '#9ca3af').attr('font-size', '10px');
-                svg.append('text').attr('x', width - 20).attr('y', height - 20).text('~1,000 "Interesting" Events Saved').attr('fill', '#fde047').attr('font-size', '10px').attr('text-anchor', 'end');
-                svg.append('line').attr('x1', width/2).attr('y1', height/2).attr('x2', width - 150).attr('y2', height-30).attr('stroke', '#fde047').attr('stroke-width', 0.5).attr('stroke-dasharray', '2 2');
-
-            };
-            
-            // --- Visualization 2: Computational Wall ---
-            window.runViz['comp-wall-viz'] = () => {
-                const slider = document.getElementById('n-slider');
-                const nValue = document.getElementById('n-value');
-                const chartDiv = document.getElementById('comp-wall-chart');
-
-                const margin = {top: 20, right: 30, bottom: 40, left: 60};
-                const width = chartDiv.clientWidth - margin.left - margin.right;
-                const height = chartDiv.clientHeight - margin.top - margin.bottom;
-
-                const svg = d3.select(chartDiv)
-                    .append("svg")
-                    .attr("width", "100%")
-                    .attr("height", "100%")
-                    .attr("viewBox", `0 0 ${chartDiv.clientWidth} ${chartDiv.clientHeight}`)
-                    .append("g")
-                    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-                const x = d3.scaleLinear().range([0, width]);
-                const y = d3.scaleLog().range([height, 0]).base(2);
-                
-                const xAxis = svg.append("g").attr("transform", `translate(0,${height})`);
-                const yAxis = svg.append("g");
-
-                const mooreLine = svg.append("path").attr("fill", "none").attr("stroke", "#34d399").attr("stroke-width", 2);
-                const exponentialLine = svg.append("path").attr("fill", "none").attr("stroke", "#f87171").attr("stroke-width", 3);
-                
-                const mooreLabel = svg.append("text").attr("fill", "#34d399").attr("font-size", 12).attr("font-weight", "bold");
-                const expLabel = svg.append("text").attr("fill", "#f87171").attr("font-size", 12).attr("font-weight", "bold");
-
-                function updateChart() {
-                    const N = +slider.value;
-                    nValue.textContent = N;
-                    
-                    const data = d3.range(1, N + 1).map(i => ({
-                        n: i,
-                        moore: Math.pow(2, i / 2), // Transistors double every 2 "years" (steps)
-                        exponential: Math.pow(2, i)
-                    }));
-                    
-                    x.domain([1, N]);
-                    y.domain([1, d3.max(data, d => d.exponential)]);
-
-                    xAxis.call(d3.axisBottom(x));
-                    yAxis.call(d3.axisLeft(y).ticks(5, ".0s"));
-
-                    mooreLine.datum(data).attr("d", d3.line().x(d => x(d.n)).y(d => y(d.moore)));
-                    exponentialLine.datum(data).attr("d", d3.line().x(d => x(d.n)).y(d => y(d.exponential)));
-
-                    const lastMoore = data[data.length-1];
-                    const lastExp = data[data.length-1];
-                    
-                    mooreLabel.attr("x", x(lastMoore.n) + 5).attr("y", y(lastMoore.moore)).text("Moore's Law");
-                    expLabel.attr("x", x(lastExp.n) + 5).attr("y", y(lastExp.exponential)).text("2^N");
-
-                    svg.selectAll(".domain, .tick line").attr("stroke", "#4b5563");
-                    svg.selectAll(".tick text").attr("fill", "#9ca3af");
-                }
-                
-                slider.addEventListener('input', updateChart);
-                updateChart();
-            };
-            
-            // --- Visualization 3: Neural Network ---
-            window.runViz['nn-viz'] = () => {
-                // --- NN Structure ---
-                const nnSvg = d3.select("#nn-svg");
-                const nnWidth = nnSvg.node().getBoundingClientRect().width;
-                const nnHeight = 256;
-                const layers = [2, 4, 3, 1];
-
-                const nodes = [];
-                const links = [];
-                let x = 30;
-                const xSpacing = (nnWidth - 60) / (layers.length - 1);
-                
-                let prevLayerNodes = [];
-                layers.forEach((size, i) => {
-                    const ySpacing = nnHeight / (size + 1);
-                    const currentLayerNodes = [];
-                    for (let j = 0; j < size; j++) {
-                        const node = { x: x, y: (j + 1) * ySpacing, layer: i };
-                        nodes.push(node);
-                        currentLayerNodes.push(node);
-                    }
-                    if (prevLayerNodes.length > 0) {
-                        prevLayerNodes.forEach(prevNode => {
-                            currentLayerNodes.forEach(currNode => {
-                                links.push({source: prevNode, target: currNode});
-                            });
-                        });
-                    }
-                    prevLayerNodes = currentLayerNodes;
-                    x += xSpacing;
-                });
-                
-                nnSvg.selectAll("line")
-                    .data(links)
-                    .enter().append("line")
-                    .attr("x1", d => d.source.x)
-                    .attr("y1", d => d.source.y)
-                    .attr("x2", d => d.target.x)
-                    .attr("y2", d => d.target.y)
-                    .attr("stroke", "#374151")
-                    .attr("stroke-width", 0.5);
-                
-                const nodeGroups = nnSvg.selectAll("g")
-                    .data(nodes)
-                    .enter().append("g");
-                
-                nodeGroups.append("circle")
-                    .attr("cx", d => d.x)
-                    .attr("cy", d => d.y)
-                    .attr("r", 8)
-                    .attr("fill", d => d.layer === 0 ? "#a5b4fc" : d.layer === layers.length - 1 ? "#f87171" : "#4b5563");
-
-                // --- Loss Landscape ---
-                const lossSvg = d3.select("#loss-landscape-svg");
-                const lossWidth = lossSvg.node().getBoundingClientRect().width;
-                const lossHeight = 256;
-
-                const lossMargin = {top: 20, right: 20, bottom: 20, left: 20};
-                const lw = lossWidth - lossMargin.left - lossMargin.right;
-                const lh = lossHeight - lossMargin.top - lossMargin.bottom;
-                
-                const lossG = lossSvg.append("g").attr("transform", `translate(${lossMargin.left}, ${lossMargin.top})`);
-                
-                // Create a simple landscape path
-                const landscapePath = d3.path();
-                landscapePath.moveTo(0, lh * 0.6);
-                landscapePath.bezierCurveTo(lw * 0.2, lh * 0.8, lw * 0.3, lh * 0.2, lw * 0.5, lh * 0.3);
-                landscapePath.bezierCurveTo(lw * 0.7, lh * 0.4, lw * 0.8, lh * 0.9, lw * 0.9, lh * 0.8);
-                landscapePath.bezierCurveTo(lw * 0.95, lh * 0.75, lw, lh, lw, lh * 0.9);
-                
-                const pathEl = lossG.append("path")
-                    .attr("d", landscapePath)
-                    .attr("stroke", "#4f46e5")
-                    .attr("stroke-width", 2)
-                    .attr("fill", "none");
-
-                const point = lossG.append("circle")
-                    .attr("r", 5)
-                    .attr("fill", "yellow");
-
-                function animatePoint() {
-                    point.transition()
-                        .duration(4000)
-                        .ease(d3.easeQuadIn)
-                        .attrTween("transform", () => {
-                            const length = pathEl.node().getTotalLength();
-                            return t => {
-                                const p = pathEl.node().getPointAtLength(t * length);
-                                return `translate(${p.x}, ${p.y})`;
-                            };
-                        })
-                        .on("end", animatePoint);
-                }
-                animatePoint();
-                lossG.append('text').attr('x', lw * 0.9).attr('y', lh - 5).text('Ground State').attr('fill', '#9ca3af').attr('font-size', '10px').attr('text-anchor', 'end');
-            };
-
-            // --- Visualization 4: CNN ---
-            window.runViz['cnn-viz'] = () => {
-                const inputGrid = document.getElementById('cnn-input');
-                const kernelGrid = document.getElementById('cnn-kernel');
-                const outputGrid = document.getElementById('cnn-output');
-                const animateBtn = document.getElementById('cnn-animate-btn');
-
-                const inputSize = 5;
-                const kernelSize = 3;
-                const outputSize = 3;
-                let inputMatrix = [];
-                let kernelMatrix = [];
-
-                function createGrid(container, size, matrix, name) {
-                    container.innerHTML = '';
-                    for (let i = 0; i < size * size; i++) {
-                        const cell = document.createElement('div');
-                        cell.id = `${name}-${i}`;
-                        cell.className = 'w-8 h-8 flex items-center justify-center text-xs font-mono rounded transition-colors duration-200';
-                        const val = Math.floor(Math.random() * 10);
-                        if (matrix) matrix.push(val);
-                        cell.textContent = val;
-                        const intensity = val / 9;
-                        cell.style.backgroundColor = `rgba(165, 180, 252, ${intensity * 0.8})`;
-                        container.appendChild(cell);
-                    }
-                }
-
-                function init() {
-                    inputMatrix = [];
-                    kernelMatrix = [];
-                    createGrid(inputGrid, inputSize, inputMatrix, 'input');
-                    createGrid(kernelGrid, kernelSize, kernelMatrix, 'kernel');
-                    createGrid(outputGrid, outputSize, null, 'output');
-                }
-
-                async function animate() {
-                    animateBtn.disabled = true;
-                    // Reset output grid
-                    for (let i = 0; i < outputSize * outputSize; i++) {
-                        document.getElementById(`output-${i}`).textContent = '?';
-                        document.getElementById(`output-${i}`).style.backgroundColor = 'transparent';
-                    }
-
-                    for (let y = 0; y < outputSize; y++) {
-                        for (let x = 0; x < outputSize; x++) {
-                            let convolutionSum = 0;
-                            // Highlight input region
-                            let inputHighlights = [];
-                            for (let ky = 0; ky < kernelSize; ky++) {
-                                for (let kx = 0; kx < kernelSize; kx++) {
-                                    const inputY = y + ky;
-                                    const inputX = x + kx;
-                                    const inputIdx = inputY * inputSize + inputX;
-                                    const inputCell = document.getElementById(`input-${inputIdx}`);
-                                    inputCell.classList.add('bg-yellow-400');
-                                    inputHighlights.push(inputCell);
-                                    
-                                    const kernelIdx = ky * kernelSize + kx;
-                                    convolutionSum += inputMatrix[inputIdx] * kernelMatrix[kernelIdx];
-                                }
-                            }
-                            await new Promise(r => setTimeout(r, 200));
-
-                            // Set output value
-                            const outputIdx = y * outputSize + x;
-                            const outputCell = document.getElementById(`output-${outputIdx}`);
-                            outputCell.textContent = convolutionSum;
-                             const intensity = Math.min(1, convolutionSum / 300); // Normalize
-                            outputCell.style.backgroundColor = `rgba(129, 140, 248, ${intensity * 0.8})`;
-
-                            // Unhighlight
-                            inputHighlights.forEach(cell => cell.classList.remove('bg-yellow-400'));
-                            await new Promise(r => setTimeout(r, 100));
-                        }
-                    }
-                    animateBtn.disabled = false;
-                }
-
-                animateBtn.addEventListener('click', animate);
-                init();
-            };
-            
-            // --- Visualization 5: Higgs Bump ---
-            window.runViz['higgs-viz'] = () => {
-                const chartDiv = document.getElementById('higgs-chart');
-                const revealBtn = document.getElementById('higgs-reveal-btn');
-
-                const margin = {top: 20, right: 30, bottom: 40, left: 50};
-                const width = chartDiv.clientWidth - margin.left - margin.right;
-                const height = chartDiv.clientHeight - margin.top - margin.bottom;
-
-                const svg = d3.select(chartDiv)
-                    .append("svg")
-                    .attr("width", "100%")
-                    .attr("height", "100%")
-                    .attr("viewBox", `0 0 ${chartDiv.clientWidth} ${chartDiv.clientHeight}`)
-                    .append("g")
-                    .attr("transform", `translate(${margin.left},${margin.top})`);
-                
-                const x = d3.scaleLinear().domain([0, 1]).range([0, width]);
-                const y = d3.scaleLinear().domain([0, 1000]).range([height, 0]);
-
-                svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x)).attr("class", "axis");
-                svg.append("g").call(d3.axisLeft(y)).attr("class", "axis");
-
-                svg.selectAll(".axis .domain, .axis .tick line").attr("stroke", "#4b5563");
-                svg.selectAll(".axis .tick text").attr("fill", "#9ca3af");
-                
-                // Labels
-                svg.append("text").attr("text-anchor", "middle").attr("x", width/2).attr("y", height + 35).text("AI Score (Higgs-like)").attr("fill", "#d1d5db");
-                svg.append("text").attr("text-anchor", "middle").attr("transform", "rotate(-90)").attr("y", -35).attr("x", -height/2).text("Number of Events").attr("fill", "#d1d5db");
-                
-                const data = d3.range(0, 1, 0.02).map(i => ({
-                    score: i,
-                    background: 900 * Math.exp(-i * 5),
-                    signal: i > 0.6 && i < 0.85 ? 100 * Math.exp(-Math.pow(i - 0.75, 2) / 0.005) : 0
-                }));
-                
-                const backgroundArea = d3.area()
-                    .x(d => x(d.score))
-                    .y0(height)
-                    .y1(d => y(d.background));
-                    
-                svg.append("path")
-                    .datum(data)
-                    .attr("fill", "#1f2937")
-                    .attr("stroke", "#4b5563")
-                    .attr("d", backgroundArea);
-
-                const dataPoints = data.map(d => ({score: d.score, value: d.background + (Math.random()-0.5) * 50}));
-                svg.selectAll("circle.data")
-                    .data(dataPoints)
-                    .enter().append("circle")
-                    .attr("class", "data")
-                    .attr("cx", d => x(d.score))
-                    .attr("cy", d => y(d.value))
-                    .attr("r", 2)
-                    .attr("fill", "#9ca3af");
-
-                revealBtn.addEventListener('click', () => {
-                    const signalData = data.filter(d => d.signal > 0);
-                    svg.selectAll("circle.signal")
-                        .data(signalData)
-                        .enter().append("circle")
-                        .attr("class", "signal")
-                        .attr("cx", d => x(d.score))
-                        .attr("cy", d => y(d.background + d.signal + (Math.random()-0.5)*10))
-                        .attr("r", 0)
-                        .attr("fill", "yellow")
-                        .transition()
-                        .duration(1000)
-                        .attr("r", 3.5);
-                    revealBtn.disabled = true;
-                    revealBtn.textContent = "Signal Found!";
-                });
-            };
-
-            // --- Viz 6: Autoencoder ---
-            window.runViz['autoencoder-viz'] = () => {
-                const container = document.getElementById('autoencoder-anim');
-                const normalBtn = document.getElementById('autoencoder-normal-btn');
-                const anomalyBtn = document.getElementById('autoencoder-anomaly-btn');
-                const errorText = document.getElementById('reconstruction-error-text');
-                
-                const svg = d3.select(container).append('svg').attr('width', '100%').attr('height', '100%');
-                const width = container.clientWidth;
-                const height = container.clientHeight;
-
-                function generateShape(isAnomaly) {
-                    const points = [];
-                    const numPoints = isAnomaly ? 7 : 5;
-                    const anomalyFactor = isAnomaly ? 0.3 : 0;
-                    for (let i = 0; i < numPoints; i++) {
-                        const angle = (i / numPoints) * 2 * Math.PI;
-                        const radius = (height / 3) * (1 + (Math.random() - 0.5) * anomalyFactor);
-                        points.push([
-                            width / 2 + radius * Math.cos(angle),
-                            height / 2 + radius * Math.sin(angle)
-                        ]);
-                    }
-                    return points;
-                }
-
-                function runAnimation(isAnomaly) {
-                    normalBtn.disabled = true;
-                    anomalyBtn.disabled = true;
-                    errorText.textContent = 'Processing...';
-                    svg.selectAll('*').remove();
-
-                    const initialShape = generateShape(isAnomaly);
-                    const line = d3.line().curve(d3.curveBasisClosed);
-
-                    const inputPath = svg.append('path')
-                        .datum(initialShape)
-                        .attr('d', line)
-                        .attr('fill', 'none')
-                        .attr('stroke', '#a5b4fc')
-                        .attr('stroke-width', 3)
-                        .attr('transform', `translate(-${width * 0.4}, 0)`);
-                    
-                    const latentPoint = svg.append('circle')
-                        .attr('r', 5)
-                        .attr('fill', '#facc15')
-                        .attr('transform', `translate(${width/2}, ${height/2})`)
-                        .attr('opacity', 0);
-                    
-                    const outputPath = svg.append('path')
-                        .attr('fill', 'none')
-                        .attr('stroke', isAnomaly ? '#ef4444' : '#34d399')
-                        .attr('stroke-width', 3)
-                        .attr('stroke-dasharray', '5 5')
-                        .attr('transform', `translate(${width * 0.4}, 0)`)
-                        .attr('opacity', 0);
-                    
-                    inputPath.transition().duration(1000) // Encoding
-                        .attr('transform', `translate(0, 0) scale(0.1)`)
-                        .on('end', () => {
-                            latentPoint.transition().duration(500).attr('opacity', 1).on('end', () => {
-                                const reconstructedShape = generateShape(false); // Reconstruction is always 'perfect' looking
-                                outputPath.datum(reconstructedShape).attr('d', line)
-                                    .transition().duration(1000) // Decoding
-                                    .attr('opacity', 1);
-
-                                const error = isAnomaly ? (Math.random() * 50 + 50).toFixed(2) : (Math.random() * 10).toFixed(2);
-                                errorText.textContent = `Reconstruction Error: ${error}`;
-                                errorText.style.color = isAnomaly ? '#ef4444' : '#34d399';
-                                normalBtn.disabled = false;
-                                anomalyBtn.disabled = false;
-                            });
-                        });
-                }
-                normalBtn.addEventListener('click', () => runAnimation(false));
-                anomalyBtn.addEventListener('click', () => runAnimation(true));
-                runAnimation(false); // Initial run
-            };
-
-            // --- Viz 7: LIGO Chirp ---
-            window.runViz['ligo-viz'] = () => {
-                const chartDiv = document.getElementById('ligo-chart');
-                const playBtn = document.getElementById('ligo-play-btn');
-                const width = chartDiv.clientWidth;
-                const height = chartDiv.clientHeight;
-                
-                const svg = d3.select(chartDiv).append('svg').attr('width', '100%').attr('height', '100%');
-
-                // Generate background noise
-                const noise = d3.range(width * height / 20).map(() => ({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    opacity: Math.random() * 0.3 + 0.1,
-                    r: Math.random() * 2,
-                }));
-
-                svg.selectAll('circle.noise')
-                    .data(noise)
-                    .enter().append('circle')
-                    .attr('class', 'noise')
-                    .attr('cx', d => d.x)
-                    .attr('cy', d => d.y)
-                    .attr('r', d => d.r)
-                    .attr('fill', '#a5b4fc')
-                    .attr('opacity', d => d.opacity);
-                    
-                // Generate chirp signal
-                const chirpData = d3.range(0, 1, 0.005).map(t => ({
-                    x: width * 0.1 + t * width * 0.8,
-                    y: height * 0.9 - Math.pow(t, 0.3) * height * 0.8,
-                }));
-                
-                const chirpPath = svg.append('path')
-                    .datum(chirpData)
-                    .attr('fill', 'none')
-                    .attr('stroke', '#fde047')
-                    .attr('stroke-width', 0)
-                    .attr('d', d3.line().x(d => d.x).y(d => d.y).curve(d3.curveBasis));
-                
-                // Audio Context
-                let audioCtx;
-                try {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                } catch(e) {
-                    playBtn.disabled = true;
-                    playBtn.textContent = 'Audio not supported';
-                }
-
-                function playChirp() {
-                    if (!audioCtx) return;
-                    const oscillator = audioCtx.createOscillator();
-                    const gainNode = audioCtx.createGain();
-                    
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioCtx.destination);
-                    
-                    oscillator.type = 'sine';
-                    const startTime = audioCtx.currentTime;
-                    oscillator.frequency.setValueAtTime(100, startTime);
-                    oscillator.frequency.exponentialRampToValueAtTime(800, startTime + 0.4);
-                    gainNode.gain.setValueAtTime(0.5, startTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.45);
-                    
-                    oscillator.start(startTime);
-                    oscillator.stop(startTime + 0.5);
-
-                    // Animate path drawing
-                    chirpPath.attr('stroke-width', 4).attr('stroke-dasharray', `${chirpPath.node().getTotalLength()} ${chirpPath.node().getTotalLength()}`)
-                        .attr('stroke-dashoffset', chirpPath.node().getTotalLength())
-                        .transition().duration(500).attr('stroke-dashoffset', 0);
-                }
-                
-                playBtn.addEventListener('click', playChirp);
-            };
-
-            // --- Viz 8: MatterGen ---
-            window.runViz['mattergen-viz'] = () => {
-                const container = document.getElementById('mattergen-canvas-container');
-                const canvas = document.getElementById('mattergen-canvas');
-                const startBtn = document.getElementById('mattergen-start-btn');
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
-                renderer.setSize(container.clientWidth, container.clientHeight);
-
-                const atomGeometry = new THREE.SphereGeometry(0.1, 16, 16);
-                const atomMaterial1 = new THREE.MeshPhongMaterial({ color: 0x818cf8 }); // Indigo
-                const atomMaterial2 = new THREE.MeshPhongMaterial({ color: 0xf87171 }); // Red
-                const atoms = [];
-                const numAtoms = 50;
-                let targetPositions = [];
-                let isAnimating = false;
-
-                // Create a simple cubic lattice as target
-                function createTargetLattice() {
-                    const positions = [];
-                    const scale = 1;
-                    const size = 3;
-                    for (let x = -size; x <= size; x += scale) {
-                        for (let y = -size; y <= size; y += scale) {
-                           for (let z = -size; z <= size; z += scale) {
-                                positions.push(new THREE.Vector3(x, y, z));
-                           }
-                        }
-                    }
-                    return positions.slice(0, numAtoms);
-                }
-                
-                targetPositions = createTargetLattice();
-
-                // Initial random positions
-                for (let i = 0; i < numAtoms; i++) {
-                    const atom = new THREE.Mesh(atomGeometry, i % 2 === 0 ? atomMaterial1 : atomMaterial2);
-                    atom.position.set(
-                        (Math.random() - 0.5) * 10,
-                        (Math.random() - 0.5) * 10,
-                        (Math.random() - 0.5) * 10
-                    );
-                    scene.add(atom);
-                    atoms.push(atom);
-                }
-
-                const light = new THREE.DirectionalLight(0xffffff, 1);
-                light.position.set(5, 5, 5);
-                scene.add(light);
-                const ambientLight = new THREE.AmbientLight(0x404040);
-                scene.add(ambientLight);
-                
-                camera.position.z = 8;
-                
-                function animate() {
-                    if (isAnimating) {
-                        atoms.forEach((atom, i) => {
-                           atom.position.lerp(targetPositions[i], 0.02);
-                        });
-                    }
-                    scene.rotation.y += 0.005;
-                    renderer.render(scene, camera);
-                    requestAnimationFrame(animate);
-                }
-
-                startBtn.addEventListener('click', () => {
-                    isAnimating = true;
-                    startBtn.textContent = 'Generating...';
-                    startBtn.disabled = true;
-                });
-                
-                animate();
-            };
-
+            sections.forEach(section => sectionObserver.observe(section));
         });
     </script>
 </body>
