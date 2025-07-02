@@ -4,7 +4,10 @@
     "https://github.com/manasp21/magnav.py",
     "https://github.com/manasp21/PsiAnimator-MCP",
     "https://github.com/manasp21/Coheron",
-    "https://github.com/manasp21/rabi-mcp"
+    "https://github.com/manasp21/rabi-mcp",
+    "https://github.com/manasp21/EventHorizon",
+    "https://github.com/manasp21/Omnitooth",
+    "https://github.com/manasp21/Psi-MCP"
   ],
   "settings": {
     "auto_update": true,
@@ -13,8 +16,8 @@
     "cache_file": ".projects_cache.json"
   },
   "metadata": {
-    "last_updated": "2025-06-27T00:44:41.266843",
-    "total_projects": 5,
+    "last_updated": "2025-07-03T03:46:41.733868",
+    "total_projects": 8,
     "version": "2.0.0"
   }
 }
