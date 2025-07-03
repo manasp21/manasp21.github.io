@@ -222,7 +222,7 @@ class PhotoManager:
         # Check each image in metadata
         for i, image in enumerate(self.metadata["images"]):
             # Validate required fields
-            required_fields = ["id", "filename", "title", "caption", "category", "tags"]
+            required_fields = ["id", "filename", "title", "caption", "categories"]
             for field in required_fields:
                 if field not in image:
                     issues.append(f"Image {i+1}: Missing required field '{field}'")
@@ -245,14 +245,15 @@ class PhotoManager:
             if image.get("caption") == "Image Caption":
                 warnings.append(f"Generic caption detected for {image.get('filename')}")
             
-            # Validate category
-            valid_categories = ["urban", "night", "landscape", "abstract", "nature", "street"]
-            if image.get("category") not in valid_categories:
-                warnings.append(f"Invalid category '{image.get('category')}' for {image.get('filename')}")
-            
-            # Check for empty tags
-            if not image.get("tags") or len(image.get("tags", [])) == 0:
-                warnings.append(f"No tags assigned to {image.get('filename')}")
+            # Validate categories
+            valid_categories = ["urban", "cityscape", "golden-hour", "architecture", "evening", "night", "fireworks", "celebration", "long-exposure", "landscape", "mountains", "sunset", "panoramic", "sky", "clouds", "dramatic", "serene", "golden-light", "abstract", "light", "artistic", "natural", "peaceful", "mystery", "low-light", "geometric", "modern", "patterns", "contemporary", "street", "candid", "urban-life", "people", "hue", "sun", "heaven", "outskirts", "road-trip", "lightning", "before-rain", "death", "after-rain", "road", "water"]
+            categories = image.get("categories", [])
+            if not categories or len(categories) == 0:
+                warnings.append(f"No categories assigned to {image.get('filename')}")
+            else:
+                for category in categories:
+                    if category not in valid_categories:
+                        warnings.append(f"Invalid category '{category}' for {image.get('filename')}")
             
             # Validate dimensions and aspect ratio
             if "dimensions" in image and "aspectRatio" in image:
@@ -309,7 +310,7 @@ class PhotoManager:
         
         # Apply filters
         if category_filter:
-            images = [img for img in images if img.get("category") == category_filter]
+            images = [img for img in images if category_filter in img.get("categories", [])]
         if featured_only:
             images = [img for img in images if img.get("featured", False)]
         
@@ -320,17 +321,16 @@ class PhotoManager:
         print(f"\n{'='*100}")
         print(f"PHOTOGRAPHY PORTFOLIO - {len(images)} PHOTOS")
         print(f"{'='*100}")
-        print(f"{'ID':<3} {'FILENAME':<35} {'TITLE':<25} {'CATEGORY':<12} {'TAGS':<20}")
+        print(f"{'ID':<3} {'FILENAME':<35} {'TITLE':<25} {'CATEGORIES':<32}")
         print(f"{'='*100}")
         
         for img in images:
             img_id = str(img.get("id", "?"))
             filename = img.get("filename", "Unknown")[:33] + ("..." if len(img.get("filename", "")) > 33 else "")
             title = img.get("title", "No title")[:23] + ("..." if len(img.get("title", "")) > 23 else "")
-            category = img.get("category", "none")
-            tags = ", ".join(img.get("tags", [])[:3])[:18] + ("..." if len(img.get("tags", [])) > 3 else "")
+            categories = ", ".join(img.get("categories", [])[:4])[:30] + ("..." if len(img.get("categories", [])) > 4 else "")
             
-            print(f"{img_id:<3} {filename:<35} {title:<25} {category:<12} {tags:<20}")
+            print(f"{img_id:<3} {filename:<35} {title:<25} {categories:<32}")
         
         print(f"{'='*100}")
         
@@ -340,8 +340,8 @@ class PhotoManager:
         featured_count = 0
         
         for img in self.metadata.get("images", []):
-            cat = img.get("category", "none")
-            categories[cat] = categories.get(cat, 0) + 1
+            for cat in img.get("categories", []):
+                categories[cat] = categories.get(cat, 0) + 1
             if img.get("featured", False):
                 featured_count += 1
         
@@ -393,17 +393,16 @@ class PhotoManager:
                 print(f"\nCurrent metadata:")
                 print(f"1. Title: {photo.get('title', 'N/A')}")
                 print(f"2. Caption: {photo.get('caption', 'N/A')}")
-                print(f"3. Category: {photo.get('category', 'N/A')}")
-                print(f"4. Tags: {', '.join(photo.get('tags', []))}")
-                print(f"5. Featured: {photo.get('featured', False)}")
-                print(f"6. Location: {photo.get('location', 'N/A')}")
-                print(f"7. Camera: {photo.get('metadata', {}).get('camera', 'N/A')}")
-                print(f"8. Lens: {photo.get('metadata', {}).get('lens', 'N/A')}")
-                print(f"9. Settings: {photo.get('metadata', {}).get('settings', 'N/A')}")
-                print(f"10. Date: {photo.get('dateCreated', 'N/A')}")
+                print(f"3. Categories: {', '.join(photo.get('categories', []))}")
+                print(f"4. Featured: {photo.get('featured', False)}")
+                print(f"5. Location: {photo.get('location', 'N/A')}")
+                print(f"6. Camera: {photo.get('metadata', {}).get('camera', 'N/A')}")
+                print(f"7. Lens: {photo.get('metadata', {}).get('lens', 'N/A')}")
+                print(f"8. Settings: {photo.get('metadata', {}).get('settings', 'N/A')}")
+                print(f"9. Date: {photo.get('dateCreated', 'N/A')}")
                 print(f"0. Save and exit")
                 
-                choice = input("\nWhat would you like to edit? (1-10, 0 to save): ").strip()
+                choice = input("\nWhat would you like to edit? (1-9, 0 to save): ").strip()
                 
                 if choice == "0":
                     self.save_metadata()
@@ -419,16 +418,15 @@ class PhotoManager:
                     if new_caption:
                         photo["caption"] = new_caption
                 elif choice == "3":
-                    print("Available categories: urban, night, landscape, abstract, nature, street")
-                    new_category = input(f"Enter category (current: {photo.get('category', 'N/A')}): ").strip().lower()
-                    if new_category:
-                        photo["category"] = new_category
+                    print("Available categories: urban, cityscape, golden-hour, architecture, evening, night, fireworks, celebration, long-exposure, landscape, mountains, sunset, panoramic, sky, clouds, dramatic, serene, golden-light, abstract, light, artistic, natural, peaceful, mystery, low-light, geometric, modern, patterns, contemporary, street, candid, urban-life, people, hue, sun, heaven, outskirts, road-trip, lightning, before-rain, death, after-rain, road, water")
+                    print(f"Current categories: {', '.join(photo.get('categories', []))}")
+                    print("Enter categories separated by commas:")
+                    new_categories = input().strip()
+                    if new_categories:
+                        photo["categories"] = [cat.strip().lower() for cat in new_categories.split(",") if cat.strip()]
                 elif choice == "4":
-                    print(f"Current tags: {', '.join(photo.get('tags', []))}")
-                    print("Enter tags separated by commas:")
-                    new_tags = input().strip()
-                    if new_tags:
-                        photo["tags"] = [tag.strip() for tag in new_tags.split(",") if tag.strip()]
+                    featured = input(f"Featured photo? (y/n, current: {photo.get('featured', False)}): ").strip().lower()
+                    photo["featured"] = featured in ["y", "yes", "true"]
                 elif choice == "5":
                     featured = input(f"Featured photo? (y/n, current: {photo.get('featured', False)}): ").strip().lower()
                     photo["featured"] = featured in ["y", "yes", "true"]
@@ -436,6 +434,16 @@ class PhotoManager:
                     new_location = input(f"Enter location (current: {photo.get('location', 'N/A')}): ").strip()
                     if new_location:
                         photo["location"] = new_location
+                elif choice == "6":
+                    new_location = input(f"Enter location (current: {photo.get('location', 'N/A')}): ").strip()
+                    if new_location:
+                        photo["location"] = new_location
+                elif choice == "7":
+                    if "metadata" not in photo:
+                        photo["metadata"] = {}
+                    new_camera = input(f"Enter camera (current: {photo.get('metadata', {}).get('camera', 'N/A')}): ").strip()
+                    if new_camera:
+                        photo["metadata"]["camera"] = new_camera
                 elif choice == "7":
                     if "metadata" not in photo:
                         photo["metadata"] = {}
@@ -448,6 +456,18 @@ class PhotoManager:
                     new_lens = input(f"Enter lens (current: {photo.get('metadata', {}).get('lens', 'N/A')}): ").strip()
                     if new_lens:
                         photo["metadata"]["lens"] = new_lens
+                elif choice == "8":
+                    if "metadata" not in photo:
+                        photo["metadata"] = {}
+                    new_lens = input(f"Enter lens (current: {photo.get('metadata', {}).get('lens', 'N/A')}): ").strip()
+                    if new_lens:
+                        photo["metadata"]["lens"] = new_lens
+                elif choice == "9":
+                    if "metadata" not in photo:
+                        photo["metadata"] = {}
+                    new_settings = input(f"Enter settings (current: {photo.get('metadata', {}).get('settings', 'N/A')}): ").strip()
+                    if new_settings:
+                        photo["metadata"]["settings"] = new_settings
                 elif choice == "9":
                     if "metadata" not in photo:
                         photo["metadata"] = {}
@@ -455,6 +475,9 @@ class PhotoManager:
                     if new_settings:
                         photo["metadata"]["settings"] = new_settings
                 elif choice == "10":
+                    new_date = input(f"Enter date (YYYY-MM-DD, current: {photo.get('dateCreated', 'N/A')}): ").strip()
+                    if new_date and re.match(r'\d{4}-\d{2}-\d{2}', new_date):
+                        photo["dateCreated"] = new_date
                     new_date = input(f"Enter date (YYYY-MM-DD, current: {photo.get('dateCreated', 'N/A')}): ").strip()
                     if new_date and re.match(r'\d{4}-\d{2}-\d{2}', new_date):
                         photo["dateCreated"] = new_date
@@ -477,24 +500,27 @@ class PhotoManager:
             else:
                 date_created = datetime.now().strftime("%Y-%m-%d")
         
-        # Get category
-        category = photo.get("category", "misc")
+        # Get primary category
+        categories = photo.get("categories", [])
+        if categories:
+            primary_category = categories[0].lower().replace(" ", "-")
+        else:
+            primary_category = "misc"
         
-        # Get primary tag (first tag or derived from title)
-        tags = photo.get("tags", [])
-        if tags:
-            primary_tag = tags[0].lower().replace(" ", "-")
+        # Get secondary category or derive from title
+        if len(categories) > 1:
+            secondary_tag = categories[1].lower().replace(" ", "-")
         else:
             # Derive from title
             title = photo.get("title", "image")
-            primary_tag = re.sub(r'[^a-z0-9\s-]', '', title.lower()).replace(" ", "-")[:15]
+            secondary_tag = re.sub(r'[^a-z0-9\s-]', '', title.lower()).replace(" ", "-")[:15]
         
         # Get file extension
         original_filename = photo.get("filename", "image.jpg")
         ext = Path(original_filename).suffix.lower()
         
         # Generate new filename
-        new_filename = f"{date_created}-{category}-{primary_tag}{ext}"
+        new_filename = f"{date_created}-{primary_category}-{secondary_tag}{ext}"
         
         # Clean up filename
         new_filename = re.sub(r'[^a-z0-9\-.]', '', new_filename)

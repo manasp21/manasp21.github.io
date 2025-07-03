@@ -31,13 +31,13 @@
         "lens": "Main Camera",
         "settings": "5mm"
       },
-      "tags": [
+      "categories": [
+        "urban",
         "cityscape",
-        "golden hour",
+        "golden-hour",
         "architecture",
         "evening"
       ],
-      "category": "urban",
       "featured": true,
       "sortOrder": 1,
       "aspectRatio": 1.34,
@@ -58,13 +58,12 @@
         "lens": "Wide Camera",
         "settings": "5mm"
       },
-      "tags": [
-        "fireworks",
+      "categories": [
         "night",
+        "fireworks",
         "celebration",
-        "long exposure"
+        "long-exposure"
       ],
-      "category": "night",
       "featured": true,
       "sortOrder": 2,
       "aspectRatio": 0.75,
@@ -85,13 +84,12 @@
         "lens": "Xiaomi",
         "settings": "ISO 130 • f/1.9 • 1/100s • 5mm"
       },
-      "tags": [
-        "mountains",
+      "categories": [
         "landscape",
+        "mountains",
         "sunset",
         "panoramic"
       ],
-      "category": "landscape",
       "featured": false,
       "sortOrder": 3,
       "aspectRatio": 1.34,
@@ -112,13 +110,13 @@
         "lens": "Main Camera",
         "settings": "ISO 50 • f/1.9 • 1/708s • 5mm"
       },
-      "tags": [
+      "categories": [
+        "landscape",
         "sky",
         "clouds",
         "evening",
         "dramatic"
       ],
-      "category": "landscape",
       "featured": false,
       "sortOrder": 4,
       "aspectRatio": 0.75,
@@ -139,13 +137,12 @@
         "lens": "Xiaomi",
         "settings": "ISO 546 • f/1.9 • 1/7s • 5mm"
       },
-      "tags": [
-        "sunset",
+      "categories": [
         "landscape",
+        "sunset",
         "serene",
-        "golden hour"
+        "golden-hour"
       ],
-      "category": "landscape",
       "featured": true,
       "sortOrder": 5,
       "aspectRatio": 0.75,
@@ -166,13 +163,12 @@
         "lens": "Main Camera",
         "settings": "5mm"
       },
-      "tags": [
+      "categories": [
         "abstract",
         "light",
-        "long exposure",
+        "long-exposure",
         "artistic"
       ],
-      "category": "abstract",
       "featured": false,
       "sortOrder": 6,
       "aspectRatio": 0.75,
@@ -193,13 +189,13 @@
         "lens": "Xiaomi",
         "settings": "ISO 362 • f/1.9 • 1/23s • 5mm"
       },
-      "tags": [
+      "categories": [
+        "landscape",
         "evening",
         "natural",
         "peaceful",
-        "golden light"
+        "golden-light"
       ],
-      "category": "landscape",
       "featured": false,
       "sortOrder": 7,
       "aspectRatio": 1.34,
@@ -220,13 +216,12 @@
         "lens": "Xiaomi",
         "settings": "ISO 813 • f/1.9 • 1/23s • 5mm"
       },
-      "tags": [
+      "categories": [
         "night",
         "mystery",
         "dramatic",
-        "low light"
+        "low-light"
       ],
-      "category": "night",
       "featured": false,
       "sortOrder": 8,
       "aspectRatio": 0.75,
@@ -247,13 +242,12 @@
         "lens": "Main Camera",
         "settings": "ISO 50 • f/1.9 • 1/939s • 5mm"
       },
-      "tags": [
-        "architecture",
+      "categories": [
         "urban",
+        "architecture",
         "geometric",
         "modern"
       ],
-      "category": "urban",
       "featured": false,
       "sortOrder": 9,
       "aspectRatio": 1.34,
@@ -274,13 +268,12 @@
         "lens": "Wide Camera",
         "settings": "ISO 12800 • f/1.9 • 1/14s • 5mm"
       },
-      "tags": [
-        "geometric",
+      "categories": [
         "urban",
+        "geometric",
         "patterns",
         "contemporary"
       ],
-      "category": "urban",
       "featured": false,
       "sortOrder": 10,
       "aspectRatio": 0.75,
@@ -301,13 +294,12 @@
         "lens": "Main Camera",
         "settings": "ISO 6891 • f/1.9 • 1/16s • 5mm"
       },
-      "tags": [
+      "categories": [
         "street",
         "candid",
-        "urban life",
+        "urban-life",
         "people"
       ],
-      "category": "street",
       "featured": false,
       "sortOrder": 11,
       "aspectRatio": 0.75,
@@ -328,14 +320,13 @@
         "lens": "Main Camera",
         "settings": "5mm"
       },
-      "tags": [
+      "categories": [
         "sky",
         "hue",
         "light",
         "sun",
         "heaven"
       ],
-      "category": "sky",
       "featured": true,
       "sortOrder": 12,
       "aspectRatio": 1.34,
@@ -356,12 +347,11 @@
         "lens": "iPhone 16 Pro back triple camera 6.765mm f/1.78",
         "settings": "ISO 80 • f/1.8 • 1/6173s • 7mm"
       },
-      "tags": [
+      "categories": [
         "sky",
         "outskirts",
-        "road trip"
+        "road-trip"
       ],
-      "category": "sky",
       "featured": true,
       "sortOrder": 13,
       "aspectRatio": 1.78,
@@ -382,12 +372,12 @@
         "lens": "iPhone 16 Pro back triple camera 6.765mm f/1.78",
         "settings": "ISO 3200 • f/1.8 • 1/14s • 7mm"
       },
-      "tags": [
+      "categories": [
+        "sky",
         "night",
         "lightning",
         "before-rain"
       ],
-      "category": "sky",
       "featured": true,
       "sortOrder": 14,
       "aspectRatio": 1.33,
@@ -408,13 +398,13 @@
         "lens": "iPhone 16 Pro back triple camera 6.765mm f/1.78",
         "settings": "ISO 1250 • f/1.8 • 1/2s • 7mm"
       },
-      "tags": [
+      "categories": [
+        "sky",
         "night",
         "clouds",
         "death",
         "before-rain"
       ],
-      "category": "sky",
       "featured": true,
       "sortOrder": 15,
       "aspectRatio": 0.75,
@@ -435,13 +425,12 @@
         "lens": "iPhone 16 Pro back triple camera 6.765mm f/1.78",
         "settings": "ISO 640 • f/1.8 • 1/25s • 7mm"
       },
-      "tags": [
+      "categories": [
+        "street",
         "after-rain",
         "road",
-        "water",
-        "street"
+        "water"
       ],
-      "category": "street",
       "featured": true,
       "sortOrder": 16,
       "aspectRatio": 0.75,

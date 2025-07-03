@@ -110,6 +110,15 @@
         <section class="content-section">
             <h2 class="section-title">Gallery</h2>
             <p class="section-description">A collection of moments that flowed through me</p>
+            
+            <!-- Category Filter -->
+            <div class="filter-section">
+                <div class="filter-buttons" id="categoryFilters">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <!-- Categories will be dynamically loaded here -->
+                </div>
+            </div>
+            
             <div class="content-grid photo-grid" id="photoGrid">
                 <!-- Photos will be dynamically loaded here -->
             </div>
@@ -140,8 +149,10 @@
     <script>
         // Photography Gallery with File-Based System
         let photos = [];
+        let filteredPhotos = [];
         let currentImageIndex = 0;
         let isLightboxOpen = false;
+        let currentFilter = 'all';
 
         // Configuration for supported image formats
         const SUPPORTED_FORMATS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
@@ -152,8 +163,9 @@
         async function initGallery() {
             try {
                 await loadGalleryData();
+                createCategoryFilters();
                 setupEventListeners();
-                createPhotoGrid();
+                filterPhotos('all');
             } catch (error) {
                 console.error('Failed to initialize gallery:', error);
                 showErrorMessage('Failed to load gallery. Please check the configuration.');
@@ -178,8 +190,7 @@
                     title: item.title || getFilenameWithoutExtension(item.filename),
                     caption: item.caption || '',
                     metadata: item.metadata || {},
-                    tags: item.tags || [],
-                    category: item.category || 'general',
+                    categories: item.categories || [],
                     featured: item.featured || false,
                     sortOrder: item.sortOrder || index,
                     aspectRatio: item.aspectRatio || 1.5,
@@ -189,6 +200,9 @@
                 // Sort photos by sortOrder
                 photos.sort((a, b) => a.sortOrder - b.sortOrder);
 
+                // Initialize filtered photos
+                filteredPhotos = [...photos];
+                
                 // Calculate grid spans for masonry layout
                 calculateGridSpans();
 
@@ -199,286 +213,10 @@
             }
         }
 
-        // Fallback: scan existing images if metadata file is not available
+        // Fallback: minimal fallback if metadata file is not available
         async function scanExistingImages() {
-                                                                                                                                                            const fallbackImages = [
-                {
-                    id: 1,
-                    filename: '2024-06-21-urban-cityscape.jpg',
-                    title: 'Urban Cityscape Golden Hour',
-                    caption: 'Urban photography capturing cityscape, golden hour, architecture captured in European City.',
-                    location: 'European City',
-                    camera: 'Xiaomi 22041216I (xagain)',
-                    lens: 'Main Camera',
-                    settings: '5mm',
-                    tags: ["cityscape", "golden hour", "architecture", "evening"],
-                    category: 'urban',
-                    featured: true,
-                    sortOrder: 1,
-                    aspectRatio: 1.34,
-                    dimensions: { width: 4640, height: 3472 }
-                },
-                {
-                    id: 2,
-                    filename: '2024-06-24-night-fireworks.jpg',
-                    title: 'Night Fireworks Celebration',
-                    caption: 'Night photography featuring fireworks, night, celebration captured in Festival Grounds.',
-                    location: 'Festival Grounds',
-                    camera: 'Xiaomi 22041216I',
-                    lens: 'Wide Camera',
-                    settings: '5mm',
-                    tags: ["fireworks", "night", "celebration", "long exposure"],
-                    category: 'night',
-                    featured: true,
-                    sortOrder: 2,
-                    aspectRatio: 0.75,
-                    dimensions: { width: 2448, height: 3264 }
-                },
-                {
-                    id: 3,
-                    filename: '2024-06-26-landscape-mountains.jpg',
-                    title: 'Landscape Mountains Sunset',
-                    caption: 'Landscape photography showcasing mountains, landscape, sunset captured in Mountain Range.',
-                    location: 'Mountain Range',
-                    camera: 'Xiaomi 22041216I (xagain)',
-                    lens: 'Xiaomi',
-                    settings: 'ISO 130 • f/1.9 • 1/100s • 5mm',
-                    tags: ["mountains", "landscape", "sunset", "panoramic"],
-                    category: 'landscape',
-                    featured: false,
-                    sortOrder: 3,
-                    aspectRatio: 1.34,
-                    dimensions: { width: 4640, height: 3472 }
-                },
-                {
-                    id: 4,
-                    filename: '2024-06-29-landscape-sky.jpg',
-                    title: 'Landscape Sky Clouds',
-                    caption: 'Landscape photography showcasing sky, clouds, evening captured in Open Field.',
-                    location: 'Open Field',
-                    camera: 'Xiaomi 22041216I',
-                    lens: 'Main Camera',
-                    settings: 'ISO 50 • f/1.9 • 1/708s • 5mm',
-                    tags: ["sky", "clouds", "evening", "dramatic"],
-                    category: 'landscape',
-                    featured: false,
-                    sortOrder: 4,
-                    aspectRatio: 0.75,
-                    dimensions: { width: 3460, height: 4624 }
-                },
-                {
-                    id: 5,
-                    filename: '2024-07-08-landscape-sunset.jpg',
-                    title: 'Landscape Sunset Serene',
-                    caption: 'Landscape photography showcasing sunset, landscape, serene captured in Countryside.',
-                    location: 'Countryside',
-                    camera: 'Xiaomi 22041216I (xagain)',
-                    lens: 'Xiaomi',
-                    settings: 'ISO 546 • f/1.9 • 1/7s • 5mm',
-                    tags: ["sunset", "landscape", "serene", "golden hour"],
-                    category: 'landscape',
-                    featured: true,
-                    sortOrder: 5,
-                    aspectRatio: 0.75,
-                    dimensions: { width: 3472, height: 4640 }
-                },
-                {
-                    id: 6,
-                    filename: '2024-07-09-abstract-abstract.jpg',
-                    title: 'Abstract Light Long Exposure',
-                    caption: 'Abstract artistic composition with abstract, light, long exposure captured in Studio.',
-                    location: 'Studio',
-                    camera: 'Xiaomi 22041216I',
-                    lens: 'Main Camera',
-                    settings: '5mm',
-                    tags: ["abstract", "light", "long exposure", "artistic"],
-                    category: 'abstract',
-                    featured: false,
-                    sortOrder: 6,
-                    aspectRatio: 0.75,
-                    dimensions: { width: 3460, height: 4624 }
-                },
-                {
-                    id: 7,
-                    filename: '2024-07-11-landscape-evening.jpg',
-                    title: 'Landscape Evening Natural',
-                    caption: 'Landscape photography showcasing evening, natural, peaceful captured in Nature Reserve.',
-                    location: 'Nature Reserve',
-                    camera: 'Xiaomi 22041216I (xagain)',
-                    lens: 'Xiaomi',
-                    settings: 'ISO 362 • f/1.9 • 1/23s • 5mm',
-                    tags: ["evening", "natural", "peaceful", "golden light"],
-                    category: 'landscape',
-                    featured: false,
-                    sortOrder: 7,
-                    aspectRatio: 1.34,
-                    dimensions: { width: 4640, height: 3472 }
-                },
-                {
-                    id: 8,
-                    filename: '2024-07-11-night-night.jpg',
-                    title: 'Night Mystery Dramatic',
-                    caption: 'Night photography featuring night, mystery, dramatic captured in Urban Area.',
-                    location: 'Urban Area',
-                    camera: 'Xiaomi 22041216I (xagain)',
-                    lens: 'Xiaomi',
-                    settings: 'ISO 813 • f/1.9 • 1/23s • 5mm',
-                    tags: ["night", "mystery", "dramatic", "low light"],
-                    category: 'night',
-                    featured: false,
-                    sortOrder: 8,
-                    aspectRatio: 0.75,
-                    dimensions: { width: 3472, height: 4640 }
-                },
-                {
-                    id: 9,
-                    filename: '2024-07-14-urban-architecture.jpg',
-                    title: 'Urban Architecture Geometric',
-                    caption: 'Urban photography capturing architecture, urban, geometric captured in Downtown.',
-                    location: 'Downtown',
-                    camera: 'Xiaomi 22041216I',
-                    lens: 'Main Camera',
-                    settings: 'ISO 50 • f/1.9 • 1/939s • 5mm',
-                    tags: ["architecture", "urban", "geometric", "modern"],
-                    category: 'urban',
-                    featured: false,
-                    sortOrder: 9,
-                    aspectRatio: 1.34,
-                    dimensions: { width: 4640, height: 3472 }
-                },
-                {
-                    id: 10,
-                    filename: '2024-10-17-urban-geometric.jpg',
-                    title: 'Urban Geometric Patterns',
-                    caption: 'Urban photography capturing geometric, urban, patterns captured in Business District.',
-                    location: 'Business District',
-                    camera: 'Xiaomi 22041216I',
-                    lens: 'Wide Camera',
-                    settings: 'ISO 12800 • f/1.9 • 1/14s • 5mm',
-                    tags: ["geometric", "urban", "patterns", "contemporary"],
-                    category: 'urban',
-                    featured: false,
-                    sortOrder: 10,
-                    aspectRatio: 0.75,
-                    dimensions: { width: 3460, height: 4624 }
-                },
-                {
-                    id: 11,
-                    filename: '2024-10-17-street-street.jpg',
-                    title: 'Street Candid Urban Life',
-                    caption: 'Street photography documenting street, candid, urban life captured in City Center.',
-                    location: 'City Center',
-                    camera: 'Xiaomi 22041216I',
-                    lens: 'Main Camera',
-                    settings: 'ISO 6891 • f/1.9 • 1/16s • 5mm',
-                    tags: ["street", "candid", "urban life", "people"],
-                    category: 'street',
-                    featured: false,
-                    sortOrder: 11,
-                    aspectRatio: 0.75,
-                    dimensions: { width: 3460, height: 4624 }
-                },
-                {
-                    id: 12,
-                    filename: '2025-04-13-abstract-color.jpg',
-                    title: 'View from a roof',
-                    caption: 'A Sunset to see',
-                    location: 'Hall 9, IIT Kanpur',
-                    camera: 'Xiaomi 22041216I (xagain)',
-                    lens: 'Main Camera',
-                    settings: '5mm',
-                    tags: ["sky", "hue", "light", "sun", "heaven"],
-                    category: 'sky',
-                    featured: true,
-                    sortOrder: 12,
-                    aspectRatio: 1.34,
-                    dimensions: { width: 4640, height: 3472 }
-                },
-                {
-                    id: 13,
-                    filename: '2025-06-20-sky-sky.jpg',
-                    title: 'The Sky ready to sob',
-                    caption: 'A sky before rain in the outskirts of the city',
-                    location: 'Patna, Bihar',
-                    camera: 'Apple iPhone 16 Pro',
-                    lens: 'iPhone 16 Pro back triple camera 6.765mm f/1.78',
-                    settings: 'ISO 80 • f/1.8 • 1/6173s • 7mm',
-                    tags: ["sky", "outskirts", "road trip"],
-                    category: 'sky',
-                    featured: true,
-                    sortOrder: 13,
-                    aspectRatio: 1.78,
-                    dimensions: { width: 3840, height: 2160 }
-                },
-                {
-                    id: 14,
-                    filename: '2025-06-30-sky-night.jpeg',
-                    title: 'When Zeus does art',
-                    caption: 'Lightning makes clouds cause epilepsy',
-                    location: 'Patna',
-                    camera: 'Apple iPhone 16 Pro',
-                    lens: 'iPhone 16 Pro back triple camera 6.765mm f/1.78',
-                    settings: 'ISO 3200 • f/1.8 • 1/14s • 7mm',
-                    tags: ["night", "lightning", "before-rain"],
-                    category: 'sky',
-                    featured: true,
-                    sortOrder: 14,
-                    aspectRatio: 1.33,
-                    dimensions: { width: 4032, height: 3024 }
-                },
-                {
-                    id: 15,
-                    filename: '2025-06-30-sky-night-1.jpeg',
-                    title: 'Death in the clouds',
-                    caption: 'White Mourning, before the death of clouds, i.e. rain',
-                    location: 'Patna',
-                    camera: 'Apple iPhone 16 Pro',
-                    lens: 'iPhone 16 Pro back triple camera 6.765mm f/1.78',
-                    settings: 'ISO 1250 • f/1.8 • 1/2s • 7mm',
-                    tags: ["night", "clouds", "death", "before-rain"],
-                    category: 'sky',
-                    featured: true,
-                    sortOrder: 15,
-                    aspectRatio: 0.75,
-                    dimensions: { width: 3024, height: 4032 }
-                },
-                {
-                    id: 16,
-                    filename: '2025-06-30-street-after-rain.jpeg',
-                    title: 'River dries on the road',
-                    caption: 'After rain leftover waterworks',
-                    location: 'Patna',
-                    camera: 'Apple iPhone 16 Pro',
-                    lens: 'iPhone 16 Pro back triple camera 6.765mm f/1.78',
-                    settings: 'ISO 640 • f/1.8 • 1/25s • 7mm',
-                    tags: ["after-rain", "road", "water", "street"],
-                    category: 'street',
-                    featured: true,
-                    sortOrder: 16,
-                    aspectRatio: 0.75,
-                    dimensions: { width: 3024, height: 4032 }
-                },
-            ];
-
-            return fallbackImages.map((item, index) => ({
-                id: item.id,
-                filename: item.filename,
-                src: `gallery/images/${item.filename}`,
-                title: item.title,
-                caption: item.caption,
-                metadata: { 
-                    camera: item.camera, 
-                    lens: item.lens, 
-                    settings: item.settings,
-                    location: item.location
-                },
-                tags: item.tags,
-                category: item.category,
-                featured: item.featured,
-                sortOrder: item.sortOrder,
-                aspectRatio: item.aspectRatio,
-                dimensions: item.dimensions
-            }));
+            console.warn('Metadata file not found, using minimal fallback');
+            return [];
         }
 
         // Get filename without extension
@@ -492,21 +230,72 @@
             return;
         }
 
+        // Create category filters
+        function createCategoryFilters() {
+            const filterContainer = document.getElementById('categoryFilters');
+            const allCategories = new Set();
+            
+            // Extract all unique categories
+            photos.forEach(photo => {
+                if (photo.categories && Array.isArray(photo.categories)) {
+                    photo.categories.forEach(category => {
+                        allCategories.add(category);
+                    });
+                }
+            });
+            
+            // Sort categories alphabetically
+            const sortedCategories = Array.from(allCategories).sort();
+            
+            // Add category filter buttons
+            sortedCategories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = 'filter-btn';
+                button.dataset.category = category;
+                button.textContent = category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ');
+                button.addEventListener('click', () => filterPhotos(category));
+                filterContainer.appendChild(button);
+            });
+        }
+        
+        // Filter photos by category
+        function filterPhotos(category) {
+            currentFilter = category;
+            
+            if (category === 'all') {
+                filteredPhotos = [...photos];
+            } else {
+                filteredPhotos = photos.filter(photo => 
+                    photo.categories && photo.categories.includes(category)
+                );
+            }
+            
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            createPhotoGrid();
+        }
+
         // Create photo grid
         function createPhotoGrid() {
             const grid = document.getElementById('photoGrid');
             grid.innerHTML = '';
             
-            if (photos.length === 0) {
-                showErrorMessage('No images found in the gallery.');
+            if (filteredPhotos.length === 0) {
+                showErrorMessage(`No images found${currentFilter !== 'all' ? ` for category: ${currentFilter}` : ' in the gallery'}.`);
                 return;
             }
             
-            photos.forEach((photo, index) => {
+            filteredPhotos.forEach((photo, index) => {
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
                 photoItem.dataset.id = photo.id;
-                photoItem.dataset.category = photo.category;
+                photoItem.dataset.categories = JSON.stringify(photo.categories || []);
                 
                 // No need for grid positioning - CSS masonry handles layout
                 
@@ -523,7 +312,9 @@
                 `;
                 
                 photoItem.addEventListener('click', () => {
-                    openLightbox(index);
+                    // Find the index in the original photos array for lightbox navigation
+                    const originalIndex = photos.findIndex(p => p.id === photo.id);
+                    openLightbox(originalIndex);
                 });
                 grid.appendChild(photoItem);
             });
@@ -592,8 +383,9 @@
 
         function loadImage(index) {
             const photo = photos[index];
-            const img = document.getElementById('lightboxImage');
+            if (!photo) return;
             
+            const img = document.getElementById('lightboxImage');
             
             // Set image immediately to see if it appears
             img.src = photo.src;

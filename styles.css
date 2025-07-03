@@ -659,6 +659,70 @@ body.mobile-menu-open {
     text-transform: uppercase;
 }
 
+/* Photo Category Filter */
+.filter-section {
+    margin: var(--spacing-xl) 0 var(--spacing-2xl) 0;
+    text-align: center;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.filter-btn {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 6px;
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 80px;
+}
+
+.filter-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+    transform: translateY(-1px);
+}
+
+.filter-btn.active {
+    background: var(--accent-color);
+    color: var(--bg-primary);
+    border-color: var(--accent-color);
+    font-weight: 600;
+}
+
+.filter-btn.active:hover {
+    background: var(--accent-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(219, 112, 147, 0.3);
+}
+
+/* Responsive filter buttons */
+@media (max-width: 768px) {
+    .filter-buttons {
+        gap: var(--spacing-xs);
+    }
+    
+    .filter-btn {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-xs);
+        min-width: 60px;
+    }
+}
+
 .photo-grid {
     columns: 4;
     column-gap: 0;
@@ -2812,15 +2876,15 @@ button:focus {
     color: var(--page-accent);
 }
 
-.publication-card .pub-details {
+.publication-card .pub-authors {
     color: var(--text-secondary);
     font-style: italic;
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-base);
 }
 
-.publication-card .pub-authors,
-.publication-card .pub-year,
 .publication-card .pub-links {
-    margin-bottom: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
 }
 
 .publication-card .pub-links a {

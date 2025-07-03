@@ -102,23 +102,6 @@ class BlogManager:
         # Average reading speed: 200 words per minute
         return max(1, round(words / 200))
     
-    def get_existing_tags(self) -> List[str]:
-        """Extract all existing tags from posts."""
-        tags = set()
-        for post_file in self.posts_dir.glob("*.md"):
-            try:
-                with open(post_file, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                    if content.startswith('---'):
-                        yaml_end = content.find('---', 3)
-                        if yaml_end != -1:
-                            frontmatter = yaml.safe_load(content[3:yaml_end])
-                            if 'tags' in frontmatter:
-                                tags.update(frontmatter['tags'])
-            except Exception:
-                continue
-        return sorted(list(tags))
-    
     def get_existing_categories(self) -> List[str]:
         """Extract all existing categories from posts."""
         categories = set()
@@ -440,12 +423,11 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
             print("1. Edit title")
             print("2. Edit date")
             print("3. Edit categories")
-            print("4. Edit tags")
-            print("5. Edit excerpt")
-            print("6. Edit reading time")
-            print("7. Edit content")
-            print("8. Preview post")
-            print("9. Save and exit")
+            print("4. Edit excerpt")
+            print("5. Edit reading time")
+            print("6. Edit content")
+            print("7. Preview post")
+            print("8. Save and exit")
             print("0. Exit without saving")
             
             choice = input("\nSelect option: ").strip()
@@ -480,21 +462,13 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
                 print("Categories updated")
             
             elif choice == "4":
-                existing_tags = self.get_existing_tags()
-                all_tags = sorted(list(set(self.common_tags + existing_tags)))
-                current = selected_post['frontmatter'].get('tags', [])
-                new_tags = self.input_multiselect("Edit tags:", all_tags, current)
-                selected_post['frontmatter']['tags'] = new_tags
-                print("Tags updated")
-            
-            elif choice == "5":
                 current_excerpt = selected_post['frontmatter'].get('excerpt', '')
                 new_excerpt = input(f"Current excerpt: {current_excerpt}\nNew excerpt: ").strip()
                 if new_excerpt:
                     selected_post['frontmatter']['excerpt'] = new_excerpt
                     print("Excerpt updated")
             
-            elif choice == "6":
+            elif choice == "5":
                 current_time = selected_post['frontmatter'].get('reading_time', '')
                 auto_time = self.calculate_reading_time(selected_post['content'])
                 new_time = input(f"Current: {current_time} min, Auto-calculated: {auto_time} min\nNew reading time: ").strip()
@@ -502,7 +476,7 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
                     selected_post['frontmatter']['reading_time'] = int(new_time)
                     print("Reading time updated")
             
-            elif choice == "7":
+            elif choice == "6":
                 print("Content editing options:")
                 print("1. Edit inline")
                 print("2. Open in editor")
@@ -542,14 +516,13 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
                         selected_post['content'] = '\n'.join(content_lines)
                         print("Content updated")
             
-            elif choice == "8":
+            elif choice == "7":
                 print("\n" + "="*50)
                 print("POST PREVIEW")
                 print("="*50)
                 print(f"Title: {selected_post['frontmatter'].get('title')}")
                 print(f"Date: {selected_post['frontmatter'].get('date')}")
                 print(f"Categories: {', '.join(selected_post['frontmatter'].get('categories', []))}")
-                print(f"Tags: {', '.join(selected_post['frontmatter'].get('tags', []))}")
                 print(f"Excerpt: {selected_post['frontmatter'].get('excerpt')}")
                 print(f"Reading time: {selected_post['frontmatter'].get('reading_time')} min")
                 print("\nContent:")
@@ -558,7 +531,7 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
                 print(preview + "..." if len(selected_post['content']) > 1000 else preview)
                 print("-" * 50)
             
-            elif choice == "9":
+            elif choice == "8":
                 # Save the post
                 old_path = Path(selected_post['filename']).parent / selected_post['filename']
                 if old_path.exists() and old_path != selected_post['path']:
@@ -630,7 +603,7 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
             frontmatter = post['frontmatter']
             
             # Check required fields
-            required_fields = ['layout', 'title', 'date', 'categories', 'tags', 'excerpt']
+            required_fields = ['layout', 'title', 'date', 'categories', 'excerpt']
             for field in required_fields:
                 if field not in frontmatter:
                     post_issues.append(f"Missing required field: {field}")
@@ -638,9 +611,6 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
             # Check field types
             if 'categories' in frontmatter and not isinstance(frontmatter['categories'], list):
                 post_issues.append("Categories should be a list")
-            
-            if 'tags' in frontmatter and not isinstance(frontmatter['tags'], list):
-                post_issues.append("Tags should be a list")
             
             # Check for common typos
             if 'categories' in frontmatter:
