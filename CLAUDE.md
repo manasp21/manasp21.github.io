@@ -83,6 +83,13 @@ The following improvements would enhance consistency further but require more su
 
 These improvements are documented for future consideration when time allows for more extensive testing and potential visual impact assessment.
 
+### Theme Switching System (July 2025)
+- **Book Theme Implementation**: Added comprehensive book-like light theme with warm paper colors and serif typography
+- **Floating Theme Toggle**: Implemented floating corner button across all main site pages with persistent localStorage
+- **Photography Visual Fixes**: Fixed photo overlays, lightbox captions, category badges, and navigation controls for book theme compatibility
+- **Main Site Only**: Book theme switching applies only to main portfolio pages (index, about, research, projects, blog, photography)
+- **One-Page Websites Exclusion**: One-page websites (01.html through 07.html) are intentionally excluded from theme switching as they are standalone side projects with their own design systems
+
 ## Design Philosophy
 
 ### Core Theme
