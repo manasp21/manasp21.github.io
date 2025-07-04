@@ -1,41 +1,84 @@
 /**
- * Book Theme Switcher
+ * Book Theme Switcher - Simple & Reliable
  * Elegant theme switching between dark and book-like light themes
- * Preserves user preferences and provides smooth transitions
  */
 
-class BookThemeManager {
-    constructor() {
-        this.currentTheme = localStorage.getItem('preferred-theme') || 'dark';
-        this.isTransitioning = false;
-        this.init();
-    }
+(function() {
+    'use strict';
     
-    init() {
-        // Wait for DOM to be ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.setup());
+    // Theme management
+    let currentTheme = localStorage.getItem('preferred-theme') || 'dark';
+    let isTransitioning = false;
+    
+    // Apply theme immediately to prevent flash
+    function applyTheme(theme) {
+        currentTheme = theme;
+        
+        if (theme === 'book') {
+            document.documentElement.setAttribute('data-theme', 'book');
         } else {
-            this.setup();
+            document.documentElement.removeAttribute('data-theme');
+        }
+        
+        localStorage.setItem('preferred-theme', theme);
+        updateButtonState();
+        
+        // Dispatch event for other components
+        if (window.CustomEvent) {
+            window.dispatchEvent(new CustomEvent('themeChanged', {
+                detail: { theme: theme }
+            }));
         }
     }
     
-    setup() {
-        this.createToggleButton();
-        this.applyTheme(this.currentTheme);
-        this.bindEvents();
+    // Update button appearance
+    function updateButtonState() {
+        const button = document.getElementById('theme-toggle');
+        if (!button) return;
         
-        // Apply theme immediately to prevent flash
-        this.applyThemeImmediate();
-        
-        console.log('Book Theme Manager initialized');
+        const isBookTheme = currentTheme === 'book';
+        button.setAttribute('title', 
+            isBookTheme ? 'Switch to dark theme' : 'Switch to book theme'
+        );
+        button.setAttribute('aria-label', 
+            isBookTheme ? 'Switch to dark theme' : 'Switch to book theme'
+        );
     }
     
-    createToggleButton() {
+    // Toggle between themes
+    function toggleTheme() {
+        if (isTransitioning) return;
+        
+        const newTheme = currentTheme === 'dark' ? 'book' : 'dark';
+        applyTheme(newTheme);
+        animateButton();
+    }
+    
+    // Button animation
+    function animateButton() {
+        isTransitioning = true;
+        const button = document.getElementById('theme-toggle');
+        
+        if (button) {
+            button.style.transform = 'scale(1.2) rotate(180deg)';
+            setTimeout(() => {
+                button.style.transform = '';
+                isTransitioning = false;
+            }, 300);
+        } else {
+            isTransitioning = false;
+        }
+    }
+    
+    // Create the toggle button
+    function createToggleButton() {
         // Check if button already exists
         if (document.getElementById('theme-toggle')) {
+            console.log('Theme toggle button already exists');
             return;
         }
+        
+        console.log('Creating theme toggle button...');
         
         const button = document.createElement('button');
         button.id = 'theme-toggle';
@@ -43,7 +86,7 @@ class BookThemeManager {
         button.setAttribute('aria-label', 'Toggle between dark and book themes');
         button.setAttribute('title', 'Switch theme');
         
-        // SVG icons for sun (book theme) and moon (dark theme)
+        // Simple icons using Unicode symbols
         button.innerHTML = `
             <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
@@ -61,152 +104,68 @@ class BookThemeManager {
             </svg>
         `;
         
-        // Add to body
-        document.body.appendChild(button);
-        
-        // Update button state immediately
-        this.updateButtonState();
-    }
-    
-    bindEvents() {
-        const button = document.getElementById('theme-toggle');
-        if (!button) return;
-        
-        // Click event
-        button.addEventListener('click', (e) => {
+        // Add click handler
+        button.addEventListener('click', function(e) {
             e.preventDefault();
-            this.toggleTheme();
+            console.log('Theme toggle clicked');
+            toggleTheme();
         });
         
-        // Keyboard accessibility
-        button.addEventListener('keydown', (e) => {
+        // Add keyboard support
+        button.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                this.toggleTheme();
+                toggleTheme();
             }
         });
         
-        // Listen for system theme changes
-        if (window.matchMedia) {
-            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            mediaQuery.addEventListener('change', (e) => {
-                // Only apply system preference if user hasn't manually set a theme
-                if (!localStorage.getItem('preferred-theme')) {
-                    this.applyTheme(e.matches ? 'dark' : 'book');
-                }
-            });
-        }
-    }
-    
-    toggleTheme() {
-        if (this.isTransitioning) return;
-        
-        const newTheme = this.currentTheme === 'dark' ? 'book' : 'dark';
-        this.applyTheme(newTheme);
-        this.animateThemeTransition();
-    }
-    
-    applyTheme(theme) {
-        this.currentTheme = theme;
-        
-        if (theme === 'book') {
-            document.documentElement.setAttribute('data-theme', 'book');
+        // Add to page
+        if (document.body) {
+            document.body.appendChild(button);
+            console.log('Theme toggle button added to page');
+            updateButtonState();
         } else {
-            document.documentElement.removeAttribute('data-theme');
+            console.error('document.body not available');
         }
-        
-        // Save preference
-        localStorage.setItem('preferred-theme', theme);
-        
-        // Update button state
-        this.updateButtonState();
-        
-        // Dispatch custom event for other components to listen to
-        window.dispatchEvent(new CustomEvent('themeChanged', {
-            detail: { theme: theme }
-        }));
     }
     
-    applyThemeImmediate() {
-        // Apply theme without animation for initial load
-        const savedTheme = localStorage.getItem('preferred-theme');
-        if (savedTheme) {
-            this.applyTheme(savedTheme);
+    // Initialize everything
+    function init() {
+        console.log('Initializing theme switcher...');
+        
+        // Apply saved theme immediately
+        applyTheme(currentTheme);
+        
+        // Create button
+        createToggleButton();
+        
+        console.log('Theme switcher initialized with theme:', currentTheme);
+    }
+    
+    // Wait for DOM or run immediately
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        // Try immediate execution
+        if (document.body) {
+            init();
         } else {
-            // Respect system preference
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-                this.applyTheme('book');
-            } else {
-                this.applyTheme('dark');
-            }
+            // If body not ready, wait a bit
+            setTimeout(init, 100);
         }
     }
     
-    updateButtonState() {
-        const button = document.getElementById('theme-toggle');
-        if (!button) return;
-        
-        const isBookTheme = this.currentTheme === 'book';
-        button.setAttribute('title', 
-            isBookTheme ? 'Switch to dark theme' : 'Switch to book theme'
-        );
-        button.setAttribute('aria-label', 
-            isBookTheme ? 'Switch to dark theme' : 'Switch to book theme'
-        );
-    }
-    
-    animateThemeTransition() {
-        this.isTransitioning = true;
-        const button = document.getElementById('theme-toggle');
-        
-        if (button) {
-            // Add animation class
-            button.style.transform = 'scale(1.2) rotate(180deg)';
-            
-            setTimeout(() => {
-                button.style.transform = '';
-                this.isTransitioning = false;
-            }, 300);
-        } else {
-            this.isTransitioning = false;
+    // Fallback: try again after a delay if button still doesn't exist
+    setTimeout(function() {
+        if (!document.getElementById('theme-toggle')) {
+            console.log('Button not found, retrying...');
+            createToggleButton();
         }
-    }
+    }, 1000);
     
-    // Public method to get current theme
-    getCurrentTheme() {
-        return this.currentTheme;
-    }
+    // Export for debugging
+    window.toggleTheme = toggleTheme;
+    window.getCurrentTheme = function() { return currentTheme; };
     
-    // Public method to set theme programmatically
-    setTheme(theme) {
-        if (theme === 'book' || theme === 'dark') {
-            this.applyTheme(theme);
-        }
-    }
-}
-
-// Initialize theme manager when script loads
-let themeManager;
-
-// Ensure script runs after DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        themeManager = new BookThemeManager();
-    });
-} else {
-    themeManager = new BookThemeManager();
-}
-
-// Export for potential use by other scripts
-window.BookThemeManager = BookThemeManager;
-window.themeManager = themeManager;
-
-// Performance optimization: prevent zoom on double tap for better UX
-let lastTouchEnd = 0;
-document.addEventListener('touchend', function (event) {
-    const now = (new Date()).getTime();
-    if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-    }
-    lastTouchEnd = now;
-}, false);
+    console.log('Theme switcher script loaded');
+})();
