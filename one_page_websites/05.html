@@ -154,6 +154,98 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ====== BOOK THEME OVERRIDES ====== */
+        :root[data-theme="book"] body {
+            background-color: #FAF7F0 !important;
+            color: #2D1B16 !important;
+        }
+
+        :root[data-theme="book"] .bg-gray-900 {
+            background-color: #FAF7F0 !important;
+        }
+
+        :root[data-theme="book"] .bg-gray-800 {
+            background-color: #F5F1E8 !important;
+        }
+
+        :root[data-theme="book"] .bg-\[#111111\] {
+            background-color: #FEFCF7 !important;
+        }
+
+        :root[data-theme="book"] .text-white {
+            color: #2D1B16 !important;
+        }
+
+        :root[data-theme="book"] .text-gray-300 {
+            color: #5A4A42 !important;
+        }
+
+        :root[data-theme="book"] .text-gray-400 {
+            color: #8B7B73 !important;
+        }
+
+        :root[data-theme="book"] .text-gray-200 {
+            color: #2D1B16 !important;
+        }
+
+        :root[data-theme="book"] .border-gray-700 {
+            border-color: #8B7B73 !important;
+        }
+
+        :root[data-theme="book"] .border-gray-600 {
+            border-color: #8B7B73 !important;
+        }
+
+        /* Glass card overrides */
+        :root[data-theme="book"] .glass-card {
+            background-color: rgba(250, 247, 240, 0.9) !important;
+            border-color: #8B7B73 !important;
+        }
+
+        /* Evolution step overrides */
+        :root[data-theme="book"] .evolution-step {
+            background-color: #FEFCF7 !important;
+            border-color: #8B7B73 !important;
+        }
+
+        /* Architecture diagram overrides */
+        :root[data-theme="book"] .arch-component {
+            background-color: #FEFCF7 !important;
+            border-color: #8B7B73 !important;
+        }
+
+        /* Additional overrides for any missed elements */
+        :root[data-theme="book"] * {
+            border-color: #8B7B73 !important;
+        }
+
+        :root[data-theme="book"] .backdrop-blur-sm,
+        :root[data-theme="book"] .backdrop-blur-md {
+            background-color: rgba(250, 247, 240, 0.9) !important;
+        }
+
+        /* Hover effects */
+        :root[data-theme="book"] .hover\:text-blue-400:hover {
+            color: #8B1538 !important;
+        }
+
+        :root[data-theme="book"] .hover\:text-green-400:hover {
+            color: #2D5016 !important;
+        }
+
+        :root[data-theme="book"] .hover\:text-purple-400:hover {
+            color: #5B2C87 !important;
+        }
+
+        /* Background opacity overrides */
+        :root[data-theme="book"] .bg-gray-800\/50 {
+            background-color: rgba(245, 241, 232, 0.5) !important;
+        }
+
+        :root[data-theme="book"] .bg-gray-900\/80 {
+            background-color: rgba(250, 247, 240, 0.8) !important;
+        }
     </style>
 </head>
 <body class="antialiased">

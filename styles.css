@@ -177,6 +177,98 @@
     color: var(--bg-primary) !important;
 }
 
+/* Photo overlay overrides for book theme */
+:root[data-theme="book"] .photo-overlay {
+    background: linear-gradient(transparent, rgba(45, 27, 22, 0.85)) !important;
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .photo-overlay-title {
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .photo-overlay-caption {
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .photo-overlay-meta {
+    color: var(--bg-primary) !important;
+}
+
+/* Lightbox caption overrides for book theme */
+:root[data-theme="book"] .lightbox-caption {
+    background: rgba(45, 27, 22, 0.85) !important;
+    color: var(--bg-primary) !important;
+    border: 1px solid var(--text-muted) !important;
+}
+
+:root[data-theme="book"] .lightbox-caption-title {
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .lightbox-caption-text {
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .lightbox-caption-meta {
+    color: var(--bg-primary) !important;
+}
+
+/* Category badge overrides for book theme */
+:root[data-theme="book"] .category-badge {
+    background: var(--accent-yellow) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--text-muted) !important;
+}
+
+:root[data-theme="book"] .photo-categories {
+    background: transparent !important;
+}
+
+/* Lightbox navigation controls overrides for book theme */
+:root[data-theme="book"] .nav-arrow {
+    background: rgba(45, 27, 22, 0.85) !important;
+    color: var(--bg-primary) !important;
+    border: 1px solid var(--text-muted) !important;
+}
+
+:root[data-theme="book"] .nav-arrow:hover {
+    background: rgba(45, 27, 22, 0.95) !important;
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .lightbox-close {
+    background: rgba(45, 27, 22, 0.85) !important;
+    color: var(--bg-primary) !important;
+    border: 1px solid var(--text-muted) !important;
+}
+
+:root[data-theme="book"] .lightbox-close:hover {
+    background: rgba(45, 27, 22, 0.95) !important;
+    color: var(--bg-primary) !important;
+}
+
+/* Hover state overrides for book theme */
+:root[data-theme="book"] .project-link:hover {
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .onesite-link:hover {
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .skill-tag:hover {
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .project-language {
+    color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .onesite-number {
+    color: var(--bg-primary) !important;
+}
+
 /* Override any hardcoded inline styles */
 :root[data-theme="book"] [style*="background-color: #1"] *,
 :root[data-theme="book"] [style*="background-color: #2"] *,
@@ -3195,10 +3287,12 @@ button:focus {
 .page-research .page-title {
     font-family: var(--font-family-heading);
     font-size: var(--font-size-4xl);
-    font-weight: 700;
+    font-weight: 300;
     color: var(--text-primary);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
     text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 .page-research .page-subtitle {
@@ -3304,10 +3398,10 @@ button:focus {
     color: var(--page-accent);
 }
 
-/* Fix research page heading clipping issue */
+/* Ensure research title matches about title styling */
 body.page-research .page-title {
-    margin-top: var(--spacing-xl);
-    padding-top: var(--spacing-md);
+    margin-top: 0;
+    padding-top: 0;
     line-height: 1.2;
     overflow: visible;
 }
