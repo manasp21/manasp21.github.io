@@ -172,6 +172,47 @@
         .explanation-content {
             animation: fadeIn 0.5s ease-in-out;
         }
+        
+        /* Book Theme Overrides for TailwindCSS */
+        :root[data-theme="book"] .bg-white {
+            background-color: #FAF7F0 !important;
+        }
+        
+        :root[data-theme="book"] .bg-slate-50 {
+            background-color: #FEFCF7 !important;
+        }
+        
+        :root[data-theme="book"] .bg-slate-100 {
+            background-color: #F5F1E8 !important;
+        }
+        
+        :root[data-theme="book"] .bg-slate-800 {
+            background-color: #F5F1E8 !important;
+        }
+        
+        :root[data-theme="book"] .text-slate-900,
+        :root[data-theme="book"] .text-slate-800,
+        :root[data-theme="book"] .text-slate-700 {
+            color: #2D1B16 !important;
+        }
+        
+        :root[data-theme="book"] .text-slate-600,
+        :root[data-theme="book"] .text-slate-500 {
+            color: #5A4A42 !important;
+        }
+        
+        :root[data-theme="book"] .text-slate-400,
+        :root[data-theme="book"] .text-slate-300 {
+            color: #8B7B73 !important;
+        }
+        
+        :root[data-theme="book"] .text-white {
+            color: #2D1B16 !important;
+        }
+        
+        :root[data-theme="book"] .bg-white\/80 {
+            background-color: rgba(250, 247, 240, 0.9) !important;
+        }
     </style>
     
     <!-- JSON-LD Structured Data -->
@@ -621,5 +662,8 @@
     
     <!-- Mobile Navigation Script -->
     <script src="../mobile-nav.js"></script>
+    
+    <!-- Theme Switcher -->
+    <script src="../theme-switcher.js"></script>
 </body>
 </html>

@@ -44,6 +44,34 @@
     --transition: all 0.3s ease;
 }
 
+/* ====== BOOK LIGHT THEME ====== */
+:root[data-theme="book"] {
+    /* Book Theme Color Palette - Warm Paper & Ink */
+    --bg-primary: #FAF7F0;        /* Warm cream - like aged paper */
+    --bg-secondary: #F5F1E8;      /* Soft beige - like book pages */
+    --bg-content: #FEFCF7;        /* Pure warm white - like fresh paper */
+    --text-primary: #2D1B16;      /* Rich dark brown - like quality ink */
+    --text-secondary: #5A4A42;    /* Warm gray - like faded ink */
+    --text-muted: #8B7B73;        /* Light brown - like pencil annotations */
+    
+    /* Book-Inspired Accent Colors */
+    --accent-red: #8B1538;        /* Deep burgundy - like bookmark ribbon */
+    --accent-blue: #1E3A5F;       /* Navy ink - like fountain pen */
+    --accent-green: #2D5016;      /* Forest green - like classic binding */
+    --accent-purple: #5B2C87;     /* Royal purple - like royal manuscripts */
+    --accent-orange: #B85450;     /* Burnt orange - like autumn leaves */
+    --accent-yellow: #B8860B;     /* Golden amber - like vintage paper edges */
+    
+    /* Enhanced Typography for Reading */
+    --font-family-primary: 'Crimson Text', 'Times New Roman', serif;
+    --line-height-base: 1.7;
+    
+    /* Soft Shadows for Depth */
+    --shadow-light: 0 2px 8px rgba(45, 27, 22, 0.08);
+    --shadow-medium: 0 4px 16px rgba(45, 27, 22, 0.12);
+    --shadow-heavy: 0 8px 32px rgba(45, 27, 22, 0.16);
+}
+
 /* ====== PAGE-SPECIFIC ACCENT COLORS ====== */
 body.page-home { --page-accent: var(--accent-red); }
 body.page-about { --page-accent: var(--accent-blue); }
@@ -3533,5 +3561,93 @@ body.page-research .page-container {
     img {
         max-width: 100%;
         height: auto;
+    }
+}
+
+/* ====== THEME TOGGLE BUTTON ====== */
+.theme-toggle-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: var(--bg-content);
+    border: 2px solid var(--text-muted);
+    border-radius: 50%;
+    box-shadow: var(--shadow-medium, 0 4px 16px rgba(0, 0, 0, 0.1));
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-heavy, 0 8px 32px rgba(0, 0, 0, 0.15));
+    border-color: var(--page-accent, var(--accent-red));
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn .sun-icon {
+    opacity: 0;
+    transform: rotate(180deg);
+}
+
+.theme-toggle-btn .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+/* Book theme active state */
+:root[data-theme="book"] .theme-toggle-btn .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+:root[data-theme="book"] .theme-toggle-btn .moon-icon {
+    opacity: 0;
+    transform: rotate(-180deg);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .theme-toggle-btn {
+        bottom: 80px; /* Avoid mobile navigation areas */
+        right: 15px;
+        width: 44px; /* Touch-friendly minimum size */
+        height: 44px;
+    }
+    
+    .theme-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .theme-toggle-btn {
+        border-width: 3px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .theme-toggle-btn, .theme-icon {
+        transition: none;
     }
 }
