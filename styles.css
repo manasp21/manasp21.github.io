@@ -3408,7 +3408,7 @@ body.page-research .page-title {
 
 /* Ensure research page has proper spacing */
 body.page-research .page-container {
-    padding-top: var(--spacing-lg);
+    padding-top: 6rem;
 }
 
 /* Publication card content */
