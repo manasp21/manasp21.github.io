@@ -179,6 +179,41 @@
             transform: scale(1.1);
             box-shadow: 0 0 15px rgba(140, 111, 75, 0.7);
         }
+        
+        /* Comprehensive Book Theme Overrides */
+        :root[data-theme="book"] body {
+            background-color: #FAF7F0 !important;
+            color: #2D1B16 !important;
+        }
+        
+        :root[data-theme="book"] .inquisitor-section {
+            background: linear-gradient(rgba(250, 247, 240, 0.95), rgba(250, 247, 240, 0.95)), url(https://images.unsplash.com/photo-1506372023323-265a3d466188?q=80&w=2670&auto=format&fit=crop) center/cover fixed !important;
+            color: #2D1B16 !important;
+        }
+        
+        :root[data-theme="book"] .temptation-card {
+            background-color: rgba(45, 27, 22, 0.05) !important;
+            border: 1px solid rgba(45, 27, 22, 0.1) !important;
+            color: #2D1B16 !important;
+        }
+        
+        :root[data-theme="book"] .temptation-card:hover {
+            background-color: rgba(45, 27, 22, 0.1) !important;
+            border-color: rgba(45, 27, 22, 0.3) !important;
+        }
+        
+        /* Override all TailwindCSS classes */
+        :root[data-theme="book"] .bg-gray-900,
+        :root[data-theme="book"] .bg-gray-800,
+        :root[data-theme="book"] .bg-gray-700 {
+            background-color: #F5F1E8 !important;
+        }
+        
+        :root[data-theme="book"] .text-gray-400,
+        :root[data-theme="book"] .text-gray-300,
+        :root[data-theme="book"] .text-white {
+            color: #2D1B16 !important;
+        }
 
     </style>
 </head>

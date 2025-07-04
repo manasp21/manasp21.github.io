@@ -72,6 +72,217 @@
     --shadow-heavy: 0 8px 32px rgba(45, 27, 22, 0.16);
 }
 
+/* ====== COMPREHENSIVE BOOK THEME OVERRIDES ====== */
+:root[data-theme="book"] {
+    /* Force apply to all elements */
+    color-scheme: light;
+}
+
+/* Override body and all major elements */
+:root[data-theme="book"] body,
+:root[data-theme="book"] main,
+:root[data-theme="book"] .page-container,
+:root[data-theme="book"] .header,
+:root[data-theme="book"] .hero,
+:root[data-theme="book"] .section {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Headers and navigation */
+:root[data-theme="book"] .header {
+    background-color: var(--bg-secondary) !important;
+    border-bottom-color: var(--text-muted) !important;
+}
+
+:root[data-theme="book"] .header-content,
+:root[data-theme="book"] .nav-links,
+:root[data-theme="book"] .nav-links li a {
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="book"] .logo {
+    color: var(--text-primary) !important;
+}
+
+/* Content sections */
+:root[data-theme="book"] .content-section,
+:root[data-theme="book"] .about-content,
+:root[data-theme="book"] .research-content,
+:root[data-theme="book"] .projects-grid,
+:root[data-theme="book"] .gallery-container {
+    background-color: var(--bg-primary) !important;
+}
+
+/* Cards and containers */
+:root[data-theme="book"] .project-card,
+:root[data-theme="book"] .experience-card,
+:root[data-theme="book"] .skill-category,
+:root[data-theme="book"] .blog-post,
+:root[data-theme="book"] .post-item {
+    background-color: var(--bg-content) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--text-muted) !important;
+}
+
+/* Text elements */
+:root[data-theme="book"] h1,
+:root[data-theme="book"] h2,
+:root[data-theme="book"] h3,
+:root[data-theme="book"] h4,
+:root[data-theme="book"] h5,
+:root[data-theme="book"] h6 {
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="book"] p,
+:root[data-theme="book"] span,
+:root[data-theme="book"] div {
+    color: var(--text-primary) !important;
+}
+
+/* Muted text */
+:root[data-theme="book"] .text-muted,
+:root[data-theme="book"] .experience-duration,
+:root[data-theme="book"] .post-meta,
+:root[data-theme="book"] .caption {
+    color: var(--text-muted) !important;
+}
+
+/* Forms and inputs */
+:root[data-theme="book"] input,
+:root[data-theme="book"] textarea,
+:root[data-theme="book"] select,
+:root[data-theme="book"] button {
+    background-color: var(--bg-content) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--text-muted) !important;
+}
+
+/* Photography gallery specific */
+:root[data-theme="book"] .photo-grid,
+:root[data-theme="book"] .photo-item,
+:root[data-theme="book"] .lightbox {
+    background-color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] .filter-buttons button {
+    background-color: var(--bg-content) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--text-muted) !important;
+}
+
+:root[data-theme="book"] .filter-buttons button.active {
+    background-color: var(--page-accent) !important;
+    color: var(--bg-primary) !important;
+}
+
+/* Override any hardcoded inline styles */
+:root[data-theme="book"] [style*="background-color: #1"] *,
+:root[data-theme="book"] [style*="background-color: #2"] *,
+:root[data-theme="book"] [style*="background-color: #0"] *,
+:root[data-theme="book"] [style*="background: #1"] *,
+:root[data-theme="book"] [style*="background: #2"] *,
+:root[data-theme="book"] [style*="background: #0"] * {
+    background-color: var(--bg-primary) !important;
+}
+
+:root[data-theme="book"] [style*="color: #f"] *,
+:root[data-theme="book"] [style*="color: #e"] *,
+:root[data-theme="book"] [style*="color: #d"] * {
+    color: var(--text-primary) !important;
+}
+
+/* Force background and text colors on problematic elements */
+:root[data-theme="book"] .hero-section,
+:root[data-theme="book"] .main-content,
+:root[data-theme="book"] article,
+:root[data-theme="book"] section {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Ensure all containers use theme colors */
+:root[data-theme="book"] div,
+:root[data-theme="book"] section,
+:root[data-theme="book"] article,
+:root[data-theme="book"] main,
+:root[data-theme="book"] header,
+:root[data-theme="book"] footer {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Exception for images and media */
+:root[data-theme="book"] img,
+:root[data-theme="book"] video,
+:root[data-theme="book"] canvas,
+:root[data-theme="book"] svg {
+    background-color: transparent !important;
+}
+
+/* Make sure links use theme colors */
+:root[data-theme="book"] a {
+    color: var(--page-accent) !important;
+}
+
+:root[data-theme="book"] a:hover {
+    color: var(--text-primary) !important;
+}
+
+/* Override border colors globally */
+:root[data-theme="book"] * {
+    border-color: var(--text-muted) !important;
+}
+
+/* Special handling for specific problematic selectors */
+:root[data-theme="book"] .text-white,
+:root[data-theme="book"] .text-gray-100,
+:root[data-theme="book"] .text-gray-200,
+:root[data-theme="book"] .text-slate-100,
+:root[data-theme="book"] .text-slate-200 {
+    color: var(--text-primary) !important;
+}
+
+:root[data-theme="book"] .bg-black,
+:root[data-theme="book"] .bg-gray-900,
+:root[data-theme="book"] .bg-gray-800,
+:root[data-theme="book"] .bg-slate-900,
+:root[data-theme="book"] .bg-slate-800 {
+    background-color: var(--bg-primary) !important;
+}
+
+/* Ultra-comprehensive overrides - Nuclear option for stubborn elements */
+:root[data-theme="book"] .antialiased,
+:root[data-theme="book"] .scroll-smooth,
+:root[data-theme="book"] body.antialiased {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Force inheritance for all children */
+:root[data-theme="book"] body *:not(img):not(svg):not(video):not(canvas) {
+    background-color: inherit !important;
+    color: inherit !important;
+}
+
+/* Override TailwindCSS utilities */
+:root[data-theme="book"] .bg-opacity-100,
+:root[data-theme="book"] .text-opacity-100 {
+    --tw-bg-opacity: 1 !important;
+    --tw-text-opacity: 1 !important;
+}
+
+/* Specific container overrides */
+:root[data-theme="book"] #root,
+:root[data-theme="book"] #app,
+:root[data-theme="book"] .app,
+:root[data-theme="book"] .container,
+:root[data-theme="book"] .wrapper {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
 /* ====== PAGE-SPECIFIC ACCENT COLORS ====== */
 body.page-home { --page-accent: var(--accent-red); }
 body.page-about { --page-accent: var(--accent-blue); }
