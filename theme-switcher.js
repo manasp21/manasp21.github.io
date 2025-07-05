@@ -166,9 +166,41 @@
         }
     }, 1000);
     
+    // Device Performance Detection (Apple Liquid Glass Optimization)
+    function detectDevicePerformance() {
+        // Basic performance detection
+        const deviceMemory = navigator.deviceMemory || 4; // Default to 4GB if unknown
+        const hardwareConcurrency = navigator.hardwareConcurrency || 4; // Default to 4 cores
+        const connection = navigator.connection || { effectiveType: '4g' };
+        
+        // Performance scoring
+        let performanceScore = 0;
+        if (deviceMemory >= 8) performanceScore += 3;
+        else if (deviceMemory >= 4) performanceScore += 2;
+        else performanceScore += 1;
+        
+        if (hardwareConcurrency >= 8) performanceScore += 3;
+        else if (hardwareConcurrency >= 4) performanceScore += 2;
+        else performanceScore += 1;
+        
+        if (connection.effectiveType === '4g') performanceScore += 2;
+        else if (connection.effectiveType === '3g') performanceScore += 1;
+        
+        // Determine glass performance level
+        const isHighPerformance = performanceScore >= 6;
+        const isMediumPerformance = performanceScore >= 4;
+        
+        console.log(`Device performance detected: ${performanceScore}/8 (${isHighPerformance ? 'High' : isMediumPerformance ? 'Medium' : 'Low'})`);
+        
+        return { isHighPerformance, isMediumPerformance, score: performanceScore };
+    }
+    
     // Dynamic Glass Effects System
     function initDynamicGlassEffects() {
-        console.log('Initializing dynamic glass effects...');
+        console.log('Initializing enhanced liquid glass effects...');
+        
+        // Detect device performance capabilities
+        const devicePerformance = detectDevicePerformance();
         
         const glassDynamicElements = document.querySelectorAll(
             '.header, .content-section, .onesite-card, .project-card, .experience-card, .education-card, .publication-card, .interest-card'
@@ -186,27 +218,50 @@
             glassDynamicElements.forEach(element => {
                 if (!element) return;
                 
-                // Add scroll-based class for CSS targeting
+                // Add scroll-based class for CSS targeting (matches plan.md specification)
                 if (scrolled > 100) {
-                    element.classList.add('glass-scroll-enhanced');
+                    element.classList.add('glass-scroll-dynamic');
+                    element.classList.add('scrolled'); // For .glass-scroll-dynamic.scrolled CSS rule
                 } else {
-                    element.classList.remove('glass-scroll-enhanced');
+                    element.classList.remove('glass-scroll-dynamic');
+                    element.classList.remove('scrolled');
                 }
                 
-                // Dynamic backdrop blur intensity
-                const baseBlur = 12; // Default medium blur
-                const maxBlur = 25;  // Maximum blur
+                // Performance-optimized dynamic blur (Apple Liquid Glass standard)
+                let baseBlur, maxBlur, saturation;
+                if (devicePerformance.isHighPerformance) {
+                    baseBlur = 12; // Default medium blur
+                    maxBlur = 40;  // Ultra blur for high-performance devices
+                    saturation = 220; // Maximum saturation enhancement
+                } else if (devicePerformance.isMediumPerformance) {
+                    baseBlur = 12; // Default medium blur
+                    maxBlur = 30;  // Strong blur for medium-performance devices
+                    saturation = 180; // Standard saturation enhancement
+                } else {
+                    baseBlur = 8;  // Light blur for low-performance devices
+                    maxBlur = 20;  // Strong blur for low-performance devices
+                    saturation = 150; // Reduced saturation for performance
+                }
+                
                 const dynamicBlur = baseBlur + (maxBlur - baseBlur) * scrollPercent;
                 
-                // Apply dynamic blur with CSS custom property
-                element.style.setProperty('--dynamic-blur', `blur(${dynamicBlur}px)`);
+                // Apply performance-optimized blur with saturation enhancement
+                element.style.setProperty('--dynamic-blur', `blur(${dynamicBlur}px) saturate(${saturation}%)`);
                 
-                // Dynamic glass opacity
-                const baseOpacity = 0.1;
-                const maxOpacity = 0.2;
+                // Enhanced dynamic glass opacity with liquid glass values
+                const baseOpacity = 0.15; // Matches --liquid-glass-bg-primary
+                const maxOpacity = devicePerformance.isHighPerformance ? 0.25 : 0.22; // Enhanced for high-performance
                 const dynamicOpacity = baseOpacity + (maxOpacity - baseOpacity) * scrollPercent;
                 
                 element.style.setProperty('--dynamic-glass-opacity', dynamicOpacity);
+                
+                // Page-specific accent color integration
+                const computedStyle = getComputedStyle(document.body);
+                const accentRGB = computedStyle.getPropertyValue('--page-accent-rgb').trim();
+                if (accentRGB) {
+                    const accentIntensity = 0.08 + (0.12 * scrollPercent); // Dynamic accent opacity
+                    element.style.setProperty('--dynamic-accent-bg', `rgba(${accentRGB}, ${accentIntensity})`);
+                }
             });
             
             // Special header enhancement
@@ -267,7 +322,9 @@
         // Initial update
         updateGlassIntensity();
         
-        console.log('Dynamic glass effects initialized for', glassDynamicElements.length, 'elements');
+        console.log(`Enhanced liquid glass effects initialized for ${glassDynamicElements.length} elements`);
+        console.log(`Performance profile: ${devicePerformance.isHighPerformance ? 'High' : devicePerformance.isMediumPerformance ? 'Medium' : 'Low'} (${devicePerformance.score}/8)`);
+        console.log('Features: Saturation enhancement, dynamic blur, page-specific accents, performance optimization');
     }
     
     // Export for debugging
