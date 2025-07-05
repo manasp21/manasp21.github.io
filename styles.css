@@ -4243,14 +4243,6 @@ button:focus {
     opacity: 1;
 }
 
-/* Consistent publication card styling - remove featured styling */
-.publication-card {
-    background: var(--bg-secondary);
-    border: none;
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-xl);
-    text-align: center;
-}
 
 .publication-card .pub-content {
     display: block;
