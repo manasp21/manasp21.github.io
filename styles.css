@@ -39,9 +39,34 @@
     
     /* Layout */
     --max-width: 1200px;
-    --border-radius: 8px;
-    --border-radius-lg: 12px;
-    --transition: all 0.3s ease;
+    
+    /* Enhanced Border Radius System */
+    --radius-sm: 4px;          /* Small elements, tags, badges */
+    --radius-md: 8px;          /* Standard buttons, inputs */
+    --radius-lg: 12px;         /* Cards, panels */
+    --radius-xl: 16px;         /* Hero sections, major components */
+    --radius-2xl: 20px;        /* Special highlights, featured content */
+    --radius-3xl: 24px;        /* Large containers */
+    --radius-full: 50%;        /* Circular elements */
+    
+    /* Enhanced Transitions & Animations */
+    --transition-fast: all 0.15s ease;
+    --transition-base: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Enhanced Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+    
+    /* Legacy variables for backward compatibility */
+    --border-radius: var(--radius-md);
+    --border-radius-lg: var(--radius-lg);
+    --transition: var(--transition-base);
 }
 
 /* ====== BOOK LIGHT THEME ====== */
@@ -66,7 +91,14 @@
     --font-family-primary: 'Crimson Text', 'Times New Roman', serif;
     --line-height-base: 1.7;
     
-    /* Soft Shadows for Depth */
+    /* Enhanced Shadows for Book Theme */
+    --shadow-sm: 0 1px 2px rgba(45, 27, 22, 0.08);
+    --shadow-md: 0 4px 6px rgba(45, 27, 22, 0.1), 0 2px 4px rgba(45, 27, 22, 0.06);
+    --shadow-lg: 0 10px 15px rgba(45, 27, 22, 0.1), 0 4px 6px rgba(45, 27, 22, 0.05);
+    --shadow-xl: 0 20px 25px rgba(45, 27, 22, 0.1), 0 10px 10px rgba(45, 27, 22, 0.04);
+    --shadow-hover: 0 25px 50px rgba(45, 27, 22, 0.15), 0 10px 20px rgba(45, 27, 22, 0.1);
+    
+    /* Legacy shadows for backward compatibility */
     --shadow-light: 0 2px 8px rgba(45, 27, 22, 0.08);
     --shadow-medium: 0 4px 16px rgba(45, 27, 22, 0.12);
     --shadow-heavy: 0 8px 32px rgba(45, 27, 22, 0.16);
@@ -456,7 +488,7 @@ a:hover {
 
 .nav-links {
     display: flex;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-sm);
     list-style: none;
 }
 
@@ -467,11 +499,18 @@ a:hover {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    transition: var(--transition);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-2xl);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
 }
 
 .nav-links a:hover {
     color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
 /* ====== MOBILE NAVIGATION ====== */
@@ -544,10 +583,11 @@ a:hover {
     background: rgba(18, 18, 18, 0.98);
     backdrop-filter: blur(20px);
     border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl) 0 0 var(--radius-xl);
     z-index: 1000;
-    transition: right 0.3s ease-in-out;
+    transition: var(--transition-smooth);
     padding-top: 80px;
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-xl);
 }
 
 .mobile-nav-menu.active {
@@ -573,14 +613,17 @@ a:hover {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    transition: all 0.3s ease;
+    transition: var(--transition-smooth);
     position: relative;
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    margin: 0 0 0 var(--spacing-sm);
 }
 
 .mobile-nav-links a:hover {
     color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
-    padding-left: calc(var(--spacing-lg) + 10px);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(8px);
+    box-shadow: var(--shadow-md);
 }
 
 .mobile-nav-links a::before {
@@ -1012,7 +1055,7 @@ body.mobile-menu-open {
     color: var(--text-secondary);
     border: 1px solid var(--border-color);
     padding: var(--spacing-sm) var(--spacing-lg);
-    border-radius: 24px;
+    border-radius: var(--radius-3xl);
     font-family: var(--font-family-body);
     font-size: var(--font-size-sm);
     font-weight: 500;
@@ -1044,8 +1087,8 @@ body.mobile-menu-open {
     background: var(--bg-hover);
     color: var(--text-primary);
     border-color: var(--accent-color);
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: var(--shadow-lg);
 }
 
 .filter-btn.active {
@@ -1133,15 +1176,15 @@ body.mobile-menu-open {
     position: relative;
     cursor: pointer;
     overflow: hidden;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+    transition: var(--transition-smooth), 
                 z-index 0.3s ease,
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow var(--transition-smooth);
     background: var(--bg-secondary);
     display: inline-block;
     width: 100%;
     margin-bottom: 0;
     break-inside: avoid;
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     opacity: 0;
     transform: translateY(20px);
@@ -1169,9 +1212,9 @@ body.mobile-menu-open {
 }
 
 .photo-item:hover {
-    transform: scale(1.02);
+    transform: scale(1.03) translateY(-2px);
     z-index: 10;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow-hover);
 }
 
 .photo-item img {
@@ -1604,7 +1647,7 @@ body.mobile-menu-open {
     color: var(--text-secondary);
     background: rgba(255, 255, 255, 0.05);
     padding: 4px 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
 }
 
 .stat-icon {
@@ -1616,7 +1659,7 @@ body.mobile-menu-open {
     color: var(--text-primary);
     background: rgba(255, 255, 255, 0.1);
     padding: 4px 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-weight: 500;
 }
 
@@ -1638,7 +1681,7 @@ body.mobile-menu-open {
     background: rgba(255, 255, 255, 0.08);
     color: var(--text-primary);
     padding: 4px 10px;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     font-size: var(--font-size-xs);
     font-weight: 500;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1648,6 +1691,8 @@ body.mobile-menu-open {
 .topic:hover {
     background: rgba(255, 255, 255, 0.12);
     border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: var(--shadow-sm);
 }
 
 .project-links {
@@ -1664,18 +1709,22 @@ body.mobile-menu-open {
     font-size: var(--font-size-sm);
     padding: var(--spacing-xs) var(--spacing-sm);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--border-radius);
-    transition: var(--transition);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-bounce);
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    position: relative;
+    overflow: hidden;
 }
 
 .github-link:hover,
 .demo-link:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
+    border-color: var(--page-accent);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-md);
+    color: var(--page-accent);
 }
 
 .demo-link {
@@ -1789,7 +1838,8 @@ button:focus {
 }
 
 .read-more:hover {
-    transform: translateX(4px);
+    transform: translateX(6px) scale(1.02);
+    text-shadow: 0 0 8px currentColor;
 }
 
 /* All Posts Section */
@@ -1870,7 +1920,7 @@ button:focus {
     background: var(--bg-content);
     color: var(--text-secondary);
     padding: 2px 8px;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     font-size: var(--font-size-xs);
     font-weight: 500;
 }
@@ -2081,7 +2131,7 @@ button:focus {
 .post-content code {
     background: var(--bg-content);
     padding: 2px 6px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-size: 0.9em;
     color: var(--page-accent, var(--accent-orange));
@@ -2145,8 +2195,8 @@ button:focus {
 }
 
 .tag-link:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-md), 0 0 12px currentColor;
 }
 
 /* Related Posts */
@@ -2376,9 +2426,10 @@ button:focus {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
-    transition: var(--transition);
+    transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 .project-card::before {
@@ -2394,8 +2445,8 @@ button:focus {
 }
 
 .project-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-hover);
     border-color: var(--page-accent);
 }
 
@@ -2424,7 +2475,7 @@ button:focus {
     background: var(--page-accent);
     color: white;
     padding: 0.25rem 0.75rem;
-    border-radius: 20px;
+    border-radius: var(--radius-2xl);
     font-size: var(--font-size-xs);
     font-weight: 500;
     white-space: nowrap;
@@ -2448,7 +2499,7 @@ button:focus {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-secondary);
     padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-size: var(--font-size-xs);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -2725,7 +2776,7 @@ button:focus {
     font-size: var(--font-size-sm);
     font-weight: 600;
     padding: 0.25rem 0.75rem;
-    border-radius: 20px;
+    border-radius: var(--radius-2xl);
     margin-left: var(--spacing-sm);
     box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
     flex-shrink: 0;
@@ -2969,7 +3020,7 @@ button:focus {
     background: rgba(37, 99, 235, 0.2);
     color: var(--page-accent, var(--accent-blue));
     padding: 0.25rem 0.75rem;
-    border-radius: 20px;
+    border-radius: var(--radius-2xl);
     font-size: var(--font-size-sm);
     font-weight: 500;
     border: 1px solid rgba(37, 99, 235, 0.3);
@@ -3076,7 +3127,8 @@ button:focus {
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
     animation: fadeInRight 0.8s ease-out forwards;
@@ -3096,9 +3148,9 @@ button:focus {
 }
 
 .education-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px) scale(1.02);
     border-color: var(--page-accent, var(--accent-blue));
-    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.2);
+    box-shadow: var(--shadow-xl), 0 0 20px rgba(37, 99, 235, 0.3);
 }
 
 .education-card:hover::before {
@@ -3173,15 +3225,16 @@ button:focus {
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: calc(var(--index, 0) * 0.1s);
 }
 
 .skills-category:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px) scale(1.02);
     border-color: var(--page-accent, var(--accent-blue));
-    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.2);
+    box-shadow: var(--shadow-xl), 0 0 20px rgba(37, 99, 235, 0.3);
 }
 
 .skills-category-title {
@@ -3210,19 +3263,22 @@ button:focus {
     background: rgba(37, 99, 235, 0.2);
     color: var(--text-primary);
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: var(--radius-2xl);
     font-size: var(--font-size-sm);
     font-weight: 500;
     border: 1px solid rgba(37, 99, 235, 0.3);
-    transition: var(--transition);
+    transition: var(--transition-bounce);
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .skill-tag:hover {
     background: var(--page-accent, var(--accent-blue));
     color: white;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(37, 99, 235, 0.4);
+    border-color: var(--page-accent, var(--accent-blue));
 }
 
 /* Mobile Responsiveness for LinkedIn Sections */

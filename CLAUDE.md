@@ -90,6 +90,20 @@ These improvements are documented for future consideration when time allows for 
 - **Main Site Only**: Book theme switching applies only to main portfolio pages (index, about, research, projects, blog, photography)
 - **One-Page Websites Exclusion**: One-page websites (01.html through 07.html) are intentionally excluded from theme switching as they are standalone side projects with their own design systems
 
+### UI Enhancement & Interactivity Update (July 2025)
+- **Comprehensive Rounded Corner System**: Implemented scalable border-radius variables (--radius-sm through --radius-3xl) for consistent design language
+- **Enhanced Card Interactions**: Upgraded all card components with smooth scaling, advanced shadows, and bounce animations
+- **Navigation Improvements**: Added pill-shaped hover effects with background highlights and smooth transitions for both desktop and mobile navigation
+- **Advanced Shadow System**: Introduced comprehensive shadow variables (--shadow-sm through --shadow-hover) with theme-aware coloring for both dark and book themes
+- **Smooth Transitions**: Implemented cubic-bezier and bounce transitions throughout the interface for professional feel
+- **Micro-Interactions**: Added subtle scaling, glow effects, and transform animations to buttons, tags, and interactive elements
+- **Mobile Navigation Polish**: Enhanced mobile menu with rounded corners, improved animations, and better visual hierarchy
+- **Photography Gallery**: Upgraded photo grid with enhanced hover effects, improved lightbox interactions, and consistent rounded corners
+- **Interactive Elements**: Enhanced skill tags, filter buttons, project links, and navigation elements with improved feedback and visual polish
+
+### Web Development Best Practices
+- Do not edit on page websites directly
+
 ## Design Philosophy
 
 ### Core Theme
