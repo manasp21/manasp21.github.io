@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentic Love vs. The Idea of Love</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The SPA is structured as a narrative journey, guiding the user from surface-level concepts to deeper understanding and practical application. It starts with the core metaphor (Sparkle vs. Ocean), moves to deconstructing illusions (Idealization/Limerence), explores the roots of behavior (Attachment Theory), defines authentic love, and concludes with a practical self-assessment. This thematic, linear flow was chosen over a dashboard because the report's content is educational and progressive. The user's goal is to learn and reflect, which this step-by-step structure facilitates best. Key interactions include tabbed content for comparisons and an interactive quiz for self-reflection, making the learning process engaging. -->
+    <!-- Visualization & Content Choices: 
+        1. Report Info: Limerence vs. Love comparison table. -> Goal: Compare. -> Viz/Method: Interactive polar area chart and tabbed content cards. -> Interaction: User can hover over the chart to see details and click tabs to compare textual descriptions. -> Justification: A polar area chart visually emphasizes the stark differences in key areas (e.g., Duration, Focus), making the comparison more impactful than a static table. Tabbed cards allow for a clean presentation of detailed text without cluttering the UI. -> Library/Method: Chart.js for the chart, Tailwind/JS for the tabs.
+        2. Report Info: Four Adult Attachment Styles. -> Goal: Organize & Inform. -> Viz/Method: Donut chart displaying the primary fear of each style, accompanied by interactive cards. -> Interaction: User clicks on an attachment style name to update the chart and display detailed information about that style. -> Justification: This interactive diagram simplifies a complex psychological framework. The donut chart provides a quick visual summary of the core fear, while the clickable cards allow users to explore each style's nuances at their own pace. -> Library/Method: Chart.js and custom JS.
+        3. Report Info: Practical Guide for self-reflection. -> Goal: Inform & Engage. -> Viz/Method: Interactive checklist/quiz. -> Interaction: User answers a series of questions, and based on their answers, receives a summary reflection. -> Justification: This transforms a passive reading section into an active, personalized experience, directly engaging the user with the material and encouraging deeper introspection. -> Library/Method: HTML forms and custom JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .active-tab {
+            background-color: #D6C2B2;
+            color: #FFFFFF;
+        }
+        .inactive-tab {
+            background-color: #F0E9E4;
+            color: #6B5B50;
+        }
+        .quiz-option:hover {
+            background-color: #F0E9E4;
+        }
+        .quiz-option.selected {
+            background-color: #D6C2B2;
+            color: white;
+            border-color: #D6C2B2;
+        }
+        .btn-primary {
+            background-color: #B99C85;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #A38671;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+        <header class="text-center py-12 md:py-20">
+            <h1 class="text-4xl md:text-6xl font-bold text-[#6B5B50] tracking-tight">The Sparkle and The Ocean</h1>
+            <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-gray-600">An Interactive Exploration of Authentic Love vs. The Idea of a Person</p>
+        </header>
+
+        <main>
+            <section id="intro" class="py-12 md:py-16">
+                 <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold text-[#6B5B50] mb-4">Are You in Love with a Person, or an Idea?</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                        This experience translates the core message of the report "Are You in Love with a Person, or an Idea of Them?" into an interactive format. We often mistake the "sparkle on the surface"—the initial attraction and shared jokes—for love itself. This is like admiring the sunlight on the ocean but ignoring the vast, deep water beneath. This guide will help you journey from that shimmering surface to the profound depths of what makes a connection authentic and lasting. You will explore the illusions that can trap us, understand the psychological blueprints that guide our relationships, and discover practical ways to cultivate a love that is as deep and resilient as the ocean itself.
+                    </p>
+                </div>
+            </section>
+            
+            <section id="illusion" class="py-12 md:py-16 bg-white rounded-2xl shadow-sm">
+                <div class="max-w-5xl mx-auto px-6">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-[#6B5B50]">The Architecture of Illusion</h2>
+                        <p class="mt-2 text-lg text-gray-600">Love's most common imposters are idealization and limerence. While they can feel intensely romantic, they are relationships with a fantasy, not a real person. This section helps you distinguish between these illusions and authentic love.</p>
+                    </div>
+
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-semibold text-[#8C7A6B] mb-4">Limerence vs. Love: A Visual Comparison</h3>
+                         <div class="chart-container h-80 md:h-96">
+                            <canvas id="loveVsLimerenceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="mt-12">
+                        <div class="flex justify-center border-b border-gray-200 mb-4">
+                            <button id="limerence-tab" class="py-2 px-6 text-lg font-medium inactive-tab rounded-t-lg focus:outline-none">Limerence</button>
+                            <button id="love-tab" class="py-2 px-6 text-lg font-medium active-tab rounded-t-lg focus:outline-none">Love</button>
+                        </div>
+                        <div id="comparison-content" class="p-6 bg-gray-50 rounded-b-lg rounded-tr-lg min-h-[200px]">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="attachment" class="py-16 md:py-24">
+                <div class="max-w-5xl mx-auto px-6">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-[#6B5B50]">Your Relational Blueprint</h2>
+                        <p class="mt-2 text-lg text-gray-600">Our earliest bonds form an "internal working model" that shapes our adult relationships. Understanding your attachment style can reveal why you might be drawn to idealization or fear intimacy. Click on a style to learn more and see its core fear visualized.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                             <div class="flex flex-wrap justify-center gap-2 mb-8">
+                                <button class="attachment-btn py-2 px-4 rounded-full text-sm font-semibold transition-colors duration-300" data-style="secure">Secure</button>
+                                <button class="attachment-btn py-2 px-4 rounded-full text-sm font-semibold transition-colors duration-300" data-style="anxious">Anxious</button>
+                                <button class="attachment-btn py-2 px-4 rounded-full text-sm font-semibold transition-colors duration-300" data-style="avoidant">Avoidant</button>
+                                <button class="attachment-btn py-2 px-4 rounded-full text-sm font-semibold transition-colors duration-300" data-style="disorganized">Disorganized</button>
+                            </div>
+                            <div id="attachment-info" class="p-6 bg-white rounded-xl shadow-sm min-h-[250px]">
+                            </div>
+                        </div>
+                        <div class="chart-container h-64 md:h-80">
+                            <canvas id="attachmentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="guide" class="py-12 md:py-16 bg-white rounded-2xl shadow-sm">
+                <div class="max-w-4xl mx-auto px-6">
+                     <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-[#6B5B50]">A Practical Guide to Deeper Waters</h2>
+                        <p class="mt-2 text-lg text-gray-600">Moving from illusion to authenticity requires honest self-reflection. This short quiz is a tool to help you appraise your own connection. Your answers are private and will only be used to generate a reflection for you at the end.</p>
+                    </div>
+                    <div id="quiz-container">
+                    </div>
+                    <div id="quiz-result" class="hidden mt-8 text-center p-6 bg-gray-50 rounded-lg"></div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center py-10 mt-16 border-t border-gray-200">
+            <p class="text-gray-500">An interactive summary based on the report "Are You in Love with a Person, or an Idea of Them?".</p>
+            <p class="text-sm text-gray-400 mt-2">Designed to promote reflection on the nature of authentic connection.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const loveVsLimerenceData = {
+            limerence: {
+                title: "Limerence: The Obsessive Infatuation",
+                description: "An involuntary, obsessive infatuation rooted in fantasy. Limerence is characterized by intrusive thoughts, emotional volatility, and an intense craving for reciprocation. It thrives on uncertainty and the thrill of the chase, making it an unstable and short-lived state.",
+                chartData: [5, 5, 1, 1, 5, 5, 5, 5],
+            },
+            love: {
+                title: "Love: The Deep Connection",
+                description: "A deep, stable, and reciprocal emotional connection built on trust, security, and genuine understanding. Love involves accepting a partner's whole self, including their flaws. It's an enduring emotion that fosters personal growth and enhances life.",
+                chartData: [2, 1, 5, 5, 1, 2, 1, 1],
+            }
+        };
+
+        const attachmentData = {
+            secure: {
+                title: 'Secure Attachment',
+                description: "Comfortable with intimacy and independence. They trust easily, communicate openly, and see relationships as a source of security. Their core belief is that they are worthy of love and that others are reliable.",
+                fear: 'Balanced; no dominant fear',
+                color: '#A8D8B9'
+            },
+            anxious: {
+                title: 'Anxious / Preoccupied Attachment',
+                description: "Craves closeness to quell a deep-seated fear of being abandoned. They are often preoccupied with their relationship status, seeking constant reassurance. Their core fear is rejection.",
+                fear: 'Abandonment',
+                color: '#F4A261'
+            },
+            avoidant: {
+                title: 'Avoidant / Dismissive Attachment',
+                description: "Values independence and self-sufficiency above all. They perceive intimacy as a threat to their autonomy and tend to withdraw when a partner seeks closeness. Their core fear is engulfment.",
+                fear: 'Engulfment',
+                color: '#63BCC9'
+            },
+            disorganized: {
+                title: 'Disorganized / Fearful-Avoidant',
+                description: "Simultaneously desires and fears intimacy. Their relationships are often marked by a confusing push-pull dynamic. They struggle to trust others and fear getting close, as they expect to be hurt.",
+                fear: 'Intimacy itself',
+                color: '#E76F51'
+            }
+        };
+
+        const quizData = [
+            { question: "When I think about my partner, I mostly focus on:", choices: ["Their positive qualities, overlooking or minimizing their flaws.", "The whole person, including their quirks and imperfections."], type: 'idea' },
+            { question: "My feelings for my partner are:", choices: ["A volatile rollercoaster of intense highs and deep lows.", "Stable, secure, and a source of comfort."], type: 'love' },
+            { question: "When we disagree:", choices: ["I avoid the conflict to keep the peace and preserve our perfect image.", "We can have messy but honest conversations about our feelings."], type: 'idea' },
+            { question: "My sense of self-worth:", choices: ["Is heavily dependent on their approval and affection.", "Is strong on its own; the relationship enhances it but doesn't define it."], type: 'love' },
+            { question: "I love my partner because of:", choices: ["The way they make me feel and the things they do for me.", "Who they are fundamentally as a person, independent of me."], type: 'love' },
+            { question: "The thought of my partner changing in the future makes me feel:", choices: ["Anxious. I love them just the way they are now.", "Calm. We will grow and evolve together."], type: 'idea' },
+        ];
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            let loveVsLimerenceChartInstance;
+            let attachmentChartInstance;
+
+            const loveVsLimerenceCtx = document.getElementById('loveVsLimerenceChart').getContext('2d');
+            const attachmentCtx = document.getElementById('attachmentChart').getContext('2d');
+            const comparisonContentEl = document.getElementById('comparison-content');
+            const limerenceTab = document.getElementById('limerence-tab');
+            const loveTab = document.getElementById('love-tab');
+            const attachmentBtns = document.querySelectorAll('.attachment-btn');
+            const attachmentInfoEl = document.getElementById('attachment-info');
+            const quizContainer = document.getElementById('quiz-container');
+            const quizResult = document.getElementById('quiz-result');
+
+            function renderLoveVsLimerenceChart(data) {
+                if (loveVsLimerenceChartInstance) {
+                    loveVsLimerenceChartInstance.destroy();
+                }
+                loveVsLimerenceChartInstance = new Chart(loveVsLimerenceCtx, {
+                    type: 'polarArea',
+                    data: {
+                        labels: [
+                            'Obsessive Thoughts', 'Emotional Volatility', 'Duration', 'Grounded in Reality',
+                            'Fear of Rejection', 'Focus on Fantasy', 'Disruption to Life', 'Idealization'
+                        ],
+                        datasets: [{
+                            label: 'Intensity',
+                            data: data,
+                            backgroundColor: [
+                                'rgba(244, 162, 97, 0.5)',
+                                'rgba(231, 111, 81, 0.5)',
+                                'rgba(42, 157, 143, 0.5)',
+                                'rgba(38, 70, 83, 0.5)',
+                                'rgba(233, 196, 106, 0.5)',
+                                'rgba(244, 162, 97, 0.7)',
+                                'rgba(231, 111, 81, 0.7)',
+                                'rgba(233, 196, 106, 0.7)'
+                            ],
+                            borderColor: 'rgba(255, 255, 255, 0.7)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                pointLabels: {
+                                    display: true,
+                                    centerPointLabels: true,
+                                    font: { size: 12 }
+                                },
+                                ticks: { display: false },
+                                grid: { circular: true }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) { label += ': '; }
+                                        if (context.raw !== null) {
+                                           const score = context.raw;
+                                           let level = 'Low';
+                                           if(score > 2 && score <= 4) level = 'Moderate';
+                                           if(score > 4) level = 'High';
+                                           label += level;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function updateComparisonContent(type) {
+                const data = loveVsLimerenceData[type];
+                comparisonContentEl.innerHTML = `
+                    <h4 class="text-xl font-bold text-[#6B5B50] mb-2">${data.title}</h4>
+                    <p class="text-gray-700 leading-relaxed">${data.description}</p>
+                `;
+                renderLoveVsLimerenceChart(data.chartData);
+
+                if (type === 'limerence') {
+                    limerenceTab.classList.add('active-tab');
+                    limerenceTab.classList.remove('inactive-tab');
+                    loveTab.classList.add('inactive-tab');
+                    loveTab.classList.remove('active-tab');
+                } else {
+                    loveTab.classList.add('active-tab');
+                    loveTab.classList.remove('inactive-tab');
+                    limerenceTab.classList.add('inactive-tab');
+                    limerenceTab.classList.remove('active-tab');
+                }
+            }
+
+            limerenceTab.addEventListener('click', () => updateComparisonContent('limerence'));
+            loveTab.addEventListener('click', () => updateComparisonContent('love'));
+
+            function renderAttachmentChart(style) {
+                const data = attachmentData[style];
+                 if (attachmentChartInstance) {
+                    attachmentChartInstance.destroy();
+                }
+                attachmentChartInstance = new Chart(attachmentCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Core Fear', ''],
+                        datasets: [{
+                            data: [75, 25],
+                            backgroundColor: [data.color, '#F0E9E4'],
+                            borderColor: ['#FFFFFF', '#FFFFFF'],
+                            borderWidth: 4,
+                            circumference: 270,
+                            rotation: 225
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: false }
+                        }
+                    }
+                });
+            }
+            
+            function updateAttachmentInfo(style) {
+                const data = attachmentData[style];
+                attachmentInfoEl.innerHTML = `
+                    <h4 class="text-xl font-bold text-[#6B5B50] mb-2">${data.title}</h4>
+                    <p class="text-gray-700 leading-relaxed mb-4">${data.description}</p>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <p class="text-sm font-semibold text-gray-500">Primary Fear: <span class="text-lg font-bold" style="color:${data.color};">${data.fear}</span></p>
+                    </div>
+                `;
+                renderAttachmentChart(style);
+                attachmentBtns.forEach(btn => {
+                    if (btn.dataset.style === style) {
+                         btn.style.backgroundColor = attachmentData[style].color;
+                         btn.style.color = 'white';
+                    } else {
+                        btn.style.backgroundColor = '#F0E9E4';
+                        btn.style.color = '#6B5B50';
+                    }
+                });
+            }
+
+            attachmentBtns.forEach(btn => {
+                btn.addEventListener('click', () => updateAttachmentInfo(btn.dataset.style));
+            });
+
+            function renderQuiz() {
+                let quizHTML = '<form id="love-quiz">';
+                quizData.forEach((item, index) => {
+                    quizHTML += `
+                        <div class="mb-8">
+                            <p class="font-semibold text-lg mb-4">${index + 1}. ${item.question}</p>
+                            <div class="space-y-3">
+                                <label class="quiz-option flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer transition-all duration-200">
+                                    <input type="radio" name="q${index}" value="idea" class="hidden" data-type="${item.choices[0] === item.choices[0] ? 'idea' : 'love'}">
+                                    <span class="ml-3 text-gray-700">${item.choices[0]}</span>
+                                </label>
+                                <label class="quiz-option flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer transition-all duration-200">
+                                    <input type="radio" name="q${index}" value="love" class="hidden" data-type="${item.choices[1] === item.choices[1] ? 'love' : 'love'}">
+                                    <span class="ml-3 text-gray-700">${item.choices[1]}</span>
+                                </label>
+                            </div>
+                        </div>
+                    `;
+                });
+                quizHTML += '<div class="text-center"><button type="submit" class="btn-primary text-white font-bold py-3 px-8 rounded-full">See My Reflection</button></div></form>';
+                quizContainer.innerHTML = quizHTML;
+
+                const quizForm = document.getElementById('love-quiz');
+                quizForm.addEventListener('change', (e) => {
+                    if (e.target.type === 'radio') {
+                        document.querySelectorAll(`input[name="${e.target.name}"]`).forEach(el => {
+                            el.parentElement.classList.remove('selected');
+                        });
+                        e.target.parentElement.classList.add('selected');
+                    }
+                });
+
+                quizForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(quizForm);
+                    let ideaScore = 0;
+                    let loveScore = 0;
+                    
+                    quizData.forEach((item, index) => {
+                       const answer = formData.get(`q${index}`);
+                       const questionType = item.type;
+                       if (answer === questionType) {
+                           loveScore++;
+                       } else {
+                           ideaScore++;
+                       }
+                    });
+
+                    let resultText = '';
+                    if (loveScore > ideaScore) {
+                        resultText = `
+                            <h4 class="text-xl font-bold text-[#6B5B50] mb-2">Reflection: Leaning Towards the Ocean</h4>
+                            <p class="text-gray-700 leading-relaxed">Your responses suggest you view love through a lens of authenticity and deep connection. You seem to value the whole person, embrace imperfection, and understand that true love is a stable, supportive force rather than a volatile obsession. This is the foundation of the "ocean"—a love that is resilient and lasting. Continue to nurture this by practicing vulnerable communication and unconditional acceptance.</p>
+                        `;
+                    } else if (ideaScore > loveScore) {
+                        resultText = `
+                            <h4 class="text-xl font-bold text-[#6B5B50] mb-2">Reflection: Leaning Towards the Sparkle</h4>
+                            <p class="text-gray-700 leading-relaxed">Your responses suggest you may be focused on the "sparkle on the surface"—the idea of a person and the feelings they provide. This is a very common starting point for relationships. It might be helpful to reflect on whether you are valuing a fantasy over the real person. Practicing curiosity about your partner's inner world—their flaws, fears, and dreams—can help you move from the idea to the authentic, complex individual.</p>
+                        `;
+                    } else {
+                         resultText = `
+                            <h4 class="text-xl font-bold text-[#6B5B50] mb-2">Reflection: A Mix of Sparkle and Ocean</h4>
+                            <p class="text-gray-700 leading-relaxed">Your responses show a balance between valuing the exciting "sparkle" and the deep "ocean." This is common, as most relationships contain elements of both. The key to lasting love is ensuring the foundation is built on the substance of the ocean—acceptance, security, and genuine understanding—while still enjoying the beautiful light on the surface. Reflect on which aspects feel most secure and which feel most anxious to guide your growth.</p>
+                        `;
+                    }
+
+                    quizResult.innerHTML = resultText;
+                    quizResult.classList.remove('hidden');
+                    quizContainer.classList.add('hidden');
+                });
+            }
+
+            updateComparisonContent('love');
+            updateAttachmentInfo('secure');
+            renderQuiz();
+        });
+    </script>
+
+</body>
+</html>
