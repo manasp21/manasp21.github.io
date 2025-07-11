@@ -4324,55 +4324,128 @@ body.page-research .page-container {
     }
 }
 
-/* ====== BOOK THEME CONTRIBUTION GRAPH FIXES ====== */
-/* Override aggressive book theme rules with !important */
+/* ====== NUCLEAR BOOK THEME CONTRIBUTION GRAPH FIXES ====== */
+/* Ultra-high specificity solution to override ALL aggressive book theme rules */
+
+/* Step 1: Override container backgrounds to prevent inheritance issues */
+:root[data-theme="book"] body .page-container .contribution-graph-section,
+:root[data-theme="book"] body .page-container .contribution-graph-wrapper,
+:root[data-theme="book"] body .page-container .contribution-graph,
+:root[data-theme="book"] body .page-container .graph-container,
+:root[data-theme="book"] body .page-container .graph-content,
+:root[data-theme="book"] body .page-container .graph-grid {
+    background-color: transparent !important;
+}
+
+/* Step 2: Ultra-high specificity contribution day selectors */
+:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-0,
+:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-0,
+:root[data-theme="book"] .contribution-graph .contribution-day.level-0,
 :root[data-theme="book"] .contribution-day.level-0 {
     background-color: var(--contrib-level-0) !important;
-    border: 1px solid var(--contrib-border) !important;
+    background-color: #F5F1E8 !important; /* Direct fallback */
+    border: 1px solid rgba(139, 123, 115, 0.4) !important;
 }
 
+:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-1,
+:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-1,
+:root[data-theme="book"] .contribution-graph .contribution-day.level-1,
 :root[data-theme="book"] .contribution-day.level-1 {
     background-color: var(--contrib-level-1) !important;
-    border: 1px solid var(--contrib-border-active) !important;
+    background-color: #E8D5D8 !important; /* Direct fallback */
+    border: 1px solid rgba(139, 21, 56, 0.5) !important;
 }
 
+:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-2,
+:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-2,
+:root[data-theme="book"] .contribution-graph .contribution-day.level-2,
 :root[data-theme="book"] .contribution-day.level-2 {
     background-color: var(--contrib-level-2) !important;
-    border: 1px solid var(--contrib-border-active) !important;
+    background-color: #D4B8BE !important; /* Direct fallback */
+    border: 1px solid rgba(139, 21, 56, 0.5) !important;
 }
 
+:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-3,
+:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-3,
+:root[data-theme="book"] .contribution-graph .contribution-day.level-3,
 :root[data-theme="book"] .contribution-day.level-3 {
     background-color: var(--contrib-level-3) !important;
-    border: 1px solid var(--contrib-border-active) !important;
+    background-color: #B8949C !important; /* Direct fallback */
+    border: 1px solid rgba(139, 21, 56, 0.5) !important;
 }
 
+:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-4,
+:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-4,
+:root[data-theme="book"] .contribution-graph .contribution-day.level-4,
 :root[data-theme="book"] .contribution-day.level-4 {
     background-color: var(--contrib-level-4) !important;
-    border: 1px solid var(--contrib-level-4) !important;
+    background-color: #8B1538 !important; /* Direct fallback */
+    border: 1px solid #8B1538 !important;
 }
 
-/* Legend squares book theme fixes */
+/* Step 3: Legend squares with ultra-high specificity */
+:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-0,
+:root[data-theme="book"] body .contribution-legend .legend-level-0,
 :root[data-theme="book"] .legend-level-0 {
     background-color: var(--contrib-level-0) !important;
-    border: 1px solid var(--contrib-border) !important;
+    background-color: #F5F1E8 !important; /* Direct fallback */
+    border: 1px solid rgba(139, 123, 115, 0.4) !important;
 }
 
+:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-1,
+:root[data-theme="book"] body .contribution-legend .legend-level-1,
 :root[data-theme="book"] .legend-level-1 {
     background-color: var(--contrib-level-1) !important;
-    border: 1px solid var(--contrib-border-active) !important;
+    background-color: #E8D5D8 !important; /* Direct fallback */
+    border: 1px solid rgba(139, 21, 56, 0.5) !important;
 }
 
+:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-2,
+:root[data-theme="book"] body .contribution-legend .legend-level-2,
 :root[data-theme="book"] .legend-level-2 {
     background-color: var(--contrib-level-2) !important;
-    border: 1px solid var(--contrib-border-active) !important;
+    background-color: #D4B8BE !important; /* Direct fallback */
+    border: 1px solid rgba(139, 21, 56, 0.5) !important;
 }
 
+:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-3,
+:root[data-theme="book"] body .contribution-legend .legend-level-3,
 :root[data-theme="book"] .legend-level-3 {
     background-color: var(--contrib-level-3) !important;
-    border: 1px solid var(--contrib-border-active) !important;
+    background-color: #B8949C !important; /* Direct fallback */
+    border: 1px solid rgba(139, 21, 56, 0.5) !important;
 }
 
+:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-4,
+:root[data-theme="book"] body .contribution-legend .legend-level-4,
 :root[data-theme="book"] .legend-level-4 {
     background-color: var(--contrib-level-4) !important;
-    border: 1px solid var(--contrib-level-4) !important;
+    background-color: #8B1538 !important; /* Direct fallback */
+    border: 1px solid #8B1538 !important;
 }
+
+/* Step 4: Override inheritance behavior specifically for contribution elements */
+:root[data-theme="book"] .contribution-day,
+:root[data-theme="book"] .legend-square {
+    background-color: inherit; /* Reset inherit to default behavior */
+}
+
+/* Step 5: Force override the global inheritance rule for contribution graph area */
+:root[data-theme="book"] .contribution-graph-section *,
+:root[data-theme="book"] .contribution-graph-wrapper *,
+:root[data-theme="book"] .contribution-graph *,
+:root[data-theme="book"] .contribution-legend * {
+    background-color: unset !important; /* Remove forced inheritance */
+}
+
+/* Step 6: Re-apply specific colors after removing inheritance */
+:root[data-theme="book"] .contribution-day.level-0 { background-color: #F5F1E8 !important; }
+:root[data-theme="book"] .contribution-day.level-1 { background-color: #E8D5D8 !important; }
+:root[data-theme="book"] .contribution-day.level-2 { background-color: #D4B8BE !important; }
+:root[data-theme="book"] .contribution-day.level-3 { background-color: #B8949C !important; }
+:root[data-theme="book"] .contribution-day.level-4 { background-color: #8B1538 !important; }
+:root[data-theme="book"] .legend-level-0 { background-color: #F5F1E8 !important; }
+:root[data-theme="book"] .legend-level-1 { background-color: #E8D5D8 !important; }
+:root[data-theme="book"] .legend-level-2 { background-color: #D4B8BE !important; }
+:root[data-theme="book"] .legend-level-3 { background-color: #B8949C !important; }
+:root[data-theme="book"] .legend-level-4 { background-color: #8B1538 !important; }
