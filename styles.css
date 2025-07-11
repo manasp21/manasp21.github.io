@@ -67,6 +67,15 @@
     --border-radius: var(--radius-md);
     --border-radius-lg: var(--radius-lg);
     --transition: var(--transition-base);
+    
+    /* Contribution Graph Colors - Orange Based (Dark Theme) */
+    --contrib-level-0: var(--bg-content);
+    --contrib-level-1: rgba(234, 88, 12, 0.25);    /* Light orange - subtle activity */
+    --contrib-level-2: rgba(234, 88, 12, 0.45);    /* Medium orange - moderate activity */  
+    --contrib-level-3: rgba(234, 88, 12, 0.7);     /* Bright orange - high activity */
+    --contrib-level-4: var(--accent-orange);       /* Full orange - maximum activity */
+    --contrib-border: rgba(234, 88, 12, 0.2);      /* Subtle orange border */
+    --contrib-border-active: rgba(234, 88, 12, 0.4); /* More visible border for active states */
 }
 
 /* ====== BOOK LIGHT THEME ====== */
@@ -97,6 +106,15 @@
     --shadow-lg: 0 10px 15px rgba(45, 27, 22, 0.1), 0 4px 6px rgba(45, 27, 22, 0.05);
     --shadow-xl: 0 20px 25px rgba(45, 27, 22, 0.1), 0 10px 10px rgba(45, 27, 22, 0.04);
     --shadow-hover: 0 25px 50px rgba(45, 27, 22, 0.15), 0 10px 20px rgba(45, 27, 22, 0.1);
+    
+    /* Contribution Graph Colors - Warm Orange Based (Book Theme) */
+    --contrib-level-0: var(--bg-content);
+    --contrib-level-1: rgba(184, 84, 80, 0.15);    /* Light burnt orange - subtle activity */
+    --contrib-level-2: rgba(184, 84, 80, 0.35);    /* Medium burnt orange - moderate activity */
+    --contrib-level-3: rgba(184, 84, 80, 0.6);     /* Bright burnt orange - high activity */
+    --contrib-level-4: var(--accent-orange);       /* Full burnt orange - maximum activity */
+    --contrib-border: rgba(139, 123, 115, 0.3);    /* Muted brown border matching text-muted */
+    --contrib-border-active: rgba(184, 84, 80, 0.5); /* More visible orange border for active states */
     
     /* Legacy shadows for backward compatibility */
     --shadow-light: 0 2px 8px rgba(45, 27, 22, 0.08);
@@ -4117,56 +4135,30 @@ body.page-research .page-container {
     z-index: 10;
 }
 
-/* Dark Theme Contribution Colors */
+/* Contribution Day Colors - Orange Based Theme Integration */
 .contribution-day.level-0 {
-    background-color: #161b22;
-    border: 1px solid #21262d;
+    background-color: var(--contrib-level-0);
+    border: 1px solid var(--contrib-border);
 }
 
 .contribution-day.level-1 {
-    background-color: #0e4429;
-    border: 1px solid #0e4429;
+    background-color: var(--contrib-level-1);
+    border: 1px solid var(--contrib-border-active);
 }
 
 .contribution-day.level-2 {
-    background-color: #006d32;
-    border: 1px solid #006d32;
+    background-color: var(--contrib-level-2);
+    border: 1px solid var(--contrib-border-active);
 }
 
 .contribution-day.level-3 {
-    background-color: #26a641;
-    border: 1px solid #26a641;
+    background-color: var(--contrib-level-3);
+    border: 1px solid var(--contrib-border-active);
 }
 
 .contribution-day.level-4 {
-    background-color: #39d353;
-    border: 1px solid #39d353;
-}
-
-/* Book Theme Contribution Colors */
-:root[data-theme="book"] .contribution-day.level-0 {
-    background-color: #f0ebe5;
-    border: 1px solid #e0d5c7;
-}
-
-:root[data-theme="book"] .contribution-day.level-1 {
-    background-color: #d4c4a8;
-    border: 1px solid #d4c4a8;
-}
-
-:root[data-theme="book"] .contribution-day.level-2 {
-    background-color: #b8a082;
-    border: 1px solid #b8a082;
-}
-
-:root[data-theme="book"] .contribution-day.level-3 {
-    background-color: #9c7c5c;
-    border: 1px solid #9c7c5c;
-}
-
-:root[data-theme="book"] .contribution-day.level-4 {
-    background-color: #8b6f3b;
-    border: 1px solid #8b6f3b;
+    background-color: var(--contrib-level-4);
+    border: 1px solid var(--contrib-level-4);
 }
 
 .contribution-legend {
@@ -4197,55 +4189,30 @@ body.page-research .page-container {
     border-radius: 2px;
 }
 
+/* Legend Colors - Matching Contribution Day Colors */
 .legend-level-0 {
-    background-color: #161b22;
-    border: 1px solid #21262d;
+    background-color: var(--contrib-level-0);
+    border: 1px solid var(--contrib-border);
 }
 
 .legend-level-1 {
-    background-color: #0e4429;
-    border: 1px solid #0e4429;
+    background-color: var(--contrib-level-1);
+    border: 1px solid var(--contrib-border-active);
 }
 
 .legend-level-2 {
-    background-color: #006d32;
-    border: 1px solid #006d32;
+    background-color: var(--contrib-level-2);
+    border: 1px solid var(--contrib-border-active);
 }
 
 .legend-level-3 {
-    background-color: #26a641;
-    border: 1px solid #26a641;
+    background-color: var(--contrib-level-3);
+    border: 1px solid var(--contrib-border-active);
 }
 
 .legend-level-4 {
-    background-color: #39d353;
-    border: 1px solid #39d353;
-}
-
-/* Book Theme Legend Colors */
-:root[data-theme="book"] .legend-level-0 {
-    background-color: #f0ebe5;
-    border: 1px solid #e0d5c7;
-}
-
-:root[data-theme="book"] .legend-level-1 {
-    background-color: #d4c4a8;
-    border: 1px solid #d4c4a8;
-}
-
-:root[data-theme="book"] .legend-level-2 {
-    background-color: #b8a082;
-    border: 1px solid #b8a082;
-}
-
-:root[data-theme="book"] .legend-level-3 {
-    background-color: #9c7c5c;
-    border: 1px solid #9c7c5c;
-}
-
-:root[data-theme="book"] .legend-level-4 {
-    background-color: #8b6f3b;
-    border: 1px solid #8b6f3b;
+    background-color: var(--contrib-level-4);
+    border: 1px solid var(--contrib-level-4);
 }
 
 /* Tooltip */

@@ -135,6 +135,17 @@ These improvements are documented for future consideration when time allows for 
 - **Fixed Grid Generation**: Proper 53×7 grid with accurate date calculations and month label alignment
 - **Mobile Optimization**: Improved responsive design with better touch interactions and scrolling
 
+### Blog Contribution Graph Color Integration (July 2025)
+- **Orange Theme Integration**: Replaced GitHub green colors with blog's orange accent theme for perfect visual cohesion
+- **CSS Variable System**: Added comprehensive `--contrib-level-*` variables that automatically adapt to both dark and book themes
+- **Theme-Aware Colors**: 
+  - Dark theme: Orange progression using `--accent-orange` (#EA580C) with 25%, 45%, 70%, and 100% opacity levels
+  - Book theme: Burnt orange progression using `--accent-orange` (#B85450) with 15%, 35%, 60%, and 100% opacity levels
+- **Improved Visibility**: Fixed light theme visibility issues with proper contrast ratios and border colors
+- **Legend Synchronization**: Updated legend colors to exactly match contribution day colors using same CSS variables
+- **Accessibility Compliance**: Ensured proper contrast ratios for all activity levels on both light and dark backgrounds
+- **Seamless Integration**: Contribution graph now feels like an integral part of the blog page design rather than a separate component
+
 ### Web Development Best Practices
 - Do not edit on page websites directly
 
