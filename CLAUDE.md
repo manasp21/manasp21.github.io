@@ -151,6 +151,15 @@ These improvements are documented for future consideration when time allows for 
 - **Auto-Update Verification**: Confirmed Jekyll integration automatically updates graph when new blog posts are added
 - **Perfect Visibility**: Contribution graph now works flawlessly in both themes with clear activity level distinction
 
+### Blog Contribution Graph Critical Book Theme Fix (July 2025)
+- **Critical Bug Resolution**: Fixed complete invisibility of contribution graph in book (light) theme caused by aggressive CSS overrides
+- **Root Cause**: Book theme's overly broad `!important` declarations were forcing all div elements to inherit main background color
+- **Technical Solution**: Added specific book theme CSS overrides for contribution graph elements using `!important` declarations
+- **Override Hierarchy**: Placed contribution graph fixes at end of CSS file to ensure highest specificity and override priority
+- **Comprehensive Coverage**: Fixed both contribution day squares and legend squares for complete functionality
+- **Production Ready**: Contribution graph now displays correctly in both dark and book themes with proper color progression
+- **Maintainability**: Isolated fix prevents future theme conflicts while preserving existing book theme functionality
+
 ### Web Development Best Practices
 - Do not edit on page websites directly
 

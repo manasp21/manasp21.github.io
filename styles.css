@@ -4323,3 +4323,56 @@ body.page-research .page-container {
         border-width: 2px;
     }
 }
+
+/* ====== BOOK THEME CONTRIBUTION GRAPH FIXES ====== */
+/* Override aggressive book theme rules with !important */
+:root[data-theme="book"] .contribution-day.level-0 {
+    background-color: var(--contrib-level-0) !important;
+    border: 1px solid var(--contrib-border) !important;
+}
+
+:root[data-theme="book"] .contribution-day.level-1 {
+    background-color: var(--contrib-level-1) !important;
+    border: 1px solid var(--contrib-border-active) !important;
+}
+
+:root[data-theme="book"] .contribution-day.level-2 {
+    background-color: var(--contrib-level-2) !important;
+    border: 1px solid var(--contrib-border-active) !important;
+}
+
+:root[data-theme="book"] .contribution-day.level-3 {
+    background-color: var(--contrib-level-3) !important;
+    border: 1px solid var(--contrib-border-active) !important;
+}
+
+:root[data-theme="book"] .contribution-day.level-4 {
+    background-color: var(--contrib-level-4) !important;
+    border: 1px solid var(--contrib-level-4) !important;
+}
+
+/* Legend squares book theme fixes */
+:root[data-theme="book"] .legend-level-0 {
+    background-color: var(--contrib-level-0) !important;
+    border: 1px solid var(--contrib-border) !important;
+}
+
+:root[data-theme="book"] .legend-level-1 {
+    background-color: var(--contrib-level-1) !important;
+    border: 1px solid var(--contrib-border-active) !important;
+}
+
+:root[data-theme="book"] .legend-level-2 {
+    background-color: var(--contrib-level-2) !important;
+    border: 1px solid var(--contrib-border-active) !important;
+}
+
+:root[data-theme="book"] .legend-level-3 {
+    background-color: var(--contrib-level-3) !important;
+    border: 1px solid var(--contrib-border-active) !important;
+}
+
+:root[data-theme="book"] .legend-level-4 {
+    background-color: var(--contrib-level-4) !important;
+    border: 1px solid var(--contrib-level-4) !important;
+}
