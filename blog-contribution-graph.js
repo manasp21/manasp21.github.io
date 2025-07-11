@@ -14,8 +14,7 @@ class BlogContributionGraph {
     init() {
         this.loadPostData();
         this.calculatePostCounts();
-        this.generateGrid();
-        this.generateMonthLabels();
+        this.generateGraph();
     }
 
     loadPostData() {
@@ -43,10 +42,11 @@ class BlogContributionGraph {
         });
     }
 
-    generateGrid() {
-        const grid = document.getElementById('contribution-grid');
-        if (!grid) return;
+    generateGraph() {
+        const container = document.getElementById('contribution-graph');
+        if (!container) return;
 
+        // Calculate date range (365 days ending today)
         const today = new Date();
         const startDate = new Date(today);
         startDate.setDate(today.getDate() - 364); // 365 days including today
@@ -57,6 +57,107 @@ class BlogContributionGraph {
             startDate.setDate(startDate.getDate() - startDay);
         }
 
+        // Clear container
+        container.innerHTML = '';
+
+        // Create graph structure
+        const graphContainer = document.createElement('div');
+        graphContainer.className = 'graph-container';
+
+        // Generate month labels
+        const monthsContainer = this.createMonthLabels(startDate);
+        graphContainer.appendChild(monthsContainer);
+
+        // Create graph content (weekday labels + grid)
+        const graphContent = document.createElement('div');
+        graphContent.className = 'graph-content';
+
+        // Create weekday labels
+        const weekdayLabels = this.createWeekdayLabels();
+        graphContent.appendChild(weekdayLabels);
+
+        // Create grid
+        const grid = this.createGrid(startDate, today);
+        graphContent.appendChild(grid);
+
+        graphContainer.appendChild(graphContent);
+        container.appendChild(graphContainer);
+    }
+
+    createMonthLabels(startDate) {
+        const monthsContainer = document.createElement('div');
+        monthsContainer.className = 'graph-months';
+
+        // Calculate which months are visible in the 53-week grid
+        const visibleMonths = [];
+        const currentDate = new Date(startDate);
+        
+        // Track months as we go through the weeks
+        const monthCounts = {};
+        
+        for (let week = 0; week < 53; week++) {
+            const weekStart = new Date(currentDate);
+            weekStart.setDate(currentDate.getDate() + (week * 7));
+            
+            const month = weekStart.getMonth();
+            const year = weekStart.getFullYear();
+            const monthKey = `${year}-${month}`;
+            
+            if (!monthCounts[monthKey]) {
+                monthCounts[monthKey] = 0;
+            }
+            monthCounts[monthKey]++;
+        }
+
+        // Generate labels for months with significant presence (at least 2 weeks)
+        let lastMonthAdded = -1;
+        for (let week = 0; week < 53; week++) {
+            const weekStart = new Date(currentDate);
+            weekStart.setDate(currentDate.getDate() + (week * 7));
+            
+            const month = weekStart.getMonth();
+            const year = weekStart.getFullYear();
+            const monthKey = `${year}-${month}`;
+            
+            // Add month label if it's a new month and has significant presence
+            if (month !== lastMonthAdded && monthCounts[monthKey] >= 2) {
+                const monthLabel = document.createElement('div');
+                monthLabel.className = 'month-label';
+                monthLabel.textContent = this.monthNames[month];
+                monthsContainer.appendChild(monthLabel);
+                lastMonthAdded = month;
+            } else if (month !== lastMonthAdded) {
+                // Add empty space for months with less presence
+                const monthLabel = document.createElement('div');
+                monthLabel.className = 'month-label';
+                monthLabel.textContent = '';
+                monthsContainer.appendChild(monthLabel);
+                lastMonthAdded = month;
+            }
+        }
+
+        return monthsContainer;
+    }
+
+    createWeekdayLabels() {
+        const weekdayLabels = document.createElement('div');
+        weekdayLabels.className = 'weekday-labels';
+
+        const labels = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
+        labels.forEach(label => {
+            const labelElement = document.createElement('div');
+            labelElement.className = 'weekday-label';
+            labelElement.textContent = label;
+            weekdayLabels.appendChild(labelElement);
+        });
+
+        return weekdayLabels;
+    }
+
+    createGrid(startDate, today) {
+        const grid = document.createElement('div');
+        grid.className = 'graph-grid';
+
         // Generate 53 weeks of days
         for (let week = 0; week < 53; week++) {
             for (let day = 0; day < 7; day++) {
@@ -64,12 +165,21 @@ class BlogContributionGraph {
                 currentDate.setDate(startDate.getDate() + (week * 7) + day);
                 
                 // Skip if date is in the future
-                if (currentDate > today) continue;
+                if (currentDate > today) {
+                    // Add empty cell to maintain grid structure
+                    const emptyDay = document.createElement('div');
+                    emptyDay.className = 'contribution-day level-0';
+                    emptyDay.style.visibility = 'hidden';
+                    grid.appendChild(emptyDay);
+                    continue;
+                }
 
                 const dayElement = this.createDayElement(currentDate);
                 grid.appendChild(dayElement);
             }
         }
+
+        return grid;
     }
 
     createDayElement(date) {
@@ -147,44 +257,6 @@ class BlogContributionGraph {
         }
     }
 
-    generateMonthLabels() {
-        const monthsContainer = document.querySelector('.graph-months');
-        if (!monthsContainer) return;
-
-        const today = new Date();
-        const labels = [];
-        
-        // Generate labels for the last 12 months
-        for (let i = 11; i >= 0; i--) {
-            const date = new Date(today);
-            date.setMonth(today.getMonth() - i);
-            labels.push({
-                month: this.monthNames[date.getMonth()],
-                width: this.calculateMonthWidth(date)
-            });
-        }
-
-        // Clear existing labels
-        monthsContainer.innerHTML = '';
-
-        // Add month labels
-        labels.forEach(label => {
-            const monthElement = document.createElement('div');
-            monthElement.className = 'month-label';
-            monthElement.textContent = label.month;
-            monthElement.style.width = label.width + 'px';
-            monthsContainer.appendChild(monthElement);
-        });
-    }
-
-    calculateMonthWidth(date) {
-        // Calculate approximate width based on weeks in view
-        // This is a simplified calculation - could be more precise
-        const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-        const weeksInMonth = Math.ceil(daysInMonth / 7);
-        return weeksInMonth * 14; // 12px day + 2px gap approximation
-    }
-
     handleDayClick(date, postCount) {
         // Find posts for this date
         const dateString = this.formatDate(date);
@@ -208,12 +280,8 @@ class BlogContributionGraph {
 
     // Public method to refresh the graph (useful for dynamic updates)
     refresh() {
-        const grid = document.getElementById('contribution-grid');
-        const monthsContainer = document.querySelector('.graph-months');
-        
-        if (grid) grid.innerHTML = '';
-        if (monthsContainer) monthsContainer.innerHTML = '';
-        
+        const container = document.getElementById('contribution-graph');
+        if (container) container.innerHTML = '';
         this.init();
     }
 }
