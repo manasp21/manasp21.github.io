@@ -112,6 +112,19 @@ These improvements are documented for future consideration when time allows for 
 - **Photography Gallery**: Upgraded photo grid with enhanced hover effects, improved lightbox interactions, and consistent rounded corners
 - **Interactive Elements**: Enhanced skill tags, filter buttons, project links, and navigation elements with improved feedback and visual polish
 
+### Blog Contribution Graph Implementation (July 2025)
+- **GitHub-Style Activity Visualization**: Added comprehensive contribution graph showing daily blog writing activity over the last 365 days
+- **Multi-Level Contribution Display**: Implemented 5-level intensity system (0-4+ posts per day) with distinct colors for both dark and book themes
+- **Interactive Features**: Added hover tooltips, click navigation to posts, and accessibility support with proper ARIA labels
+- **Theme Integration**: Seamlessly integrated with existing dark/book theme system using appropriate color schemes
+  - Dark theme: Green gradient from gray (#161b22) to vivid green (#39d353)
+  - Book theme: Brown gradient from light paper (#f0ebe5) to rich brown (#8b6f3b)
+- **Mobile Responsive**: Optimized for mobile devices with horizontal scrolling and touch-friendly interactions
+- **Performance Optimized**: Efficient JavaScript handling 365+ DOM elements with minimal performance impact
+- **Jekyll Integration**: Dynamic data generation from Jekyll posts with proper JSON formatting
+- **Statistics Display**: Shows total posts in the last year with potential for additional metrics
+- **Professional Design**: Matches GitHub's contribution graph aesthetic with consistent spacing and typography
+
 ### Web Development Best Practices
 - Do not edit on page websites directly
 
@@ -172,6 +185,7 @@ python onesite_manager.py scan|update|generate
 - **Theme Testing**: Test both dark and book themes across all main pages
 - **Mobile Testing**: Verify mobile navigation and responsive design
 - **Performance Testing**: Check Core Web Vitals and image optimization
+- **Blog Contribution Graph**: Automatically updates with new blog posts, showing activity visualization
 
 ## Content Management Strategy
 

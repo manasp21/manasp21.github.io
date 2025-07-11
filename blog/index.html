@@ -13,6 +13,43 @@ description: "Thoughts on science, sound, and syntax - A digital laboratory note
 </div>
 
 {% if site.posts.size > 0 %}
+    <!-- Blog Contribution Graph -->
+    <section class="contribution-graph-section">
+        <h2 class="section-title">Writing Activity</h2>
+        <div class="contribution-summary">
+            <div class="contribution-stats">
+                <span class="stat-item">
+                    <span class="stat-number">{{ site.posts.size }}</span>
+                    <span class="stat-label">posts in the last year</span>
+                </span>
+            </div>
+        </div>
+        <div class="contribution-graph-container">
+            <div class="contribution-graph">
+                <div class="graph-months"></div>
+                <div class="graph-days">
+                    <div class="graph-weekdays">
+                        <span class="weekday-label">Mon</span>
+                        <span class="weekday-label">Wed</span>
+                        <span class="weekday-label">Fri</span>
+                    </div>
+                    <div class="graph-grid" id="contribution-grid"></div>
+                </div>
+            </div>
+            <div class="contribution-legend">
+                <span class="legend-text">Less</span>
+                <div class="legend-colors">
+                    <div class="legend-square legend-level-0"></div>
+                    <div class="legend-square legend-level-1"></div>
+                    <div class="legend-square legend-level-2"></div>
+                    <div class="legend-square legend-level-3"></div>
+                    <div class="legend-square legend-level-4"></div>
+                </div>
+                <span class="legend-text">More</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Browse by Category -->
     <section class="category-navigation">
         <h2 class="section-title">Browse by Category</h2>
@@ -64,6 +101,24 @@ description: "Thoughts on science, sound, and syntax - A digital laboratory note
             </div>
         {% endfor %}
     </section>
+
+    <!-- Blog Post Data for Contribution Graph -->
+    <script id="blog-post-data" type="application/json">
+    {
+        "posts": [
+            {% for post in site.posts %}
+            {
+                "date": "{{ post.date | date: '%Y-%m-%d' }}",
+                "title": "{{ post.title | escape }}",
+                "url": "{{ post.url | relative_url }}"
+            }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+        ]
+    }
+    </script>
+
+    <!-- Load Contribution Graph Script -->
+    <script src="{{ '/blog-contribution-graph.js' | relative_url }}"></script>
 
 
 {% else %}

@@ -4012,3 +4012,342 @@ body.page-research .page-container {
         transition: none;
     }
 }
+
+/* ====== BLOG CONTRIBUTION GRAPH ====== */
+
+.contribution-graph-section {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.contribution-summary {
+    margin-bottom: var(--spacing-lg);
+}
+
+.contribution-stats {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-xs);
+}
+
+.stat-number {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-family-heading);
+}
+
+.stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+}
+
+.contribution-graph-container {
+    background: var(--bg-content);
+    border: 1px solid var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.contribution-graph {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.graph-months {
+    display: flex;
+    padding-left: 30px; /* Space for weekday labels */
+    margin-bottom: var(--spacing-xs);
+}
+
+.month-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    text-align: center;
+    font-weight: 500;
+}
+
+.graph-days {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.graph-weekdays {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    width: 24px;
+}
+
+.weekday-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    height: 12px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    padding-right: var(--spacing-xs);
+}
+
+.graph-grid {
+    display: grid;
+    grid-template-columns: repeat(53, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    gap: 1px;
+    grid-auto-flow: column;
+}
+
+.contribution-day {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    position: relative;
+}
+
+.contribution-day:hover {
+    transform: scale(1.1);
+    border-radius: 3px;
+}
+
+/* Dark Theme Contribution Colors */
+.contribution-day.level-0 {
+    background-color: #161b22;
+    border: 1px solid #21262d;
+}
+
+.contribution-day.level-1 {
+    background-color: #0e4429;
+    border: 1px solid #0e4429;
+}
+
+.contribution-day.level-2 {
+    background-color: #006d32;
+    border: 1px solid #006d32;
+}
+
+.contribution-day.level-3 {
+    background-color: #26a641;
+    border: 1px solid #26a641;
+}
+
+.contribution-day.level-4 {
+    background-color: #39d353;
+    border: 1px solid #39d353;
+}
+
+/* Book Theme Contribution Colors */
+:root[data-theme="book"] .contribution-day.level-0 {
+    background-color: #f0ebe5;
+    border: 1px solid #e0d5c7;
+}
+
+:root[data-theme="book"] .contribution-day.level-1 {
+    background-color: #d4c4a8;
+    border: 1px solid #d4c4a8;
+}
+
+:root[data-theme="book"] .contribution-day.level-2 {
+    background-color: #b8a082;
+    border: 1px solid #b8a082;
+}
+
+:root[data-theme="book"] .contribution-day.level-3 {
+    background-color: #9c7c5c;
+    border: 1px solid #9c7c5c;
+}
+
+:root[data-theme="book"] .contribution-day.level-4 {
+    background-color: #8b6f3b;
+    border: 1px solid #8b6f3b;
+}
+
+.contribution-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--bg-secondary);
+}
+
+.legend-text {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.legend-colors {
+    display: flex;
+    gap: 1px;
+}
+
+.legend-square {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+.legend-level-0 {
+    background-color: #161b22;
+    border: 1px solid #21262d;
+}
+
+.legend-level-1 {
+    background-color: #0e4429;
+    border: 1px solid #0e4429;
+}
+
+.legend-level-2 {
+    background-color: #006d32;
+    border: 1px solid #006d32;
+}
+
+.legend-level-3 {
+    background-color: #26a641;
+    border: 1px solid #26a641;
+}
+
+.legend-level-4 {
+    background-color: #39d353;
+    border: 1px solid #39d353;
+}
+
+/* Book Theme Legend Colors */
+:root[data-theme="book"] .legend-level-0 {
+    background-color: #f0ebe5;
+    border: 1px solid #e0d5c7;
+}
+
+:root[data-theme="book"] .legend-level-1 {
+    background-color: #d4c4a8;
+    border: 1px solid #d4c4a8;
+}
+
+:root[data-theme="book"] .legend-level-2 {
+    background-color: #b8a082;
+    border: 1px solid #b8a082;
+}
+
+:root[data-theme="book"] .legend-level-3 {
+    background-color: #9c7c5c;
+    border: 1px solid #9c7c5c;
+}
+
+:root[data-theme="book"] .legend-level-4 {
+    background-color: #8b6f3b;
+    border: 1px solid #8b6f3b;
+}
+
+/* Tooltip */
+.contribution-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    white-space: nowrap;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--bg-secondary);
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    margin-bottom: var(--spacing-xs);
+}
+
+.contribution-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--bg-primary);
+}
+
+.contribution-day:hover .contribution-tooltip {
+    opacity: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .contribution-graph-container {
+        padding: var(--spacing-sm);
+        overflow-x: auto;
+    }
+    
+    .contribution-graph {
+        min-width: 600px;
+    }
+    
+    .contribution-stats {
+        justify-content: center;
+    }
+    
+    .stat-number {
+        font-size: var(--font-size-lg);
+    }
+    
+    .contribution-day {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .legend-square {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contribution-graph-container {
+        margin: 0 calc(-1 * var(--spacing-sm));
+    }
+    
+    .weekday-label {
+        font-size: 10px;
+    }
+    
+    .month-label {
+        font-size: 10px;
+    }
+    
+    .legend-text {
+        font-size: 10px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .contribution-day {
+        transition: none;
+    }
+    
+    .contribution-tooltip {
+        transition: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .contribution-day {
+        border-width: 2px;
+    }
+    
+    .legend-square {
+        border-width: 2px;
+    }
+}
