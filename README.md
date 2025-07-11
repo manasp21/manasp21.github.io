@@ -63,8 +63,7 @@ manasp21.github.io/
 │   ├── linkedin_manager.py     # LinkedIn profile integration
 │   ├── scholar_manager.py      # Google Scholar publications manager with DOI support
 │   ├── update_research.sh      # Automated research update script
-│   ├── mobile-nav.js           # Mobile navigation controller
-│   └── photo_manager_plan.md   # Photo management documentation
+│   └── mobile-nav.js           # Mobile navigation controller
 │
 ├── 🌐 One-Page Websites
 │   └── one_page_websites/

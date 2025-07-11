@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Manas Pandey Portfolio Website
 
 ## Overview
@@ -33,6 +37,13 @@ A sophisticated, multi-page portfolio website for Manas Pandey, Undergraduate at
 - **Assets**: Added favicon.ico, created og-image.jpg placeholder with detailed specifications
 - **Projects Enhancement**: Switched from README descriptions to clean GitHub repository descriptions for better presentation
 - **Documentation**: Updated README.md and CLAUDE.md with latest optimization results and current status
+- **Repository Decluttering (July 2025)**: Removed unnecessary files and directories for cleaner codebase
+  - Removed node_modules/ directory (major space reduction)
+  - Removed empty directories (config/, managers/, utils/, gui/)
+  - Removed planning documentation files (plan.md, photo_manager_usage.md, assets/OG_IMAGE_PLACEHOLDER.md)
+  - Removed optional README files in subdirectories
+  - Fixed broken reference in README.md to non-existent photo_manager_plan.md
+  - Maintained all functional code and essential documentation
 
 ### Consistency Improvements (July 2025)
 - **Meta Tags Standardization**: Added missing publisher and revisit-after tags to about.html for complete SEO consistency across all pages
@@ -104,9 +115,124 @@ These improvements are documented for future consideration when time allows for 
 ### Web Development Best Practices
 - Do not edit on page websites directly
 
+## Architecture Overview
+
+### Jekyll-Powered Portfolio with Hybrid Architecture
+This project combines static HTML/CSS/JS with Jekyll for blog functionality and Python automation for content management. The architecture supports both technical content (research, projects) and creative content (photography, blog) with professional-grade management systems.
+
+### Key Components
+1. **Main Portfolio Pages**: 6 core pages (index, about, research, projects, photography, blog) with unified design system
+2. **One-Page Websites**: 8 specialized standalone pages using TailwindCSS for independent projects
+3. **Content Management**: 6 Python scripts for automated content updates and validation
+4. **Jekyll Blog System**: Complete blog functionality with category pages and post management
+
+### CSS Architecture
+- **Unified Design System**: CSS custom properties for consistent spacing, typography, and colors
+- **Dual Theme Support**: Dark theme (primary) and book theme with automatic switching
+- **Professional Typography**: Montserrat (headings), Lato (body), Crimson Text (serif)
+- **Modern Animation System**: Performance-optimized transitions and micro-interactions
+
+## Development Commands
+
+### Jekyll Development
+```bash
+# Local development server
+bundle exec jekyll serve
+
+# Alternative static server
+python -m http.server 8000
+
+# Dependencies installation
+gem install jekyll bundler
+bundle install
+```
+
+### Content Management Scripts
+```bash
+# Blog management
+python blog_manager.py add|list|edit|remove|validate
+
+# Project showcase updates
+python project_manager.py add|list|update|generate
+
+# Research publications (Google Scholar)
+python scholar_manager.py update|generate|list
+bash update_research.sh
+
+# Photography gallery
+python photo_manager.py edit|list|validate|rename
+
+# One-page websites scanning
+python onesite_manager.py scan|update|generate
+```
+
+### Common Development Tasks
+- **Local Testing**: Use Jekyll serve for full functionality or Python server for static testing
+- **Content Updates**: Use Python managers for automated content updates with validation
+- **Theme Testing**: Test both dark and book themes across all main pages
+- **Mobile Testing**: Verify mobile navigation and responsive design
+- **Performance Testing**: Check Core Web Vitals and image optimization
+
+## Content Management Strategy
+
+### File-Based Content with JSON Metadata
+- **Blog Posts**: Jekyll markdown with YAML frontmatter
+- **Photography**: Image files with metadata.json for gallery information
+- **Projects**: GitHub API integration with local caching
+- **Research**: Google Scholar integration with automated updates
+
+### Automation Features
+- **24-hour caching** for external API calls
+- **Automatic backups** for all content modifications
+- **Validation systems** for YAML frontmatter and metadata
+- **Rollback capabilities** for safe content management
+
+### Content Validation
+All content management scripts include validation for:
+- YAML frontmatter syntax
+- Image file existence and metadata
+- External API data integrity
+- Backup creation before modifications
+
 ## Design Philosophy
 
 ### Core Theme
 Professional dark theme portfolio emphasizing content readability and sophisticated user experience. Clean, modern aesthetic with enhanced typography and smooth animations that showcase technical expertise while maintaining personal warmth.
 
-[Rest of the existing content remains unchanged]
+### Performance Optimization
+- **Lazy loading** for images and content
+- **Optimized animations** using CSS transforms
+- **Minified assets** and clean CSS architecture
+- **Mobile-first responsive design**
+
+### SEO Excellence
+- **Comprehensive meta tags** across all pages
+- **Structured data** with JSON-LD for key pages
+- **Sitemap generation** for search engines
+- **Social media optimization** with proper Open Graph tags
+
+## Special Considerations
+
+### Deployment Strategy
+- **GitHub Pages hosting** with automatic deployment
+- **Jekyll integration** for blog functionality
+- **No build process required** - files served directly
+- **Version control** for all content changes
+
+### Mobile Optimization
+- **Professional mobile navigation** with hamburger menu
+- **Touch-optimized interactions** with proper touch targets
+- **Responsive images** with lazy loading
+- **Performance considerations** for mobile devices
+
+### Security and Maintenance
+- **Automatic backups** for all content modifications
+- **Git-based version control** for change tracking
+- **Validation systems** to prevent content corruption
+- **Clean separation** between static and dynamic content
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
