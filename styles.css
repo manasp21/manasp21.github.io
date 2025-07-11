@@ -107,14 +107,14 @@
     --shadow-xl: 0 20px 25px rgba(45, 27, 22, 0.1), 0 10px 10px rgba(45, 27, 22, 0.04);
     --shadow-hover: 0 25px 50px rgba(45, 27, 22, 0.15), 0 10px 20px rgba(45, 27, 22, 0.1);
     
-    /* Contribution Graph Colors - Burgundy Based (Book Theme) */
-    --contrib-level-0: var(--bg-content);
-    --contrib-level-1: rgba(139, 21, 56, 0.25);    /* Light burgundy - more visible on light background */
-    --contrib-level-2: rgba(139, 21, 56, 0.45);    /* Medium burgundy - moderate activity */
-    --contrib-level-3: rgba(139, 21, 56, 0.7);     /* Bright burgundy - high activity */
-    --contrib-level-4: var(--accent-red);          /* Full burgundy - maximum activity */
-    --contrib-border: rgba(139, 21, 56, 0.15);     /* Subtle burgundy border */
-    --contrib-border-active: rgba(139, 21, 56, 0.3); /* More visible burgundy border for active states */
+    /* Contribution Graph Colors - High Contrast Burgundy (Book Theme) */
+    --contrib-level-0: #F5F1E8;                    /* Soft beige - clearly visible on light background */
+    --contrib-level-1: #E8D5D8;                    /* Light rose-beige - subtle activity */
+    --contrib-level-2: #D4B8BE;                    /* Medium rose-brown - moderate activity */
+    --contrib-level-3: #B8949C;                    /* Darker rose-brown - high activity */
+    --contrib-level-4: var(--accent-red);          /* Deep burgundy #8B1538 - maximum activity */
+    --contrib-border: rgba(139, 123, 115, 0.4);    /* More visible muted brown border */
+    --contrib-border-active: rgba(139, 21, 56, 0.5); /* Burgundy border for active states */
     
     /* Legacy shadows for backward compatibility */
     --shadow-light: 0 2px 8px rgba(45, 27, 22, 0.08);

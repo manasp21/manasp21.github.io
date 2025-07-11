@@ -140,13 +140,16 @@ These improvements are documented for future consideration when time allows for 
 - **CSS Variable System**: Added comprehensive `--contrib-level-*` variables that automatically adapt to both dark and book themes
 - **Theme-Aware Colors**: 
   - Dark theme: Red progression using `--accent-red` (#DC2626) with 20%, 40%, 70%, and 100% opacity levels
-  - Book theme: Burgundy progression using `--accent-red` (#8B1538) with 25%, 45%, 70%, and 100% opacity levels
-- **Enhanced Visibility**: Fixed light theme visibility with higher contrast burgundy colors (increased from 15%/35%/60% to 25%/45%/70%)
-- **Subtle Borders**: Reduced border visibility with lower opacity (dark: 0.1/0.2, book: 0.15/0.3) for cleaner appearance
+  - Book theme: High-contrast solid colors from beige (#F5F1E8) to deep burgundy (#8B1538) for maximum visibility
+- **Light Theme Visibility Fix**: Completely resolved invisibility issues with solid color progression instead of transparent rgba
+  - Level-0: Soft beige (#F5F1E8) - clearly distinguishable from white background
+  - Level 1-3: Progressive rose-brown colors (#E8D5D8 → #D4B8BE → #B8949C) with clear visual distinction
+  - Level-4: Deep burgundy (#8B1538) for maximum activity contrast
+- **Enhanced Borders**: Improved border visibility (0.4/0.5 opacity) for clear grid structure without overwhelming content
 - **Legend Synchronization**: Updated legend colors to exactly match contribution day colors using same CSS variables
 - **Accessibility Compliance**: Ensured proper contrast ratios for all activity levels on both light and dark backgrounds
 - **Auto-Update Verification**: Confirmed Jekyll integration automatically updates graph when new blog posts are added
-- **Seamless Integration**: Contribution graph now perfectly matches blog's red accent theme and feels native to the design
+- **Perfect Visibility**: Contribution graph now works flawlessly in both themes with clear activity level distinction
 
 ### Web Development Best Practices
 - Do not edit on page websites directly
