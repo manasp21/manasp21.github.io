@@ -136,15 +136,17 @@ These improvements are documented for future consideration when time allows for 
 - **Mobile Optimization**: Improved responsive design with better touch interactions and scrolling
 
 ### Blog Contribution Graph Color Integration (July 2025)
-- **Orange Theme Integration**: Replaced GitHub green colors with blog's orange accent theme for perfect visual cohesion
+- **Red Theme Integration**: Corrected from orange to red colors matching blog's actual accent theme (`--accent-red`) for perfect visual cohesion
 - **CSS Variable System**: Added comprehensive `--contrib-level-*` variables that automatically adapt to both dark and book themes
 - **Theme-Aware Colors**: 
-  - Dark theme: Orange progression using `--accent-orange` (#EA580C) with 25%, 45%, 70%, and 100% opacity levels
-  - Book theme: Burnt orange progression using `--accent-orange` (#B85450) with 15%, 35%, 60%, and 100% opacity levels
-- **Improved Visibility**: Fixed light theme visibility issues with proper contrast ratios and border colors
+  - Dark theme: Red progression using `--accent-red` (#DC2626) with 20%, 40%, 70%, and 100% opacity levels
+  - Book theme: Burgundy progression using `--accent-red` (#8B1538) with 25%, 45%, 70%, and 100% opacity levels
+- **Enhanced Visibility**: Fixed light theme visibility with higher contrast burgundy colors (increased from 15%/35%/60% to 25%/45%/70%)
+- **Subtle Borders**: Reduced border visibility with lower opacity (dark: 0.1/0.2, book: 0.15/0.3) for cleaner appearance
 - **Legend Synchronization**: Updated legend colors to exactly match contribution day colors using same CSS variables
 - **Accessibility Compliance**: Ensured proper contrast ratios for all activity levels on both light and dark backgrounds
-- **Seamless Integration**: Contribution graph now feels like an integral part of the blog page design rather than a separate component
+- **Auto-Update Verification**: Confirmed Jekyll integration automatically updates graph when new blog posts are added
+- **Seamless Integration**: Contribution graph now perfectly matches blog's red accent theme and feels native to the design
 
 ### Web Development Best Practices
 - Do not edit on page websites directly

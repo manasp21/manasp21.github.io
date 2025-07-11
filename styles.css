@@ -68,14 +68,14 @@
     --border-radius-lg: var(--radius-lg);
     --transition: var(--transition-base);
     
-    /* Contribution Graph Colors - Orange Based (Dark Theme) */
+    /* Contribution Graph Colors - Red Based (Dark Theme) */
     --contrib-level-0: var(--bg-content);
-    --contrib-level-1: rgba(234, 88, 12, 0.25);    /* Light orange - subtle activity */
-    --contrib-level-2: rgba(234, 88, 12, 0.45);    /* Medium orange - moderate activity */  
-    --contrib-level-3: rgba(234, 88, 12, 0.7);     /* Bright orange - high activity */
-    --contrib-level-4: var(--accent-orange);       /* Full orange - maximum activity */
-    --contrib-border: rgba(234, 88, 12, 0.2);      /* Subtle orange border */
-    --contrib-border-active: rgba(234, 88, 12, 0.4); /* More visible border for active states */
+    --contrib-level-1: rgba(220, 38, 38, 0.2);     /* Light red - subtle activity */
+    --contrib-level-2: rgba(220, 38, 38, 0.4);     /* Medium red - moderate activity */  
+    --contrib-level-3: rgba(220, 38, 38, 0.7);     /* Bright red - high activity */
+    --contrib-level-4: var(--accent-red);          /* Full red - maximum activity */
+    --contrib-border: rgba(220, 38, 38, 0.1);      /* Very subtle red border */
+    --contrib-border-active: rgba(220, 38, 38, 0.2); /* Slightly more visible border for active states */
 }
 
 /* ====== BOOK LIGHT THEME ====== */
@@ -107,14 +107,14 @@
     --shadow-xl: 0 20px 25px rgba(45, 27, 22, 0.1), 0 10px 10px rgba(45, 27, 22, 0.04);
     --shadow-hover: 0 25px 50px rgba(45, 27, 22, 0.15), 0 10px 20px rgba(45, 27, 22, 0.1);
     
-    /* Contribution Graph Colors - Warm Orange Based (Book Theme) */
+    /* Contribution Graph Colors - Burgundy Based (Book Theme) */
     --contrib-level-0: var(--bg-content);
-    --contrib-level-1: rgba(184, 84, 80, 0.15);    /* Light burnt orange - subtle activity */
-    --contrib-level-2: rgba(184, 84, 80, 0.35);    /* Medium burnt orange - moderate activity */
-    --contrib-level-3: rgba(184, 84, 80, 0.6);     /* Bright burnt orange - high activity */
-    --contrib-level-4: var(--accent-orange);       /* Full burnt orange - maximum activity */
-    --contrib-border: rgba(139, 123, 115, 0.3);    /* Muted brown border matching text-muted */
-    --contrib-border-active: rgba(184, 84, 80, 0.5); /* More visible orange border for active states */
+    --contrib-level-1: rgba(139, 21, 56, 0.25);    /* Light burgundy - more visible on light background */
+    --contrib-level-2: rgba(139, 21, 56, 0.45);    /* Medium burgundy - moderate activity */
+    --contrib-level-3: rgba(139, 21, 56, 0.7);     /* Bright burgundy - high activity */
+    --contrib-level-4: var(--accent-red);          /* Full burgundy - maximum activity */
+    --contrib-border: rgba(139, 21, 56, 0.15);     /* Subtle burgundy border */
+    --contrib-border-active: rgba(139, 21, 56, 0.3); /* More visible burgundy border for active states */
     
     /* Legacy shadows for backward compatibility */
     --shadow-light: 0 2px 8px rgba(45, 27, 22, 0.08);
