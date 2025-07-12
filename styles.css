@@ -4649,3 +4649,72 @@ body.page-research .page-container {
 :root[data-theme="book"] .legend-level-2 { background-color: #D4B8BE !important; }
 :root[data-theme="book"] .legend-level-3 { background-color: #B8949C !important; }
 :root[data-theme="book"] .legend-level-4 { background-color: #8B1538 !important; }
+
+/* ====== SITE FOOTER ====== */
+
+.site-footer {
+    margin-top: var(--spacing-2xl);
+    padding: var(--spacing-lg) 0;
+    border-top: 1px solid var(--bg-secondary);
+    background: var(--bg-primary);
+    text-align: center;
+}
+
+.footer-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    font-family: var(--font-family-primary);
+}
+
+.footer-content a {
+    color: var(--page-accent, var(--accent-red));
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+.footer-content a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+/* Book Theme Footer Overrides */
+:root[data-theme="book"] .site-footer {
+    background: var(--bg-secondary) !important;
+    border-top-color: var(--text-muted) !important;
+}
+
+:root[data-theme="book"] .footer-content p {
+    color: var(--text-muted) !important;
+}
+
+:root[data-theme="book"] .footer-content a {
+    color: var(--page-accent, var(--accent-red)) !important;
+}
+
+:root[data-theme="book"] .footer-content a:hover {
+    color: var(--text-primary) !important;
+}
+
+/* Mobile Footer Adjustments */
+@media (max-width: 768px) {
+    .site-footer {
+        padding: var(--spacing-md) 0;
+        margin-top: var(--spacing-xl);
+    }
+    
+    .footer-content {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .footer-content p {
+        font-size: var(--font-size-xs);
+    }
+}
