@@ -1,106 +1,106 @@
 {
-  "one_page_websites\\01.html": {
+  "one_page_websites/01.html": {
     "number": 1,
     "filename": "01.html",
     "title": "The Four Pillars of Scientific Discovery",
     "description": "",
-    "file_path": "one_page_websites\\01.html",
+    "file_path": "one_page_websites/01.html",
     "relative_path": "one_page_websites/01.html",
     "file_size": 33224,
     "file_mtime": 1751648242.6425428,
-    "created_at": "2025-06-20T02:36:02.405592",
-    "modified_at": "2025-07-04T22:27:22.642543",
-    "cached_at": 1751929015.8225622
+    "created_at": "2025-07-09T11:05:22.417212",
+    "modified_at": "2025-07-04T16:57:22.642543",
+    "cached_at": 1752302493.6828723
   },
-  "one_page_websites\\02.html": {
+  "one_page_websites/02.html": {
     "number": 2,
     "filename": "02.html",
     "title": "Magnetometry: An Interactive Exploration",
     "description": "",
-    "file_path": "one_page_websites\\02.html",
+    "file_path": "one_page_websites/02.html",
     "relative_path": "one_page_websites/02.html",
     "file_size": 40194,
     "file_mtime": 1751648298.3503666,
-    "created_at": "2025-06-20T03:31:05.930748",
-    "modified_at": "2025-07-04T22:28:18.350367",
-    "cached_at": 1751929015.825561
+    "created_at": "2025-07-09T11:05:22.422230",
+    "modified_at": "2025-07-04T16:58:18.350367",
+    "cached_at": 1752302493.732799
   },
-  "one_page_websites\\03.html": {
+  "one_page_websites/03.html": {
     "number": 3,
     "filename": "03.html",
     "title": "Optical Magnetometry: An Interactive Guide",
     "description": "",
-    "file_path": "one_page_websites\\03.html",
+    "file_path": "one_page_websites/03.html",
     "relative_path": "one_page_websites/03.html",
     "file_size": 39066,
     "file_mtime": 1751648351.2366607,
-    "created_at": "2025-06-20T03:50:46.755203",
-    "modified_at": "2025-07-04T22:29:11.236661",
-    "cached_at": 1751929015.8301175
+    "created_at": "2025-07-09T11:05:22.423236",
+    "modified_at": "2025-07-04T16:59:11.236661",
+    "cached_at": 1752302493.7731135
   },
-  "one_page_websites\\04.html": {
+  "one_page_websites/04.html": {
     "number": 4,
     "filename": "04.html",
     "title": "The Evolution of AI Thought: An Interactive Guide to LLMs & LRMs",
     "description": "",
-    "file_path": "one_page_websites\\04.html",
+    "file_path": "one_page_websites/04.html",
     "relative_path": "one_page_websites/04.html",
     "file_size": 40353,
     "file_mtime": 1751646295.4968991,
-    "created_at": "2025-06-20T11:27:12.507505",
-    "modified_at": "2025-07-04T21:54:55.496899",
-    "cached_at": 1751929015.8346436
+    "created_at": "2025-07-04T16:24:55.496899",
+    "modified_at": "2025-07-04T16:24:55.496899",
+    "cached_at": 1752302493.8044884
   },
-  "one_page_websites\\05.html": {
+  "one_page_websites/05.html": {
     "number": 5,
     "filename": "05.html",
     "title": "The Evolution of RAG: An Interactive Guide",
     "description": "",
-    "file_path": "one_page_websites\\05.html",
+    "file_path": "one_page_websites/05.html",
     "relative_path": "one_page_websites/05.html",
     "file_size": 26047,
     "file_mtime": 1751646321.128095,
-    "created_at": "2025-06-20T13:19:53.603191",
-    "modified_at": "2025-07-04T21:55:21.128095",
-    "cached_at": 1751929015.837646
+    "created_at": "2025-07-04T16:25:21.128095",
+    "modified_at": "2025-07-04T16:25:21.128095",
+    "cached_at": 1752302493.835906
   },
-  "one_page_websites\\06.html": {
+  "one_page_websites/06.html": {
     "number": 6,
     "filename": "06.html",
     "title": "The Architecture of Credibility: An Interactive Guide",
     "description": "",
-    "file_path": "one_page_websites\\06.html",
+    "file_path": "one_page_websites/06.html",
     "relative_path": "one_page_websites/06.html",
     "file_size": 29479,
     "file_mtime": 1751646341.7774928,
-    "created_at": "2025-06-20T23:15:31.542035",
-    "modified_at": "2025-07-04T21:55:41.777493",
-    "cached_at": 1751929015.8416805
+    "created_at": "2025-07-04T16:25:41.777493",
+    "modified_at": "2025-07-04T16:25:41.777493",
+    "cached_at": 1752302493.8719442
   },
-  "one_page_websites\\07.html": {
+  "one_page_websites/07.html": {
     "number": 7,
     "filename": "07.html",
     "title": "The Karamazov Question: A Philosophical Exploration",
     "description": "",
-    "file_path": "one_page_websites\\07.html",
+    "file_path": "one_page_websites/07.html",
     "relative_path": "one_page_websites/07.html",
     "file_size": 39338,
     "file_mtime": 1751648399.7206078,
-    "created_at": "2025-06-21T00:31:04.134062",
-    "modified_at": "2025-07-04T22:29:59.720608",
-    "cached_at": 1751929015.844681
+    "created_at": "2025-07-09T11:05:22.610261",
+    "modified_at": "2025-07-04T16:59:59.720608",
+    "cached_at": 1752302493.9116187
   },
-  "one_page_websites\\08.html": {
+  "one_page_websites/08.html": {
     "number": 8,
     "filename": "08.html",
     "title": "Authentic Love vs. The Idea of Love",
     "description": "",
-    "file_path": "one_page_websites\\08.html",
+    "file_path": "one_page_websites/08.html",
     "relative_path": "one_page_websites/08.html",
     "file_size": 28246,
     "file_mtime": 1751929001.7741745,
-    "created_at": "2025-07-08T04:26:34.651904",
-    "modified_at": "2025-07-08T04:26:41.774174",
-    "cached_at": 1751929015.8466847
+    "created_at": "2025-07-09T11:05:42.054497",
+    "modified_at": "2025-07-07T22:56:41.774174",
+    "cached_at": 1752302493.946083
   }
 }

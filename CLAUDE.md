@@ -43,6 +43,11 @@ A sophisticated, multi-page portfolio website for Manas Pandey, Undergraduate at
   - Removed planning documentation files (plan.md, photo_manager_usage.md, assets/OG_IMAGE_PLACEHOLDER.md)
   - Removed optional README files in subdirectories
   - Fixed broken reference in README.md to non-existent photo_manager_plan.md
+  - **Second Decluttering Round**: Removed backup and cache files (~70 files total)
+    - Removed .backups/ directory (67 old backup files including blog posts, HTML pages, metadata)
+    - Removed auto-generated cache files (.onesites_cache.json, .projects_cache.json, .scholar_cache.json)
+    - Removed optional blog/images/README.md documentation
+    - Verified all functionality remains intact after cleanup
   - Maintained all functional code and essential documentation
 
 ### Consistency Improvements (July 2025)
