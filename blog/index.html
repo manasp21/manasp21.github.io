@@ -57,16 +57,27 @@ description: "Thoughts on science, sound, and syntax - A digital laboratory note
     <section class="all-posts">
         <div class="posts-list">
             {% for post in site.posts %}
-                <article class="post-item">
-                    <h3 class="post-item-title">
-                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                    </h3>
-                    {% include post-meta.html post=post %}
-                    {% if post.excerpt %}
-                        <div class="post-item-excerpt">
-                            {{ post.excerpt | strip_html | truncate: 200 }}
+                <article class="post-item{% if post.thumb_blur %} has-cover{% endif %}">
+                    {% if post.thumb_blur %}
+                        <div class="post-cover">
+                            <img src="{{ post.thumb_blur | relative_url }}" 
+                                 alt="{{ post.hero_alt | default: post.title }}" 
+                                 class="post-thumbnail"
+                                 loading="lazy">
                         </div>
                     {% endif %}
+                    
+                    <div class="post-content">
+                        <h3 class="post-item-title">
+                            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        </h3>
+                        {% include post-meta.html post=post %}
+                        {% if post.excerpt %}
+                            <div class="post-item-excerpt">
+                                {{ post.excerpt | strip_html | truncate: 200 }}
+                            </div>
+                        {% endif %}
+                    </div>
                 </article>
             {% endfor %}
         </div>

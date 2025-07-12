@@ -22,14 +22,27 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
+try:
+    from PIL import Image, ImageFilter, ImageEnhance
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+    print("Warning: PIL/Pillow not available. Image processing features disabled.")
+
 class BlogManager:
     def __init__(self):
         self.posts_dir = Path("_posts")
         self.backup_dir = Path(".backups")
-        self.backup_dir.mkdir(exist_ok=True)
+        self.images_dir = Path("blog/images")
+        self.posts_images_dir = self.images_dir / "posts"
+        self.covers_dir = self.images_dir / "covers"
         
-        # Ensure posts directory exists
+        # Create necessary directories
+        self.backup_dir.mkdir(exist_ok=True)
         self.posts_dir.mkdir(exist_ok=True)
+        self.images_dir.mkdir(exist_ok=True)
+        self.posts_images_dir.mkdir(exist_ok=True)
+        self.covers_dir.mkdir(exist_ok=True)
         
         # Common categories for suggestions
         self.common_categories = ["ai", "philosophy", "personal", "literature", "research", "technical", 
@@ -50,6 +63,15 @@ class BlogManager:
         
         lines.append(f'excerpt: "{data["excerpt"]}"')
         lines.append(f'reading_time: {data["reading_time"]}')
+        
+        # Add image fields if present
+        if data.get("hero_image"):
+            lines.append(f'hero_image: "{data["hero_image"]}"')
+        if data.get("hero_alt"):
+            lines.append(f'hero_alt: "{data["hero_alt"]}"')
+        if data.get("cover_blur"):
+            lines.append(f'cover_blur: "{data["cover_blur"]}"')
+        
         lines.append('---')
         return '\n'.join(lines)
     
@@ -152,6 +174,143 @@ class BlogManager:
         backup_path = self.backup_dir / backup_name
         shutil.copy2(post_file, backup_path)
         return backup_path
+    
+    def ensure_year_directories(self, year: str):
+        """Ensure year-based image directories exist."""
+        posts_year_dir = self.posts_images_dir / year
+        covers_year_dir = self.covers_dir / year
+        posts_year_dir.mkdir(exist_ok=True)
+        covers_year_dir.mkdir(exist_ok=True)
+        return posts_year_dir, covers_year_dir
+    
+    def generate_blur_cover(self, original_path: Path, output_path: Path, size: tuple = (1200, 400)) -> bool:
+        """Generate a blurred cover image from original."""
+        if not PIL_AVAILABLE:
+            print("Error: PIL/Pillow required for image processing. Install with: pip install Pillow")
+            return False
+        
+        try:
+            # Open and process the image
+            with Image.open(original_path) as img:
+                # Convert to RGB if necessary
+                if img.mode != 'RGB':
+                    img = img.convert('RGB')
+                
+                # Resize to target dimensions (crop to fit)
+                img_ratio = img.width / img.height
+                target_ratio = size[0] / size[1]
+                
+                if img_ratio > target_ratio:
+                    # Image is wider, crop width
+                    new_width = int(img.height * target_ratio)
+                    left = (img.width - new_width) // 2
+                    img = img.crop((left, 0, left + new_width, img.height))
+                else:
+                    # Image is taller, crop height
+                    new_height = int(img.width / target_ratio)
+                    top = (img.height - new_height) // 2
+                    img = img.crop((0, top, img.width, top + new_height))
+                
+                # Resize to exact target size
+                img = img.resize(size, Image.Resampling.LANCZOS)
+                
+                # Apply Gaussian blur
+                img = img.filter(ImageFilter.GaussianBlur(radius=15))
+                
+                # Add dark overlay (20% opacity)
+                overlay = Image.new('RGB', size, (0, 0, 0))
+                enhancer = ImageEnhance.Brightness(img)
+                img = enhancer.enhance(0.8)  # Darken by 20%
+                
+                # Ensure output directory exists
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                
+                # Save optimized JPEG
+                img.save(output_path, 'JPEG', quality=85, optimize=True)
+                
+            return True
+            
+        except Exception as e:
+            print(f"Error generating blur cover: {e}")
+            return False
+    
+    def detect_hero_image_in_content(self, content: str) -> Optional[str]:
+        """Detect the first image in post content that could be a hero image."""
+        # Look for markdown image syntax at the start of content
+        import re
+        
+        # Remove frontmatter first
+        if content.startswith('---'):
+            yaml_end = content.find('---', 3)
+            if yaml_end != -1:
+                content = content[yaml_end + 3:].strip()
+        
+        # Look for first image in first few lines
+        lines = content.split('\n')[:10]  # Check first 10 lines
+        for line in lines:
+            line = line.strip()
+            if line.startswith('!['):
+                # Extract image path from markdown syntax
+                match = re.search(r'!\[.*?\]\((.*?)\)', line)
+                if match:
+                    image_path = match.group(1)
+                    # Handle Jekyll liquid tags
+                    if '{{' in image_path and '}}' in image_path:
+                        # Extract the actual path from liquid syntax
+                        path_match = re.search(r'"([^"]*)"', image_path)
+                        if path_match:
+                            return path_match.group(1)
+                    return image_path
+        return None
+    
+    def process_post_images(self, post_slug: str, year: str, hero_image_path: str = None) -> Dict[str, str]:
+        """Process images for a blog post, generating blurred covers."""
+        if not PIL_AVAILABLE:
+            return {}
+        
+        # Ensure year directories exist
+        posts_year_dir, covers_year_dir = self.ensure_year_directories(year)
+        
+        result = {}
+        
+        if hero_image_path:
+            # Check if it's a relative path that needs to be converted to absolute
+            if hero_image_path.startswith('/'):
+                hero_image_path = hero_image_path[1:]  # Remove leading slash
+            
+            original_path = Path(hero_image_path)
+            
+            # If the path doesn't exist, try to find it in posts directory
+            if not original_path.exists():
+                # Try in posts directory
+                potential_path = self.posts_images_dir / year / original_path.name
+                if potential_path.exists():
+                    original_path = potential_path
+                else:
+                    print(f"Warning: Hero image not found: {hero_image_path}")
+                    return {}
+            
+            # Generate cover paths
+            cover_name = f"{post_slug}-cover-blur.jpg"
+            thumb_name = f"{post_slug}-thumb-blur.jpg"
+            
+            cover_path = covers_year_dir / cover_name
+            thumb_path = covers_year_dir / thumb_name
+            
+            # Generate blurred covers
+            if self.generate_blur_cover(original_path, cover_path, (1200, 400)):
+                result['cover_blur'] = f"/blog/images/covers/{year}/{cover_name}"
+                print(f"✓ Generated hero cover: {cover_path}")
+            
+            if self.generate_blur_cover(original_path, thumb_path, (300, 200)):
+                result['thumb_blur'] = f"/blog/images/covers/{year}/{thumb_name}"
+                print(f"✓ Generated thumbnail: {thumb_path}")
+            
+            # Store the hero image path for frontmatter
+            if original_path.exists():
+                result['hero_image'] = f"/blog/images/posts/{year}/{original_path.name}"
+        
+        return result
     
     def list_posts(self):
         """List all blog posts with details."""
@@ -327,6 +486,53 @@ class BlogManager:
         reading_time_input = input(f"\nReading time (press enter for auto-calculated {auto_reading_time} min): ").strip()
         reading_time = int(reading_time_input) if reading_time_input.isdigit() else auto_reading_time
         
+        # Hero image handling
+        hero_image_data = {}
+        if PIL_AVAILABLE:
+            print("\n" + "="*50)
+            print("HERO IMAGE (Optional)")
+            print("="*50)
+            print("You can add a hero image that will:")
+            print("- Display at full resolution in your post content")
+            print("- Generate a blurred cover for the blog index")
+            print("- Create a blurred hero banner for the post header")
+            
+            add_hero = input("\nAdd hero image? (y/n): ").strip().lower()
+            if add_hero == 'y':
+                print("\nHero image options:")
+                print("1. File path (existing image)")
+                print("2. URL (will be downloaded)")
+                print("3. Skip for now")
+                
+                hero_choice = input("Choice (1, 2, or 3): ").strip()
+                year = date_str[:4]  # Extract year from date
+                
+                if hero_choice == "1":
+                    hero_path = input("Enter image file path: ").strip()
+                    if hero_path and Path(hero_path).exists():
+                        # Copy to posts directory
+                        year_dir = self.posts_images_dir / year
+                        year_dir.mkdir(exist_ok=True)
+                        
+                        image_name = f"{slug}-hero{Path(hero_path).suffix}"
+                        dest_path = year_dir / image_name
+                        shutil.copy2(hero_path, dest_path)
+                        
+                        # Generate blurred covers
+                        image_data = self.process_post_images(slug, year, str(dest_path))
+                        if image_data:
+                            hero_image_data.update(image_data)
+                            
+                            # Add alt text
+                            alt_text = input("Alt text for accessibility: ").strip()
+                            if alt_text:
+                                hero_image_data['hero_alt'] = alt_text
+                
+                elif hero_choice == "2":
+                    print("URL download not implemented yet. You can add the image manually later.")
+        else:
+            print("\nNote: Install Pillow for hero image processing: pip install Pillow")
+        
         # Validate post data and fix common issues
         categories, validation_issues = self.validate_post_data(title, categories, excerpt, date_input)
         
@@ -350,6 +556,9 @@ class BlogManager:
             'excerpt': excerpt,
             'reading_time': reading_time
         }
+        
+        # Add hero image data if present
+        frontmatter_data.update(hero_image_data)
         
         # Write post file with proper formatting
         with open(post_path, 'w', encoding='utf-8') as f:

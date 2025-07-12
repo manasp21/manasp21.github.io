@@ -1908,6 +1908,206 @@ button:focus {
     margin-top: var(--spacing-sm);
 }
 
+/* ====== COVER IMAGE STYLES ====== */
+
+/* Base post item styling (applies to all posts) */
+.post-item {
+    /* Existing styles preserved for posts without covers */
+}
+
+/* Enhanced layout for posts with cover images */
+.post-item.has-cover {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+    padding: var(--spacing-lg); /* Slightly more padding for cover posts */
+}
+
+/* Fallback: ensure posts without covers maintain proper styling */
+.post-item:not(.has-cover) {
+    display: block; /* Ensure normal block layout */
+}
+
+.post-cover {
+    flex-shrink: 0;
+    width: 180px;
+    height: 120px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-smooth);
+    background: var(--bg-content); /* Fallback background */
+}
+
+.post-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+    border-radius: var(--radius-lg);
+}
+
+.post-item.has-cover:hover .post-thumbnail {
+    transform: scale(1.05);
+}
+
+.post-item.has-cover .post-content {
+    flex: 1;
+    min-width: 0; /* Prevent text overflow */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Ensure spacing is consistent between cover and non-cover posts */
+.post-item.has-cover .post-item-title {
+    margin-top: 0; /* Remove top margin since we have cover alignment */
+}
+
+.post-item:not(.has-cover) .post-item-title {
+    margin-top: 0; /* Consistent with cover posts */
+}
+
+/* Hero Banner Styles */
+.post-hero-banner {
+    position: relative;
+    width: 100vw;
+    height: 400px;
+    margin-left: calc(-50vw + 50%);
+    margin-bottom: var(--spacing-xl);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-cover-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 0 var(--spacing-lg);
+}
+
+.hero-title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    font-size: var(--font-size-lg);
+    opacity: 0.9;
+}
+
+.hero-date {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.hero-reading-time {
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+/* Post Header Adjustments for Hero */
+.blog-post.has-hero {
+    margin-top: 0;
+}
+
+.post-header.with-hero {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: var(--spacing-lg);
+    text-align: left;
+}
+
+/* Book Theme Overrides for Cover Images */
+:root[data-theme="book"] .hero-overlay {
+    background: linear-gradient(135deg, rgba(45, 27, 22, 0.4) 0%, rgba(45, 27, 22, 0.7) 100%);
+}
+
+:root[data-theme="book"] .post-cover {
+    box-shadow: 0 4px 6px rgba(45, 27, 22, 0.1), 0 2px 4px rgba(45, 27, 22, 0.06);
+}
+
+/* Mobile Responsive Cover Images */
+@media (max-width: 768px) {
+    /* Posts with covers: stack vertically on mobile */
+    .post-item.has-cover {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md); /* Consistent padding with non-cover posts */
+    }
+    
+    .post-cover {
+        width: 100%;
+        height: 160px;
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    /* Ensure posts without covers maintain consistent mobile styling */
+    .post-item:not(.has-cover) {
+        padding: var(--spacing-md);
+    }
+    
+    /* Hero banner mobile adjustments */
+    .post-hero-banner {
+        height: 300px;
+        margin-left: calc(-50vw + 50%);
+    }
+    
+    .hero-title {
+        font-size: clamp(1.5rem, 8vw, 2.5rem);
+    }
+    
+    .hero-meta {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+        font-size: var(--font-size-base);
+    }
+}
+
+/* Tablet responsive adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .post-cover {
+        width: 160px;
+        height: 100px;
+    }
+    
+    .post-item.has-cover {
+        gap: var(--spacing-sm);
+    }
+}
+
 /* Post Meta Information */
 .post-meta {
     display: flex;

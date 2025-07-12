@@ -2,20 +2,49 @@
 layout: default
 ---
 
-<article class="blog-post">
-    <header class="post-header">
-        <h1 class="post-title">{{ page.title }}</h1>
+{% if page.cover_blur %}
+    <div class="post-hero-banner">
+        <img src="{{ page.cover_blur | relative_url }}" 
+             alt="{{ page.hero_alt | default: page.title }}" 
+             class="hero-cover-image"
+             loading="eager">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1 class="hero-title">{{ page.title }}</h1>
+                <div class="hero-meta">
+                    <time class="hero-date" datetime="{{ page.date | date_to_xmlschema }}">
+                        {{ page.date | date: "%B %d, %Y" }}
+                    </time>
+                    {% if page.reading_time %}
+                        <span class="hero-reading-time">{{ page.reading_time }} min read</span>
+                    {% else %}
+                        <span class="hero-reading-time">{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<article class="blog-post{% if page.cover_blur %} has-hero{% endif %}">
+    <header class="post-header{% if page.cover_blur %} with-hero{% endif %}">
+        {% unless page.cover_blur %}
+            <h1 class="post-title">{{ page.title }}</h1>
+        {% endunless %}
         
-        <div class="post-meta">
-            <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
-                {{ page.date | date: "%B %d, %Y" }}
-            </time>
-            
-            {% if page.reading_time %}
-                <span class="reading-time">{{ page.reading_time }} min read</span>
-            {% else %}
-                <span class="reading-time">{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
-            {% endif %}
+        {% unless page.cover_blur %}
+            <div class="post-meta">
+                <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
+                    {{ page.date | date: "%B %d, %Y" }}
+                </time>
+                
+                {% if page.reading_time %}
+                    <span class="reading-time">{{ page.reading_time }} min read</span>
+                {% else %}
+                    <span class="reading-time">{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+                {% endif %}
+            </div>
+        {% endunless %}
             
             {% if page.tags.size > 0 %}
                 <div class="post-tags">
