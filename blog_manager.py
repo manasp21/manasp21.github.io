@@ -635,8 +635,9 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
             print("4. Edit excerpt")
             print("5. Edit reading time")
             print("6. Edit content")
-            print("7. Preview post")
-            print("8. Save and exit")
+            print("7. Edit hero image")
+            print("8. Preview post")
+            print("9. Save and exit")
             print("0. Exit without saving")
             
             choice = input("\nSelect option: ").strip()
@@ -726,6 +727,70 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
                         print("Content updated")
             
             elif choice == "7":
+                # Edit hero image
+                if PIL_AVAILABLE:
+                    print("\n" + "="*50)
+                    print("HERO IMAGE MANAGEMENT")
+                    print("="*50)
+                    current_hero = selected_post['frontmatter'].get('hero_image', 'None')
+                    current_alt = selected_post['frontmatter'].get('hero_alt', 'None')
+                    print(f"Current hero image: {current_hero}")
+                    print(f"Current alt text: {current_alt}")
+                    
+                    print("\nOptions:")
+                    print("1. Add/Replace hero image")
+                    print("2. Edit alt text only")
+                    print("3. Remove hero image")
+                    print("4. Back to main menu")
+                    
+                    hero_choice = input("Choice: ").strip()
+                    
+                    if hero_choice == "1":
+                        hero_path = input("Enter image file path: ").strip()
+                        if hero_path and Path(hero_path).exists():
+                            # Extract post slug and year
+                            title = selected_post['frontmatter'].get('title', '')
+                            slug = self.slugify(title)
+                            date_str = str(selected_post['frontmatter'].get('date', ''))[:10]
+                            year = date_str[:4]
+                            
+                            # Copy to posts directory
+                            year_dir = self.posts_images_dir / year
+                            year_dir.mkdir(exist_ok=True)
+                            
+                            image_name = f"{slug}-hero{Path(hero_path).suffix}"
+                            dest_path = year_dir / image_name
+                            shutil.copy2(hero_path, dest_path)
+                            
+                            # Generate blurred covers
+                            image_data = self.process_post_images(slug, year, str(dest_path))
+                            if image_data:
+                                selected_post['frontmatter'].update(image_data)
+                                
+                                # Add alt text
+                                alt_text = input("Alt text for accessibility: ").strip()
+                                if alt_text:
+                                    selected_post['frontmatter']['hero_alt'] = alt_text
+                                
+                                print("✓ Hero image added and processed")
+                        else:
+                            print("File not found or invalid path")
+                    
+                    elif hero_choice == "2":
+                        new_alt = input("New alt text: ").strip()
+                        if new_alt:
+                            selected_post['frontmatter']['hero_alt'] = new_alt
+                            print("Alt text updated")
+                    
+                    elif hero_choice == "3":
+                        # Remove hero image fields
+                        for key in ['hero_image', 'hero_alt', 'cover_blur', 'thumb_blur']:
+                            selected_post['frontmatter'].pop(key, None)
+                        print("Hero image removed")
+                else:
+                    print("PIL/Pillow not available. Install with: pip install Pillow")
+            
+            elif choice == "8":
                 print("\n" + "="*50)
                 print("POST PREVIEW")
                 print("="*50)
@@ -734,13 +799,14 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
                 print(f"Categories: {', '.join(selected_post['frontmatter'].get('categories', []))}")
                 print(f"Excerpt: {selected_post['frontmatter'].get('excerpt')}")
                 print(f"Reading time: {selected_post['frontmatter'].get('reading_time')} min")
+                print(f"Hero image: {selected_post['frontmatter'].get('hero_image', 'None')}")
                 print("\nContent:")
                 print("-" * 50)
                 preview = selected_post['content'][:1000]
                 print(preview + "..." if len(selected_post['content']) > 1000 else preview)
                 print("-" * 50)
             
-            elif choice == "8":
+            elif choice == "9":
                 # Save the post
                 old_path = Path(selected_post['filename']).parent / selected_post['filename']
                 if old_path.exists() and old_path != selected_post['path']:

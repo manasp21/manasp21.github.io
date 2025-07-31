@@ -25,7 +25,11 @@
       "Bash(echo)",
       "Bash(true)",
       "Bash(sed:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(pip install:*)",
+      "Bash(pip3 install:*)",
+      "Bash(bundle exec jekyll serve:*)",
+      "Bash(bundle install:*)"
     ],
     "deny": []
   }
