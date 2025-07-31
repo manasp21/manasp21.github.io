@@ -35,14 +35,12 @@ class BlogManager:
         self.backup_dir = Path(".backups")
         self.images_dir = Path("blog/images")
         self.posts_images_dir = self.images_dir / "posts"
-        self.covers_dir = self.images_dir / "covers"
         
         # Create necessary directories
         self.backup_dir.mkdir(exist_ok=True)
         self.posts_dir.mkdir(exist_ok=True)
         self.images_dir.mkdir(exist_ok=True)
         self.posts_images_dir.mkdir(exist_ok=True)
-        self.covers_dir.mkdir(exist_ok=True)
         
         # Common categories for suggestions
         self.common_categories = ["ai", "philosophy", "personal", "literature", "research", "technical", 
@@ -69,8 +67,6 @@ class BlogManager:
             lines.append(f'hero_image: "{data["hero_image"]}"')
         if data.get("hero_alt"):
             lines.append(f'hero_alt: "{data["hero_alt"]}"')
-        if data.get("cover_blur"):
-            lines.append(f'cover_blur: "{data["cover_blur"]}"')
         
         lines.append('---')
         return '\n'.join(lines)
@@ -178,61 +174,9 @@ class BlogManager:
     def ensure_year_directories(self, year: str):
         """Ensure year-based image directories exist."""
         posts_year_dir = self.posts_images_dir / year
-        covers_year_dir = self.covers_dir / year
         posts_year_dir.mkdir(exist_ok=True)
-        covers_year_dir.mkdir(exist_ok=True)
-        return posts_year_dir, covers_year_dir
+        return posts_year_dir
     
-    def generate_blur_cover(self, original_path: Path, output_path: Path, size: tuple = (1200, 400)) -> bool:
-        """Generate a blurred cover image from original."""
-        if not PIL_AVAILABLE:
-            print("Error: PIL/Pillow required for image processing. Install with: pip install Pillow")
-            return False
-        
-        try:
-            # Open and process the image
-            with Image.open(original_path) as img:
-                # Convert to RGB if necessary
-                if img.mode != 'RGB':
-                    img = img.convert('RGB')
-                
-                # Resize to target dimensions (crop to fit)
-                img_ratio = img.width / img.height
-                target_ratio = size[0] / size[1]
-                
-                if img_ratio > target_ratio:
-                    # Image is wider, crop width
-                    new_width = int(img.height * target_ratio)
-                    left = (img.width - new_width) // 2
-                    img = img.crop((left, 0, left + new_width, img.height))
-                else:
-                    # Image is taller, crop height
-                    new_height = int(img.width / target_ratio)
-                    top = (img.height - new_height) // 2
-                    img = img.crop((0, top, img.width, top + new_height))
-                
-                # Resize to exact target size
-                img = img.resize(size, Image.Resampling.LANCZOS)
-                
-                # Apply Gaussian blur
-                img = img.filter(ImageFilter.GaussianBlur(radius=15))
-                
-                # Add dark overlay (20% opacity)
-                overlay = Image.new('RGB', size, (0, 0, 0))
-                enhancer = ImageEnhance.Brightness(img)
-                img = enhancer.enhance(0.8)  # Darken by 20%
-                
-                # Ensure output directory exists
-                output_path.parent.mkdir(parents=True, exist_ok=True)
-                
-                # Save optimized JPEG
-                img.save(output_path, 'JPEG', quality=85, optimize=True)
-                
-            return True
-            
-        except Exception as e:
-            print(f"Error generating blur cover: {e}")
-            return False
     
     def detect_hero_image_in_content(self, content: str) -> Optional[str]:
         """Detect the first image in post content that could be a hero image."""
@@ -264,12 +208,12 @@ class BlogManager:
         return None
     
     def process_post_images(self, post_slug: str, year: str, hero_image_path: str = None) -> Dict[str, str]:
-        """Process images for a blog post, generating blurred covers."""
+        """Process images for a blog post - simple path handling without blur."""
         if not PIL_AVAILABLE:
             return {}
         
         # Ensure year directories exist
-        posts_year_dir, covers_year_dir = self.ensure_year_directories(year)
+        posts_year_dir = self.ensure_year_directories(year)
         
         result = {}
         
@@ -290,25 +234,10 @@ class BlogManager:
                     print(f"Warning: Hero image not found: {hero_image_path}")
                     return {}
             
-            # Generate cover paths
-            cover_name = f"{post_slug}-cover-blur.jpg"
-            thumb_name = f"{post_slug}-thumb-blur.jpg"
-            
-            cover_path = covers_year_dir / cover_name
-            thumb_path = covers_year_dir / thumb_name
-            
-            # Generate blurred covers
-            if self.generate_blur_cover(original_path, cover_path, (1200, 400)):
-                result['cover_blur'] = f"/blog/images/covers/{year}/{cover_name}"
-                print(f"✓ Generated hero cover: {cover_path}")
-            
-            if self.generate_blur_cover(original_path, thumb_path, (300, 200)):
-                result['thumb_blur'] = f"/blog/images/covers/{year}/{thumb_name}"
-                print(f"✓ Generated thumbnail: {thumb_path}")
-            
-            # Store the hero image path for frontmatter
+            # Store the hero image path for frontmatter (no blur processing)
             if original_path.exists():
                 result['hero_image'] = f"/blog/images/posts/{year}/{original_path.name}"
+                print(f"✓ Hero image ready: {original_path}")
         
         return result
     
@@ -493,9 +422,9 @@ class BlogManager:
             print("HERO IMAGE (Optional)")
             print("="*50)
             print("You can add a hero image that will:")
-            print("- Display at full resolution in your post content")
-            print("- Generate a blurred cover for the blog index")
-            print("- Create a blurred hero banner for the post header")
+            print("- Display as a hero banner at the top of your post")
+            print("- Show as a thumbnail in the blog index")
+            print("- Be optimized for both mobile and desktop viewing")
             
             add_hero = input("\nAdd hero image? (y/n): ").strip().lower()
             if add_hero == 'y':
@@ -518,7 +447,7 @@ class BlogManager:
                         dest_path = year_dir / image_name
                         shutil.copy2(hero_path, dest_path)
                         
-                        # Generate blurred covers
+                        # Process hero image
                         image_data = self.process_post_images(slug, year, str(dest_path))
                         if image_data:
                             hero_image_data.update(image_data)
@@ -762,7 +691,7 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
                             dest_path = year_dir / image_name
                             shutil.copy2(hero_path, dest_path)
                             
-                            # Generate blurred covers
+                            # Process hero image
                             image_data = self.process_post_images(slug, year, str(dest_path))
                             if image_data:
                                 selected_post['frontmatter'].update(image_data)
@@ -784,7 +713,7 @@ description: "{category_descriptions.get(category.lower(), f'Posts about {catego
                     
                     elif hero_choice == "3":
                         # Remove hero image fields
-                        for key in ['hero_image', 'hero_alt', 'cover_blur', 'thumb_blur']:
+                        for key in ['hero_image', 'hero_alt']:
                             selected_post['frontmatter'].pop(key, None)
                         print("Hero image removed")
                 else:

@@ -7,8 +7,6 @@ excerpt: "Love demands exposing your fragile parts; someone will catch you."
 reading_time: 2
 hero_image: "/blog/images/posts/2025/2025-07-31-review-the-love-hypothesis-hero.jpg"
 hero_alt: "The Love Hypothesis book cover by Ali Hazelwood showing two lab researchers in an intimate moment with chemistry equipment in the background"
-cover_blur: "/blog/images/covers/2025/review-the-love-hypothesis-cover-blur.jpg"
-thumb_blur: "/blog/images/covers/2025/review-the-love-hypothesis-thumb-blur.jpg"
 ---
 
 

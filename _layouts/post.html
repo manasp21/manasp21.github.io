@@ -2,9 +2,9 @@
 layout: default
 ---
 
-{% if page.cover_blur %}
+{% if page.hero_image %}
     <div class="post-hero-banner">
-        <img src="{{ page.cover_blur | relative_url }}" 
+        <img src="{{ page.hero_image | relative_url }}" 
              alt="{{ page.hero_alt | default: page.title }}" 
              class="hero-cover-image"
              loading="eager">
@@ -26,13 +26,13 @@ layout: default
     </div>
 {% endif %}
 
-<article class="blog-post{% if page.cover_blur %} has-hero{% endif %}">
-    <header class="post-header{% if page.cover_blur %} with-hero{% endif %}">
-        {% unless page.cover_blur %}
+<article class="blog-post{% if page.hero_image %} has-hero{% endif %}">
+    <header class="post-header{% if page.hero_image %} with-hero{% endif %}">
+        {% unless page.hero_image %}
             <h1 class="post-title">{{ page.title }}</h1>
         {% endunless %}
         
-        {% unless page.cover_blur %}
+        {% unless page.hero_image %}
             <div class="post-meta">
                 <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
                     {{ page.date | date: "%B %d, %Y" }}
