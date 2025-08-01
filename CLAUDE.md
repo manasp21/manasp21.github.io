@@ -170,26 +170,26 @@ These improvements are documented for future consideration when time allows for 
 - **Production Guarantee**: Nuclear approach ensures contribution graph visibility regardless of future CSS changes or browser rendering variations
 - **Maintainability**: Comprehensive commenting and step-by-step structure allows future developers to understand and modify the complex override hierarchy
 
-### Blog Cover Image System (July 2025)
-- **Automated Blur Generation**: Implemented comprehensive cover image system with automatic blur generation from hero images
-- **Dual-Purpose Display**: Original images display in post content while blurred versions serve as covers in blog index and hero banners
-- **Smart Directory Structure**: Organized file system with `/blog/images/posts/YYYY/` for originals and `/blog/images/covers/YYYY/` for generated covers
-- **Blog Manager Integration**: Enhanced `blog_manager.py` with PIL/Pillow-based image processing pipeline including crop, resize, and Gaussian blur
-- **Flexible Layout System**: Blog index adapts gracefully between posts with and without cover images using conditional CSS classes
-- **SEO Optimization**: Automatic Open Graph and Twitter Card meta tags using cover images for better social media sharing
-- **Theme Compatibility**: Cover images work seamlessly with both dark and book themes including appropriate overlay adjustments
-- **Mobile Responsive**: Optimized layout that stacks covers vertically on mobile while maintaining side-by-side display on desktop
+### Blog Hero Image System (July 2025)
+- **Clean Hero Images**: Simplified hero image system using original images without blur effects
+- **Direct Display**: Original images display directly as hero banners and thumbnails for crisp, clear visuals
+- **Smart Directory Structure**: Organized file system with `/blog/images/posts/YYYY/` for hero images
+- **Blog Manager Integration**: Enhanced `blog_manager.py` with PIL/Pillow-based image path handling and organization
+- **Flexible Layout System**: Blog index adapts gracefully between posts with and without hero images using conditional CSS classes
+- **SEO Optimization**: Automatic Open Graph and Twitter Card meta tags using hero images for better social media sharing
+- **Theme Compatibility**: Hero images work seamlessly with both dark and book themes with CSS overlay effects
+- **Mobile Responsive**: Optimized layout that scales hero images appropriately on mobile while maintaining desktop presentation
 - **Backward Compatibility**: Existing posts without images continue to display normally with no layout degradation
-- **Performance Optimized**: Lazy loading for thumbnails, optimized JPEG compression (85%), and responsive image sizing
+- **Performance Optimized**: Lazy loading for images and CSS-based responsive scaling
 - **Accessibility**: Proper alt text management, ARIA labels, and semantic HTML structure
-- **YAML Integration**: Clean frontmatter with `hero_image`, `hero_alt`, and auto-generated `cover_blur` fields
+- **YAML Integration**: Clean frontmatter with `hero_image` and `hero_alt` fields
 
 **Technical Implementation:**
-- **Image Processing**: PIL/Pillow with Gaussian blur (15px radius), dark overlay (20% opacity), and smart cropping
-- **File Management**: Year-based organization with consistent naming conventions (`post-slug-hero.jpg` → `post-slug-cover-blur.jpg`)
-- **CSS Architecture**: Flexbox-based responsive layout with fallback styling for non-cover posts
-- **Hero Banners**: Full-width blurred covers (1200x400px) with overlay text for post headers
-- **Thumbnails**: Smaller blurred covers (300x200px) for blog index cards
+- **Image Processing**: PIL/Pillow for file management and path handling (no blur processing)
+- **File Management**: Year-based organization with consistent naming conventions (`post-slug-hero.jpg`)
+- **CSS Architecture**: Flexbox-based responsive layout with CSS overlay effects for text readability
+- **Hero Banners**: Full-width original images with CSS overlay text for post headers
+- **Thumbnails**: CSS-scaled original images for blog index cards with proper aspect ratio handling
 
 ### Web Development Best Practices
 - Do not edit on page websites directly
@@ -228,9 +228,9 @@ bundle install
 
 ### Content Management Scripts
 ```bash
-# Blog management with cover images
+# Blog management with hero images
 python blog_manager.py add|list|edit|remove|validate
-# New: Includes hero image processing and blur cover generation
+# Includes hero image processing and organization
 
 # Project showcase updates
 python project_manager.py add|list|update|generate

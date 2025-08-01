@@ -68,14 +68,14 @@
     --border-radius-lg: var(--radius-lg);
     --transition: var(--transition-base);
     
-    /* Contribution Graph Colors - Red Based (Dark Theme) */
+    /* Contribution Graph Colors - Red Based (Dark Theme) - SOLID COLORS */
     --contrib-level-0: var(--bg-content);
-    --contrib-level-1: rgba(220, 38, 38, 0.2);     /* Light red - subtle activity */
-    --contrib-level-2: rgba(220, 38, 38, 0.4);     /* Medium red - moderate activity */  
-    --contrib-level-3: rgba(220, 38, 38, 0.7);     /* Bright red - high activity */
-    --contrib-level-4: var(--accent-red);          /* Full red - maximum activity */
-    --contrib-border: rgba(220, 38, 38, 0.1);      /* Very subtle red border */
-    --contrib-border-active: rgba(220, 38, 38, 0.2); /* Slightly more visible border for active states */
+    --contrib-level-1: #FCA5A5;                    /* Light coral red - clear but subtle activity */
+    --contrib-level-2: #F87171;                    /* Medium light red - noticeable activity */  
+    --contrib-level-3: #EF4444;                    /* Medium red - high activity */
+    --contrib-level-4: var(--accent-red);          /* Full red #DC2626 - maximum activity */
+    --contrib-border: #7F1D1D;                     /* Subtle dark red border */
+    --contrib-border-active: #991B1B;              /* More visible dark red border for active states */
 }
 
 /* ====== BOOK LIGHT THEME ====== */

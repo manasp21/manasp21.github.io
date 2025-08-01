@@ -20,12 +20,7 @@
     <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
     
     <!-- Open Graph Images -->
-    {% if page.cover_blur %}
-        <meta property="og:image" content="{{ page.cover_blur | absolute_url }}">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="400">
-        <meta property="og:image:alt" content="{{ page.hero_alt | default: page.title }}">
-    {% elsif page.hero_image %}
+    {% if page.hero_image %}
         <meta property="og:image" content="{{ page.hero_image | absolute_url }}">
         <meta property="og:image:alt" content="{{ page.hero_alt | default: page.title }}">
     {% else %}
@@ -41,10 +36,7 @@
     <meta property="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
     
     <!-- Twitter Images -->
-    {% if page.cover_blur %}
-        <meta property="twitter:image" content="{{ page.cover_blur | absolute_url }}">
-        <meta property="twitter:image:alt" content="{{ page.hero_alt | default: page.title }}">
-    {% elsif page.hero_image %}
+    {% if page.hero_image %}
         <meta property="twitter:image" content="{{ page.hero_image | absolute_url }}">
         <meta property="twitter:image:alt" content="{{ page.hero_alt | default: page.title }}">
     {% else %}

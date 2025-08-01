@@ -29,7 +29,8 @@
       "Bash(pip install:*)",
       "Bash(pip3 install:*)",
       "Bash(bundle exec jekyll serve:*)",
-      "Bash(bundle install:*)"
+      "Bash(bundle install:*)",
+      "Bash(bundle exec jekyll build:*)"
     ],
     "deny": []
   }
