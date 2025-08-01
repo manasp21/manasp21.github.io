@@ -5,6 +5,8 @@ date: 2025-08-01 20:44:39 +0530
 categories: [life, personal, thoughts]
 excerpt: "A personal account of growing up in a flood-prone city and finding lessons in the deluge."
 reading_time: 7
+hero_image: "/blog/images/posts/2025/2025-08-01-my-experiences-with-floods-hero.jpg"
+hero_alt: "Aerial view of flooding showing water meeting land, representing the complex relationship between natural forces and human habitation"
 ---
 
 # **Waterlogged Memories**

@@ -218,21 +218,31 @@ class BlogManager:
         result = {}
         
         if hero_image_path:
-            # Check if it's a relative path that needs to be converted to absolute
-            if hero_image_path.startswith('/'):
-                hero_image_path = hero_image_path[1:]  # Remove leading slash
-            
+            # Convert to Path object first
             original_path = Path(hero_image_path)
             
-            # If the path doesn't exist, try to find it in posts directory
-            if not original_path.exists():
-                # Try in posts directory
-                potential_path = self.posts_images_dir / year / original_path.name
-                if potential_path.exists():
-                    original_path = potential_path
-                else:
-                    print(f"Warning: Hero image not found: {hero_image_path}")
-                    return {}
+            # If it's already an absolute path to our blog images directory, use it directly
+            if original_path.is_absolute() and original_path.exists():
+                print(f"✓ Using existing hero image: {original_path}")
+            else:
+                # Handle relative paths or paths that need to be found in posts directory
+                if hero_image_path.startswith('/'):
+                    hero_image_path = hero_image_path[1:]  # Remove leading slash for relative handling
+                
+                original_path = Path(hero_image_path)
+                
+                # If the path doesn't exist, try to find it in posts directory
+                if not original_path.exists():
+                    # Try in posts directory
+                    potential_path = self.posts_images_dir / year / original_path.name
+                    if potential_path.exists():
+                        original_path = potential_path
+                        print(f"✓ Found hero image in posts directory: {original_path}")
+                    else:
+                        print(f"❌ Warning: Hero image not found: {hero_image_path}")
+                        print(f"   Looked for: {original_path}")
+                        print(f"   Also tried: {potential_path}")
+                        return {}
             
             # Store the hero image path for frontmatter (no blur processing)
             if original_path.exists():
@@ -439,23 +449,47 @@ class BlogManager:
                 if hero_choice == "1":
                     hero_path = input("Enter image file path: ").strip()
                     if hero_path and Path(hero_path).exists():
+                        print(f"\n🖼️  Processing hero image: {hero_path}")
+                        
                         # Copy to posts directory
                         year_dir = self.posts_images_dir / year
                         year_dir.mkdir(exist_ok=True)
                         
                         image_name = f"{slug}-hero{Path(hero_path).suffix}"
                         dest_path = year_dir / image_name
-                        shutil.copy2(hero_path, dest_path)
                         
-                        # Process hero image
-                        image_data = self.process_post_images(slug, year, str(dest_path))
-                        if image_data:
-                            hero_image_data.update(image_data)
+                        try:
+                            shutil.copy2(hero_path, dest_path)
+                            print(f"✅ Image copied to: {dest_path}")
                             
-                            # Add alt text
-                            alt_text = input("Alt text for accessibility: ").strip()
-                            if alt_text:
-                                hero_image_data['hero_alt'] = alt_text
+                            # Process hero image
+                            print(f"🔄 Processing hero image for frontmatter...")
+                            image_data = self.process_post_images(slug, year, str(dest_path))
+                            
+                            if image_data:
+                                hero_image_data.update(image_data)
+                                print(f"✅ Hero image data: {image_data}")
+                                
+                                # Add alt text
+                                alt_text = input("Alt text for accessibility: ").strip()
+                                if alt_text:
+                                    hero_image_data['hero_alt'] = alt_text
+                                    print(f"✅ Alt text added: {alt_text}")
+                                
+                                print("🎉 Hero image successfully processed!")
+                            else:
+                                print("❌ Failed to process hero image - no image data returned")
+                                print("   The image was copied but frontmatter generation failed")
+                                
+                        except Exception as e:
+                            print(f"❌ Error processing hero image: {e}")
+                            print(f"   Source: {hero_path}")
+                            print(f"   Destination: {dest_path}")
+                    else:
+                        if not hero_path:
+                            print("❌ No file path provided")
+                        else:
+                            print(f"❌ File not found: {hero_path}")
                 
                 elif hero_choice == "2":
                     print("URL download not implemented yet. You can add the image manually later.")
