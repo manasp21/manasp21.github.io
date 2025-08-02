@@ -221,9 +221,21 @@ class BlogManager:
             # Convert to Path object first
             original_path = Path(hero_image_path)
             
-            # If it's already an absolute path to our blog images directory, use it directly
+            # If it's already an absolute path and exists, use it directly
             if original_path.is_absolute() and original_path.exists():
                 print(f"✓ Using existing hero image: {original_path}")
+                
+                # Check if this is already in our posts directory structure
+                try:
+                    # Get the relative path from our posts images directory
+                    rel_path = original_path.relative_to(self.posts_images_dir)
+                    # Use the actual filename from the copied file
+                    result['hero_image'] = f"/blog/images/posts/{rel_path}"
+                    print(f"✓ Hero image path: /blog/images/posts/{rel_path}")
+                except ValueError:
+                    # Path is not relative to our posts directory, use the filename only
+                    result['hero_image'] = f"/blog/images/posts/{year}/{original_path.name}"
+                    print(f"✓ Hero image path: /blog/images/posts/{year}/{original_path.name}")
             else:
                 # Handle relative paths or paths that need to be found in posts directory
                 if hero_image_path.startswith('/'):
@@ -238,16 +250,16 @@ class BlogManager:
                     if potential_path.exists():
                         original_path = potential_path
                         print(f"✓ Found hero image in posts directory: {original_path}")
+                        result['hero_image'] = f"/blog/images/posts/{year}/{original_path.name}"
                     else:
                         print(f"❌ Warning: Hero image not found: {hero_image_path}")
                         print(f"   Looked for: {original_path}")
                         print(f"   Also tried: {potential_path}")
                         return {}
-            
-            # Store the hero image path for frontmatter (no blur processing)
-            if original_path.exists():
-                result['hero_image'] = f"/blog/images/posts/{year}/{original_path.name}"
-                print(f"✓ Hero image ready: {original_path}")
+                else:
+                    # File exists, use it
+                    result['hero_image'] = f"/blog/images/posts/{year}/{original_path.name}"
+                    print(f"✓ Hero image ready: {original_path}")
         
         return result
     
