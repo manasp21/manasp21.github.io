@@ -68,12 +68,9 @@
     --border-radius-lg: var(--radius-lg);
     --transition: var(--transition-base);
     
-    /* Contribution Graph Colors - Red Based (Dark Theme) - SOLID COLORS */
+    /* Contribution Graph Colors - Red Based (Dark Theme) - BINARY SYSTEM */
     --contrib-level-0: var(--bg-content);
-    --contrib-level-1: #FCA5A5;                    /* Light coral red - clear but subtle activity */
-    --contrib-level-2: #F87171;                    /* Medium light red - noticeable activity */  
-    --contrib-level-3: #EF4444;                    /* Medium red - high activity */
-    --contrib-level-4: var(--accent-red);          /* Full red #DC2626 - maximum activity */
+    --contrib-level-1: var(--accent-red);          /* Full red #DC2626 - posted on this day */
     --contrib-border: #7F1D1D;                     /* Subtle dark red border */
     --contrib-border-active: #991B1B;              /* More visible dark red border for active states */
 }
@@ -107,12 +104,9 @@
     --shadow-xl: 0 20px 25px rgba(45, 27, 22, 0.1), 0 10px 10px rgba(45, 27, 22, 0.04);
     --shadow-hover: 0 25px 50px rgba(45, 27, 22, 0.15), 0 10px 20px rgba(45, 27, 22, 0.1);
     
-    /* Contribution Graph Colors - High Contrast Burgundy (Book Theme) */
+    /* Contribution Graph Colors - High Contrast Burgundy (Book Theme) - BINARY SYSTEM */
     --contrib-level-0: #F5F1E8;                    /* Soft beige - clearly visible on light background */
-    --contrib-level-1: #E8D5D8;                    /* Light rose-beige - subtle activity */
-    --contrib-level-2: #D4B8BE;                    /* Medium rose-brown - moderate activity */
-    --contrib-level-3: #B8949C;                    /* Darker rose-brown - high activity */
-    --contrib-level-4: var(--accent-red);          /* Deep burgundy #8B1538 - maximum activity */
+    --contrib-level-1: var(--accent-red);          /* Deep burgundy #8B1538 - posted on this day */
     --contrib-border: rgba(139, 123, 115, 0.4);    /* More visible muted brown border */
     --contrib-border-active: rgba(139, 21, 56, 0.5); /* Burgundy border for active states */
     
@@ -4346,20 +4340,6 @@ body.page-research .page-container {
     border: 1px solid var(--contrib-border-active);
 }
 
-.contribution-day.level-2 {
-    background-color: var(--contrib-level-2);
-    border: 1px solid var(--contrib-border-active);
-}
-
-.contribution-day.level-3 {
-    background-color: var(--contrib-level-3);
-    border: 1px solid var(--contrib-border-active);
-}
-
-.contribution-day.level-4 {
-    background-color: var(--contrib-level-4);
-    border: 1px solid var(--contrib-level-4);
-}
 
 .contribution-legend {
     display: flex;
@@ -4400,20 +4380,6 @@ body.page-research .page-container {
     border: 1px solid var(--contrib-border-active);
 }
 
-.legend-level-2 {
-    background-color: var(--contrib-level-2);
-    border: 1px solid var(--contrib-border-active);
-}
-
-.legend-level-3 {
-    background-color: var(--contrib-level-3);
-    border: 1px solid var(--contrib-border-active);
-}
-
-.legend-level-4 {
-    background-color: var(--contrib-level-4);
-    border: 1px solid var(--contrib-level-4);
-}
 
 /* Tooltip */
 .contribution-tooltip {
@@ -4556,32 +4522,8 @@ body.page-research .page-container {
     border: 1px solid rgba(139, 21, 56, 0.5) !important;
 }
 
-:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-2,
-:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-2,
-:root[data-theme="book"] .contribution-graph .contribution-day.level-2,
-:root[data-theme="book"] .contribution-day.level-2 {
-    background-color: var(--contrib-level-2) !important;
-    background-color: #D4B8BE !important; /* Direct fallback */
-    border: 1px solid rgba(139, 21, 56, 0.5) !important;
-}
 
-:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-3,
-:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-3,
-:root[data-theme="book"] .contribution-graph .contribution-day.level-3,
-:root[data-theme="book"] .contribution-day.level-3 {
-    background-color: var(--contrib-level-3) !important;
-    background-color: #B8949C !important; /* Direct fallback */
-    border: 1px solid rgba(139, 21, 56, 0.5) !important;
-}
 
-:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-4,
-:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-4,
-:root[data-theme="book"] .contribution-graph .contribution-day.level-4,
-:root[data-theme="book"] .contribution-day.level-4 {
-    background-color: var(--contrib-level-4) !important;
-    background-color: #8B1538 !important; /* Direct fallback */
-    border: 1px solid #8B1538 !important;
-}
 
 /* Step 3: Legend squares with ultra-high specificity */
 :root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-0,
@@ -4600,29 +4542,8 @@ body.page-research .page-container {
     border: 1px solid rgba(139, 21, 56, 0.5) !important;
 }
 
-:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-2,
-:root[data-theme="book"] body .contribution-legend .legend-level-2,
-:root[data-theme="book"] .legend-level-2 {
-    background-color: var(--contrib-level-2) !important;
-    background-color: #D4B8BE !important; /* Direct fallback */
-    border: 1px solid rgba(139, 21, 56, 0.5) !important;
-}
 
-:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-3,
-:root[data-theme="book"] body .contribution-legend .legend-level-3,
-:root[data-theme="book"] .legend-level-3 {
-    background-color: var(--contrib-level-3) !important;
-    background-color: #B8949C !important; /* Direct fallback */
-    border: 1px solid rgba(139, 21, 56, 0.5) !important;
-}
 
-:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-4,
-:root[data-theme="book"] body .contribution-legend .legend-level-4,
-:root[data-theme="book"] .legend-level-4 {
-    background-color: var(--contrib-level-4) !important;
-    background-color: #8B1538 !important; /* Direct fallback */
-    border: 1px solid #8B1538 !important;
-}
 
 /* Step 4: Override inheritance behavior specifically for contribution elements */
 :root[data-theme="book"] .contribution-day,
@@ -4641,14 +4562,8 @@ body.page-research .page-container {
 /* Step 6: Re-apply specific colors after removing inheritance */
 :root[data-theme="book"] .contribution-day.level-0 { background-color: #F5F1E8 !important; }
 :root[data-theme="book"] .contribution-day.level-1 { background-color: #E8D5D8 !important; }
-:root[data-theme="book"] .contribution-day.level-2 { background-color: #D4B8BE !important; }
-:root[data-theme="book"] .contribution-day.level-3 { background-color: #B8949C !important; }
-:root[data-theme="book"] .contribution-day.level-4 { background-color: #8B1538 !important; }
 :root[data-theme="book"] .legend-level-0 { background-color: #F5F1E8 !important; }
 :root[data-theme="book"] .legend-level-1 { background-color: #E8D5D8 !important; }
-:root[data-theme="book"] .legend-level-2 { background-color: #D4B8BE !important; }
-:root[data-theme="book"] .legend-level-3 { background-color: #B8949C !important; }
-:root[data-theme="book"] .legend-level-4 { background-color: #8B1538 !important; }
 
 /* ====== SITE FOOTER ====== */
 

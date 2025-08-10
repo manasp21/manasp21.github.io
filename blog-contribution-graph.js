@@ -213,23 +213,13 @@ class BlogContributionGraph {
         tooltip.className = 'contribution-tooltip';
         
         const dateStr = this.formatDateForTooltip(date);
-        if (postCount === 0) {
-            tooltip.textContent = `No posts on ${dateStr}`;
-        } else if (postCount === 1) {
-            tooltip.textContent = `1 post on ${dateStr}`;
-        } else {
-            tooltip.textContent = `${postCount} posts on ${dateStr}`;
-        }
+        tooltip.textContent = postCount > 0 ? `Posted on ${dateStr}` : `No posts on ${dateStr}`;
         
         return tooltip;
     }
 
     getContributionLevel(postCount) {
-        if (postCount === 0) return 0;
-        if (postCount === 1) return 1;
-        if (postCount === 2) return 2;
-        if (postCount === 3) return 3;
-        return 4; // 4 or more posts
+        return postCount > 0 ? 1 : 0;
     }
 
     formatDate(date) {
@@ -248,13 +238,7 @@ class BlogContributionGraph {
 
     getAriaLabel(date, postCount) {
         const dateStr = this.formatDateForTooltip(date);
-        if (postCount === 0) {
-            return `No posts on ${dateStr}`;
-        } else if (postCount === 1) {
-            return `1 post on ${dateStr}`;
-        } else {
-            return `${postCount} posts on ${dateStr}`;
-        }
+        return postCount > 0 ? `Posted on ${dateStr}` : `No posts on ${dateStr}`;
     }
 
     handleDayClick(date, postCount) {
