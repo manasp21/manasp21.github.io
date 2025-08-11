@@ -64,95 +64,12 @@ class BlogContributionGraph {
         const graphContainer = document.createElement('div');
         graphContainer.className = 'graph-container';
 
-        // Generate month labels
-        const monthsContainer = this.createMonthLabels(startDate);
-        graphContainer.appendChild(monthsContainer);
-
-        // Create graph content (weekday labels + grid)
-        const graphContent = document.createElement('div');
-        graphContent.className = 'graph-content';
-
-        // Create weekday labels
-        const weekdayLabels = this.createWeekdayLabels();
-        graphContent.appendChild(weekdayLabels);
-
-        // Create grid
+        // Create grid only (no labels)
         const grid = this.createGrid(startDate, today);
-        graphContent.appendChild(grid);
-
-        graphContainer.appendChild(graphContent);
+        graphContainer.appendChild(grid);
         container.appendChild(graphContainer);
     }
 
-    createMonthLabels(startDate) {
-        const monthsContainer = document.createElement('div');
-        monthsContainer.className = 'graph-months';
-
-        // Calculate which months are visible in the 53-week grid
-        const visibleMonths = [];
-        const currentDate = new Date(startDate);
-        
-        // Track months as we go through the weeks
-        const monthCounts = {};
-        
-        for (let week = 0; week < 53; week++) {
-            const weekStart = new Date(currentDate);
-            weekStart.setDate(currentDate.getDate() + (week * 7));
-            
-            const month = weekStart.getMonth();
-            const year = weekStart.getFullYear();
-            const monthKey = `${year}-${month}`;
-            
-            if (!monthCounts[monthKey]) {
-                monthCounts[monthKey] = 0;
-            }
-            monthCounts[monthKey]++;
-        }
-
-        // Generate labels for months with significant presence (at least 2 weeks)
-        let lastMonthAdded = -1;
-        for (let week = 0; week < 53; week++) {
-            const weekStart = new Date(currentDate);
-            weekStart.setDate(currentDate.getDate() + (week * 7));
-            
-            const month = weekStart.getMonth();
-            const year = weekStart.getFullYear();
-            const monthKey = `${year}-${month}`;
-            
-            // Add month label if it's a new month and has significant presence
-            if (month !== lastMonthAdded && monthCounts[monthKey] >= 2) {
-                const monthLabel = document.createElement('div');
-                monthLabel.className = 'month-label';
-                monthLabel.textContent = this.monthNames[month];
-                monthsContainer.appendChild(monthLabel);
-                lastMonthAdded = month;
-            } else if (month !== lastMonthAdded) {
-                // Add empty space for months with less presence
-                const monthLabel = document.createElement('div');
-                monthLabel.className = 'month-label';
-                monthLabel.textContent = '';
-                monthsContainer.appendChild(monthLabel);
-                lastMonthAdded = month;
-            }
-        }
-
-        return monthsContainer;
-    }
-
-    createWeekdayLabels() {
-        const weekdayLabels = document.createElement('div');
-        weekdayLabels.className = 'weekday-labels';
-
-        const labels = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
-        labels.forEach(label => {
-            const labelElement = document.createElement('div');
-            labelElement.className = 'weekday-label';
-            labelElement.textContent = label;
-            weekdayLabels.appendChild(labelElement);
-        });
-
-        return weekdayLabels;
-    }
 
     createGrid(startDate, today) {
         const grid = document.createElement('div');
