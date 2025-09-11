@@ -4591,3 +4591,70 @@ body.page-research .page-container {
         font-size: var(--font-size-xs);
     }
 }
+
+/* ====== BOOKS PAGE STYLES ====== */
+
+/* Goodreads Profile Button */
+.goodreads-profile-section {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+}
+
+.goodreads-profile-button {
+    display: inline-block;
+    background: var(--accent-red);
+    color: white !important;
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 500;
+    font-family: var(--font-family-heading);
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-md);
+    border: none;
+    cursor: pointer;
+}
+
+.goodreads-profile-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: color-mix(in srgb, var(--accent-red) 85%, black);
+}
+
+.goodreads-profile-button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Goodreads Widget Container */
+.goodreads-widget-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+}
+
+/* Book theme compatibility for Goodreads button */
+:root[data-theme="book"] .goodreads-profile-button {
+    background: var(--accent-red);
+    color: white !important;
+}
+
+:root[data-theme="book"] .goodreads-profile-button:hover {
+    background: color-mix(in srgb, var(--accent-red) 85%, black);
+}
+
+/* Mobile responsiveness for books page */
+@media (max-width: 768px) {
+    .goodreads-widget-container {
+        padding: var(--spacing-sm);
+    }
+    
+    .goodreads-profile-button {
+        padding: 12px 24px;
+        font-size: var(--font-size-sm);
+    }
+    
+    .goodreads-profile-section {
+        margin-top: var(--spacing-md);
+    }
+}
