@@ -4633,14 +4633,33 @@ body.page-research .page-container {
     padding: var(--spacing-md);
 }
 
+/* Book theme compatibility for Books page */
+:root[data-theme="book"] .page-books .page-title,
+:root[data-theme="book"] .page-books .section-title {
+    color: var(--text-primary) !important;
+    font-weight: 600;
+}
+
+:root[data-theme="book"] .page-books .section-description {
+    color: var(--text-secondary) !important;
+    opacity: 1;
+}
+
+:root[data-theme="book"] .page-books .content-section {
+    background-color: var(--bg-content) !important;
+}
+
 /* Book theme compatibility for Goodreads button */
 :root[data-theme="book"] .goodreads-profile-button {
     background: var(--accent-red);
     color: white !important;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(45, 27, 22, 0.15);
 }
 
 :root[data-theme="book"] .goodreads-profile-button:hover {
     background: color-mix(in srgb, var(--accent-red) 85%, black);
+    box-shadow: 0 6px 12px rgba(45, 27, 22, 0.2);
 }
 
 /* Mobile responsiveness for books page */
