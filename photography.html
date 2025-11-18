@@ -229,6 +229,7 @@
 
         // Initialize gallery
         async function initGallery() {
+            console.log('Initializing gallery...');
             try {
                 await loadGalleryData();
                 validateMultiCategorySystem(); // Test the new system
@@ -735,7 +736,7 @@
                     <img src="${photo.src}" 
                          alt="${photo.title}" 
                          loading="lazy"
-                         onerror="this.parentElement.style.display='none';">
+                         onerror="handleImageError(this, '${photo.title}')">
                     <div class="photo-overlay">
                         <div class="photo-overlay-title">${photo.title}</div>
                         <div class="photo-overlay-caption">${photo.caption}</div>
@@ -768,6 +769,15 @@
         function showErrorMessage(message) {
             const grid = document.getElementById('photoGrid');
             grid.innerHTML = `<div class="error-message">${message}</div>`;
+        }
+
+        // Handle image loading errors
+        function handleImageError(img, title) {
+            console.error(`Failed to load image: ${img.src} for "${title}"`);
+            // Don't hide immediately, show placeholder or error style
+            img.style.opacity = '0.5';
+            img.alt = `Failed to load: ${title}`;
+            // Optional: img.src = 'path/to/placeholder.jpg';
         }
 
         // Setup event listeners
