@@ -3020,9 +3020,9 @@ button:focus {
     transition: var(--transition-base);
     position: relative;
     overflow: hidden;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: calc(var(--card-delay, 0) * 0.1s);
+    /* opacity: 0; - Removed to fix visibility issue */
+    /* animation: fadeInUp 0.8s ease-out forwards; - Disabled globally */
+    /* animation-delay: calc(var(--card-delay, 0) * 0.1s); - Disabled globally */
 }
 
 .onesite-card:nth-child(1) {
