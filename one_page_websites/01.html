@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,70 +8,119 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #0F172A; /* slate-900 */
-            color: #CBD5E1; /* slate-300 */
+            background-color: #0F172A;
+            /* slate-900 */
+            color: #CBD5E1;
+            /* slate-300 */
         }
-        h1, h2, h3, h4, h5, h6 {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Playfair Display', serif;
         }
+
         .pillar-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             border-width: 1px;
-            border-color: #334155; /* slate-700 */
+            border-color: #334155;
+            /* slate-700 */
         }
+
         .pillar-card:hover {
             transform: translateY(-12px) scale(1.03);
             box-shadow: 0 25px 50px -12px rgba(217, 119, 6, 0.25);
-            border-color: #D97706; /* amber-600 */
+            border-color: #D97706;
+            /* amber-600 */
         }
+
         .nav-link.active {
-            color: #FBBF24; /* amber-400 */
+            color: #FBBF24;
+            /* amber-400 */
             font-weight: 500;
         }
+
         .timeline-link.active-timeline {
-             border-color: #FBBF24; /* amber-400 */
-             color: #FDE68A; /* amber-200 */
-             font-weight: 500;
+            border-color: #FBBF24;
+            /* amber-400 */
+            color: #FDE68A;
+            /* amber-200 */
+            font-weight: 500;
         }
+
         .prose-custom {
-            color: #94A3B8; /* slate-400 */
+            color: #94A3B8;
+            /* slate-400 */
         }
-        .prose-custom h1, .prose-custom h2, .prose-custom h3 {
-            color: #F1F5F9; /* slate-100 */
+
+        .prose-custom h1,
+        .prose-custom h2,
+        .prose-custom h3 {
+            color: #F1F5F9;
+            /* slate-100 */
         }
+
         .prose-custom strong {
-            color: #FDE68A; /* amber-200 */
+            color: #FDE68A;
+            /* amber-200 */
         }
+
         .prose-custom a {
-            color: #FBBF24; /* amber-400 */
+            color: #FBBF24;
+            /* amber-400 */
             text-decoration: none;
             transition: color 0.2s;
         }
+
         .prose-custom a:hover {
-            color: #D97706; /* amber-600 */
+            color: #D97706;
+            /* amber-600 */
         }
+
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #1E293B; } /* slate-800 */
-        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; } /* slate-600 */
-        ::-webkit-scrollbar-thumb:hover { background: #64748B; } /* slate-500 */
-        
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1E293B;
+        }
+
+        /* slate-800 */
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 10px;
+        }
+
+        /* slate-600 */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748B;
+        }
+
+        /* slate-500 */
+
         /* Animation */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.6s ease-out;
         }
+
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
     </style>
-    
+
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -99,35 +149,53 @@
     }
     </script>
 </head>
+
 <body class="bg-slate-900 text-slate-300">
 
     <!-- Header & Navigation -->
-    <header id="header" class="bg-slate-900/70 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 border-b border-slate-800 transition-all duration-300">
+    <header id="header"
+        class="bg-slate-900/70 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 border-b border-slate-800 transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-xl md:text-2xl font-bold text-white">The Pillars of Science</h1>
             <nav class="hidden md:flex space-x-8">
-                <a href="#introduction" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Introduction</a>
-                <a href="#pillars" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Pillars</a>
-                <a href="#theory" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Theory</a>
-                <a href="#experiment" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Experiment</a>
-                <a href="#simulation" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Simulation</a>
+                <a href="#introduction"
+                    class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Introduction</a>
+                <a href="#pillars"
+                    class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Pillars</a>
+                <a href="#theory"
+                    class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Theory</a>
+                <a href="#experiment"
+                    class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Experiment</a>
+                <a href="#simulation"
+                    class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Simulation</a>
                 <a href="#ai" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">AI</a>
-                <a href="#future" class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Future & Challenges</a>
+                <a href="#future"
+                    class="nav-link text-slate-400 hover:text-amber-400 transition-colors duration-300">Future &
+                    Challenges</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-slate-900/90 border-t border-slate-800">
-             <a href="#introduction" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Introduction</a>
-             <a href="#pillars" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Pillars</a>
-             <a href="#theory" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Theory</a>
-             <a href="#experiment" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Experiment</a>
-             <a href="#simulation" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Simulation</a>
-             <a href="#ai" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">AI</a>
-             <a href="#future" class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Future & Challenges</a>
+            <a href="#introduction"
+                class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Introduction</a>
+            <a href="#pillars"
+                class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Pillars</a>
+            <a href="#theory"
+                class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Theory</a>
+            <a href="#experiment"
+                class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Experiment</a>
+            <a href="#simulation"
+                class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Simulation</a>
+            <a href="#ai"
+                class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">AI</a>
+            <a href="#future"
+                class="mobile-nav-link block text-center py-3 px-4 text-slate-300 hover:bg-slate-800 hover:text-amber-400">Future
+                & Challenges</a>
         </div>
     </header>
 
@@ -137,48 +205,90 @@
         <section id="introduction" class="py-24 min-h-screen flex items-center">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight reveal">The Fourth Pillar</h2>
-                <h3 class="text-2xl md:text-4xl font-light text-amber-400 mb-10 reveal" style="transition-delay: 200ms;">How AI is Revolutionizing the Architecture of Scientific Discovery</h3>
-                <p class="text-lg text-slate-400 mb-12 reveal" style="transition-delay: 400ms;">The scientific method is a dynamic architecture of inquiry, evolving over centuries. From Theory and Experiment to Simulation, each pillar was built to overcome the limitations of the last. Today, a fourth pillar is rising, one built not on laws or physical manipulation, but on data and learning: Artificial Intelligence.</p>
+                <h3 class="text-2xl md:text-4xl font-light text-amber-400 mb-10 reveal"
+                    style="transition-delay: 200ms;">How AI is Revolutionizing the Architecture of Scientific Discovery
+                </h3>
+                <p class="text-lg text-slate-400 mb-12 reveal" style="transition-delay: 400ms;">The scientific method is
+                    a dynamic architecture of inquiry, evolving over centuries. From Theory and Experiment to
+                    Simulation, each pillar was built to overcome the limitations of the last. Today, a fourth pillar is
+                    rising, one built not on laws or physical manipulation, but on data and learning: Artificial
+                    Intelligence.</p>
                 <div class="reveal" style="transition-delay: 600ms;">
-                     <a href="#pillars" class="inline-block bg-amber-600 text-white font-bold py-4 px-10 rounded-lg hover:bg-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-600/20">Explore the Pillars</a>
+                    <a href="#pillars"
+                        class="inline-block bg-amber-600 text-white font-bold py-4 px-10 rounded-lg hover:bg-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-600/20">Explore
+                        the Pillars</a>
                 </div>
             </div>
         </section>
-        
+
         <!-- Pillar Display Section -->
         <section id="pillars" class="py-20 scroll-mt-20">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Pillar 1: Theory -->
                 <a href="#theory" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal">
-                    <div class="flex items-center justify-center h-16 w-16 mb-6 bg-blue-900/30 rounded-lg border border-blue-700">
-                        <svg class="h-8 w-8 text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                    <div
+                        class="flex items-center justify-center h-16 w-16 mb-6 bg-blue-900/30 rounded-lg border border-blue-700">
+                        <svg class="h-8 w-8 text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Pillar I: Theory</h3>
-                    <p class="text-slate-400">The quest for foundational laws, from abstract philosophy to the predictive power of mathematics.</p>
+                    <p class="text-slate-400">The quest for foundational laws, from abstract philosophy to the
+                        predictive power of mathematics.</p>
                 </a>
                 <!-- Pillar 2: Experiment -->
-                <a href="#experiment" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal" style="transition-delay: 150ms;">
-                     <div class="flex items-center justify-center h-16 w-16 mb-6 bg-green-900/30 rounded-lg border border-green-700">
-                       <svg class="h-8 w-8 text-green-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547a2 2 0 00-.547 1.806l.477 2.387a6 6 0 00.517 3.86l.158.318a6 6 0 00.517 3.86l.477 2.387a2 2 0 001.806.547a2 2 0 001.806-.547l2.387-.477a6 6 0 003.86-.517l.318-.158a6 6 0 013.86-.517l2.387.477a2 2 0 001.806-.547a2 2 0 00.547-1.806l-.477-2.387a6 6 0 00-.517-3.86l-.158-.318a6 6 0 00-.517-3.86l-.477-2.387z" transform="rotate(-45 12 12) translate(-4 -4)" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <a href="#experiment" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal"
+                    style="transition-delay: 150ms;">
+                    <div
+                        class="flex items-center justify-center h-16 w-16 mb-6 bg-green-900/30 rounded-lg border border-green-700">
+                        <svg class="h-8 w-8 text-green-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547a2 2 0 00-.547 1.806l.477 2.387a6 6 0 00.517 3.86l.158.318a6 6 0 00.517 3.86l.477 2.387a2 2 0 001.806.547a2 2 0 001.806-.547l2.387-.477a6 6 0 003.86-.517l.318-.158a6 6 0 013.86-.517l2.387.477a2 2 0 001.806-.547a2 2 0 00.547-1.806l-.477-2.387a6 6 0 00-.517-3.86l-.158-.318a6 6 0 00-.517-3.86l-.477-2.387z"
+                                transform="rotate(-45 12 12) translate(-4 -4)" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Pillar II: Experiment</h3>
-                    <p class="text-slate-400">The primacy of empirical evidence, grounding theory in verifiable, reproducible reality.</p>
+                    <p class="text-slate-400">The primacy of empirical evidence, grounding theory in verifiable,
+                        reproducible reality.</p>
                 </a>
                 <!-- Pillar 3: Simulation -->
-                <a href="#simulation" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal" style="transition-delay: 300ms;">
-                    <div class="flex items-center justify-center h-16 w-16 mb-6 bg-amber-900/30 rounded-lg border border-amber-700">
-                        <svg class="h-8 w-8 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                <a href="#simulation" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal"
+                    style="transition-delay: 300ms;">
+                    <div
+                        class="flex items-center justify-center h-16 w-16 mb-6 bg-amber-900/30 rounded-lg border border-amber-700">
+                        <svg class="h-8 w-8 text-amber-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Pillar III: Simulation</h3>
-                    <p class="text-slate-400">The computational laboratory, exploring complex systems inaccessible to the first two pillars.</p>
+                    <p class="text-slate-400">The computational laboratory, exploring complex systems inaccessible to
+                        the first two pillars.</p>
                 </a>
                 <!-- Pillar 4: AI -->
-                <a href="#ai" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal" style="transition-delay: 450ms;">
-                    <div class="flex items-center justify-center h-16 w-16 mb-6 bg-indigo-900/30 rounded-lg border border-indigo-700">
-                       <svg class="h-8 w-8 text-indigo-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75h-7.5" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9.75h-7.5" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12.75h-7.5" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75h-7.5" /></svg>
+                <a href="#ai" class="pillar-card block bg-slate-800/50 p-8 rounded-2xl reveal"
+                    style="transition-delay: 450ms;">
+                    <div
+                        class="flex items-center justify-center h-16 w-16 mb-6 bg-indigo-900/30 rounded-lg border border-indigo-700">
+                        <svg class="h-8 w-8 text-indigo-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75h-7.5" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9.75h-7.5" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12.75h-7.5" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75h-7.5" />
+                        </svg>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Pillar IV: AI</h3>
-                    <p class="text-slate-400">The dawn of data-driven discovery, generating hypotheses and finding patterns beyond human capacity.</p>
+                    <p class="text-slate-400">The dawn of data-driven discovery, generating hypotheses and finding
+                        patterns beyond human capacity.</p>
                 </a>
             </div>
         </section>
@@ -187,58 +297,137 @@
         <div class="flex flex-col lg:flex-row gap-12">
             <!-- Timeline -->
             <aside class="lg:w-1/6 lg:sticky top-24 self-start hidden lg:block">
-                 <nav id="timeline" class="flex flex-col space-y-4 border-l-2 border-slate-700">
-                     <a href="#theory" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="theory">Pillar I: Theory</a>
-                     <a href="#experiment" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="experiment">Pillar II: Experiment</a>
-                     <a href="#simulation" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="simulation">Pillar III: Simulation</a>
-                     <a href="#ai" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="ai">Pillar IV: AI</a>
-                     <a href="#future" class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors" data-section="future">Future & Challenges</a>
-                 </nav>
+                <nav id="timeline" class="flex flex-col space-y-4 border-l-2 border-slate-700">
+                    <a href="#theory"
+                        class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors"
+                        data-section="theory">Pillar I: Theory</a>
+                    <a href="#experiment"
+                        class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors"
+                        data-section="experiment">Pillar II: Experiment</a>
+                    <a href="#simulation"
+                        class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors"
+                        data-section="simulation">Pillar III: Simulation</a>
+                    <a href="#ai"
+                        class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors"
+                        data-section="ai">Pillar IV: AI</a>
+                    <a href="#future"
+                        class="timeline-link pl-4 py-2 border-l-4 border-transparent text-slate-500 hover:text-amber-400 transition-colors"
+                        data-section="future">Future & Challenges</a>
+                </nav>
             </aside>
 
             <!-- Dynamic Content Sections -->
             <div class="prose-custom max-w-none lg:max-w-4xl mx-auto lg:w-5/6">
                 <section id="theory" class="content-section py-16 scroll-mt-20">
-                    <h2 class="text-4xl md:text-5xl font-bold border-b border-blue-500/30 pb-4 mb-8 reveal">Pillar I: Theory</h2>
+                    <h2 class="text-4xl md:text-5xl font-bold border-b border-blue-500/30 pb-4 mb-8 reveal">Pillar I:
+                        Theory</h2>
                     <div class="reveal">
-                        <h3 class="text-3xl font-semibold mt-8 mb-4">From Mythos to Logos: The Philosophical Origins</h3>
-                        <p>The genesis of scientific inquiry lies in the fundamental human need to connect observation with prediction and replace mythological explanations with rational ones. The earliest roots of this theoretical impulse can be traced to ancient civilizations that sought to impose order on the world through systematic abstraction. It was the ancient Greeks, however, who first formalized the theoretical approach, moving beyond practical rules to seek universal principles. The core principle uniting these efforts was <strong>abstraction</strong>: the creation of conceptual models and relationships to explain and predict phenomena, often based on logic and reason rather than systematic, controlled experimentation.</p>
-                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Age of Laws: Formalization and Predictive Power</h3>
-                        <p>The Scientific Revolution of the 16th and 17th centuries marked the maturation of theory into a powerful, predictive tool. This era culminated in Isaac Newton's <em>Principia Mathematica</em>, a grand synthesis that established a new ideal for science: that a few elegant, universal laws could have immense predictive power. The 20th century brought the two most revolutionary theories: Einstein's theory of relativity and quantum mechanics, which radically altered our understanding of the universe. The primary epistemological contribution of the theoretical pillar was the establishment of the concept of <strong>universal, predictive laws</strong>. However, the great strength of pure theory—its abstraction from the messy details of reality—is also its principal weakness, creating the profound intellectual necessity for the second pillar: experiment.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">From Mythos to Logos: The Philosophical Origins
+                        </h3>
+                        <p>The genesis of scientific inquiry lies in the fundamental human need to connect observation
+                            with prediction and replace mythological explanations with rational ones. The earliest roots
+                            of this theoretical impulse can be traced to ancient civilizations that sought to impose
+                            order on the world through systematic abstraction. It was the ancient Greeks, however, who
+                            first formalized the theoretical approach, moving beyond practical rules to seek universal
+                            principles. The core principle uniting these efforts was <strong>abstraction</strong>: the
+                            creation of conceptual models and relationships to explain and predict phenomena, often
+                            based on logic and reason rather than systematic, controlled experimentation.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Age of Laws: Formalization and Predictive Power
+                        </h3>
+                        <p>The Scientific Revolution of the 16th and 17th centuries marked the maturation of theory into
+                            a powerful, predictive tool. This era culminated in Isaac Newton's <em>Principia
+                                Mathematica</em>, a grand synthesis that established a new ideal for science: that a few
+                            elegant, universal laws could have immense predictive power. The 20th century brought the
+                            two most revolutionary theories: Einstein's theory of relativity and quantum mechanics,
+                            which radically altered our understanding of the universe. The primary epistemological
+                            contribution of the theoretical pillar was the establishment of the concept of
+                            <strong>universal, predictive laws</strong>. However, the great strength of pure theory—its
+                            abstraction from the messy details of reality—is also its principal weakness, creating the
+                            profound intellectual necessity for the second pillar: experiment.</p>
                     </div>
                 </section>
 
                 <section id="experiment" class="content-section py-16 scroll-mt-20">
-                    <h2 class="text-4xl md:text-5xl font-bold border-b border-green-500/30 pb-4 mb-8 reveal">Pillar II: Experiment</h2>
+                    <h2 class="text-4xl md:text-5xl font-bold border-b border-green-500/30 pb-4 mb-8 reveal">Pillar II:
+                        Experiment</h2>
                     <div class="reveal">
-                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Empirical Turn: From Authority to Observation</h3>
-                        <p>For much of history, knowledge was sought through the interpretation of established texts. The second pillar, experiment, represents the revolutionary shift away from this dogma-based epistemology toward one grounded in direct, verifiable evidence. The <strong>empirical method</strong> is a systematic approach to acquiring knowledge through observation and experimentation, rather than through intuition or authority. The Scientific Revolution was the period in which empiricism became a central tenet of scientific inquiry, championed by figures like Francis Bacon, who argued for a new science that actively interrogated nature, and Galileo Galilei, whose telescopic observations provided evidence that shattered ancient theories.</p>
-                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Scientific Method in Practice: Validation and Falsification</h3>
-                        <p>The experimental pillar formalized the modern scientific method, establishing its core tenets of systematic observation, hypothesis testing, and, most crucially, <strong>reproducibility</strong>. Experimentation became the ultimate arbiter between competing theories. A hypothesis that survives repeated attempts at falsification is considered robust and reliable. This principle created a powerful, self-correcting feedback loop for knowledge and fundamentally democratized science. Yet, the experimental method is confined to systems that are physically accessible, controllable, and observable. This created a new frontier of "wicked problems"—systems too large, small, fast, slow, or complex to be interrogated by physical experiment alone, creating the necessity for the third pillar.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Empirical Turn: From Authority to Observation
+                        </h3>
+                        <p>For much of history, knowledge was sought through the interpretation of established texts.
+                            The second pillar, experiment, represents the revolutionary shift away from this dogma-based
+                            epistemology toward one grounded in direct, verifiable evidence. The <strong>empirical
+                                method</strong> is a systematic approach to acquiring knowledge through observation and
+                            experimentation, rather than through intuition or authority. The Scientific Revolution was
+                            the period in which empiricism became a central tenet of scientific inquiry, championed by
+                            figures like Francis Bacon, who argued for a new science that actively interrogated nature,
+                            and Galileo Galilei, whose telescopic observations provided evidence that shattered ancient
+                            theories.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Scientific Method in Practice: Validation and
+                            Falsification</h3>
+                        <p>The experimental pillar formalized the modern scientific method, establishing its core tenets
+                            of systematic observation, hypothesis testing, and, most crucially,
+                            <strong>reproducibility</strong>. Experimentation became the ultimate arbiter between
+                            competing theories. A hypothesis that survives repeated attempts at falsification is
+                            considered robust and reliable. This principle created a powerful, self-correcting feedback
+                            loop for knowledge and fundamentally democratized science. Yet, the experimental method is
+                            confined to systems that are physically accessible, controllable, and observable. This
+                            created a new frontier of "wicked problems"—systems too large, small, fast, slow, or complex
+                            to be interrogated by physical experiment alone, creating the necessity for the third
+                            pillar.</p>
                     </div>
                 </section>
 
                 <section id="simulation" class="content-section py-16 scroll-mt-20">
-                     <h2 class="text-4xl md:text-5xl font-bold border-b border-amber-500/30 pb-4 mb-8 reveal">Pillar III: Simulation</h2>
-                     <div class="reveal">
-                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Dawn of the Digital Age: Overcoming Stagnation</h3>
-                        <p>By the mid-20th century, science was confronting a wall of complexity. Many successful theories were analytically unsolvable for real-world scenarios, and experimentation was reaching its own limits. The solution emerged from computing. John von Neumann's vision of a <strong>computational laboratory</strong>—a virtual space for experiments on models of complex systems—became a reality with the invention of the electronic computer. This new technology allowed scientists to realize numerical simulations of increasingly complex problems, pioneering the third pillar of scientific discovery.</p>
+                    <h2 class="text-4xl md:text-5xl font-bold border-b border-amber-500/30 pb-4 mb-8 reveal">Pillar III:
+                        Simulation</h2>
+                    <div class="reveal">
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Dawn of the Digital Age: Overcoming Stagnation
+                        </h3>
+                        <p>By the mid-20th century, science was confronting a wall of complexity. Many successful
+                            theories were analytically unsolvable for real-world scenarios, and experimentation was
+                            reaching its own limits. The solution emerged from computing. John von Neumann's vision of a
+                            <strong>computational laboratory</strong>—a virtual space for experiments on models of
+                            complex systems—became a reality with the invention of the electronic computer. This new
+                            technology allowed scientists to realize numerical simulations of increasingly complex
+                            problems, pioneering the third pillar of scientific discovery.</p>
                         <h3 class="text-3xl font-semibold mt-8 mb-4">Simulation as a New Mode of Inquiry</h3>
-                        <p>Computational science, or simulation, is the use of mathematical models on computers to understand natural phenomena. It acts as a crucial bridge between theory and experiment. The unique epistemological contribution of simulation is its ability to explore the consequences of "what if" scenarios within complex, well-defined theoretical frameworks. It is a fundamentally <strong>model-driven</strong> paradigm. Simulation does not typically discover new fundamental laws; rather, it reveals the complex, often surprising emergent behavior of systems governed by known laws. Crucially, by digitizing scientific inquiry, simulation began to generate massive datasets, creating a new bottleneck: the limited ability of humans to analyze this ocean of data. This is the challenge that the fourth pillar is poised to solve.</p>
+                        <p>Computational science, or simulation, is the use of mathematical models on computers to
+                            understand natural phenomena. It acts as a crucial bridge between theory and experiment. The
+                            unique epistemological contribution of simulation is its ability to explore the consequences
+                            of "what if" scenarios within complex, well-defined theoretical frameworks. It is a
+                            fundamentally <strong>model-driven</strong> paradigm. Simulation does not typically discover
+                            new fundamental laws; rather, it reveals the complex, often surprising emergent behavior of
+                            systems governed by known laws. Crucially, by digitizing scientific inquiry, simulation
+                            began to generate massive datasets, creating a new bottleneck: the limited ability of humans
+                            to analyze this ocean of data. This is the challenge that the fourth pillar is poised to
+                            solve.</p>
                     </div>
                 </section>
 
                 <section id="ai" class="content-section py-16 scroll-mt-20">
-                    <h2 class="text-4xl md:text-5xl font-bold border-b border-indigo-500/30 pb-4 mb-8 reveal">Pillar IV: AI</h2>
+                    <h2 class="text-4xl md:text-5xl font-bold border-b border-indigo-500/30 pb-4 mb-8 reveal">Pillar IV:
+                        AI</h2>
                     <div class="reveal">
-                        <h3 class="text-3xl font-semibold mt-8 mb-4">A New Kind of Inquiry: From Model-Driven to Data-Driven</h3>
-                        <p>The fourth pillar, first conceptualized as a "Fourth Paradigm" by Jim Gray, represents a fundamental departure from the previous three. While simulation is model-driven, AI-driven science is often <strong>data-driven</strong>: it can begin with vast, complex data and use learning algorithms to extract models, identify patterns, and generate hypotheses, sometimes without a complete, pre-existing theory. This paradigm shift has been enabled by the confluence of big data, breakthroughs in machine learning, and the exponential growth of high-performance computing.</p>
-                        
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">A New Kind of Inquiry: From Model-Driven to
+                            Data-Driven</h3>
+                        <p>The fourth pillar, first conceptualized as a "Fourth Paradigm" by Jim Gray, represents a
+                            fundamental departure from the previous three. While simulation is model-driven, AI-driven
+                            science is often <strong>data-driven</strong>: it can begin with vast, complex data and use
+                            learning algorithms to extract models, identify patterns, and generate hypotheses, sometimes
+                            without a complete, pre-existing theory. This paradigm shift has been enabled by the
+                            confluence of big data, breakthroughs in machine learning, and the exponential growth of
+                            high-performance computing.</p>
+
                         <h3 class="text-3xl font-semibold mt-8 mb-4">The Core Capabilities of AI in Science</h3>
                         <ul class="list-disc list-inside space-y-2 mb-8">
-                            <li><strong>Automated Hypothesis Generation:</strong> AI systems can mine scientific literature and datasets to propose novel, non-obvious, and testable hypotheses.</li>
-                            <li><strong>Complex Pattern Recognition:</strong> Deep learning excels at identifying subtle, high-dimensional patterns in enormous datasets that are imperceptible to human analysis.</li>
-                            <li><strong>Autonomous Experimentation:</strong> "Robot scientists" can autonomously formulate hypotheses, design and run experiments, analyze data, and refine their understanding in a closed loop.</li>
+                            <li><strong>Automated Hypothesis Generation:</strong> AI systems can mine scientific
+                                literature and datasets to propose novel, non-obvious, and testable hypotheses.</li>
+                            <li><strong>Complex Pattern Recognition:</strong> Deep learning excels at identifying
+                                subtle, high-dimensional patterns in enormous datasets that are imperceptible to human
+                                analysis.</li>
+                            <li><strong>Autonomous Experimentation:</strong> "Robot scientists" can autonomously
+                                formulate hypotheses, design and run experiments, analyze data, and refine their
+                                understanding in a closed loop.</li>
                         </ul>
 
                         <h3 class="text-3xl font-semibold mt-8 mb-4">Case Studies from the Frontier: AI in Action</h3>
@@ -255,54 +444,88 @@
                                     <tr class="hover:bg-slate-800 transition-colors duration-200">
                                         <td class="p-4">Structural Biology</td>
                                         <td class="p-4 font-mono text-amber-300">DeepMind AlphaFold</td>
-                                        <td class="p-4">Solved the 50-year "grand challenge" of protein folding, accelerating drug discovery.</td>
+                                        <td class="p-4">Solved the 50-year "grand challenge" of protein folding,
+                                            accelerating drug discovery.</td>
                                     </tr>
                                     <tr class="hover:bg-slate-800 transition-colors duration-200">
                                         <td class="p-4">Materials Science</td>
                                         <td class="p-4 font-mono text-amber-300">Google GNoME</td>
-                                        <td class="p-4">Predicted hundreds of thousands of new stable materials for batteries and superconductors.</td>
+                                        <td class="p-4">Predicted hundreds of thousands of new stable materials for
+                                            batteries and superconductors.</td>
                                     </tr>
                                     <tr class="hover:bg-slate-800 transition-colors duration-200">
                                         <td class="p-4">Meteorology</td>
                                         <td class="p-4 font-mono text-amber-300">Google GraphCast</td>
-                                        <td class="p-4">Faster and more accurate 10-day weather forecasting than traditional models.</td>
+                                        <td class="p-4">Faster and more accurate 10-day weather forecasting than
+                                            traditional models.</td>
                                     </tr>
                                     <tr class="hover:bg-slate-800 transition-colors duration-200">
                                         <td class="p-4">Nuclear Physics</td>
                                         <td class="p-4 font-mono text-amber-300">DeepMind Fusion Control</td>
-                                        <td class="p-4">Opens new pathways toward achieving stable, clean energy from nuclear fusion.</td>
+                                        <td class="p-4">Opens new pathways toward achieving stable, clean energy from
+                                            nuclear fusion.</td>
                                     </tr>
                                     <tr class="hover:bg-slate-800 transition-colors duration-200">
                                         <td class="p-4">Mathematics</td>
                                         <td class="p-4 font-mono text-amber-300">Google AlphaGeometry</td>
-                                        <td class="p-4">Demonstrates AI's capacity for abstract reasoning by solving complex geometry problems.</td>
+                                        <td class="p-4">Demonstrates AI's capacity for abstract reasoning by solving
+                                            complex geometry problems.</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </section>
-                
+
                 <section id="future" class="content-section py-16 scroll-mt-20">
-                    <h2 class="text-4xl md:text-5xl font-bold border-b border-red-500/30 pb-4 mb-8 reveal">Challenges & The Future</h2>
+                    <h2 class="text-4xl md:text-5xl font-bold border-b border-red-500/30 pb-4 mb-8 reveal">Challenges &
+                        The Future</h2>
                     <div class="reveal">
                         <h3 class="text-3xl font-semibold mt-8 mb-4">The Crisis of Trust and Transparency</h3>
-                        <p>The integration of AI is fraught with challenges. The <strong>"black box" problem</strong>, where the internal workings of AI models are opaque, challenges the scientific ethos of mechanistic understanding. This can erode trust and complicate validation. AI also introduces new threats to <strong>reproducibility</strong> due to the stochastic nature of algorithms and complex dependencies. Furthermore, the risk of "AI slop" or "hallucinations" polluting the scientific literature with fabricated information is a serious concern.</p>
-                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Specter in the Machine: Bias, Collapse, and Ethics</h3>
-                        <p>AI systems trained on biased data can reproduce and amplify societal biases, leading to scientifically invalid outcomes. A long-term risk is <strong>"model collapse,"</strong> where models trained on their own synthetic output begin to degrade, stifling genuine novelty. These challenges highlight the urgent need for robust ethical frameworks, standards for transparency, and methods for bias detection and mitigation to govern the use of AI in science.</p>
-                        <h3 class="text-3xl font-semibold mt-8 mb-4">Redefining Discovery: Philosophical Implications</h3>
-                        <p>The rise of AI forces a confrontation with deep philosophical questions. Can a machine truly "understand"? AI also challenges the notion of <strong>human exceptionalism</strong> in creativity and intelligence. This suggests the role of the scientist will evolve from a primary discoverer to a high-level collaborator—the one who asks the right questions, provides creative intuition, curates AI outputs, and supplies ethical judgment. Perhaps most profoundly, AI represents a potential epistemological rupture, suggesting there may be aspects of reality that can only be known through a non-human form of intelligence.</p>
+                        <p>The integration of AI is fraught with challenges. The <strong>"black box" problem</strong>,
+                            where the internal workings of AI models are opaque, challenges the scientific ethos of
+                            mechanistic understanding. This can erode trust and complicate validation. AI also
+                            introduces new threats to <strong>reproducibility</strong> due to the stochastic nature of
+                            algorithms and complex dependencies. Furthermore, the risk of "AI slop" or "hallucinations"
+                            polluting the scientific literature with fabricated information is a serious concern.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">The Specter in the Machine: Bias, Collapse, and
+                            Ethics</h3>
+                        <p>AI systems trained on biased data can reproduce and amplify societal biases, leading to
+                            scientifically invalid outcomes. A long-term risk is <strong>"model collapse,"</strong>
+                            where models trained on their own synthetic output begin to degrade, stifling genuine
+                            novelty. These challenges highlight the urgent need for robust ethical frameworks, standards
+                            for transparency, and methods for bias detection and mitigation to govern the use of AI in
+                            science.</p>
+                        <h3 class="text-3xl font-semibold mt-8 mb-4">Redefining Discovery: Philosophical Implications
+                        </h3>
+                        <p>The rise of AI forces a confrontation with deep philosophical questions. Can a machine truly
+                            "understand"? AI also challenges the notion of <strong>human exceptionalism</strong> in
+                            creativity and intelligence. This suggests the role of the scientist will evolve from a
+                            primary discoverer to a high-level collaborator—the one who asks the right questions,
+                            provides creative intuition, curates AI outputs, and supplies ethical judgment. Perhaps most
+                            profoundly, AI represents a potential epistemological rupture, suggesting there may be
+                            aspects of reality that can only be known through a non-human form of intelligence.</p>
                     </div>
-                     <div class="reveal mt-12">
-                        <p>The architecture of scientific discovery is now supported by four pillars: Theory, Experiment, Simulation, and Artificial Intelligence. This new paradigm promises a radical acceleration in our ability to tackle the grand challenges of our time. In this four-pillar world, the role of the human scientist is not diminished but transformed. The scientist of the future will be a sophisticated question-asker, a creative collaborator, a discerning curator, and an essential ethical guide.</p>
-                        <p class="mt-4">Realizing this future requires a concerted effort to build an open, ethical, and trustworthy ecosystem for scientific AI. It demands the democratization of powerful tools, investment in education, a cultural shift toward open innovation, and the embedding of robust ethical principles into the very heart of scientific AI. The task ahead is to build an innovation ecosystem as intelligent, robust, and ethical as the science we hope to create with it.</p>
+                    <div class="reveal mt-12">
+                        <p>The architecture of scientific discovery is now supported by four pillars: Theory,
+                            Experiment, Simulation, and Artificial Intelligence. This new paradigm promises a radical
+                            acceleration in our ability to tackle the grand challenges of our time. In this four-pillar
+                            world, the role of the human scientist is not diminished but transformed. The scientist of
+                            the future will be a sophisticated question-asker, a creative collaborator, a discerning
+                            curator, and an essential ethical guide.</p>
+                        <p class="mt-4">Realizing this future requires a concerted effort to build an open, ethical, and
+                            trustworthy ecosystem for scientific AI. It demands the democratization of powerful tools,
+                            investment in education, a cultural shift toward open innovation, and the embedding of
+                            robust ethical principles into the very heart of scientific AI. The task ahead is to build
+                            an innovation ecosystem as intelligent, robust, and ethical as the science we hope to create
+                            with it.</p>
                     </div>
                 </section>
 
             </div>
         </div>
     </main>
-    
+
     <footer class="bg-slate-900 border-t border-slate-800 mt-20">
         <div class="container mx-auto px-6 py-8 text-center text-slate-500">
             <p>&copy; 2025 The Four Pillars of Scientific Discovery. All rights reserved.</p>
@@ -312,7 +535,7 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // --- Mobile Menu ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -347,12 +570,12 @@
             const sections = document.querySelectorAll('.content-section, #introduction, #pillars');
             const navLinks = document.querySelectorAll('.nav-link');
             const timelineLinks = document.querySelectorAll('.timeline-link');
-            
+
             const sectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.id;
-                        
+
                         // Main Nav
                         navLinks.forEach(link => {
                             link.classList.toggle('active', link.getAttribute('href').substring(1) === id);
@@ -370,11 +593,13 @@
             sections.forEach(section => sectionObserver.observe(section));
         });
     </script>
-    
+
     <!-- Mobile Navigation Script -->
     <script src="../mobile-nav.js"></script>
-    
+
     <!-- Theme Switcher -->
     <script src="../theme-switcher.js"></script>
+    <script src="../particle-ripple.js"></script>
 </body>
+
 </html>

@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Manas Pandey Photography - Professional photography portfolio with seamless masonry gallery">
+    <meta name="description"
+        content="Manas Pandey Photography - Professional photography portfolio with seamless masonry gallery">
     <meta name="keywords" content="Photography, Portfolio, Gallery, Manas Pandey">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Manas Pandey">
     <meta name="publisher" content="Manas Pandey">
     <meta name="language" content="en">
     <meta name="revisit-after" content="7 days">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://manasp21.github.io/photography.html">
@@ -25,20 +27,22 @@
     <meta property="twitter:title" content="Photography | Manas Pandey">
     <meta property="twitter:description" content="Professional photography portfolio with seamless masonry gallery">
     <meta property="twitter:image" content="https://manasp21.github.io/assets/og-image.jpg">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://manasp21.github.io/photography.html">
-    
+
     <title>Photography | Manas Pandey</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Lato:wght@300;400;500&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Lato:wght@300;400;500&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
+
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -60,9 +64,10 @@
       ]
     }
     </script>
-    
+
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body class="page-photography">
     <!-- Header -->
     <header class="header">
@@ -108,11 +113,11 @@
     <!-- Main Gallery -->
     <main class="page-container">
         <h1 class="page-title">Photography</h1>
-        
+
         <section class="content-section">
             <h2 class="section-title">Gallery</h2>
             <p class="section-description">A collection of moments that flowed through me</p>
-            
+
             <!-- Category Filter -->
             <div class="filter-section">
                 <div class="filter-buttons" id="categoryFilters">
@@ -120,7 +125,7 @@
                     <!-- Categories will be dynamically loaded here -->
                 </div>
             </div>
-            
+
             <div class="content-grid photo-grid" id="photoGrid">
                 <!-- Photos will be dynamically loaded here -->
             </div>
@@ -132,14 +137,14 @@
         <div class="lightbox-content">
             <img class="lightbox-image" id="lightboxImage" src="" alt="">
         </div>
-        
+
         <!-- Navigation -->
         <button class="nav-arrow prev" id="prevBtn" title="Previous">‹</button>
         <button class="nav-arrow next" id="nextBtn" title="Next">›</button>
-        
+
         <!-- Close Button -->
         <button class="lightbox-close" id="closeBtn" title="Close">✕</button>
-        
+
         <!-- Caption (appears on hover/delay) -->
         <div class="lightbox-caption" id="lightboxCaption">
             <div class="lightbox-caption-title" id="imageTitle"></div>
@@ -178,7 +183,7 @@
         let currentFilteredIndex = 0;
         let isLightboxOpen = false;
         let currentFilter = 'all';
-        
+
         // Category grouping system - maps detailed categories to main groups
         // 
         // IMPORTANT: Photos can belong to MULTIPLE main categories!
@@ -196,21 +201,21 @@
             'street': ['street', 'candid', 'urban-life', 'people', 'after-rain', 'road', 'water'],
             'abstract': ['abstract', 'light', 'artistic']
         };
-        
+
         // Get all main categories for a photo based on its detailed categories (MULTI-CATEGORY SUPPORT)
         function getMainCategories(photoCategories) {
             if (!photoCategories || !Array.isArray(photoCategories)) return ['other'];
-            
+
             const matchingCategories = [];
             for (const [mainCategory, detailedCategories] of Object.entries(categoryGroups)) {
                 if (photoCategories.some(cat => detailedCategories.includes(cat))) {
                     matchingCategories.push(mainCategory);
                 }
             }
-            
+
             return matchingCategories.length > 0 ? matchingCategories : ['other'];
         }
-        
+
         // Legacy function for backward compatibility (returns first category)
         function getMainCategory(photoCategories) {
             const categories = getMainCategories(photoCategories);
@@ -235,34 +240,34 @@
                 showErrorMessage('Failed to load gallery. Please check the configuration.');
             }
         }
-        
+
         // Validate and log multi-category system performance
         function validateMultiCategorySystem() {
             console.log('🔍 MULTI-CATEGORY SYSTEM VALIDATION:');
             console.log('=====================================');
-            
+
             const categoryStats = {};
             let multiCategoryCount = 0;
-            
+
             photos.forEach(photo => {
                 const mainCategories = getMainCategories(photo.categories);
-                
+
                 if (mainCategories.length > 1) {
                     multiCategoryCount++;
                     console.log(`📸 "${photo.title}" appears in: [${mainCategories.join(', ')}]`);
                 }
-                
+
                 mainCategories.forEach(category => {
                     categoryStats[category] = (categoryStats[category] || 0) + 1;
                 });
             });
-            
+
             console.log(`\n📊 CATEGORY STATISTICS:`);
             Object.entries(categoryStats).forEach(([category, count]) => {
                 console.log(`${category}: ${count} photos`);
             });
-            
-            console.log(`\n🎯 MULTI-CATEGORY PHOTOS: ${multiCategoryCount}/${photos.length} (${Math.round(multiCategoryCount/photos.length*100)}%)`);
+
+            console.log(`\n🎯 MULTI-CATEGORY PHOTOS: ${multiCategoryCount}/${photos.length} (${Math.round(multiCategoryCount / photos.length * 100)}%)`);
             console.log('=====================================\n');
         }
 
@@ -273,9 +278,9 @@
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                
+
                 const galleryData = await response.json();
-                
+
                 // Process and validate gallery data
                 photos = galleryData.images.map((item, index) => ({
                     id: item.id || index + 1,
@@ -296,7 +301,7 @@
 
                 // Initialize filtered photos
                 filteredPhotos = [...photos];
-                
+
                 // Calculate grid spans for masonry layout
                 calculateGridSpans();
 
@@ -304,10 +309,10 @@
                 console.error('Error loading gallery data:', error);
                 // Fallback to existing images if metadata fails
                 photos = await scanExistingImages();
-                
+
                 // Initialize filtered photos for fallback data
                 filteredPhotos = [...photos];
-                
+
                 // Calculate grid spans for masonry layout
                 calculateGridSpans();
             }
@@ -565,9 +570,9 @@
                 src: `gallery/images/${item.filename}`,
                 title: item.title,
                 caption: item.caption,
-                metadata: { 
-                    camera: item.camera, 
-                    lens: item.lens, 
+                metadata: {
+                    camera: item.camera,
+                    lens: item.lens,
                     settings: item.settings,
                     location: item.location
                 },
@@ -593,18 +598,18 @@
         // Create category filters
         function createCategoryFilters() {
             const filterContainer = document.getElementById('categoryFilters');
-            
+
             // Add event listener to the existing "All" button and update text
             const allButton = filterContainer.querySelector('[data-category="all"]');
             if (allButton) {
                 allButton.textContent = `All (${photos.length})`;
                 allButton.addEventListener('click', () => filterPhotos('all'));
             }
-            
+
             // Get main categories that actually exist in the photos (MULTI-CATEGORY AWARE)
             const existingMainCategories = new Set();
             let hasOtherPhotos = false;
-            
+
             photos.forEach(photo => {
                 const mainCategories = getMainCategories(photo.categories);
                 mainCategories.forEach(category => {
@@ -615,34 +620,34 @@
                     }
                 });
             });
-            
+
             // Add "Other" category if there are uncategorized photos
             if (hasOtherPhotos) {
                 existingMainCategories.add('other');
             }
-            
+
             // Sort main categories alphabetically
             const sortedMainCategories = Array.from(existingMainCategories).sort();
-            
+
             // Add main category filter buttons with photo counts
             sortedMainCategories.forEach(category => {
                 const button = document.createElement('button');
                 button.className = 'filter-btn';
                 button.dataset.category = category;
-                
+
                 // Count photos in this category (MULTI-CATEGORY AWARE)
                 const photoCount = photos.filter(photo => {
                     const mainCategories = getMainCategories(photo.categories);
                     return mainCategories.includes(category);
                 }).length;
-                
+
                 const displayName = category === 'other' ? 'Other' : category.charAt(0).toUpperCase() + category.slice(1);
                 button.textContent = `${displayName} (${photoCount})`;
                 button.addEventListener('click', () => filterPhotos(category));
                 filterContainer.appendChild(button);
             });
         }
-        
+
         // Debounce function for performance
         function debounce(func, wait) {
             let timeout;
@@ -655,11 +660,11 @@
                 timeout = setTimeout(later, wait);
             };
         }
-        
+
         // Filter photos by category
-        const filterPhotos = debounce(function(category) {
+        const filterPhotos = debounce(function (category) {
             currentFilter = category;
-            
+
             if (category === 'all') {
                 filteredPhotos = [...photos];
             } else {
@@ -667,14 +672,14 @@
                     const mainCategories = getMainCategories(photo.categories);
                     return mainCategories.includes(category);
                 });
-                
+
                 // Log filtering results for debugging
                 console.log(`🔍 Filtering for "${category}": ${filteredPhotos.length} photos found`);
                 if (filteredPhotos.length > 0) {
                     console.log('Photos:', filteredPhotos.map(p => p.title).join(', '));
                 }
             }
-            
+
             // Update active filter button with animation
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -682,12 +687,12 @@
                     btn.classList.add('active');
                 }
             });
-            
+
             // Animate grid update
             const grid = document.getElementById('photoGrid');
             grid.style.opacity = '0.7';
             grid.style.transform = 'scale(0.98)';
-            
+
             setTimeout(() => {
                 createPhotoGrid();
                 grid.style.opacity = '1';
@@ -699,33 +704,33 @@
         function createPhotoGrid() {
             const grid = document.getElementById('photoGrid');
             grid.innerHTML = '';
-            
+
             if (filteredPhotos.length === 0) {
                 showErrorMessage(`No images found${currentFilter !== 'all' ? ` for category: ${currentFilter}` : ' in the gallery'}.`);
                 return;
             }
-            
+
             filteredPhotos.forEach((photo, index) => {
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
                 photoItem.dataset.id = photo.id;
                 photoItem.dataset.categories = JSON.stringify(photo.categories || []);
-                
+
                 // Add multi-category indicator
                 const mainCategories = getMainCategories(photo.categories);
                 photoItem.dataset.mainCategories = JSON.stringify(mainCategories);
                 if (mainCategories.length > 1) {
                     photoItem.classList.add('multi-category');
                 }
-                
+
                 // No need for grid positioning - CSS masonry handles layout
-                
+
                 // Generate category badges for multi-category photos
-                const categoryBadges = mainCategories.length > 1 
-                    ? `<div class="photo-categories">${mainCategories.map(cat => 
+                const categoryBadges = mainCategories.length > 1
+                    ? `<div class="photo-categories">${mainCategories.map(cat =>
                         `<span class="category-badge">${cat}</span>`).join('')}</div>`
                     : '';
-                
+
                 photoItem.innerHTML = `
                     <img src="${photo.src}" 
                          alt="${photo.title}" 
@@ -738,7 +743,7 @@
                         ${categoryBadges}
                     </div>
                 `;
-                
+
                 photoItem.addEventListener('click', () => {
                     // Use the filtered photo index for proper lightbox navigation
                     openLightbox(index);
@@ -750,12 +755,12 @@
         // Format metadata for display
         function formatMetadata(metadata) {
             if (!metadata || Object.keys(metadata).length === 0) return '';
-            
+
             const parts = [];
             if (metadata.camera) parts.push(metadata.camera);
             if (metadata.lens) parts.push(metadata.lens);
             if (metadata.settings) parts.push(metadata.settings);
-            
+
             return parts.join(' • ');
         }
 
@@ -771,10 +776,10 @@
             document.getElementById('closeBtn').addEventListener('click', closeLightbox);
             document.getElementById('prevBtn').addEventListener('click', () => navigateImage(-1));
             document.getElementById('nextBtn').addEventListener('click', () => navigateImage(1));
-            
+
             // Keyboard navigation
             document.addEventListener('keydown', handleKeyPress);
-            
+
             // Click outside to close
             document.getElementById('lightbox').addEventListener('click', (e) => {
                 if (e.target.id === 'lightbox') closeLightbox();
@@ -785,11 +790,11 @@
         function openLightbox(index) {
             currentFilteredIndex = index;
             isLightboxOpen = true;
-            
+
             const lightbox = document.getElementById('lightbox');
             lightbox.style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            
+
             setTimeout(() => {
                 lightbox.classList.add('active');
                 loadImage(index);
@@ -800,7 +805,7 @@
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
             isLightboxOpen = false;
-            
+
             setTimeout(() => {
                 lightbox.style.display = 'none';
                 document.body.style.overflow = 'auto';
@@ -811,33 +816,33 @@
             // Use filtered photos for navigation
             const photo = filteredPhotos[index];
             if (!photo) return;
-            
+
             currentFilteredIndex = index;
-            
+
             const img = document.getElementById('lightboxImage');
-            
+
             // Add loading transition
             img.style.opacity = '0.5';
-            
+
             // Set image
             img.src = photo.src;
             img.alt = photo.title;
-            
+
             // Update info
             updateImageInfo(photo, index);
-            
+
             // Image loading with proper error handling
             const newImg = new Image();
             newImg.onload = () => {
                 img.style.opacity = '1';
             };
-            
+
             newImg.onerror = () => {
                 console.error('Failed to load image:', photo.src);
                 img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gIDxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjZGRkIi8+ICA8dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
                 img.style.opacity = '1';
             };
-            
+
             newImg.src = photo.src;
         }
 
@@ -849,14 +854,14 @@
 
         function navigateImage(direction) {
             currentFilteredIndex += direction;
-            
+
             // Navigate within filtered photos only
             if (currentFilteredIndex < 0) {
                 currentFilteredIndex = filteredPhotos.length - 1;
             } else if (currentFilteredIndex >= filteredPhotos.length) {
                 currentFilteredIndex = 0;
             }
-            
+
             loadImage(currentFilteredIndex);
         }
 
@@ -864,8 +869,8 @@
 
         function handleKeyPress(e) {
             if (!isLightboxOpen) return;
-            
-            switch(e.key) {
+
+            switch (e.key) {
                 case 'ArrowLeft':
                     navigateImage(-1);
                     break;
@@ -884,8 +889,10 @@
 
     <!-- Mobile Navigation Script -->
     <script src="mobile-nav.js"></script>
-    
+
     <!-- Theme Switcher -->
     <script src="theme-switcher.js"></script>
+    <script src="particle-ripple.js"></script>
 </body>
+
 </html>

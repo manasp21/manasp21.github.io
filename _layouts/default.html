@@ -1,78 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     {% if page.description %}
-        <meta name="description" content="{{ page.description }}">
+    <meta name="description" content="{{ page.description }}">
     {% else %}
-        <meta name="description" content="{{ site.description }}">
+    <meta name="description" content="{{ site.description }}">
     {% endif %}
-    
-    <meta name="keywords" content="{% if page.tags %}{{ page.tags | join: ', ' }}{% else %}Physics, AI, IIT Kanpur, Blog{% endif %}">
+
+    <meta name="keywords"
+        content="{% if page.tags %}{{ page.tags | join: ', ' }}{% else %}Physics, AI, IIT Kanpur, Blog{% endif %}">
     <meta name="author" content="{{ site.author.name }}">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
     <meta property="og:url" content="{{ page.url | absolute_url }}">
-    <meta property="og:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-    
+    <meta property="og:title"
+        content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:description"
+        content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+
     <!-- Open Graph Images -->
     {% if page.hero_image %}
-        <meta property="og:image" content="{{ page.hero_image | absolute_url }}">
-        <meta property="og:image:alt" content="{{ page.hero_alt | default: page.title }}">
+    <meta property="og:image" content="{{ page.hero_image | absolute_url }}">
+    <meta property="og:image:alt" content="{{ page.hero_alt | default: page.title }}">
     {% else %}
-        <meta property="og:image" content="{{ '/og-image.jpg' | absolute_url }}">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
+    <meta property="og:image" content="{{ '/og-image.jpg' | absolute_url }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     {% endif %}
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ page.url | absolute_url }}">
-    <meta property="twitter:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-    <meta property="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-    
+    <meta property="twitter:title"
+        content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="twitter:description"
+        content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+
     <!-- Twitter Images -->
     {% if page.hero_image %}
-        <meta property="twitter:image" content="{{ page.hero_image | absolute_url }}">
-        <meta property="twitter:image:alt" content="{{ page.hero_alt | default: page.title }}">
+    <meta property="twitter:image" content="{{ page.hero_image | absolute_url }}">
+    <meta property="twitter:image:alt" content="{{ page.hero_alt | default: page.title }}">
     {% else %}
-        <meta property="twitter:image" content="{{ '/og-image.jpg' | absolute_url }}">
+    <meta property="twitter:image" content="{{ '/og-image.jpg' | absolute_url }}">
     {% endif %}
-    
+
     <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Lato:wght@300;400;500&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Lato:wght@300;400;500&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <link rel="stylesheet" href="{{ "/styles.css" | relative_url }}">
-    
+
+    <link rel="stylesheet" href="{{ " /styles.css" | relative_url }}">
+
     {% seo %}
 </head>
+
 <body class="{% if page.layout %}page-{{ page.layout }}{% else %}page-default{% endif %}">
     <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <a href="{{ "/" | relative_url }}" class="logo">{{ site.title }}</a>
+            <a href="{{ " /" | relative_url }}" class="logo">{{ site.title }}</a>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="{{ "/" | relative_url }}">Home</a></li>
-                    <li><a href="{{ "/about.html" | relative_url }}">About</a></li>
-                    <li><a href="{{ "/research.html" | relative_url }}">Research</a></li>
-                    <li><a href="{{ "/projects.html" | relative_url }}">Projects</a></li>
-                    <li><a href="{{ "/blog/" | relative_url }}">Blog</a></li>
-                    <li><a href="{{ "/photography.html" | relative_url }}">Photography</a></li>
+                    <li><a href="{{ " /" | relative_url }}">Home</a></li>
+                    <li><a href="{{ " /about.html" | relative_url }}">About</a></li>
+                    <li><a href="{{ " /research.html" | relative_url }}">Research</a></li>
+                    <li><a href="{{ " /projects.html" | relative_url }}">Projects</a></li>
+                    <li><a href="{{ " /blog/" | relative_url }}">Blog</a></li>
+                    <li><a href="{{ " /photography.html" | relative_url }}">Photography</a></li>
                     <li><a href="https://manasp21.github.io/poetry_website/" target="_blank">Poetry</a></li>
                 </ul>
-                
+
                 <!-- Mobile menu button -->
                 <button class="mobile-menu-button" aria-label="Toggle mobile menu" aria-expanded="false">
                     <div class="hamburger">
@@ -88,12 +97,12 @@
     <!-- Mobile navigation menu -->
     <div class="mobile-nav-menu" aria-hidden="true">
         <ul class="mobile-nav-links">
-            <li><a href="{{ "/" | relative_url }}">Home</a></li>
-            <li><a href="{{ "/about.html" | relative_url }}">About</a></li>
-            <li><a href="{{ "/research.html" | relative_url }}">Research</a></li>
-            <li><a href="{{ "/projects.html" | relative_url }}">Projects</a></li>
-            <li><a href="{{ "/blog/" | relative_url }}">Blog</a></li>
-            <li><a href="{{ "/photography.html" | relative_url }}">Photography</a></li>
+            <li><a href="{{ " /" | relative_url }}">Home</a></li>
+            <li><a href="{{ " /about.html" | relative_url }}">About</a></li>
+            <li><a href="{{ " /research.html" | relative_url }}">Research</a></li>
+            <li><a href="{{ " /projects.html" | relative_url }}">Projects</a></li>
+            <li><a href="{{ " /blog/" | relative_url }}">Blog</a></li>
+            <li><a href="{{ " /photography.html" | relative_url }}">Photography</a></li>
             <li><a href="https://manasp21.github.io/poetry_website/" target="_blank">Poetry</a></li>
         </ul>
     </div>
@@ -104,22 +113,22 @@
     </main>
 
     {% if page.layout == 'post' %}
-        <!-- Post Navigation -->
-        <nav class="post-navigation">
-            {% if page.previous.url %}
-                <a class="prev-post" href="{{ page.previous.url | relative_url }}">
-                    <span class="nav-label">← Previous</span>
-                    <span class="nav-title">{{ page.previous.title }}</span>
-                </a>
-            {% endif %}
-            
-            {% if page.next.url %}
-                <a class="next-post" href="{{ page.next.url | relative_url }}">
-                    <span class="nav-label">Next →</span>
-                    <span class="nav-title">{{ page.next.title }}</span>
-                </a>
-            {% endif %}
-        </nav>
+    <!-- Post Navigation -->
+    <nav class="post-navigation">
+        {% if page.previous.url %}
+        <a class="prev-post" href="{{ page.previous.url | relative_url }}">
+            <span class="nav-label">← Previous</span>
+            <span class="nav-title">{{ page.previous.title }}</span>
+        </a>
+        {% endif %}
+
+        {% if page.next.url %}
+        <a class="next-post" href="{{ page.next.url | relative_url }}">
+            <span class="nav-label">Next →</span>
+            <span class="nav-title">{{ page.next.title }}</span>
+        </a>
+        {% endif %}
+    </nav>
     {% endif %}
 
     <!-- Site Footer -->
@@ -130,9 +139,11 @@
     </footer>
 
     <!-- Mobile Navigation Script -->
-    <script src="{{ "/mobile-nav.js" | relative_url }}"></script>
-    
+    <script src="{{ " /mobile-nav.js" | relative_url }}"></script>
+
     <!-- Theme Switcher -->
-    <script src="{{ "/theme-switcher.js" | relative_url }}"></script>
+    <script src="{{ " /theme-switcher.js" | relative_url }}"></script>
+    <script src="{{ " /particle-ripple.js" | relative_url }}"></script>
 </body>
+
 </html>
