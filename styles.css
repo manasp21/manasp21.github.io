@@ -3,6 +3,7 @@
 /* ====== CSS VARIABLES ====== */
 :root {
     /* Color Palette */
+<<<<<<< Updated upstream
     --bg-primary: #121212;
     --bg-secondary: #1a1a1a;
     --bg-content: #2a2a2a;
@@ -24,6 +25,45 @@
     --spacing-xl: 3rem;
     --spacing-2xl: 4rem;
     
+=======
+    /* Premium Theme - Red, Black, White */
+    --bg-primary: #000000;
+    --bg-secondary: #050505;
+    --bg-content: #0a0a0a;
+    --text-primary: #FFFFFF;
+    --text-secondary: #E5E5E5;
+    --text-muted: #A3A3A3;
+
+    /* Brand Accents */
+    --accent-red: #FF0033;
+    /* Vibrant Red */
+    --accent-blue: #FFFFFF;
+    /* White for contrast */
+    --accent-green: #FF0033;
+    /* Unified to Red */
+    --accent-purple: #FF0033;
+    /* Unified to Red */
+    --accent-orange: #FF0033;
+    /* Unified to Red */
+    --accent-yellow: #FFFFFF;
+    /* White */
+    --accent-cyan: #FFFFFF;
+    /* White */
+    --accent-magenta: #FF0033;
+    /* Red */
+
+    /* RGB Values for Glass */
+    --accent-rgb: 255, 0, 51;
+
+    /* Spacing - Compact & Consistent */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2.5rem;
+    --spacing-xl: 4rem;
+    --spacing-2xl: 6rem;
+
+>>>>>>> Stashed changes
     /* Typography */
     --font-family-primary: 'Lato', sans-serif;
     --font-family-heading: 'Montserrat', sans-serif;
@@ -39,6 +79,7 @@
     
     /* Layout */
     --max-width: 1200px;
+<<<<<<< Updated upstream
     --border-radius: 8px;
     --border-radius-lg: 12px;
     --transition: all 0.3s ease;
@@ -207,6 +248,70 @@
     /* Emergency Mode Settings */
     --emergency-mode-opacity: 0.5;
     --emergency-mode-blur: 4px;
+=======
+
+    /* Enhanced Border Radius System - Apple Liquid Style */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-2xl: 32px;
+    --radius-3xl: 40px;
+    --radius-full: 50%;
+
+    /* Enhanced Transitions & Animations */
+    --transition-fast: all 0.15s ease;
+    --transition-base: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* Enhanced Shadows - Apple Liquid Depth */
+    --shadow-sm:
+        2px 4px 12px rgba(0, 0, 0, 0.1),
+        -1px -1px 2px rgba(255, 255, 255, 0.1) inset,
+        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+    --shadow-md:
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        -1px -1px 2px rgba(255, 255, 255, 0.1) inset,
+        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+    --shadow-lg:
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        -1px -1px 2px rgba(255, 255, 255, 0.1) inset,
+        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+    --shadow-xl:
+        0 30px 60px rgba(0, 0, 0, 0.3),
+        -1px -1px 2px rgba(255, 255, 255, 0.1) inset,
+        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+    --shadow-hover:
+        0 30px 60px rgba(0, 0, 0, 0.35),
+        -1px -1px 2px rgba(255, 255, 255, 0.2) inset,
+        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+    --shadow-glass:
+        0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    /* Liquid Glass Tokens - The New Standard */
+    --glass-liquid-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    --glass-liquid-border: 1px solid rgba(255, 255, 255, 0.08);
+    --glass-liquid-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-blur: 20px;
+
+    /* Default Mappings */
+    --glass-bg: var(--glass-liquid-bg);
+    --glass-border: var(--glass-liquid-border);
+    --glass-saturation: 120%;
+
+    /* Legacy variables for backward compatibility */
+    --border-radius: var(--radius-md);
+    --border-radius-lg: var(--radius-lg);
+    --transition: var(--transition-base);
+
+    /* Contribution Graph Colors - Red Based (Dark Theme) - BINARY SYSTEM */
+    --contrib-level-0: var(--bg-content);
+    --contrib-level-1: var(--accent-red);
+    --contrib-border: #7F1D1D;
+    --contrib-border-active: #991B1B;
+>>>>>>> Stashed changes
 }
 
 /* ====== BOOK LIGHT THEME ====== */
@@ -12553,4 +12658,135 @@ body.page-research .page-container {
     .quantum-computing-indicator::after {
         font-size: 10px;
     }
+}
+
+/* ====== LIQUID GLASS & COMPACT UTILITIES ====== */
+
+/* Global Compact Spacing Overrides */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+.section {
+    padding: var(--spacing-lg) 0;
+}
+
+/* Liquid Glass Utility */
+.glass-liquid {
+    background: var(--glass-liquid-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: var(--glass-liquid-border);
+    box-shadow: var(--glass-liquid-shadow);
+    border-radius: var(--radius-xl);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-liquid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(255, 255, 255, 0.05),
+            transparent);
+    transform: skewX(-25deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.glass-liquid:hover::before {
+    left: 100%;
+    transition: 0.5s;
+}
+
+.glass-liquid:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Floating Navigation */
+.header.floating-nav {
+    position: fixed;
+    top: var(--spacing-sm);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 50px;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: rgba(5, 5, 5, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.header.floating-nav .header-content {
+    padding: 0;
+}
+
+.header.floating-nav .nav-links a {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+}
+
+.header.floating-nav .logo {
+    font-size: 1.2rem;
+}
+
+/* Scroll Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.5, 0, 0, 1) forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Compact Grid Overrides */
+.projects-grid,
+.onesite-grid,
+.photo-grid {
+    gap: var(--spacing-md);
+}
+
+.project-card,
+.onesite-card {
+    padding: var(--spacing-md);
 }
