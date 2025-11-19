@@ -63,18 +63,36 @@
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-    /* Enhanced Shadows - Isomorphic Depth */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    --shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    /* Enhanced Shadows - Isomorphic Depth & Liquid Glass */
+    --shadow-sm:
+        2px 2px 4px rgba(0, 0, 0, 0.2),
+        -1px -1px 3px rgba(255, 255, 255, 0.1) inset,
+        1px 1px 3px rgba(0, 0, 0, 0.3) inset;
+    --shadow-md:
+        5px 5px 10px rgba(0, 0, 0, 0.3),
+        -1px -1px 3px rgba(255, 255, 255, 0.1) inset,
+        1px 1px 3px rgba(0, 0, 0, 0.3) inset;
+    --shadow-lg:
+        8px 8px 16px rgba(0, 0, 0, 0.4),
+        -1px -1px 3px rgba(255, 255, 255, 0.1) inset,
+        1px 1px 3px rgba(0, 0, 0, 0.3) inset;
+    --shadow-xl:
+        12px 12px 24px rgba(0, 0, 0, 0.5),
+        -1px -1px 3px rgba(255, 255, 255, 0.1) inset,
+        1px 1px 3px rgba(0, 0, 0, 0.3) inset;
+    --shadow-hover:
+        10px 10px 20px rgba(0, 0, 0, 0.5),
+        -1px -1px 3px rgba(255, 255, 255, 0.15) inset,
+        1px 1px 3px rgba(0, 0, 0, 0.3) inset;
+    --shadow-glass:
+        0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
-    /* Glassmorphism Tokens */
-    --glass-bg: rgba(30, 30, 30, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-highlight: rgba(255, 255, 255, 0.05);
-    --glass-blur: 16px;
+    /* Liquid Glass Tokens */
+    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01));
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-highlight: rgba(255, 255, 255, 0.15);
+    --glass-blur: 20px;
+    --glass-saturation: 140%;
 
     /* Legacy variables for backward compatibility */
     --border-radius: var(--radius-md);
@@ -525,12 +543,12 @@ a:hover {
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(18, 18, 18, 0.8);
+    background: rgba(18, 18, 18, 0.6);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     padding: var(--spacing-sm) var(--spacing-lg);
     border-bottom: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-glass);
 }
 
 .header-content {
@@ -651,7 +669,7 @@ a:hover {
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: rgba(18, 18, 18, 0.9);
+    background: rgba(18, 18, 18, 0.8);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border-left: 1px solid var(--glass-border);
@@ -659,7 +677,7 @@ a:hover {
     z-index: 1000;
     transition: var(--transition-smooth);
     padding-top: 80px;
-    box-shadow: var(--shadow-2xl);
+    box-shadow: var(--shadow-xl);
 }
 
 .mobile-nav-menu.active {
@@ -849,9 +867,9 @@ body.mobile-menu-open {
     max-width: 100%;
     height: auto;
     border-radius: var(--border-radius-lg);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-lg);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 3px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
     position: relative;
 }
 
@@ -996,12 +1014,14 @@ body.mobile-menu-open {
 }
 
 .info-column {
-    background: rgba(42, 42, 42, 0.6);
-    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-xl);
-    border: 1px solid rgba(220, 38, 38, 0.2);
+    border: 1px solid var(--glass-border);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-md);
 }
 
 .info-column:hover {
@@ -1131,9 +1151,11 @@ body.mobile-menu-open {
 }
 
 .filter-btn {
-    background: var(--bg-secondary);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     color: var(--text-secondary);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--glass-border);
     padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: var(--radius-3xl);
     font-family: var(--font-family-body);
@@ -1146,6 +1168,7 @@ body.mobile-menu-open {
     min-width: 80px;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 .filter-btn:before {
@@ -1738,7 +1761,7 @@ body.mobile-menu-open {
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--radius-3xl);
     padding: var(--spacing-lg);
     transition: var(--transition);
     position: relative;
@@ -1914,11 +1937,16 @@ button:focus {
 
 /* Featured Post */
 .featured-post {
-    background: var(--bg-secondary);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     padding: var(--spacing-lg);
     border-radius: var(--border-radius-lg);
     margin-bottom: var(--spacing-xl);
     border-left: 4px solid var(--page-accent, var(--accent-orange));
+    border: 1px solid var(--glass-border);
+    border-left-width: 4px;
+    box-shadow: var(--shadow-lg);
 }
 
 .featured-title {
@@ -1976,10 +2004,10 @@ button:focus {
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     padding: var(--spacing-md);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius-2xl);
     transition: var(--transition);
     border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
 }
 
 .post-item:hover {
@@ -2752,7 +2780,7 @@ button:focus {
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-3xl);
     padding: var(--spacing-lg);
     position: relative;
     overflow: hidden;
@@ -3055,7 +3083,7 @@ button:focus {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--radius-3xl);
     padding: var(--spacing-xl);
     border: 1px solid var(--glass-border);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -3064,7 +3092,7 @@ button:focus {
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: calc(var(--card-delay, 0) * 0.1s);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
 }
 
 .onesite-card:nth-child(1) {
@@ -3228,13 +3256,18 @@ button:focus {
 
 /* Professional Summary Section */
 .professional-summary {
-    background: var(--bg-secondary);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-xl);
     margin-bottom: var(--spacing-xl);
     border-left: 4px solid var(--page-accent, var(--accent-blue));
+    border: 1px solid var(--glass-border);
+    border-left-width: 4px;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-lg);
 }
 
 .professional-summary::before {
@@ -3323,7 +3356,7 @@ button:focus {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--radius-3xl);
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
     position: relative;
@@ -3350,7 +3383,7 @@ button:focus {
 .experience-card:hover {
     transform: translateX(8px);
     border-color: var(--page-accent, var(--accent-blue));
-    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.2);
+    box-shadow: var(--shadow-hover);
 }
 
 .experience-header {
@@ -3488,12 +3521,14 @@ button:focus {
 }
 
 .education-card {
-    background: var(--bg-secondary);
-    border-radius: var(--border-radius-lg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-radius: var(--radius-3xl);
     padding: var(--spacing-lg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
     transition: var(--transition-smooth);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
     position: relative;
     overflow: hidden;
     animation: fadeInRight 0.8s ease-out forwards;
@@ -3515,7 +3550,7 @@ button:focus {
 .education-card:hover {
     transform: translateY(-6px) scale(1.02);
     border-color: var(--page-accent, var(--accent-blue));
-    box-shadow: var(--shadow-xl), 0 0 20px rgba(37, 99, 235, 0.3);
+    box-shadow: var(--shadow-hover);
 }
 
 .education-card:hover::before {
@@ -3586,12 +3621,14 @@ button:focus {
 }
 
 .skills-category {
-    background: var(--bg-secondary);
-    border-radius: var(--border-radius-lg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-radius: var(--radius-3xl);
     padding: var(--spacing-lg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
     transition: var(--transition-smooth);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: calc(var(--index, 0) * 0.1s);
 }
@@ -3599,7 +3636,7 @@ button:focus {
 .skills-category:hover {
     transform: translateY(-6px) scale(1.02);
     border-color: var(--page-accent, var(--accent-blue));
-    box-shadow: var(--shadow-xl), 0 0 20px rgba(37, 99, 235, 0.3);
+    box-shadow: var(--shadow-hover);
 }
 
 .skills-category-title {
@@ -3749,7 +3786,7 @@ button:focus {
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-3xl);
     padding: var(--spacing-lg);
     position: relative;
     overflow: hidden;
@@ -3775,7 +3812,7 @@ button:focus {
 .publication-card:hover {
     transform: translateY(-2px);
     border-color: var(--accent-green);
-    box-shadow: 0 8px 25px rgba(5, 150, 105, 0.15);
+    box-shadow: var(--shadow-hover);
 }
 
 .publication-card:hover::before {
@@ -3984,7 +4021,7 @@ body.page-research .page-container {
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--radius-3xl);
     padding: var(--spacing-lg);
     transition: var(--transition);
     box-shadow: var(--shadow-md);
@@ -3993,7 +4030,7 @@ body.page-research .page-container {
 .interest-card:hover {
     transform: translateY(-2px);
     border-color: var(--accent-green);
-    box-shadow: 0 8px 25px rgba(5, 150, 105, 0.1);
+    box-shadow: var(--shadow-hover);
 }
 
 .interest-card h3 {
@@ -4712,8 +4749,10 @@ body.page-research .page-container {
 .site-footer {
     margin-top: var(--spacing-2xl);
     padding: var(--spacing-lg) 0;
-    border-top: 1px solid var(--bg-secondary);
-    background: var(--bg-primary);
+    border-top: 1px solid var(--glass-border);
+    background: rgba(18, 18, 18, 0.6);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     text-align: center;
 }
 
