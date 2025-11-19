@@ -4,79 +4,82 @@ title: Blog
 description: "Thoughts on science, sound, and syntax - A digital laboratory notebook where ideas crystallize"
 ---
 
-<h1 class="page-title">Blog</h1>
+<h1 class="page-title reveal">Blog</h1>
 
-<div class="blog-intro">
+<div class="blog-intro reveal">
     <p class="hero-subtitle">
         Cursed with immortality in an ocean of knowledge, my only choice would be to swim deeper.
     </p>
 </div>
 
 {% if site.posts.size > 0 %}
-    <!-- Browse by Category -->
-    <section class="category-navigation">
-        <h2 class="section-title">Browse by Category</h2>
-        <div class="categories-quick-nav">
-            {% assign categories = site.categories | sort %}
-            {% for category in categories %}
-                <a href="/blog/categories/{{ category[0] | slugify }}.html" class="category-link">
-                    {{ category[0] | capitalize }} ({{ category[1].size }})
-                </a>
-            {% endfor %}
-            <a href="/blog/categories.html" class="category-link all-categories">View All Categories →</a>
-        </div>
-    </section>
-
-    <!-- Posts List -->
-    <section class="all-posts">
-        <div class="posts-list">
-            {% for post in site.posts %}
-                <article class="post-item">
-                    <h3 class="post-item-title">
-                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                    </h3>
-                    {% include post-meta.html post=post %}
-                    {% if post.excerpt %}
-                        <div class="post-item-excerpt">
-                            {{ post.excerpt | strip_html | truncate: 200 }}
-                        </div>
-                    {% endif %}
-                </article>
-            {% endfor %}
-        </div>
-    </section>
-
-    <!-- Archive by Year -->
-    <section class="archive">
-        <h2 class="section-title">Archive</h2>
-        {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
-        {% for year in posts_by_year %}
-            <div class="archive-year">
-                <h3 class="archive-year-title">{{ year.name }}</h3>
-                <ul class="archive-posts">
-                    {% for post in year.items %}
-                        <li class="archive-post">
-                            <time class="archive-date">{{ post.date | date: "%b %d" }}</time>
-                            <a href="{{ post.url | relative_url }}" class="archive-title">{{ post.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+<!-- Browse by Category -->
+<section class="category-navigation reveal">
+    <h2 class="section-title">Browse by Category</h2>
+    <div class="categories-quick-nav glass-liquid" style="padding: var(--spacing-md);">
+        {% assign categories = site.categories | sort %}
+        {% for category in categories %}
+        <a href="/blog/categories/{{ category[0] | slugify }}.html" class="category-link">
+            {{ category[0] | capitalize }} ({{ category[1].size }})
+        </a>
         {% endfor %}
-    </section>
+        <a href="/blog/categories.html" class="category-link all-categories">View All Categories →</a>
+    </div>
+</section>
+
+<!-- Posts List -->
+<section class="all-posts">
+    <div class="posts-list">
+        {% for post in site.posts %}
+        <article class="post-item glass-liquid reveal">
+            <h3 class="post-item-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            {% include post-meta.html post=post %}
+            {% if post.excerpt %}
+            <div class="post-item-excerpt">
+                {{ post.excerpt | strip_html | truncate: 200 }}
+            </div>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Archive by Year -->
+<section class="archive reveal">
+    <h2 class="section-title">Archive</h2>
+    {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+    {% for year in posts_by_year %}
+    <div class="archive-year glass-liquid" style="padding: var(--spacing-md); margin-bottom: var(--spacing-md);">
+        <h3 class="archive-year-title">{{ year.name }}</h3>
+        <ul class="archive-posts">
+            {% for post in year.items %}
+            <li class="archive-post">
+                <time class="archive-date">{{ post.date | date: "%b %d" }}</time>
+                <a href="{{ post.url | relative_url }}" class="archive-title">{{ post.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</section>
 
 
 {% else %}
-    <!-- No Posts Yet -->
-    <div class="no-posts">
-        <div class="coming-soon">
-            <div class="status-text">Coming Soon</div>
-            <p class="status-description">Currently crafting the perfect medium for scientific storytelling</p>
-        </div>
-        
-        <div class="placeholder-content">
-            <p>A space for thoughts on science, sound, and syntax. This will be a place where I share insights from my research, reflections on the intersection of physics and AI, and thoughts on music and poetry.</p>
-            <p>Topics will include quantum mechanics, machine learning applications in physics, scientific methodology, and the creative processes that connect music, poetry, and mathematical thinking.</p>
-        </div>
+<!-- No Posts Yet -->
+<div class="no-posts reveal">
+    <div class="coming-soon glass-liquid" style="padding: var(--spacing-lg);">
+        <div class="status-text">Coming Soon</div>
+        <p class="status-description">Currently crafting the perfect medium for scientific storytelling</p>
     </div>
+
+    <div class="placeholder-content glass-liquid reveal"
+        style="padding: var(--spacing-lg); margin-top: var(--spacing-md);">
+        <p>A space for thoughts on science, sound, and syntax. This will be a place where I share insights from my
+            research, reflections on the intersection of physics and AI, and thoughts on music and poetry.</p>
+        <p>Topics will include quantum mechanics, machine learning applications in physics, scientific methodology, and
+            the creative processes that connect music, poetry, and mathematical thinking.</p>
+    </div>
+</div>
 {% endif %}
