@@ -17,20 +17,20 @@
     // Mouse state
     const mouse = { x: -1000, y: -1000, lastX: -1000, lastY: -1000 };
 
-    // Color configuration based on page
+    // Color configuration based on page - Matching styles.css variables
     function getPageColor() {
         const path = window.location.pathname;
 
-        if (path.includes('about')) return { hue: 160, sat: '60%', light: '50%' }; // Teal/Green
+        if (path.includes('about')) return { hue: 160, sat: '84%', light: '39%' }; // Emerald (Green)
         if (path.includes('research')) return { hue: 260, sat: '60%', light: '60%' }; // Purple
-        if (path.includes('projects')) return { hue: 30, sat: '80%', light: '55%' }; // Amber/Orange
+        if (path.includes('projects')) return { hue: 24, sat: '95%', light: '53%' }; // Orange
         if (path.includes('photography')) return { hue: 330, sat: '70%', light: '60%' }; // Pink
-        if (path.includes('books')) return { hue: 45, sat: '80%', light: '50%' }; // Warm Yellow
-        if (path.includes('blog')) return { hue: 220, sat: '70%', light: '60%' }; // Blue
-        if (path.includes('one_page_websites')) return { hue: 200, sat: '0%', light: '80%' }; // White/Grey
+        if (path.includes('books')) return { hue: 45, sat: '90%', light: '50%' }; // Amber/Yellow
+        if (path.includes('blog')) return { hue: 220, sat: '80%', light: '60%' }; // Blue
+        if (path.includes('one_page_websites')) return { hue: 0, sat: '0%', light: '80%' }; // White/Grey
 
-        // Default (Home)
-        return { hue: 190, sat: '70%', light: '60%' }; // Cyan
+        // Default (Home) - Cyan/Blue
+        return { hue: 190, sat: '90%', light: '50%' }; 
     }
 
     const baseColor = getPageColor();
@@ -55,7 +55,7 @@
         const dist = Math.hypot(dx, dy);
 
         if (dist > 2) {
-            const count = Math.min(5, Math.floor(dist / 2));
+            const count = Math.min(3, Math.floor(dist / 5)); // Reduced count for cleaner look
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle(mouse.x, mouse.y));
             }
@@ -70,21 +70,23 @@
             this.x = x;
             this.y = y;
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 1.5 + 0.5;
+            const speed = Math.random() * 1.0 + 0.2; // Slower, more fluid
             this.vx = Math.cos(angle) * speed;
             this.vy = Math.sin(angle) * speed;
             this.life = 1.0;
-            this.decay = Math.random() * 0.02 + 0.01;
-            this.size = Math.random() * 3 + 1;
+            this.decay = Math.random() * 0.015 + 0.005; // Slower decay
+            this.size = Math.random() * 2.5 + 0.5; // Slightly smaller particles
 
             // Vary hue slightly for richness
-            const hueVar = Math.random() * 40 - 20;
+            const hueVar = Math.random() * 30 - 15;
             this.color = `hsla(${baseColor.hue + hueVar}, ${baseColor.sat}, ${baseColor.light},`;
         }
 
         update() {
             this.x += this.vx;
             this.y += this.vy;
+            this.vx *= 0.96; // Friction for fluid feel
+            this.vy *= 0.96;
             this.life -= this.decay;
         }
 
@@ -110,15 +112,19 @@
 
         // Connect particles with lines if they are close (field effect)
         // Use the base color for lines but very transparent
-        ctx.strokeStyle = `hsla(${baseColor.hue}, ${baseColor.sat}, ${baseColor.light}, 0.15)`;
+        ctx.strokeStyle = `hsla(${baseColor.hue}, ${baseColor.sat}, ${baseColor.light}, 0.1)`;
         ctx.lineWidth = 0.5;
+        
+        // Optimization: Limit connections checks if too many particles
+        const limit = particles.length > 100 ? 50 : 80; // Connection distance
+
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const dist = Math.hypot(dx, dy);
 
-                if (dist < 60) {
+                if (dist < limit) {
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
