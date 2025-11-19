@@ -3,26 +3,32 @@
 /* ====== CSS VARIABLES ====== */
 :root {
     /* Color Palette */
-    --bg-primary: #121212;
-    --bg-secondary: #1a1a1a;
-    --bg-content: #2a2a2a;
-    --text-primary: #EAEAEA;
-    --text-secondary: #b0b0b0;
-    --text-muted: #888888;
-    --accent-red: #DC2626;
-    --accent-blue: #2563EB;
-    --accent-green: #059669;
-    --accent-purple: #7C3AED;
-    --accent-orange: #EA580C;
-    --accent-yellow: #D97706;
+    /* Modern Color Palette - Deep & Vibrant */
+    --bg-primary: #050505;
+    --bg-secondary: #0a0a0a;
+    --bg-content: #141414;
+    --text-primary: #ffffff;
+    --text-secondary: #a3a3a3;
+    --text-muted: #737373;
+
+    /* Neon Accents */
+    --accent-red: #ff3b30;
+    --accent-blue: #007aff;
+    --accent-green: #34c759;
+    --accent-purple: #af52de;
+    --accent-orange: #ff9500;
+    --accent-yellow: #ffcc00;
+    --accent-cyan: #32ade6;
+    --accent-magenta: #ff2d55;
 
     /* Spacing */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
-    --spacing-2xl: 4rem;
+    /* Spacing - Decluttered Layout */
+    --spacing-xs: 0.75rem;
+    --spacing-sm: 1.5rem;
+    --spacing-md: 2.5rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 6rem;
+    --spacing-2xl: 8rem;
 
     /* Typography */
     --font-family-primary: 'Lato', sans-serif;
@@ -87,12 +93,26 @@
     --shadow-glass:
         0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
-    /* Liquid Glass Tokens - Premium Apple Style */
-    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-highlight: rgba(255, 255, 255, 0.25);
-    --glass-blur: 40px;
-    --glass-saturation: 160%;
+    /* Varied Glass Tokens */
+    /* 1. Frosted Glass (Heavy, for content cards) */
+    --glass-frosted-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+    --glass-frosted-border: rgba(255, 255, 255, 0.08);
+    --glass-frosted-blur: 50px;
+
+    /* 2. Clear Glass (Light, for overlays/nav) */
+    --glass-clear-bg: rgba(255, 255, 255, 0.02);
+    --glass-clear-border: rgba(255, 255, 255, 0.05);
+    --glass-clear-blur: 20px;
+
+    /* 3. Colored Glass (Tinted with accent) */
+    --glass-colored-bg: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.02));
+    --glass-colored-border: rgba(var(--accent-rgb), 0.2);
+
+    /* Default Mappings */
+    --glass-bg: var(--glass-frosted-bg);
+    --glass-border: var(--glass-frosted-border);
+    --glass-blur: var(--glass-frosted-blur);
+    --glass-saturation: 180%;
 
     /* Legacy variables for backward compatibility */
     --border-radius: var(--radius-md);
