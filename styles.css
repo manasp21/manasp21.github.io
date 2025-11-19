@@ -3,23 +3,34 @@
 /* ====== CSS VARIABLES ====== */
 :root {
     /* Color Palette */
-    /* Modern Color Palette - Deep & Vibrant */
-    --bg-primary: #050505;
-    --bg-secondary: #0a0a0a;
-    --bg-content: #141414;
-    --text-primary: #ffffff;
-    --text-secondary: #a3a3a3;
-    --text-muted: #737373;
+    /* Premium Theme - Red, Black, White */
+    --bg-primary: #000000;
+    --bg-secondary: #050505;
+    --bg-content: #0a0a0a;
+    --text-primary: #FFFFFF;
+    --text-secondary: #E5E5E5;
+    --text-muted: #A3A3A3;
 
-    /* Neon Accents */
-    --accent-red: #ff3b30;
-    --accent-blue: #007aff;
-    --accent-green: #34c759;
-    --accent-purple: #af52de;
-    --accent-orange: #ff9500;
-    --accent-yellow: #ffcc00;
-    --accent-cyan: #32ade6;
-    --accent-magenta: #ff2d55;
+    /* Brand Accents */
+    --accent-red: #FF0033;
+    /* Vibrant Red */
+    --accent-blue: #FFFFFF;
+    /* White for contrast */
+    --accent-green: #FF0033;
+    /* Unified to Red */
+    --accent-purple: #FF0033;
+    /* Unified to Red */
+    --accent-orange: #FF0033;
+    /* Unified to Red */
+    --accent-yellow: #FFFFFF;
+    /* White */
+    --accent-cyan: #FFFFFF;
+    /* White */
+    --accent-magenta: #FF0033;
+    /* Red */
+
+    /* RGB Values for Glass */
+    --accent-rgb: 255, 0, 51;
 
     /* Spacing */
     /* Spacing - Decluttered Layout */
@@ -93,26 +104,26 @@
     --shadow-glass:
         0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
-    /* Varied Glass Tokens */
+    /* Varied Glass Tokens - Red/Black Theme */
     /* 1. Frosted Glass (Heavy, for content cards) */
-    --glass-frosted-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-    --glass-frosted-border: rgba(255, 255, 255, 0.08);
-    --glass-frosted-blur: 50px;
+    --glass-frosted-bg: linear-gradient(135deg, rgba(20, 20, 20, 0.8), rgba(10, 10, 10, 0.6));
+    --glass-frosted-border: rgba(255, 255, 255, 0.1);
+    --glass-frosted-blur: 60px;
 
     /* 2. Clear Glass (Light, for overlays/nav) */
-    --glass-clear-bg: rgba(255, 255, 255, 0.02);
+    --glass-clear-bg: rgba(0, 0, 0, 0.3);
     --glass-clear-border: rgba(255, 255, 255, 0.05);
     --glass-clear-blur: 20px;
 
-    /* 3. Colored Glass (Tinted with accent) */
-    --glass-colored-bg: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.02));
-    --glass-colored-border: rgba(var(--accent-rgb), 0.2);
+    /* 3. Colored Glass (Tinted with Red) */
+    --glass-colored-bg: linear-gradient(135deg, rgba(255, 0, 51, 0.05), rgba(0, 0, 0, 0));
+    --glass-colored-border: rgba(255, 0, 51, 0.2);
 
     /* Default Mappings */
     --glass-bg: var(--glass-frosted-bg);
     --glass-border: var(--glass-frosted-border);
     --glass-blur: var(--glass-frosted-blur);
-    --glass-saturation: 180%;
+    --glass-saturation: 120%;
 
     /* Legacy variables for backward compatibility */
     --border-radius: var(--radius-md);

@@ -20,19 +20,22 @@
     // Mouse state
     const mouse = { x: -1000, y: -1000, lastX: -1000, lastY: -1000 };
 
-    // Color configuration based on page - Modern Neon Palette
+    // Color configuration based on page - Red/Black/White Theme
     function getPageColor() {
         const path = window.location.pathname;
 
-        if (path.includes('about')) return { hue: 210, sat: '100%', light: '60%' }; // Electric Blue
-        if (path.includes('research')) return { hue: 280, sat: '90%', light: '65%' }; // Neon Purple
-        if (path.includes('projects')) return { hue: 30, sat: '100%', light: '60%' }; // Neon Orange
-        if (path.includes('photography')) return { hue: 320, sat: '90%', light: '60%' }; // Hot Pink
-        if (path.includes('books')) return { hue: 50, sat: '100%', light: '55%' }; // Bright Amber
-        if (path.includes('blog')) return { hue: 190, sat: '95%', light: '60%' }; // Cyan
+        // Red Dominant Pages
+        if (path.includes('projects')) return { hue: 350, sat: '100%', light: '50%' }; // Vibrant Red
+        if (path.includes('research')) return { hue: 0, sat: '100%', light: '40%' }; // Deep Red
 
-        // Default (Home) - Dynamic Blue/Cyan
-        return { hue: 200, sat: '100%', light: '60%' };
+        // White/Monochrome Dominant Pages
+        if (path.includes('about')) return { hue: 0, sat: '0%', light: '90%' }; // White
+        if (path.includes('photography')) return { hue: 0, sat: '0%', light: '100%' }; // Pure White
+        if (path.includes('books')) return { hue: 0, sat: '0%', light: '80%' }; // Light Grey
+        if (path.includes('blog')) return { hue: 0, sat: '0%', light: '70%' }; // Grey
+
+        // Default (Home) - Brand Red
+        return { hue: 355, sat: '100%', light: '50%' };
     }
 
     const baseColor = getPageColor();
