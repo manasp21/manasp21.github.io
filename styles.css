@@ -3,142 +3,163 @@
 /* ====== CSS VARIABLES ====== */
 :root {
     /* Color Palette */
-    /* Premium Theme - Red, Black, White */
+    /* Premium Theme - Deep Space Black & Vibrant Accents */
     --bg-primary: #000000;
-    --bg-secondary: #050505;
-    --bg-content: #0a0a0a;
+    --bg-secondary: #030303;
+    --bg-content: #080808;
     --text-primary: #FFFFFF;
-    --text-secondary: #E5E5E5;
-    --text-muted: #A3A3A3;
+    --text-secondary: rgba(255, 255, 255, 0.85);
+    --text-muted: rgba(255, 255, 255, 0.5);
 
     /* Brand Accents */
-    --accent-red: #FF0033;
-    /* Vibrant Red */
-    --accent-blue: #FFFFFF;
-    /* White for contrast */
-    --accent-green: #FF0033;
-    /* Unified to Red */
-    --accent-purple: #FF0033;
-    /* Unified to Red */
-    --accent-orange: #FF0033;
-    /* Unified to Red */
-    --accent-yellow: #FFFFFF;
-    /* White */
-    --accent-cyan: #FFFFFF;
-    /* White */
-    --accent-magenta: #FF0033;
-    /* Red */
+    --accent-red: #FF2D55;
+    /* Apple-style vibrant red */
+    --accent-blue: #0A84FF;
+    --accent-green: #30D158;
+    --accent-purple: #BF5AF2;
+    --accent-orange: #FF9F0A;
+    --accent-yellow: #FFD60A;
+    --accent-cyan: #64D2FF;
+    --accent-magenta: #FF375F;
 
     /* RGB Values for Glass */
-    --accent-rgb: 255, 0, 51;
+    --accent-rgb: 255, 45, 85;
 
     /* Spacing */
-    /* Spacing - Decluttered Layout */
-    --spacing-xs: 0.75rem;
-    --spacing-sm: 1.5rem;
-    --spacing-md: 2.5rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
     --spacing-lg: 4rem;
     --spacing-xl: 6rem;
     --spacing-2xl: 8rem;
 
     /* Typography */
-    --font-family-primary: 'Lato', sans-serif;
-    --font-family-heading: 'Montserrat', sans-serif;
-    --font-family-serif: 'Crimson Text', 'Times New Roman', serif;
+    --font-family-primary: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-family-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-family-serif: 'Crimson Text', serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
     --font-size-lg: 1.125rem;
     --font-size-xl: 1.25rem;
     --font-size-2xl: 1.5rem;
-    --font-size-3xl: 2rem;
-    --font-size-4xl: 2.5rem;
+    --font-size-3xl: 2.5rem;
+    --font-size-4xl: 3.5rem;
 
     /* Layout */
     --max-width: 1600px;
 
     /* Enhanced Border Radius System - Apple Liquid Style */
-    --radius-sm: 8px;
-    /* Small elements, tags, badges */
-    --radius-md: 12px;
-    /* Standard buttons, inputs */
-    --radius-lg: 20px;
-    /* Cards, panels */
-    --radius-xl: 24px;
-    /* Hero sections, major components */
-    --radius-2xl: 32px;
-    /* Special highlights, featured content */
-    --radius-3xl: 40px;
-    /* Large containers */
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    --radius-2xl: 40px;
+    --radius-3xl: 48px;
     --radius-full: 50%;
-    /* Circular elements */
 
     /* Enhanced Transitions & Animations */
-    --transition-fast: all 0.15s ease;
-    --transition-base: all 0.3s ease;
-    --transition-slow: all 0.5s ease;
-    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-fast: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-base: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-slow: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-smooth: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 
     /* Enhanced Shadows - Apple Liquid Depth */
-    --shadow-sm:
-        2px 4px 12px rgba(0, 0, 0, 0.1),
-        -1px -1px 2px rgba(255, 255, 255, 0.1) inset,
-        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
-    --shadow-md:
-        0 8px 24px rgba(0, 0, 0, 0.15),
-        -1px -1px 2px rgba(255, 255, 255, 0.1) inset,
-        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
-    --shadow-lg:
-        0 20px 40px rgba(0, 0, 0, 0.2),
-        -1px -1px 2px rgba(255, 255, 255, 0.1) inset,
-        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
-    --shadow-xl:
-        0 30px 60px rgba(0, 0, 0, 0.3),
-        -1px -1px 2px rgba(255, 255, 255, 0.1) inset,
-        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
-    --shadow-hover:
-        0 30px 60px rgba(0, 0, 0, 0.35),
-        -1px -1px 2px rgba(255, 255, 255, 0.2) inset,
-        1px 1px 2px rgba(0, 0, 0, 0.2) inset;
-    --shadow-glass:
-        0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 45, 85, 0.2);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
-    /* Varied Glass Tokens - Red/Black Theme */
+    /* Varied Glass Tokens - Liquid Glass System */
     /* 1. Frosted Glass (Heavy, for content cards) */
-    --glass-frosted-bg: linear-gradient(135deg, rgba(20, 20, 20, 0.8), rgba(10, 10, 10, 0.6));
-    --glass-frosted-border: rgba(255, 255, 255, 0.1);
-    --glass-frosted-blur: 60px;
+    --glass-frosted-bg: rgba(20, 20, 20, 0.6);
+    --glass-frosted-border: rgba(255, 255, 255, 0.08);
+    --glass-frosted-blur: 40px;
 
     /* 2. Clear Glass (Light, for overlays/nav) */
-    --glass-clear-bg: rgba(0, 0, 0, 0.3);
-    --glass-clear-border: rgba(255, 255, 255, 0.05);
-    --glass-clear-blur: 20px;
+    --glass-clear-bg: rgba(10, 10, 10, 0.4);
+    --glass-clear-border: rgba(255, 255, 255, 0.1);
+    --glass-clear-blur: 30px;
 
-    /* 3. Colored Glass (Tinted with Red) */
-    --glass-colored-bg: linear-gradient(135deg, rgba(255, 0, 51, 0.05), rgba(0, 0, 0, 0));
-    --glass-colored-border: rgba(255, 0, 51, 0.2);
+    /* 3. Colored Glass (Tinted) */
+    --glass-colored-bg: linear-gradient(135deg, rgba(255, 45, 85, 0.08), rgba(0, 0, 0, 0));
+    --glass-colored-border: rgba(255, 45, 85, 0.2);
 
     /* Default Mappings */
     --glass-bg: var(--glass-frosted-bg);
     --glass-border: var(--glass-frosted-border);
     --glass-blur: var(--glass-frosted-blur);
-    --glass-saturation: 120%;
+    --glass-saturation: 180%;
 
     /* Legacy variables for backward compatibility */
     --border-radius: var(--radius-md);
     --border-radius-lg: var(--radius-lg);
     --transition: var(--transition-base);
 
-    /* Contribution Graph Colors - Red Based (Dark Theme) - BINARY SYSTEM */
-    --contrib-level-0: var(--bg-content);
+    /* Contribution Graph Colors */
+    --contrib-level-0: rgba(255, 255, 255, 0.05);
     --contrib-level-1: var(--accent-red);
-    /* Full red #DC2626 - posted on this day */
-    --contrib-border: #7F1D1D;
-    /* Subtle dark red border */
-    --contrib-border-active: #991B1B;
-    /* More visible dark red border for active states */
+    --contrib-border: rgba(255, 255, 255, 0.1);
+    --contrib-border-active: var(--accent-red);
 }
+
+/* Global Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Staggered Delays */
+.delay-100 {
+    animation-delay: 0.1s;
+}
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+.delay-300 {
+    animation-delay: 0.3s;
+}
+
+.delay-400 {
+    animation-delay: 0.4s;
+}
+
+.delay-500 {
+    animation-delay: 0.5s;
+}
+
 
 /* ====== BOOK LIGHT THEME ====== */
 :root[data-theme="book"] {
@@ -3113,19 +3134,36 @@ button:focus {
 }
 
 .onesite-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: var(--radius-2xl);
+    background: var(--glass-frosted-bg);
+    backdrop-filter: blur(var(--glass-frosted-blur));
+    -webkit-backdrop-filter: blur(var(--glass-frosted-blur));
+    border-radius: var(--radius-xl);
     padding: var(--spacing-lg);
-    border: 1px solid var(--glass-border);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 1px solid var(--glass-frosted-border);
+    transition: var(--transition-bounce);
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-glass);
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: calc(var(--card-delay, 0) * 0.1s);
-    box-shadow: var(--shadow-lg);
+}
+
+.onesite-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent-red);
+}
+
+.onesite-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+    pointer-events: none;
 }
 
 .onesite-card:nth-child(1) {
@@ -3553,17 +3591,34 @@ button:focus {
     gap: var(--spacing-lg);
 }
 
-.education-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: var(--radius-3xl);
+.project-card {
+    background: var(--glass-frosted-bg);
+    backdrop-filter: blur(var(--glass-frosted-blur));
+    -webkit-backdrop-filter: blur(var(--glass-frosted-blur));
+    border-radius: var(--radius-xl);
     padding: var(--spacing-lg);
-    border: 1px solid var(--glass-border);
-    transition: var(--transition-smooth);
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--glass-frosted-border);
+    transition: var(--transition-bounce);
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-glass);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.education-card {
+    background: var(--glass-frosted-bg);
+    backdrop-filter: blur(var(--glass-frosted-blur));
+    -webkit-backdrop-filter: blur(var(--glass-frosted-blur));
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--glass-frosted-border);
+    transition: var(--transition-bounce);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-glass);
+    margin-bottom: var(--spacing-md);
     animation: fadeInRight 0.8s ease-out forwards;
     animation-delay: calc(var(--index, 0) * 0.1s);
 }
@@ -3654,14 +3709,17 @@ button:focus {
 }
 
 .skills-category {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: var(--radius-3xl);
+    background: var(--glass-frosted-bg);
+    backdrop-filter: blur(var(--glass-frosted-blur));
+    -webkit-backdrop-filter: blur(var(--glass-frosted-blur));
+    border-radius: var(--radius-xl);
     padding: var(--spacing-lg);
-    border: 1px solid var(--glass-border);
-    transition: var(--transition-smooth);
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--glass-frosted-border);
+    transition: var(--transition-bounce);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-glass);
+    height: 100%;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: calc(var(--index, 0) * 0.1s);
 }
@@ -4939,4 +4997,109 @@ body.page-research .page-container {
     .goodreads-profile-section {
         margin-top: var(--spacing-md);
     }
+}
+
+/* Glass Panel for Content */
+.glass-panel {
+    background: var(--glass-frosted-bg);
+    backdrop-filter: blur(var(--glass-frosted-blur));
+    -webkit-backdrop-filter: blur(var(--glass-frosted-blur));
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--glass-frosted-border);
+    box-shadow: var(--shadow-glass);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--spacing-md);
+    transition: var(--transition-base);
+}
+
+.glass-panel:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-lg);
+}
+
+.glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+/* Visual Intro Grid */
+.visual-intro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.intro-card {
+    background: var(--glass-frosted-bg);
+    backdrop-filter: blur(var(--glass-frosted-blur));
+    -webkit-backdrop-filter: blur(var(--glass-frosted-blur));
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--glass-frosted-border);
+    box-shadow: var(--shadow-glass);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: var(--transition-bounce);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: calc(var(--delay, 0) * 0.1s);
+}
+
+.intro-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent-red);
+}
+
+.intro-card-icon {
+    margin-bottom: var(--spacing-sm);
+    color: var(--accent-red);
+    transition: var(--transition-base);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-card-icon svg {
+    width: 48px;
+    height: 48px;
+    stroke: url(#icon-gradient);
+    /* Fallback or specific ID if using defs, but for simple stroke we use color */
+    stroke: var(--accent-red);
+    filter: drop-shadow(0 0 10px rgba(255, 45, 85, 0.3));
+}
+
+.intro-card:hover .intro-card-icon {
+    transform: scale(1.1) rotate(5deg);
+    color: #FF5E7D;
+}
+
+.intro-card:hover .intro-card-icon svg {
+    filter: drop-shadow(0 0 15px rgba(255, 45, 85, 0.6));
+}
+
+.intro-card-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.intro-card-desc {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.4;
 }
