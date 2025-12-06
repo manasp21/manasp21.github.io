@@ -55,7 +55,7 @@
     --font-size-4xl: 2.5rem;
 
     /* Layout */
-    --max-width: 1200px;
+    --max-width: 1600px;
 
     /* Enhanced Border Radius System - Apple Liquid Style */
     --radius-sm: 8px;
@@ -619,8 +619,8 @@ a:hover {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: var(--spacing-xs) var(--spacing-md);
-    border-radius: var(--radius-2xl);
+    border-radius: 16px;
+    padding: 8px 16px;
     transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
@@ -773,7 +773,7 @@ body.mobile-menu-open {
 .page-container {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 6rem var(--spacing-lg) var(--spacing-2xl);
+    padding: 6rem var(--spacing-lg) var(--spacing-lg);
     position: relative;
     overflow: hidden;
 }
@@ -818,8 +818,8 @@ body.mobile-menu-open {
 /* ====== HOME PAGE SPECIFIC STYLES ====== */
 .hero-section {
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-    padding: 8rem 0 var(--spacing-2xl);
-    min-height: 80vh;
+    padding: 8rem 0 var(--spacing-lg);
+    min-height: 60vh;
     position: relative;
     overflow: hidden;
 }
@@ -841,7 +841,8 @@ body.mobile-menu-open {
     padding: 0 var(--spacing-lg);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-2xl);
+    gap: var(--spacing-md);
+    padding-top: 2rem;
     align-items: center;
     position: relative;
     z-index: 1;
@@ -928,7 +929,7 @@ body.mobile-menu-open {
 /* ====== CONTENT SECTIONS ====== */
 .content-section {
     background: linear-gradient(180deg, var(--bg-content) 0%, var(--bg-secondary) 100%);
-    padding: var(--spacing-2xl) 0;
+    padding: var(--spacing-md) 0;
     position: relative;
     overflow: hidden;
 }
@@ -3043,7 +3044,7 @@ button:focus {
 /* ====== ONE PAGE WEBSITES SECTION ====== */
 .onesite-section {
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-    padding: var(--spacing-2xl) 0;
+    padding: var(--spacing-lg) 0 var(--spacing-xl);
     position: relative;
     overflow: hidden;
 }
@@ -3105,7 +3106,7 @@ button:focus {
 
 .onesite-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: var(--spacing-lg);
     margin-top: var(--spacing-xl);
 }
@@ -3114,8 +3115,8 @@ button:focus {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: var(--radius-3xl);
-    padding: var(--spacing-xl);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-lg);
     border: 1px solid var(--glass-border);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     position: relative;
@@ -3220,9 +3221,9 @@ button:focus {
     font-weight: 600;
     font-size: var(--font-size-sm);
     text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    border: 2px solid var(--accent-red);
-    border-radius: var(--border-radius-lg);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--accent-red);
+    border-radius: var(--border-radius);
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
