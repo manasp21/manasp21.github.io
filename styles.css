@@ -76,8 +76,7 @@
     /* Varied Glass Tokens - Liquid Glass System */
     /* 1. Frosted Glass (Heavy, for content cards) */
     --glass-frosted-bg: rgba(20, 20, 20, 0.6);
-    --glass-frosted-border: rgba(255, 255, 255, 0.08);
-    --glass-frosted-blur: 40px;
+    --glass-frosted-border: rgba(255, 255, 255, 0.15);
 
     /* 2. Clear Glass (Light, for overlays/nav) */
     --glass-clear-bg: rgba(10, 10, 10, 0.4);
@@ -93,6 +92,9 @@
     --glass-border: var(--glass-frosted-border);
     --glass-blur: var(--glass-frosted-blur);
     --glass-saturation: 180%;
+
+    /* Page Border Glow */
+    --border-glow: radial-gradient(circle at 50% 0%, rgba(255, 45, 85, 0.15), transparent 70%);
 
     /* Legacy variables for backward compatibility */
     --border-radius: var(--radius-md);
@@ -160,366 +162,6 @@
     animation-delay: 0.5s;
 }
 
-
-/* ====== BOOK LIGHT THEME ====== */
-:root[data-theme="book"] {
-    /* Book Theme Color Palette - Warm Paper & Ink */
-    --bg-primary: #FAF7F0;
-    /* Warm cream - like aged paper */
-    --bg-secondary: #F5F1E8;
-    /* Soft beige - like book pages */
-    --bg-content: #FEFCF7;
-    /* Pure warm white - like fresh paper */
-    --text-primary: #2D1B16;
-    /* Rich dark brown - like quality ink */
-    --text-secondary: #5A4A42;
-    /* Warm gray - like faded ink */
-    --text-muted: #8B7B73;
-    /* Light brown - like pencil annotations */
-
-    /* Book-Inspired Accent Colors */
-    --accent-red: #8B1538;
-    /* Deep burgundy - like bookmark ribbon */
-    --accent-blue: #1E3A5F;
-    /* Navy ink - like fountain pen */
-    --accent-green: #2D5016;
-    /* Forest green - like classic binding */
-    --accent-purple: #5B2C87;
-    /* Royal purple - like royal manuscripts */
-    --accent-orange: #B85450;
-    /* Burnt orange - like autumn leaves */
-    --accent-yellow: #B8860B;
-    /* Golden amber - like vintage paper edges */
-
-    /* Enhanced Typography for Reading */
-    --font-family-primary: 'Crimson Text', 'Times New Roman', serif;
-    --line-height-base: 1.7;
-
-    /* Enhanced Shadows for Book Theme */
-    --shadow-sm: 0 1px 2px rgba(45, 27, 22, 0.08);
-    --shadow-md: 0 4px 6px rgba(45, 27, 22, 0.1), 0 2px 4px rgba(45, 27, 22, 0.06);
-    --shadow-lg: 0 10px 15px rgba(45, 27, 22, 0.1), 0 4px 6px rgba(45, 27, 22, 0.05);
-    --shadow-xl: 0 20px 25px rgba(45, 27, 22, 0.1), 0 10px 10px rgba(45, 27, 22, 0.04);
-    --shadow-hover: 0 25px 50px rgba(45, 27, 22, 0.15), 0 10px 20px rgba(45, 27, 22, 0.1);
-
-    /* Contribution Graph Colors - High Contrast Burgundy (Book Theme) - BINARY SYSTEM */
-    --contrib-level-0: #F5F1E8;
-    /* Soft beige - clearly visible on light background */
-    --contrib-level-1: var(--accent-red);
-    /* Deep burgundy #8B1538 - posted on this day */
-    --contrib-border: rgba(139, 123, 115, 0.4);
-    /* More visible muted brown border */
-    --contrib-border-active: rgba(139, 21, 56, 0.5);
-    /* Burgundy border for active states */
-
-    /* Legacy shadows for backward compatibility */
-    --shadow-light: 0 2px 8px rgba(45, 27, 22, 0.08);
-    --shadow-medium: 0 4px 16px rgba(45, 27, 22, 0.12);
-    --shadow-heavy: 0 8px 32px rgba(45, 27, 22, 0.16);
-}
-
-/* ====== COMPREHENSIVE BOOK THEME OVERRIDES ====== */
-:root[data-theme="book"] {
-    /* Force apply to all elements */
-    color-scheme: light;
-}
-
-/* Override body and all major elements */
-:root[data-theme="book"] body,
-:root[data-theme="book"] main,
-:root[data-theme="book"] .page-container,
-:root[data-theme="book"] .header,
-:root[data-theme="book"] .hero,
-:root[data-theme="book"] .section {
-    background-color: var(--bg-primary) !important;
-    color: var(--text-primary) !important;
-}
-
-/* Headers and navigation */
-:root[data-theme="book"] .header {
-    background-color: var(--bg-secondary) !important;
-    border-bottom-color: var(--text-muted) !important;
-}
-
-:root[data-theme="book"] .header-content,
-:root[data-theme="book"] .nav-links,
-:root[data-theme="book"] .nav-links li a {
-    color: var(--text-primary) !important;
-}
-
-:root[data-theme="book"] .logo {
-    color: var(--text-primary) !important;
-}
-
-/* Content sections */
-:root[data-theme="book"] .content-section,
-:root[data-theme="book"] .about-content,
-:root[data-theme="book"] .research-content,
-:root[data-theme="book"] .projects-grid,
-:root[data-theme="book"] .gallery-container {
-    background-color: var(--bg-primary) !important;
-}
-
-/* Cards and containers */
-:root[data-theme="book"] .project-card,
-:root[data-theme="book"] .experience-card,
-:root[data-theme="book"] .skill-category,
-:root[data-theme="book"] .blog-post,
-:root[data-theme="book"] .post-item {
-    background-color: var(--bg-content) !important;
-    color: var(--text-primary) !important;
-    border-color: var(--text-muted) !important;
-}
-
-/* Text elements */
-:root[data-theme="book"] h1,
-:root[data-theme="book"] h2,
-:root[data-theme="book"] h3,
-:root[data-theme="book"] h4,
-:root[data-theme="book"] h5,
-:root[data-theme="book"] h6 {
-    color: var(--text-primary) !important;
-}
-
-:root[data-theme="book"] p,
-:root[data-theme="book"] span,
-:root[data-theme="book"] div {
-    color: var(--text-primary) !important;
-}
-
-/* Muted text */
-:root[data-theme="book"] .text-muted,
-:root[data-theme="book"] .experience-duration,
-:root[data-theme="book"] .post-meta,
-:root[data-theme="book"] .caption {
-    color: var(--text-muted) !important;
-}
-
-/* Forms and inputs */
-:root[data-theme="book"] input,
-:root[data-theme="book"] textarea,
-:root[data-theme="book"] select,
-:root[data-theme="book"] button {
-    background-color: var(--bg-content) !important;
-    color: var(--text-primary) !important;
-    border-color: var(--text-muted) !important;
-}
-
-/* Photography gallery specific */
-:root[data-theme="book"] .photo-grid,
-:root[data-theme="book"] .photo-item,
-:root[data-theme="book"] .lightbox {
-    background-color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .filter-buttons button {
-    background-color: var(--bg-content) !important;
-    color: var(--text-primary) !important;
-    border-color: var(--text-muted) !important;
-}
-
-:root[data-theme="book"] .filter-buttons button.active {
-    background-color: var(--page-accent) !important;
-    color: var(--bg-primary) !important;
-}
-
-/* Photo overlay overrides for book theme */
-:root[data-theme="book"] .photo-overlay {
-    background: linear-gradient(transparent, rgba(45, 27, 22, 0.85)) !important;
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .photo-overlay-title {
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .photo-overlay-caption {
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .photo-overlay-meta {
-    color: var(--bg-primary) !important;
-}
-
-/* Lightbox caption overrides for book theme */
-:root[data-theme="book"] .lightbox-caption {
-    background: rgba(45, 27, 22, 0.85) !important;
-    color: var(--bg-primary) !important;
-    border: 1px solid var(--text-muted) !important;
-}
-
-:root[data-theme="book"] .lightbox-caption-title {
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .lightbox-caption-text {
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .lightbox-caption-meta {
-    color: var(--bg-primary) !important;
-}
-
-/* Category badge overrides for book theme */
-:root[data-theme="book"] .category-badge {
-    background: var(--accent-yellow) !important;
-    color: var(--text-primary) !important;
-    border: 1px solid var(--text-muted) !important;
-}
-
-:root[data-theme="book"] .photo-categories {
-    background: transparent !important;
-}
-
-/* Lightbox navigation controls overrides for book theme */
-:root[data-theme="book"] .nav-arrow {
-    background: rgba(45, 27, 22, 0.85) !important;
-    color: var(--bg-primary) !important;
-    border: 1px solid var(--text-muted) !important;
-}
-
-:root[data-theme="book"] .nav-arrow:hover {
-    background: rgba(45, 27, 22, 0.95) !important;
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .lightbox-close {
-    background: rgba(45, 27, 22, 0.85) !important;
-    color: var(--bg-primary) !important;
-    border: 1px solid var(--text-muted) !important;
-}
-
-:root[data-theme="book"] .lightbox-close:hover {
-    background: rgba(45, 27, 22, 0.95) !important;
-    color: var(--bg-primary) !important;
-}
-
-/* Hover state overrides for book theme */
-:root[data-theme="book"] .project-link:hover {
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .onesite-link:hover {
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .skill-tag:hover {
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .project-language {
-    color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] .onesite-number {
-    color: var(--bg-primary) !important;
-}
-
-/* Override any hardcoded inline styles */
-:root[data-theme="book"] [style*="background-color: #1"] *,
-:root[data-theme="book"] [style*="background-color: #2"] *,
-:root[data-theme="book"] [style*="background-color: #0"] *,
-:root[data-theme="book"] [style*="background: #1"] *,
-:root[data-theme="book"] [style*="background: #2"] *,
-:root[data-theme="book"] [style*="background: #0"] * {
-    background-color: var(--bg-primary) !important;
-}
-
-:root[data-theme="book"] [style*="color: #f"] *,
-:root[data-theme="book"] [style*="color: #e"] *,
-:root[data-theme="book"] [style*="color: #d"] * {
-    color: var(--text-primary) !important;
-}
-
-/* Force background and text colors on problematic elements */
-:root[data-theme="book"] .hero-section,
-:root[data-theme="book"] .main-content,
-:root[data-theme="book"] article,
-:root[data-theme="book"] section {
-    background-color: var(--bg-primary) !important;
-    color: var(--text-primary) !important;
-}
-
-/* Ensure all containers use theme colors */
-:root[data-theme="book"] div,
-:root[data-theme="book"] section,
-:root[data-theme="book"] article,
-:root[data-theme="book"] main,
-:root[data-theme="book"] header,
-:root[data-theme="book"] footer {
-    background-color: var(--bg-primary) !important;
-    color: var(--text-primary) !important;
-}
-
-/* Exception for images and media */
-:root[data-theme="book"] img,
-:root[data-theme="book"] video,
-:root[data-theme="book"] canvas,
-:root[data-theme="book"] svg {
-    background-color: transparent !important;
-}
-
-/* Make sure links use theme colors */
-:root[data-theme="book"] a {
-    color: var(--page-accent) !important;
-}
-
-:root[data-theme="book"] a:hover {
-    color: var(--text-primary) !important;
-}
-
-/* Override border colors globally */
-:root[data-theme="book"] * {
-    border-color: var(--text-muted) !important;
-}
-
-/* Special handling for specific problematic selectors */
-:root[data-theme="book"] .text-white,
-:root[data-theme="book"] .text-gray-100,
-:root[data-theme="book"] .text-gray-200,
-:root[data-theme="book"] .text-slate-100,
-:root[data-theme="book"] .text-slate-200 {
-    color: var(--text-primary) !important;
-}
-
-:root[data-theme="book"] .bg-black,
-:root[data-theme="book"] .bg-gray-900,
-:root[data-theme="book"] .bg-gray-800,
-:root[data-theme="book"] .bg-slate-900,
-:root[data-theme="book"] .bg-slate-800 {
-    background-color: var(--bg-primary) !important;
-}
-
-/* Ultra-comprehensive overrides - Nuclear option for stubborn elements */
-:root[data-theme="book"] .antialiased,
-:root[data-theme="book"] .scroll-smooth,
-:root[data-theme="book"] body.antialiased {
-    background-color: var(--bg-primary) !important;
-    color: var(--text-primary) !important;
-}
-
-/* Force inheritance for all children */
-:root[data-theme="book"] body *:not(img):not(svg):not(video):not(canvas) {
-    background-color: inherit !important;
-    color: inherit !important;
-}
-
-/* Override TailwindCSS utilities */
-:root[data-theme="book"] .bg-opacity-100,
-:root[data-theme="book"] .text-opacity-100 {
-    --tw-bg-opacity: 1 !important;
-    --tw-text-opacity: 1 !important;
-}
-
-/* Specific container overrides */
-:root[data-theme="book"] #root,
-:root[data-theme="book"] #app,
-:root[data-theme="book"] .app,
-:root[data-theme="book"] .container,
-:root[data-theme="book"] .wrapper {
-    background-color: var(--bg-primary) !important;
-    color: var(--text-primary) !important;
-}
 
 /* ====== PAGE-SPECIFIC ACCENT COLORS ====== */
 body.page-home {
@@ -4746,94 +4388,7 @@ body.page-research .page-container {
 /* ====== NUCLEAR BOOK THEME CONTRIBUTION GRAPH FIXES ====== */
 /* Ultra-high specificity solution to override ALL aggressive book theme rules */
 
-/* Step 1: Override container backgrounds to prevent inheritance issues */
-:root[data-theme="book"] body .page-container .contribution-graph-section,
-:root[data-theme="book"] body .page-container .contribution-graph-wrapper,
-:root[data-theme="book"] body .page-container .contribution-graph,
-:root[data-theme="book"] body .page-container .graph-container,
-:root[data-theme="book"] body .page-container .graph-content,
-:root[data-theme="book"] body .page-container .graph-grid {
-    background-color: transparent !important;
-}
 
-/* Step 2: Ultra-high specificity contribution day selectors */
-:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-0,
-:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-0,
-:root[data-theme="book"] .contribution-graph .contribution-day.level-0,
-:root[data-theme="book"] .contribution-day.level-0 {
-    background-color: var(--contrib-level-0) !important;
-    background-color: #F5F1E8 !important;
-    /* Direct fallback */
-    border: 1px solid rgba(139, 123, 115, 0.4) !important;
-}
-
-:root[data-theme="book"] body .page-container .contribution-graph .graph-container .graph-content .graph-grid .contribution-day.level-1,
-:root[data-theme="book"] body .contribution-graph .graph-grid .contribution-day.level-1,
-:root[data-theme="book"] .contribution-graph .contribution-day.level-1,
-:root[data-theme="book"] .contribution-day.level-1 {
-    background-color: var(--contrib-level-1) !important;
-    background-color: #E8D5D8 !important;
-    /* Direct fallback */
-    border: 1px solid rgba(139, 21, 56, 0.5) !important;
-}
-
-
-
-
-/* Step 3: Legend squares with ultra-high specificity */
-:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-0,
-:root[data-theme="book"] body .contribution-legend .legend-level-0,
-:root[data-theme="book"] .legend-level-0 {
-    background-color: var(--contrib-level-0) !important;
-    background-color: #F5F1E8 !important;
-    /* Direct fallback */
-    border: 1px solid rgba(139, 123, 115, 0.4) !important;
-}
-
-:root[data-theme="book"] body .page-container .contribution-graph-wrapper .contribution-legend .legend-colors .legend-level-1,
-:root[data-theme="book"] body .contribution-legend .legend-level-1,
-:root[data-theme="book"] .legend-level-1 {
-    background-color: var(--contrib-level-1) !important;
-    background-color: #E8D5D8 !important;
-    /* Direct fallback */
-    border: 1px solid rgba(139, 21, 56, 0.5) !important;
-}
-
-
-
-
-/* Step 4: Override inheritance behavior specifically for contribution elements */
-:root[data-theme="book"] .contribution-day,
-:root[data-theme="book"] .legend-square {
-    background-color: inherit;
-    /* Reset inherit to default behavior */
-}
-
-/* Step 5: Force override the global inheritance rule for contribution graph area */
-:root[data-theme="book"] .contribution-graph-section *,
-:root[data-theme="book"] .contribution-graph-wrapper *,
-:root[data-theme="book"] .contribution-graph *,
-:root[data-theme="book"] .contribution-legend * {
-    background-color: unset !important;
-    /* Remove forced inheritance */
-}
-
-/* Step 6: Re-apply specific colors after removing inheritance */
-:root[data-theme="book"] .contribution-day.level-0 {
-    background-color: #F5F1E8 !important;
-}
-
-:root[data-theme="book"] .contribution-day.level-1 {
-    background-color: #E8D5D8 !important;
-}
-
-:root[data-theme="book"] .legend-level-0 {
-    background-color: #F5F1E8 !important;
-}
-
-:root[data-theme="book"] .legend-level-1 {
-    background-color: #E8D5D8 !important;
-}
 
 /* ====== SITE FOOTER ====== */
 
@@ -4873,22 +4428,7 @@ body.page-research .page-container {
 }
 
 /* Book Theme Footer Overrides */
-:root[data-theme="book"] .site-footer {
-    background: var(--bg-secondary) !important;
-    border-top-color: var(--text-muted) !important;
-}
 
-:root[data-theme="book"] .footer-content p {
-    color: var(--text-muted) !important;
-}
-
-:root[data-theme="book"] .footer-content a {
-    color: var(--page-accent, var(--accent-red)) !important;
-}
-
-:root[data-theme="book"] .footer-content a:hover {
-    color: var(--text-primary) !important;
-}
 
 /* Mobile Footer Adjustments */
 @media (max-width: 768px) {
@@ -4948,40 +4488,7 @@ body.page-research .page-container {
 }
 
 /* Book theme compatibility for Books page */
-:root[data-theme="book"] .page-books .page-title,
-:root[data-theme="book"] .page-books .section-title {
-    color: var(--text-primary) !important;
-    font-weight: 600;
-}
 
-:root[data-theme="book"] .page-books .section-description {
-    color: var(--text-secondary) !important;
-    opacity: 1;
-}
-
-:root[data-theme="book"] .page-books .content-section {
-    background-color: var(--bg-content) !important;
-}
-
-/* Book theme compatibility for Goodreads button */
-:root[data-theme="book"] .goodreads-profile-button {
-    background: #8B1538 !important;
-    /* Deep burgundy - high contrast on light background */
-    color: #FFFFFF !important;
-    font-weight: 600;
-    border: 2px solid #6B1028 !important;
-    /* Darker border for definition */
-    box-shadow: 0 4px 12px rgba(139, 21, 56, 0.3) !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
-}
-
-:root[data-theme="book"] .goodreads-profile-button:hover {
-    background: #6B1028 !important;
-    /* Even darker on hover */
-    border-color: #4A0B1C !important;
-    box-shadow: 0 6px 16px rgba(139, 21, 56, 0.4) !important;
-    transform: translateY(-2px);
-}
 
 /* Mobile responsiveness for books page */
 @media (max-width: 768px) {
@@ -5059,8 +4566,16 @@ body.page-research .page-container {
 
 .intro-card:hover {
     transform: translateY(-10px) scale(1.02);
-    box-shadow: var(--shadow-hover);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 45, 85, 0.2),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
     border-color: var(--accent-red);
+}
+
+.intro-card:hover .intro-card-icon {
+    transform: scale(1.15) rotate(5deg);
+    color: #FF5E7D;
+    filter: drop-shadow(0 0 20px rgba(255, 45, 85, 0.5));
 }
 
 .intro-card-icon {
@@ -5102,4 +4617,50 @@ body.page-research .page-container {
     font-size: var(--font-size-sm);
     color: var(--text-secondary);
     line-height: 1.4;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.shimmer-text {
+    background: linear-gradient(90deg,
+            var(--text-primary) 0%,
+            var(--text-secondary) 20%,
+            var(--text-primary) 40%,
+            var(--text-primary) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 8s linear infinite;
+}
+
+/* Magnetic Button Base */
+.magnetic-btn {
+    position: relative;
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
 }
