@@ -3837,8 +3837,8 @@ body.page-research .page-container {
 
     /* Hero section mobile */
     .hero-section {
-        padding: 6rem 0 var(--spacing-xl);
-        min-height: 70vh;
+        padding: 6rem 0 var(--spacing-lg);
+        min-height: auto;
     }
 
     .hero-container {
