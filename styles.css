@@ -4664,3 +4664,90 @@ body.page-research .page-container {
     transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
 }
+
+/* ====== CUSTOM CURSOR ====== */
+.cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-red);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.cursor-ring {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255, 45, 85, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+}
+
+.cursor-dot.cursor-hover {
+    transform: translate(-50%, -50%) scale(2);
+    background: var(--accent-cyan);
+}
+
+.cursor-ring.cursor-hover {
+    width: 60px;
+    height: 60px;
+    border-color: rgba(100, 210, 255, 0.6);
+}
+
+.cursor-dot.cursor-click {
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+.cursor-ring.cursor-click {
+    width: 30px;
+    height: 30px;
+}
+
+/* Hide default cursor on body */
+body {
+    cursor: none;
+}
+
+/* Show default cursor on mobile / touch */
+@media (hover: none) and (pointer: coarse) {
+    body {
+        cursor: auto;
+    }
+
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+}
+
+/* ====== SPOTLIGHT OVERLAY ====== */
+.spotlight-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ====== 3D TILT EFFECT ====== */
+.intro-card,
+.project-card,
+.onesite-card {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.intro-card-icon,
+.hero-text,
+.hero-image {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
