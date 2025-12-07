@@ -23,7 +23,6 @@
     <meta property="og:description"
         content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
 
-<<<<<<< Updated upstream
     <!-- Open Graph Images -->
     {% if page.hero_image %}
     <meta property="og:image" content="{{ page.hero_image | absolute_url }}">
@@ -34,8 +33,6 @@
     <meta property="og:image:height" content="630">
     {% endif %}
 
-=======
->>>>>>> Stashed changes
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ page.url | absolute_url }}">
@@ -44,7 +41,6 @@
     <meta property="twitter:description"
         content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
 
-<<<<<<< Updated upstream
     <!-- Twitter Images -->
     {% if page.hero_image %}
     <meta property="twitter:image" content="{{ page.hero_image | absolute_url }}">
@@ -53,8 +49,6 @@
     <meta property="twitter:image" content="{{ '/og-image.jpg' | absolute_url }}">
     {% endif %}
 
-=======
->>>>>>> Stashed changes
     <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
 
     <!-- Google Fonts -->
@@ -67,11 +61,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-<<<<<<< Updated upstream
-    <link rel="stylesheet" href="{{ "/styles.css" | relative_url }}">
-=======
-    <link rel="stylesheet" href="{{ " /styles.css" | relative_url }}">
->>>>>>> Stashed changes
+    <link rel="stylesheet" href="{{ " /styles.css?v=14" | relative_url }}">
 
     {% seo %}
 </head>
@@ -149,21 +139,9 @@
     </footer>
 
     <!-- Mobile Navigation Script -->
-<<<<<<< Updated upstream
-    <script src="{{ "/mobile-nav.js" | relative_url }}"></script>
-
-    <!-- Theme Switcher -->
-    <script src="{{ "/theme-switcher.js" | relative_url }}"></script>
-    <script src="{{ "/particle-ripple.js" | relative_url }}"></script>
-=======
     <script src="{{ " /mobile-nav.js" | relative_url }}"></script>
-
-    <!-- Theme Switcher -->
-    <script src="{{ " /theme-switcher.js" | relative_url }}"></script>
     <script src="{{ " /particle-ripple.js" | relative_url }}"></script>
-    <!-- Scroll Reveal -->
-    <script src="{{ " /scroll-reveal.js" | relative_url }}"></script>
->>>>>>> Stashed changes
+    <script src="{{ " /mouse-effects.js" | relative_url }}"></script>
 </body>
 
 </html>
