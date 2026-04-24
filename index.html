@@ -110,10 +110,17 @@
     }
     </script>
 
-    <link rel="stylesheet" href="styles.css?v=14">
+    <link rel="stylesheet" href="styles.css?v=15">
 </head>
 
 <body class="page-home">
+    <!-- Ambient scene orbs -->
+    <div class="scene" aria-hidden="true">
+        <div class="orb" style="width:800px;height:800px;background:#FF2D55;top:-300px;left:-300px;animation-delay:0s;"></div>
+        <div class="orb" style="width:700px;height:700px;background:#0A84FF;top:40%;right:-280px;animation-delay:3s;"></div>
+        <div class="orb" style="width:600px;height:600px;background:#BF5AF2;bottom:-200px;left:35%;animation-delay:6s;"></div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="header-content">
@@ -165,6 +172,10 @@
                 <p class="hero-subtitle animate-fade-up delay-100">Undergraduate at IIT Kanpur, exploring the
                     fascinating intersection of Physics
                     and Artificial Intelligence.</p>
+                <div class="hero-buttons animate-fade-up delay-200">
+                    <a href="research.html" class="btn btn-primary">View Research →</a>
+                    <a href="projects.html" class="btn btn-ghost">Projects</a>
+                </div>
             </div>
             <div class="hero-image">
                 <img src="profile-image.png" alt="Manas Pandey - Undergraduate & AI Researcher"
@@ -218,26 +229,17 @@
                         of computation.</p>
                 </div>
 
-                <!-- Quantum Card -->
+                <!-- Magnetometry Card -->
                 <div class="intro-card" style="--delay: 3">
                     <div class="intro-card-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
-                            <rect x="9" y="9" width="6" height="6"></rect>
-                            <line x1="9" y1="1" x2="9" y2="4"></line>
-                            <line x1="15" y1="1" x2="15" y2="4"></line>
-                            <line x1="9" y1="20" x2="9" y2="23"></line>
-                            <line x1="15" y1="20" x2="15" y2="23"></line>
-                            <line x1="20" y1="9" x2="23" y2="9"></line>
-                            <line x1="20" y1="14" x2="23" y2="14"></line>
-                            <line x1="1" y1="9" x2="4" y2="9"></line>
-                            <line x1="1" y1="14" x2="4" y2="14"></line>
+                            <circle cx="12" cy="12" r="2"></circle>
+                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
                         </svg>
                     </div>
-                    <h3 class="intro-card-title">Quantum Computing</h3>
-                    <p class="intro-card-desc">Bridging physics and CS to solve problems beyond classical capabilities.
-                    </p>
+                    <h3 class="intro-card-title">Magnetometry</h3>
+                    <p class="intro-card-desc">Measuring magnetic fields with light — optical sensors at the quantum limit.</p>
                 </div>
 
                 <!-- Creative Card -->

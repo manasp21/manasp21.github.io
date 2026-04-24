@@ -30,7 +30,12 @@
       "Bash(pip3 install:*)",
       "Bash(bundle exec jekyll serve:*)",
       "Bash(bundle install:*)",
-      "Bash(bundle exec jekyll build:*)"
+      "Bash(bundle exec jekyll build:*)",
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(cp \"/Users/themanaspandey/.claude/projects/-Users-themanaspandey-Documents-GitHub-manasp21-github-io/580cf3f6-0ffa-4e23-b6b3-861f121787ca/tool-results/webfetch-1777029867628-6wsef5.bin\" /tmp/design.bin)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Bash(tar -xzf design.tar.gz)"
     ],
     "deny": []
   }
