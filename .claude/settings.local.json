@@ -35,7 +35,10 @@
       "Bash(cp \"/Users/themanaspandey/.claude/projects/-Users-themanaspandey-Documents-GitHub-manasp21-github-io/580cf3f6-0ffa-4e23-b6b3-861f121787ca/tool-results/webfetch-1777029867628-6wsef5.bin\" /tmp/design.bin)",
       "Read(//tmp/**)",
       "Read(//private/tmp/**)",
-      "Bash(tar -xzf design.tar.gz)"
+      "Bash(tar -xzf design.tar.gz)",
+      "Bash(convert --version)",
+      "Bash(magick profile-image.png -resize 800x800\\\\> -quality 85 profile-image.jpg)",
+      "Bash(magick assets/og-image.jpg -resize 1200x630\\\\> -quality 82 assets/og-image-opt.jpg)"
     ],
     "deny": []
   }

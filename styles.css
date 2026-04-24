@@ -77,7 +77,7 @@
     /* 1. Frosted Glass (Heavy, for content cards) */
     --glass-frosted-bg: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.09) 40%, rgba(255,255,255,0.03) 100%);
     --glass-frosted-border: rgba(255, 255, 255, 0.15);
-    --glass-frosted-blur: 60px;
+    --glass-frosted-blur: 40px;
 
     /* 2. Clear Glass (Light, for overlays/nav) */
     --glass-clear-bg: rgba(10, 10, 10, 0.4);
@@ -248,8 +248,9 @@ a:hover {
 .orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(130px);
+    filter: blur(80px);
     animation: breathe 9s ease-in-out infinite;
+    will-change: opacity;
 }
 
 /* ====== HEADER STYLES — Floating Pill Nav ====== */
@@ -267,8 +268,8 @@ a:hover {
     border-left:   1px solid rgba(255,255,255,0.20);
     border-right:  1px solid rgba(255,255,255,0.10);
     border-bottom: 1px solid rgba(255,255,255,0.06);
-    backdrop-filter: blur(70px) saturate(240%) brightness(1.08);
-    -webkit-backdrop-filter: blur(70px) saturate(240%) brightness(1.08);
+    backdrop-filter: blur(50px) saturate(200%) brightness(1.06);
+    -webkit-backdrop-filter: blur(50px) saturate(200%) brightness(1.06);
     box-shadow:
         0 2px 0 rgba(255,255,255,0.20) inset,
         0 -1px 0 rgba(0,0,0,0.20) inset,
@@ -2874,8 +2875,8 @@ button:focus {
 
 .onesite-card {
     background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.09) 40%, rgba(255,255,255,0.03) 100%);
-    backdrop-filter: blur(60px) saturate(260%) brightness(1.10);
-    -webkit-backdrop-filter: blur(60px) saturate(260%) brightness(1.10);
+    backdrop-filter: blur(40px) saturate(200%) brightness(1.06);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.06);
     border-radius: var(--radius-lg);
     padding: 14px 22px;
     border-top:    1px solid rgba(255,255,255,0.50);
@@ -4613,8 +4614,8 @@ body.page-research .page-container {
 
 .intro-card {
     background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.09) 40%, rgba(255,255,255,0.03) 100%);
-    backdrop-filter: blur(60px) saturate(260%) brightness(1.10);
-    -webkit-backdrop-filter: blur(60px) saturate(260%) brightness(1.10);
+    backdrop-filter: blur(40px) saturate(200%) brightness(1.06);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.06);
     border-radius: var(--radius-3xl);
     padding: var(--spacing-lg);
     border-top:    1px solid rgba(255,255,255,0.50);
@@ -4863,8 +4864,8 @@ body {
     border-left:   1px solid rgba(255,255,255,0.26);
     border-right:  1px solid rgba(255,255,255,0.10);
     border-bottom: 1px solid rgba(255,255,255,0.06);
-    backdrop-filter: blur(60px) saturate(260%) brightness(1.10);
-    -webkit-backdrop-filter: blur(60px) saturate(260%) brightness(1.10);
+    backdrop-filter: blur(40px) saturate(200%) brightness(1.06);
+    -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.06);
     box-shadow:
         0 3px 0 rgba(255,255,255,0.28) inset,
         0 -2px 0 rgba(0,0,0,0.18) inset,
