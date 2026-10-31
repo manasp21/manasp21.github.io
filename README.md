@@ -1,5 +1,7 @@
 # Manas Pandey - Professional Portfolio Website
 
+> **`under-construction` branch:** publishes only a retro "under construction" page (`index.html`, with `404.html` as an identical copy). All other site files remain in the repo but are hidden through the `exclude` list in `_config.yml`. The real site lives on `master`.
+
 > *A sophisticated, multi-page portfolio website showcasing the intersection of experimental physics, artificial intelligence, and creative expression. Built with modern web technologies and comprehensive content management systems.*
 
 ## 🌟 Live Demo

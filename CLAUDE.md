@@ -4,6 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # Manas Pandey Portfolio Website
 
+## Branch note
+On the `under-construction` branch only, `index.html` and `404.html` are an identical standalone holding page, and `_config.yml` excludes the rest of the site from the build. Keep the two files in sync. Do not merge this branch into `master`.
+
 ## Overview
 A hybrid Jekyll + static HTML portfolio for Manas Pandey (IIT Kanpur). Main pages share a unified dark theme with book-mode light theme toggle. One-page websites are standalone TailwindCSS pages — **do not edit them directly**.
 

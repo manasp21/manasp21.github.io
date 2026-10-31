@@ -108,3 +108,30 @@ exclude:
   - "*.json"
   - project_manager.py
   - blog_manager.py
+  # under-construction branch: everything below is hidden from the published
+  # site so only the construction page ships. Files stay in the repo.
+  - about.html
+  - research.html
+  - projects.html
+  - photography.html
+  - books.html
+  - blog
+  - _posts
+  - gallery
+  - one_page_websites
+  - assets
+  - styles.css
+  - animations.js
+  - blog-contribution-graph.js
+  - mobile-nav.js
+  - mouse-effects.js
+  - particle-ripple.js
+  - profile-image.jpg
+  - profile-image.png
+  - image.png
+  - sitemap.xml
+  - "*.py"
+  - update_research.sh
+  - requirements.txt
+  - AGENTS.md
+  - CLAUDE.md
