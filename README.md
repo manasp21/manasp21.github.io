@@ -1,6 +1,8 @@
 # Manas Pandey - Professional Portfolio Website
 
-> **`under-construction` branch:** publishes only a retro "under construction" page (`index.html`, with `404.html` as an identical copy). All other site files remain in the repo but are hidden through the `exclude` list in `_config.yml`. The real site lives on `master`.
+> **`under-construction` branch:** publishes only a plain white "under construction" page (`index.html`, with `404.html` as an identical copy) showing an animated cat. All other site files remain in the repo but are hidden through the `exclude` list in `_config.yml`. The real site lives on `master`.
+>
+> `cat.gif` is [Cat tail ani.gif](https://commons.wikimedia.org/wiki/File:Cat_tail_ani.gif) by GeeAlice, released into the public domain on Wikimedia Commons.
 
 > *A sophisticated, multi-page portfolio website showcasing the intersection of experimental physics, artificial intelligence, and creative expression. Built with modern web technologies and comprehensive content management systems.*
 
